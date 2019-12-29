@@ -896,6 +896,12 @@ class KomaxTaskProcessing():
         if type(task_df) is int:
             return -1
 
+        print(task_df[:2])
+        task_df.sort_values(
+            by=['id'],
+            ascending=True,
+            inplace=True,
+        )
         amount_dict = self.__get_amount_dict(task_name)
         """
         sorted_alloc = task_df['allocation'][0]
