@@ -433,6 +433,7 @@ class ProcessDataframe:
             inplace=True
         )
 
+        # TODO: delete
         print("Sorted first")
         self.__reset_index()
         print(self.chart.loc[:10, 'marking'])
@@ -468,6 +469,7 @@ class ProcessDataframe:
                 inplace=True
             )
 
+        # TODO: delete
         print("Sorted second")
 
         if test:
@@ -479,6 +481,8 @@ class ProcessDataframe:
             self.chart.loc[idx, 'wire_terminal_2'] = ''
 
         self.__reset_index()
+
+        # TODO: delete
         print(self.chart.loc[:10, 'marking'])
 
         if method == 'double':
@@ -499,6 +503,7 @@ class ProcessDataframe:
                     inplace=True
                 )
 
+            # TODO: delete
             print("Sorted third")
 
             self.__reset_index()
@@ -520,6 +525,8 @@ class ProcessDataframe:
             inplace=True
         )
         """
+
+        #TODO: delete
         print("Sorted end of")
         print(self.chart.loc[:10, 'marking'])
 
