@@ -432,6 +432,8 @@ class ProcessDataframe:
             ascending=True,
             inplace=True
         )
+        print(self.chart.loc[:10, 'marking'])
+        print("Sorted first")
         self.__reset_index()
 
         if test:
@@ -464,6 +466,8 @@ class ProcessDataframe:
                 ascending=True,
                 inplace=True
             )
+        print(self.chart.loc[:10, 'marking'])
+        print("Sorted second")
 
         if test:
             self.chart.to_excel('test2.xlsx')
@@ -492,6 +496,8 @@ class ProcessDataframe:
                     ascending=True,
                     inplace=True
                 )
+            print(self.chart.loc[:10, 'marking'])
+            print("Sorted third")
 
             self.__reset_index()
 
@@ -511,7 +517,8 @@ class ProcessDataframe:
             inplace=True
         )
         """
-
+        print(self.chart.loc[:10, 'marking'])
+        print("Sorted end of")
         self.__reset_index()
 
     def __time_changeover(self, idx, time, volume=1, last_first=None, last_second=None, pairing=False, full=False,

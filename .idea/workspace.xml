@@ -4,6 +4,7 @@
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/komaxsite/test1.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/modules/HarnessChartProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/modules/HarnessChartProcessing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/LICENSE" beforeDir="false" />
@@ -1206,7 +1207,7 @@
       <workItem from="1575831116156" duration="9000" />
       <workItem from="1577102586728" duration="2369000" />
       <workItem from="1577265167448" duration="14045000" />
-      <workItem from="1577387947384" duration="11009000" />
+      <workItem from="1577387947384" duration="12065000" />
     </task>
     <servers />
   </component>
@@ -1238,9 +1239,9 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1577387970528" />
-    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1577271814002">
+    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1577608827611">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1577271814002" />
+    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1577608827611" />
   </component>
 </project>
