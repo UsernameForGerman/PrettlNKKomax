@@ -349,6 +349,15 @@ def get_personal_task_view(request, task_name, komax):
     komax_obj = get_object_or_404(Komax, number=komax)
     tasks_obj = get_object_or_404(KomaxTask, task_name=task_name)
     task_pers_df = read_frame(TaskPersonal.objects.filter(task=tasks_obj, komax=komax_obj))
+
+    task_pers_df.sort_values(
+        by=['id'],
+        ascending=True,
+        inplace=True,
+    )
+
+    task_pers_df.index = pd.Index(range(task_pers_df.shape[0]))
+
     task_pers_df['done'] = ''
 
     response = HttpResponse(
@@ -367,6 +376,15 @@ def get_personal_task_view(request, task_name, komax):
 
 def get_general_task_view(request, task_name):
     task_pers_df = read_frame(TaskPersonal.objects.filter(task=get_object_or_404(KomaxTask, task_name=task_name)))
+
+    task_pers_df.sort_values(
+        by=['id'],
+        ascending=True,
+        inplace=True,
+    )
+
+    task_pers_df.index = pd.Index(range(task_pers_df.shape[0]))
+
     task_pers_df['done'] = ''
 
     response = HttpResponse(
@@ -386,6 +404,14 @@ def get_komax_ticket_view(self, task_name, komax):
     komax_obj = get_object_or_404(Komax, number=komax)
     tasks_obj = get_object_or_404(KomaxTask, task_name=task_name)
     task_pers_df = read_frame(TaskPersonal.objects.filter(task=tasks_obj, komax=komax_obj))
+
+    task_pers_df.sort_values(
+        by=['id'],
+        ascending=True,
+        inplace=True,
+    )
+
+    task_pers_df.index = pd.Index(range(task_pers_df.shape[0]))
 
     response = HttpResponse(
         content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
