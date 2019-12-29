@@ -902,6 +902,9 @@ class KomaxTaskProcessing():
             ascending=True,
             inplace=True,
         )
+
+        task_df.index = pd.Index(range(task_df.shape[0]))
+
         amount_dict = self.__get_amount_dict(task_name)
         """
         sorted_alloc = task_df['allocation'][0]
@@ -925,7 +928,8 @@ class KomaxTaskProcessing():
         time_dict = get_time_from(read_frame(laboriousness))
         # amount_dict = get_amount_from(read_frame(task_obj.harnesses.all()))
 
-
+        print("LAST FINAL CHART")
+        print(final_chart.iloc[:10, :10])
         alloc = process.task_allocation(komax_dict, quantity=None, time=time_dict, hours=shift)
         # TODO: delete
         print("FINAL ALLOC")

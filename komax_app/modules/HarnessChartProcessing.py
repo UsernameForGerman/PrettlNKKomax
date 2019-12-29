@@ -825,6 +825,8 @@ class ProcessDataframe:
     #TODO : incorrect changeover counting
     def task_allocation(self, komaxes, quantity, time, hours):
 
+        self.__correct_marking()
+
         HARNESS_NUMBER_COL = "harness"
         AMOUNT_COL = "amount"
         KOMAX_COL = 'komax'
