@@ -433,10 +433,7 @@ class ProcessDataframe:
             inplace=True
         )
 
-        # TODO: delete
-        print("Sorted first")
         self.__reset_index()
-        print(self.chart.loc[:10, 'marking'])
 
         if test:
             self.chart.to_excel('test0.xlsx')
@@ -469,9 +466,6 @@ class ProcessDataframe:
                 inplace=True
             )
 
-        # TODO: delete
-        print("Sorted second")
-
         if test:
             self.chart.to_excel('test2.xlsx')
 
@@ -481,9 +475,6 @@ class ProcessDataframe:
             self.chart.loc[idx, 'wire_terminal_2'] = ''
 
         self.__reset_index()
-
-        # TODO: delete
-        print(self.chart.loc[:10, 'marking'])
 
         if method == 'double':
             # self.__swap_cols_after('wire_terminal_1', 'wire_terminal_2')
@@ -503,11 +494,7 @@ class ProcessDataframe:
                     inplace=True
                 )
 
-            # TODO: delete
-            print("Sorted third")
-
             self.__reset_index()
-            print(self.chart.loc[:10, 'marking'])
 
             if test:
                 self.chart.to_excel('test.xlsx')
@@ -525,10 +512,6 @@ class ProcessDataframe:
             inplace=True
         )
         """
-
-        #TODO: delete
-        print("Sorted end of")
-        print(self.chart.loc[:10, 'marking'])
 
         self.__reset_index()
 

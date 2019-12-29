@@ -92,7 +92,7 @@
 <script>
 
     var loc = window.location;
-    var wsStart = 'ws://';
+    var wsStart = 'wss://';
     if (loc.protocol == 'https:'){
         wsStart = 'wss://'
     }
@@ -112,7 +112,7 @@
     var amount_button = false;
 
     socket.onopen = function (e) {
-        console.log(e);
+        // console.log(e);
 
         $('#task_name').change(function(event){
             var task_name_current = task_name.val();
@@ -188,7 +188,7 @@
 
     };
     socket.onmessage = function (e) {
-        console.log(e)
+        // console.log(e)
 
         message = JSON.parse(e.data);
         var task_name_handler;
@@ -235,10 +235,10 @@
 
     };
     socket.onerror = function (e) {
-        console.log(e)
+        // console.log(e)
     };
     socket.onclose = function (e) {
-        console.log(e)
+        // console.log(e)
     };
 
 </script>

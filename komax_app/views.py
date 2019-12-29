@@ -869,11 +869,6 @@ class KomaxTaskProcessing():
                     'chart': process.chart,
                 }
 
-        # TODO: delete
-        print("ALLOCATION INFO")
-        print(alloc, new_alloc, final_data)
-        print(process.chart.loc[:20, 'marking'])
-
         return final_data
 
     def __get_amount_dict(self, task_name):
@@ -896,7 +891,6 @@ class KomaxTaskProcessing():
         if type(task_df) is int:
             return -1
 
-        print(task_df[:2])
         task_df.sort_values(
             by=['id'],
             ascending=True,
@@ -915,10 +909,6 @@ class KomaxTaskProcessing():
         final_chart = task_df
         process = ProcessDataframe(final_chart)
 
-        #TODO: delete
-        print("FINAL CHART")
-        print(final_chart.loc[:10, 'marking'])
-
         shift = self.get_shift(komax_task_obj=task_obj)
         komaxes_query = self.get_komaxes(komax_task_obj=task_obj)
         komaxes = komaxes_query
@@ -928,12 +918,7 @@ class KomaxTaskProcessing():
         time_dict = get_time_from(read_frame(laboriousness))
         # amount_dict = get_amount_from(read_frame(task_obj.harnesses.all()))
 
-        print("LAST FINAL CHART")
-        print(final_chart.iloc[:10, :10])
         alloc = process.task_allocation(komax_dict, quantity=None, time=time_dict, hours=shift)
-        # TODO: delete
-        print("FINAL ALLOC")
-        print(alloc)
 
 
 
@@ -959,9 +944,6 @@ class KomaxTaskProcessing():
             # alloc[komax] = str(hours) + ':' + str(round((final_alloc[komax][0] / 3600 - hours) * 60))
             alloc[komax] = str(hours)
 
-        # TODO: delete
-        print("LAST FINAL ALLOC")
-        print(alloc)
         return alloc
 
 def create_task_view(request):
