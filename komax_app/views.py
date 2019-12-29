@@ -869,6 +869,9 @@ class KomaxTaskProcessing():
                     'chart': process.chart,
                 }
 
+        print("ALLOCATION INFO")
+        print(alloc, new_alloc, final_data)
+        print(process.chart.loc[:20, 'marking'])
         return final_data
 
     def __get_amount_dict(self, task_name):

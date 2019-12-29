@@ -432,9 +432,10 @@ class ProcessDataframe:
             ascending=True,
             inplace=True
         )
-        print(self.chart.loc[:10, 'marking'])
+
         print("Sorted first")
         self.__reset_index()
+        print(self.chart.loc[:10, 'marking'])
 
         if test:
             self.chart.to_excel('test0.xlsx')
@@ -466,7 +467,7 @@ class ProcessDataframe:
                 ascending=True,
                 inplace=True
             )
-        print(self.chart.loc[:10, 'marking'])
+
         print("Sorted second")
 
         if test:
@@ -478,6 +479,7 @@ class ProcessDataframe:
             self.chart.loc[idx, 'wire_terminal_2'] = ''
 
         self.__reset_index()
+        print(self.chart.loc[:10, 'marking'])
 
         if method == 'double':
             # self.__swap_cols_after('wire_terminal_1', 'wire_terminal_2')
@@ -496,10 +498,11 @@ class ProcessDataframe:
                     ascending=True,
                     inplace=True
                 )
-            print(self.chart.loc[:10, 'marking'])
+
             print("Sorted third")
 
             self.__reset_index()
+            print(self.chart.loc[:10, 'marking'])
 
             if test:
                 self.chart.to_excel('test.xlsx')
@@ -517,8 +520,9 @@ class ProcessDataframe:
             inplace=True
         )
         """
-        print(self.chart.loc[:10, 'marking'])
         print("Sorted end of")
+        print(self.chart.loc[:10, 'marking'])
+
         self.__reset_index()
 
     def __time_changeover(self, idx, time, volume=1, last_first=None, last_second=None, pairing=False, full=False,
