@@ -1,0 +1,23 @@
+{% extends 'komax_app/komax_app_main.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}
+<title>{% trans 'Harness chart' %} {% trans 'upload' %}</title>
+{% endblock %}
+
+{% block main_content %}
+    <h2 class="text-center">{% trans 'Harness chart' %} {% trans 'upload' %}</h2>
+
+    <div class="container">
+
+
+    <div class="form-group row">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn btn-primary btn-lg">{% trans 'Upload' %}</button>
+        </form>
+    </div>
+    </div>
+{% endblock %}

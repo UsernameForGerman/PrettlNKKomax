@@ -1,0 +1,1246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/komaxsite/test1.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/komaxsite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/Procfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/description/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/description/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/description/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/description/locale/en/LC_MESSAGES/django.mo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/description/locale/en/LC_MESSAGES/django.po" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/description/locale/ru/LC_MESSAGES/django.mo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/description/locale/ru/LC_MESSAGES/django.po" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/description/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/description/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/description/templates/description/description.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/description/templates/description/description_main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/description/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/description/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/description/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/celery.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/forms.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/locale/en/LC_MESSAGES/django.mo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/locale/en/LC_MESSAGES/django.po" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/locale/ru/LC_MESSAGES/django.mo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/locale/ru/LC_MESSAGES/django.po" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0002_remove_harness_modified_date.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0003_harness_chart.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0004_auto_20190926_1331.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0005_auto_20190926_1339.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0006_auto_20190927_2123.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0007_auto_20190927_2133.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0008_auto_20190927_2135.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0009_komaxes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0010_laboriousness_tasks.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0011_auto_20190928_2115.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0012_auto_20190928_2137.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0013_auto_20190929_1358.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0014_auto_20190929_2041.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0015_remove_tasks_harnesses.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0016_tasks_harnesses.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0017_tasks_shift.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0018_remove_tasks_shift.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0019_tasks_shift.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0020_remove_tasks_shift.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0021_tasks_shift.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0022_task_completed.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0023_auto_20191005_1311.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0024_auto_20191006_0913.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0025_auto_20191006_1043.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0026_auto_20191007_1302.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0027_auto_20191106_2131.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0028_tickets.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0029_auto_20191111_1948.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0030_auto_20191111_1953.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/0031_tickets_name.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/modules/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/modules/handler.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/modules/ioputter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/modules/outer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/modules/process.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/modules/simple.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/modules/sorter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/modules/timer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/static/komax_app/chart_view.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/static/komax_app/komax_app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/static/komax_app/komax_app_amount.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/static/komax_app/komax_app_task.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/static/komax_app/komax_app_view.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/task.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/temp.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app/chart_view.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app/harnesses.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app/komax_app_amount.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app/komax_app_main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app/komax_app_set_up.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app/komax_app_task.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app/komax_app_view.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app/komaxes.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app/komaxes_edit.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app/laboriousness.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app/task_status.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app/upload.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app/upload_harness_chart.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_app/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_site/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_site/celery.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_site/settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_site/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/komax_site/wsgi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/locale/en/LC_MESSAGES/django.mo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/locale/en/LC_MESSAGES/django.po" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/locale/ru/LC_MESSAGES/django.mo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/locale/ru/LC_MESSAGES/django.po" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/locale/en/LC_MESSAGES/django.mo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/locale/en/LC_MESSAGES/django.po" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/locale/ru/LC_MESSAGES/django.mo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/locale/ru/LC_MESSAGES/django.po" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/migrations/0002_delete_question.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/static/main_app/image/background.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/static/main_app/welcome.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/templates/main_app/main_app_main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/templates/main_app/welcome.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/main_app/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/manage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/00-RELEASENOTES" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/BUGS" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/CONTRIBUTING" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/COPYING" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/INSTALL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/MANIFESTO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/COPYING" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/adapters/ae.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/adapters/glib.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/adapters/ivykis.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/adapters/libev.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/adapters/libevent.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/adapters/libuv.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/adapters/macosx.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/adapters/qt.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/appveyor.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/async.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/async.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/dict.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/dict.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/examples/example-ae.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/examples/example-glib.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/examples/example-ivykis.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/examples/example-libev.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/examples/example-libevent.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/examples/example-libuv.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/examples/example-macosx.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/examples/example-qt.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/examples/example-qt.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/examples/example.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/fmacros.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/hiredis.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/hiredis.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/net.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/net.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/read.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/read.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/sds.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/sds.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/sdsalloc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/test.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/hiredis/win32.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/.appveyor.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/.autom4te.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/COPYING" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/ChangeLog" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/INSTALL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/Makefile.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/TUNING.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/autogen.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/bin/jemalloc-config.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/bin/jemalloc.sh.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/bin/jeprof.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/build-aux/config.guess" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/build-aux/config.sub" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/build-aux/install-sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/config.stamp.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/configure.ac" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/doc/html.xsl.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/doc/jemalloc.xml.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/doc/manpages.xsl.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/doc/stylesheet.xsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/arena_externs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/arena_inlines_a.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/arena_inlines_b.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/arena_stats.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/arena_structs_a.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/arena_structs_b.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/arena_types.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/assert.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/atomic.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/atomic_c11.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/atomic_gcc_atomic.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/atomic_gcc_sync.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/atomic_msvc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/background_thread_externs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/background_thread_inlines.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/background_thread_structs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/base_externs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/base_inlines.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/base_structs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/base_types.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/bin.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/bin_stats.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/bit_util.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/bitmap.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/cache_bin.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/ckh.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/ctl.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/div.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/emitter.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/extent_dss.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/extent_externs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/extent_inlines.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/extent_mmap.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/extent_structs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/extent_types.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/hash.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/hooks.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/jemalloc_internal_decls.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/jemalloc_internal_defs.h.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/jemalloc_internal_externs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/jemalloc_internal_includes.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/jemalloc_internal_inlines_a.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/jemalloc_internal_inlines_b.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/jemalloc_internal_inlines_c.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/jemalloc_internal_macros.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/jemalloc_internal_types.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/jemalloc_preamble.h.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/large_externs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/log.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/malloc_io.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/mutex.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/mutex_pool.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/mutex_prof.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/nstime.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/pages.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/ph.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/private_namespace.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/private_symbols.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/prng.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/prof_externs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/prof_inlines_a.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/prof_structs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/prof_types.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/public_namespace.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/public_unnamespace.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/ql.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/qr.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/rb.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/rtree.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/rtree_tsd.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/size_classes.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/smoothstep.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/smoothstep.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/spin.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/stats.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/sz.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/tcache_externs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/tcache_inlines.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/tcache_structs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/tcache_types.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/ticker.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/tsd.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/tsd_generic.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/tsd_malloc_thread_cleanup.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/tsd_tls.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/tsd_types.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/tsd_win.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/util.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/internal/witness.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/jemalloc.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/jemalloc_defs.h.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/jemalloc_macros.h.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/jemalloc_mangle.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/jemalloc_protos.h.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/jemalloc_rename.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/jemalloc/jemalloc_typedefs.h.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/msvc_compat/C99/stdbool.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/msvc_compat/C99/stdint.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/msvc_compat/strings.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/include/msvc_compat/windows_extra.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/jemalloc.pc.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/m4/ax_cxx_compile_stdcxx.m4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/msvc/ReadMe.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/msvc/jemalloc_vc2015.sln" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/msvc/jemalloc_vc2017.sln" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/msvc/projects/vc2015/jemalloc/jemalloc.vcxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/msvc/projects/vc2015/jemalloc/jemalloc.vcxproj.filters" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/msvc/projects/vc2015/test_threads/test_threads.vcxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/msvc/projects/vc2015/test_threads/test_threads.vcxproj.filters" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/msvc/projects/vc2017/jemalloc/jemalloc.vcxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/msvc/projects/vc2017/jemalloc/jemalloc.vcxproj.filters" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/msvc/projects/vc2017/test_threads/test_threads.vcxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/msvc/projects/vc2017/test_threads/test_threads.vcxproj.filters" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/msvc/test_threads/test_threads.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/msvc/test_threads/test_threads.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/msvc/test_threads/test_threads_main.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/run_tests.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/scripts/gen_run_tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/scripts/gen_travis.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/arena.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/background_thread.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/base.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/bin.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/bitmap.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/ckh.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/ctl.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/div.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/extent.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/extent_dss.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/extent_mmap.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/hash.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/hooks.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/jemalloc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/jemalloc_cpp.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/large.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/log.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/malloc_io.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/mutex.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/mutex_pool.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/nstime.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/pages.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/prng.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/prof.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/rtree.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/stats.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/sz.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/tcache.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/ticker.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/tsd.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/witness.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/src/zone.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/SFMT-alti.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/SFMT-params.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/SFMT-params11213.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/SFMT-params1279.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/SFMT-params132049.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/SFMT-params19937.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/SFMT-params216091.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/SFMT-params2281.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/SFMT-params4253.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/SFMT-params44497.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/SFMT-params607.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/SFMT-params86243.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/SFMT-sse2.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/SFMT.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/btalloc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/extent_hooks.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/jemalloc_test.h.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/jemalloc_test_defs.h.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/math.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/mq.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/mtx.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/test.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/thd.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/include/test/timer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/integration/MALLOCX_ARENA.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/integration/aligned_alloc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/integration/allocated.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/integration/extent.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/integration/extent.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/integration/mallocx.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/integration/mallocx.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/integration/overflow.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/integration/posix_memalign.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/integration/rallocx.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/integration/sdallocx.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/integration/thread_arena.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/integration/thread_tcache_enabled.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/integration/xallocx.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/integration/xallocx.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/src/SFMT.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/src/btalloc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/src/btalloc_0.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/src/btalloc_1.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/src/math.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/src/mq.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/src/mtx.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/src/test.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/src/thd.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/src/timer.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/stress/microbench.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/test.sh.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/SFMT.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/a0.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/arena_reset.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/arena_reset_prof.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/arena_reset_prof.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/atomic.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/background_thread.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/background_thread_enable.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/base.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/bit_util.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/bitmap.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/ckh.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/decay.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/decay.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/div.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/emitter.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/extent_quantize.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/fork.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/hash.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/hooks.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/junk.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/junk.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/junk_alloc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/junk_alloc.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/junk_free.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/junk_free.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/log.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/mallctl.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/malloc_io.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/math.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/mq.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/mtx.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/nstime.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/pack.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/pack.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/pages.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/ph.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/prng.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/prof_accum.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/prof_accum.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/prof_active.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/prof_active.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/prof_gdump.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/prof_gdump.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/prof_idump.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/prof_idump.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/prof_reset.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/prof_reset.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/prof_tctx.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/prof_tctx.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/prof_thread_name.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/prof_thread_name.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/ql.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/qr.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/rb.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/retained.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/rtree.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/size_classes.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/slab.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/smoothstep.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/spin.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/stats.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/stats_print.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/ticker.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/tsd.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/witness.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/zero.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/jemalloc/test/unit/zero.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/linenoise/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/linenoise/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/linenoise/README.markdown" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/linenoise/example.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/linenoise/linenoise.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/linenoise/linenoise.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/COPYRIGHT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/HISTORY" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/INSTALL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/doc/contents.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/doc/cover.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/doc/logo.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/doc/lua.1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/doc/lua.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/doc/lua.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/doc/luac.1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/doc/luac.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/doc/manual.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/doc/manual.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/doc/readme.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/etc/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/etc/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/etc/all.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/etc/lua.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/etc/lua.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/etc/lua.pc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/etc/luavs.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/etc/min.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/etc/noparser.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/etc/strict.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/fpconv.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/fpconv.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lapi.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lapi.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lauxlib.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lauxlib.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lbaselib.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lcode.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lcode.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/ldblib.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/ldebug.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/ldebug.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/ldo.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/ldo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/ldump.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lfunc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lfunc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lgc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lgc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/linit.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/liolib.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/llex.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/llex.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/llimits.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lmathlib.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lmem.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lmem.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/loadlib.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lobject.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lobject.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lopcodes.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lopcodes.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/loslib.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lparser.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lparser.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lstate.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lstate.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lstring.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lstring.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lstrlib.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/ltable.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/ltable.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/ltablib.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/ltm.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/ltm.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lua.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lua.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lua_bit.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lua_cjson.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lua_cmsgpack.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lua_struct.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/luac.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/luaconf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lualib.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lundump.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lundump.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lvm.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lvm.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lzio.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/lzio.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/print.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/strbuf.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/src/strbuf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/bisect.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/cf.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/echo.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/env.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/factorial.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/fib.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/fibfor.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/globals.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/hello.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/life.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/luac.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/printf.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/readonly.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/sieve.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/sort.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/table.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/trace-calls.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/trace-globals.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/lua/test/xd.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/deps/update-jemalloc.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/redis.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/runtest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/runtest-cluster" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/runtest-moduleapi" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/runtest-sentinel" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/sentinel.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/adlist.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/adlist.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/ae.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/ae.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/ae_epoll.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/ae_evport.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/ae_kqueue.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/ae_select.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/anet.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/anet.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/aof.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/asciilogo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/atomicvar.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/bio.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/bio.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/bitops.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/blocked.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/childinfo.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/cluster.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/cluster.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/config.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/config.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/crc16.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/crc64.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/crc64.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/db.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/debug.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/debugmacro.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/defrag.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/dict.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/dict.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/endianconv.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/endianconv.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/evict.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/expire.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/fmacros.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/geo.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/geo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/geohash.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/geohash.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/geohash_helper.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/geohash_helper.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/help.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/hyperloglog.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/intset.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/intset.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/latency.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/latency.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/lazyfree.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/listpack.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/listpack.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/listpack_malloc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/localtime.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/lolwut.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/lolwut5.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/lzf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/lzfP.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/lzf_c.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/lzf_d.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/memtest.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/mkreleasehdr.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/module.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/modules/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/modules/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/modules/gendoc.rb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/modules/helloblock.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/modules/hellocluster.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/modules/hellodict.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/modules/hellotimer.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/modules/hellotype.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/modules/helloworld.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/modules/testmodule.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/multi.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/networking.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/notify.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/object.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/pqsort.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/pqsort.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/pubsub.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/quicklist.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/quicklist.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/rand.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/rand.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/rax.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/rax.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/rax_malloc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/rdb.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/rdb.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/redis-benchmark.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/redis-check-aof.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/redis-check-rdb.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/redis-cli.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/redis-trib.rb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/redisassert.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/redismodule.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/release.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/replication.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/rio.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/rio.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/scripting.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/sds.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/sds.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/sdsalloc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/sentinel.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/server.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/server.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/setproctitle.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/sha1.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/sha1.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/siphash.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/slowlog.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/slowlog.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/solarisfixes.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/sort.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/sparkline.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/sparkline.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/stream.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/syncio.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/t_hash.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/t_list.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/t_set.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/t_stream.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/t_string.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/t_zset.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/testhelp.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/util.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/util.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/valgrind.sup" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/version.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/ziplist.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/ziplist.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/zipmap.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/zipmap.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/zmalloc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/src/zmalloc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/assets/default.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/assets/encodings.rdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/assets/hash-zipmap.rdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/cluster.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/run.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/00-base.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/01-faildet.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/02-failover.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/03-failover-loop.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/04-resharding.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/05-slave-selection.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/06-slave-stop-cond.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/07-replica-migration.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/08-update-msg.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/09-pubsub.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/10-manual-failover.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/11-manual-takeover.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/12-replica-migration-2.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/13-no-failover-option.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/helpers/onlydots.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tests/includes/init-tests.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/cluster/tmp/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/helpers/bg_block_op.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/helpers/bg_complex_data.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/helpers/gen_write_load.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/instances.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/integration/aof-race.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/integration/aof.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/integration/block-repl.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/integration/convert-zipmap-hash-on-load.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/integration/logging.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/integration/psync2-reg.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/integration/psync2.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/integration/rdb.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/integration/redis-cli.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/integration/replication-2.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/integration/replication-3.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/integration/replication-4.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/integration/replication-psync.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/integration/replication.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/modules/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/modules/commandfilter.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/modules/testrdb.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/sentinel/run.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/sentinel/tests/00-base.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/sentinel/tests/01-conf-update.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/sentinel/tests/02-slaves-reconf.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/sentinel/tests/03-runtime-reconf.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/sentinel/tests/04-slave-selection.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/sentinel/tests/05-manual.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/sentinel/tests/06-ckquorum.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/sentinel/tests/07-down-conditions.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/sentinel/tests/includes/init-tests.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/sentinel/tmp/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/support/cluster.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/support/redis.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/support/server.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/support/test.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/support/tmpfile.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/support/util.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/test_helper.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/aofrw.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/auth.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/bitfield.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/bitops.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/dump.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/expire.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/geo.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/hyperloglog.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/introspection-2.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/introspection.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/keyspace.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/latency-monitor.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/lazyfree.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/limits.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/maxmemory.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/memefficiency.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/moduleapi/commandfilter.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/moduleapi/testrdb.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/multi.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/obuf-limits.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/other.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/pendingquerybuf.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/printver.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/protocol.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/pubsub.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/quit.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/scan.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/scripting.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/slowlog.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/sort.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/type/hash.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/type/incr.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/type/list-2.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/type/list-3.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/type/list-common.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/type/list.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/type/set.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/type/stream-cgroups.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/type/stream.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/type/string.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/type/zset.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/tests/unit/wait.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/build-static-symbols.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/cluster_fail_time.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/corrupt_rdb.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/create-cluster/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/create-cluster/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/create-cluster/create-cluster" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/generate-command-help.rb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/graphs/commits-over-time/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/graphs/commits-over-time/genhtml.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/hashtable/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/hashtable/rehashing.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/hyperloglog/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/hyperloglog/hll-err.rb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/hyperloglog/hll-gnuplot-graph.rb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/install_server.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/lru/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/lru/lfu-simulation.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/lru/test-lru.rb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/redis-copy.rb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/redis-sha1.rb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/redis_init_script" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/redis_init_script.tpl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/releasetools/01_create_tarball.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/releasetools/02_upload_tarball.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/releasetools/03_test_release.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/releasetools/04_release_hash.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/releasetools/changelog.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/speed-regression.tcl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/redis-stable/utils/whatisdoing.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/runtime.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/css/autocomplete.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/css/base.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/css/changelists.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/css/dashboard.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/css/fonts.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/css/forms.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/css/login.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/css/responsive.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/css/responsive_rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/css/rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/css/vendor/select2/LICENSE-SELECT2.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/css/vendor/select2/select2.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/css/vendor/select2/select2.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/css/widgets.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/fonts/LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/fonts/README.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/fonts/Roboto-Bold-webfont.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/fonts/Roboto-Light-webfont.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/fonts/Roboto-Regular-webfont.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/README.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/calendar-icons.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/gis/move_vertex_off.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/gis/move_vertex_on.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/icon-addlink.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/icon-alert.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/icon-calendar.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/icon-changelink.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/icon-clock.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/icon-deletelink.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/icon-no.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/icon-unknown-alt.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/icon-unknown.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/icon-viewlink.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/icon-yes.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/inline-delete.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/search.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/selector-icons.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/sorting-icons.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/tooltag-add.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/img/tooltag-arrowright.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/SelectBox.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/SelectFilter2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/actions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/actions.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/admin/DateTimeShortcuts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/admin/RelatedObjectLookups.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/autocomplete.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/calendar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/cancel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/change_form.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/collapse.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/collapse.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/core.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/inlines.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/inlines.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/jquery.init.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/popup_response.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/prepopulate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/prepopulate.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/prepopulate_init.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/timeparse.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/urlify.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/jquery/LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/jquery/jquery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/jquery/jquery.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/LICENSE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/ar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/az.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/bg.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/ca.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/cs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/da.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/de.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/el.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/en.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/es.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/et.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/eu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/fa.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/fi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/fr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/gl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/he.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/hi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/hr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/hu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/id.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/is.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/it.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/ja.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/km.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/ko.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/lt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/lv.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/mk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/ms.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/nb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/nl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/pl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/pt-BR.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/pt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/ro.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/ru.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/sk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/sr-Cyrl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/sr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/sv.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/th.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/tr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/uk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/vi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/zh-CN.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/i18n/zh-TW.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/select2.full.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/select2/select2.full.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/xregexp/LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/xregexp/xregexp.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/admin/js/vendor/xregexp/xregexp.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/css/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/django_select2/django_select2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/images/background1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/images/logo-prettl.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/images/logo2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/js/jquery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/komax_app/chart_view.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/komax_app/komax_app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/komax_app/komax_app_amount.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/komax_app/komax_app_task.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/komax_app/komax_app_view.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/main_app/image/background.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/static/main_app/welcome.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/templates/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komaxsite/templates/main.html" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="ProjectId" id="1RHCEqGnWY23oIlrt1ketZLmi78" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js.buildTools.grunt.grunt-cli.package" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/komax_site/settings.py" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs.jest.jest_package" value="" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/komaxsite/komax_app" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/komaxsite/komax_app/static/komax_app" />
+      <recent name="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app" />
+      <recent name="$PROJECT_DIR$/komaxsite/komax_site" />
+      <recent name="$PROJECT_DIR$/komaxsite" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="komax_site" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Python.AppEngineServer" factoryName="App Engine server">
+      <module name="komax_site" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="host" value="127.0.0.1" />
+      <option name="browserUrl" value="" />
+      <option name="additionalOptions" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="DjangoServ" type="Python.DjangoServer" factoryName="Django server">
+      <module name="komax_site" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="js.build_tools.grunt">
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="" />
+      <created>1569314525974</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1569314525974</updated>
+      <workItem from="1569314541349" duration="33414000" />
+      <workItem from="1569491262486" duration="13110000" />
+      <workItem from="1569565837120" duration="1573000" />
+      <workItem from="1569571607181" duration="2620000" />
+      <workItem from="1569578743235" duration="36645000" />
+      <workItem from="1569686506545" duration="38220000" />
+      <workItem from="1569833317466" duration="56921000" />
+      <workItem from="1570393567067" duration="30733000" />
+      <workItem from="1570612824793" duration="18610000" />
+      <workItem from="1570702338773" duration="40440000" />
+      <workItem from="1571031333934" duration="796000" />
+      <workItem from="1571039319822" duration="2516000" />
+      <workItem from="1571249070058" duration="9725000" />
+      <workItem from="1571415252175" duration="934000" />
+      <workItem from="1571573616279" duration="5090000" />
+      <workItem from="1571752730908" duration="1233000" />
+      <workItem from="1572179358029" duration="9499000" />
+      <workItem from="1572196922825" duration="201000" />
+      <workItem from="1572257146667" duration="23274000" />
+      <workItem from="1572343041518" duration="1233000" />
+      <workItem from="1572598039825" duration="5066000" />
+      <workItem from="1572605838650" duration="2163000" />
+      <workItem from="1572901962642" duration="1863000" />
+      <workItem from="1572950370145" duration="14129000" />
+      <workItem from="1573074645532" duration="5264000" />
+      <workItem from="1573479986031" duration="16526000" />
+      <workItem from="1573538583846" duration="1133000" />
+      <workItem from="1573539831839" duration="2756000" />
+      <workItem from="1573664426925" duration="687000" />
+      <workItem from="1573728627412" duration="3386000" />
+      <workItem from="1573740014045" duration="7777000" />
+      <workItem from="1573993395997" duration="885000" />
+      <workItem from="1574071663274" duration="20881000" />
+      <workItem from="1574245239786" duration="33090000" />
+      <workItem from="1574420615275" duration="4330000" />
+      <workItem from="1574430574927" duration="4390000" />
+      <workItem from="1574500609739" duration="26091000" />
+      <workItem from="1574622132463" duration="5536000" />
+      <workItem from="1574791221566" duration="11792000" />
+      <workItem from="1574931460579" duration="9825000" />
+      <workItem from="1575831116156" duration="9000" />
+      <workItem from="1577102586728" duration="2369000" />
+      <workItem from="1577265167448" duration="14045000" />
+      <workItem from="1577387947384" duration="11009000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="482" y="187" key="SettingsEditor" timestamp="1577607964108">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1577607964108" />
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1577387970528">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1577387970528" />
+    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1577271814002">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1577271814002" />
+  </component>
+</project>

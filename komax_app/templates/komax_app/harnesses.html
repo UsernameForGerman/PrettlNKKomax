@@ -1,0 +1,172 @@
+{% extends 'komax_app/komax_app_main.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}
+<title>{% trans 'Harnesses' %}</title>
+{% endblock %}
+
+{% block main_content %}
+    <link type="text/css" rel="stylesheet" href="{% static 'komax_app/harnesses.css' %}">
+    <div class="container">
+    <h2 class="text-center">{% trans 'Wire charts' %}</h2>
+
+    <div class="harness-upload-form">
+
+            <form class="form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-6" id="harness_number_handler">
+                        <label class="sr-only" for="harness_number">{% trans 'Harness number' %}</label>
+                        <input class="harness-number form-control" id='harness_number' name="harness_number" type="text" required placeholder="5490-3724144-05">
+                    </div>
+
+                    <div class="col-sm-">
+                        <div class="harness-upload-custom">
+                            <div class="form-group">
+                                <input class="input-file" id="harness_chart" name="harness_chart" type="file" required>
+                                <label class="btn btn-tertiary js-labelFile" for="harness_chart">
+                                    <i class="icon fa fa-check"></i>
+                                    <span class="js-fileName">{% trans 'Upload' %} {% trans 'file' %}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-success">{% trans 'Upload' %}</button>
+                    </div>
+                </div>
+            </form>
+
+
+    </div>
+
+    </div>
+    <div class="container">
+    <div class="harnesses-items-table">
+        <table class="table table-stripped">
+        <thred>
+            <tr>
+                <th class='text-center' scope="col">#</th>
+                <th class='text-center' scope="col">{% trans 'Harness number' %}</th>
+                <th class="text-center" scope="col">{% trans 'Date' %}</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thred>
+        <tbody>
+
+        {% for pos in harnesses %}
+            <tr>
+            <th class='text-center' scope="row">{{ forloop.counter }}</th>
+            <td class="text-center">{{ pos.harness_number }}</td>
+            <td class="text-center">{{ pos.created }}</td>
+            <td>
+                <a href="{% url 'komax_app:harness_chart' pk=pos.harness_number %}">
+                    <button title="{% trans 'Detailed' %}" class="btn btn-secondary show-btn" >
+                        <i class="fa fa-search"> </i>
+                    </button>
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'komax_app:download_harness' harness_number=pos.harness_number %}">
+                    <button title="{% trans 'Download' %}" class="btn btn-info">
+                        <i class="fa fa-download"> </i>
+                    </button>
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'komax_app:delete_harness' harness_number=pos.harness_number %}">
+                    <button title="{% trans 'Delete' %}" class="btn btn-danger delete-btn">
+                        <i class="fa fa-trash"> </i>
+                    </button>
+                </a>
+            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+    </div>
+
+<script>
+
+
+  $('.input-file').each(function() {
+    var $input = $(this),
+        $label = $input.next('.js-labelFile'),
+        labelVal = $label.html();
+
+   $input.on('change', function(element) {
+      var fileName = '';
+      if (element.target.value) fileName = element.target.value.split('\\').pop();
+      console.log(fileName);
+      fileName ? $label.addClass('has-file').find('.js-fileName').html(fileName) : $label.removeClass('has-file').html(labelVal);
+   });
+  });
+
+</script>
+
+<script>
+    var loc = window.location;
+    var wsStart = 'wss://';
+    if (loc.protocol == 'https:'){
+        wsStart = 'wss://'
+    }
+    var endPoint = wsStart + loc.host + loc.pathname;
+    var socket = new WebSocket(endPoint);
+
+    var input_harness_number = $('#harness_number');
+
+    socket.onopen = function(e) {
+        input_harness_number.change(function(event){
+           event.preventDefault();
+           var harness_number = input_harness_number.val();
+
+           if (harness_number.length > 0){
+               socket.send(JSON.stringify({
+                   'harness_number': harness_number
+               }));
+           }
+           else {
+               input_harness_number.removeClass('is-valid');
+               input_harness_number.removeClass('is-invalid');
+               $('.invalid-feedback').remove()
+           }
+
+        });
+    };
+    socket.onmessage = function(e) {
+        msg = JSON.parse(e.data);
+
+        if (msg.checker == 0){
+            input_harness_number.removeClass('is-valid');
+            input_harness_number.addClass("is-invalid");
+            var harness_number_handler = $('#harness_number_handler');
+            harness_number_handler.append(
+                '<div class="invalid-feedback">' +
+                'A - Z, a - z, 0 - 9, А - Я, а - я, -' +
+                '</div>'
+            )
+        }
+        else {
+            input_harness_number.removeClass("is-invalid");
+            input_harness_number.addClass("is-valid");
+            var feedback_invalid = $('.invalid-feedback');
+            feedback_invalid.remove();
+        }
+    };
+    socket.onerror = function(e) {
+
+    };
+    socket.onclose = function(e) {
+
+    }
+
+
+
+
+
+</script>
+{% endblock %}

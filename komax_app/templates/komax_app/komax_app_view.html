@@ -1,0 +1,78 @@
+{% extends 'komax_app/komax_app_main.html' %}
+{% load staticfiles %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    <title>{% trans 'Komax app' %}</title>
+{% endblock %}
+
+{% block libraries %}
+
+{% endblock %}
+
+{% block main_content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'komax_app/komax_app_task.css' %}">
+
+    <div class="jumbotron">
+        <h1 class="display-4 text-center">{% trans 'Komax allocation app' %}</h1>
+        <p class="lead text-center">
+            {% trans 'This app sort and allocate labourer task on each komax to increase efficiency of process.' %}
+        </p>
+        <p class="lead text-center">
+            <a class="btn btn-danger btn-lg" href="{% url 'komax_app:task_setup' %}" role="button">{% trans 'Start' %}</a>
+        </p>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-center">
+                    <a class="btn btn-secondary" href="{% url 'komax_app:harnesses' %}" role="button">
+                        {% trans 'Harnesses' %}
+                    </a>
+                    <a class="btn btn-secondary" href="{% url 'komax_app:komaxes' %}" role="button">
+                        {% trans 'Komaxes' %}
+                    </a>
+                    <a class="btn btn-secondary" href="{% url 'komax_app:laboriousness' %}" role="button">
+                        {% trans 'Laboriousness' %}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col">
+                <div class="card">
+                    <h1 class="card-img-top text-center">{{ tasks }}</h1>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{% trans 'tasks created' %}</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <h1 class="card-img-top text-center">{{ harnesses }}</h1>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{% trans 'harnesses uploaded' %}</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <h1 class="card-img-top text-center">
+                        {{ tasks_time }}
+                    </h1>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{% trans 'hours' %} {% trans 'loaded komaxes' %}</h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

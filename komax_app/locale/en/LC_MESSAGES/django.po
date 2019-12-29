@@ -1,0 +1,314 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-12 12:49+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: komax_app/templates/komax_app/chart_view.html:12
+#, python-format
+msgid "Harness chart of %(harness_number)s"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:24
+#: komax_app/templates/komax_app/harnesses.html:20
+msgid "Harness number"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:25
+msgid "Wire"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:26
+#: komax_app/templates/komax_app/komaxes.html:20
+msgid "Marking"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:27
+msgid "Number"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:28
+msgid "Square"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:29
+msgid "Color"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:30
+msgid "Length"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:31
+msgid "Seal 1"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:32
+msgid "Cut len 1"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:33
+msgid "Terminal 1"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:34
+msgid "Aplicator 1"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:35
+msgid "Armirovka 1"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:36
+msgid "Tube len 1"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:37
+msgid "Seal 2"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:38
+msgid "Cut len 2"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:39
+msgid "Terminal 2"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:40
+msgid "Aplicator 2"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:41
+msgid "Armirovka 2"
+msgstr ""
+
+#: komax_app/templates/komax_app/chart_view.html:42
+msgid "Tube len 2"
+msgstr ""
+
+#: komax_app/templates/komax_app/harnesses.html:6
+#: komax_app/templates/komax_app/komax_app_main.html:17
+#: komax_app/templates/komax_app/komax_app_set_up.html:31
+#: komax_app/templates/komax_app/komax_app_task.html:42
+#: komax_app/templates/komax_app/komax_app_view.html:32
+msgid "Harnesses"
+msgstr ""
+
+#: komax_app/templates/komax_app/harnesses.html:12
+msgid "Wire charts"
+msgstr ""
+
+#: komax_app/templates/komax_app/harnesses.html:14
+#: komax_app/templates/komax_app/upload.html:6
+#: komax_app/templates/komax_app/upload.html:10
+#: komax_app/templates/komax_app/upload.html:14
+#: komax_app/templates/komax_app/upload_harness_chart.html:19
+msgid "Upload"
+msgstr ""
+
+#: komax_app/templates/komax_app/harnesses.html:32
+msgid "detailed"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_amount.html:6
+#: komax_app/templates/komax_app/komax_app_amount.html:27
+msgid "Amount"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_amount.html:10
+#: komax_app/templates/komax_app/komax_app_set_up.html:27
+msgid "Set up task"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_amount.html:21
+msgid "Harness"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_amount.html:31
+msgid "Shift"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_amount.html:31
+#: komax_app/templates/komax_app/komax_app_view.html:70
+msgid "hours"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_amount.html:34
+#: komax_app/templates/komax_app/komax_app_set_up.html:46
+msgid "Submit"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_main.html:8
+msgid "Main"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_main.html:12
+#: komax_app/templates/komax_app/komax_app_main.html:16
+msgid "App"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_main.html:13
+msgid "current"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_main.html:18
+#: komax_app/templates/komax_app/komax_app_set_up.html:32
+#: komax_app/templates/komax_app/komax_app_view.html:35
+#: komax_app/templates/komax_app/komaxes.html:6
+#: komax_app/templates/komax_app/komaxes.html:10
+msgid "Komaxes"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_main.html:19
+#: komax_app/templates/komax_app/komax_app_set_up.html:33
+#: komax_app/templates/komax_app/komax_app_view.html:38
+#: komax_app/templates/komax_app/laboriousness.html:6
+#: komax_app/templates/komax_app/laboriousness.html:10
+msgid "Laboriousness"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_main.html:23
+msgid "About"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_set_up.html:12
+#: komax_app/templates/komax_app/komax_app_view.html:7
+msgid "Komax app"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_set_up.html:28
+msgid "Here you can set up your task"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_task.html:6
+msgid "Task"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_task.html:17
+#: komax_app/templates/komax_app/komax_app_task.html:21
+#: komax_app/templates/komax_app/komax_app_task.html:26
+msgid "task"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_task.html:18
+msgid "Succesfully allocated!"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_task.html:21
+msgid "Full"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_task.html:31
+#: komax_app/templates/komax_app/task_status.html:12
+msgid "Again"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_task.html:42
+#: komax_app/templates/komax_app/komax_app_task.html:62
+msgid "used"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_view.html:18
+msgid "Komax allocation app"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_view.html:20
+msgid ""
+"This app sort and allocate labourer task on each komax to increase "
+"efficiency of process."
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_view.html:23
+msgid "Start"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_view.html:50
+msgid "tasks created"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_view.html:59
+msgid "harnesses uploaded"
+msgstr ""
+
+#: komax_app/templates/komax_app/komax_app_view.html:70
+msgid "loaded komaxes"
+msgstr ""
+
+#: komax_app/templates/komax_app/komaxes.html:18
+msgid "Komax number"
+msgstr ""
+
+#: komax_app/templates/komax_app/komaxes.html:19
+#: komax_app/templates/komax_app/task_status.html:6
+msgid "Status"
+msgstr ""
+
+#: komax_app/templates/komax_app/komaxes.html:21
+msgid "Pairing"
+msgstr ""
+
+#: komax_app/templates/komax_app/komaxes.html:36
+msgid "Edit"
+msgstr ""
+
+#: komax_app/templates/komax_app/komaxes_edit.html:11
+msgid "Update komax"
+msgstr ""
+
+#: komax_app/templates/komax_app/komaxes_edit.html:15
+msgid "Set up"
+msgstr ""
+
+#: komax_app/templates/komax_app/komaxes_edit.html:24
+msgid "Change"
+msgstr ""
+
+#: komax_app/templates/komax_app/laboriousness.html:18
+msgid "Action"
+msgstr ""
+
+#: komax_app/templates/komax_app/laboriousness.html:19
+msgid "Time"
+msgstr ""
+
+#: komax_app/templates/komax_app/laboriousness.html:19
+msgid "sec"
+msgstr ""
+
+#: komax_app/templates/komax_app/task_status.html:11
+msgid "Failed"
+msgstr ""
+
+#: komax_app/templates/komax_app/upload.html:14
+#: komax_app/templates/komax_app/upload.html:16
+msgid "file"
+msgstr ""
+
+#: komax_app/templates/komax_app/upload.html:16
+msgid "Uploaded"
+msgstr ""
+
+#: komax_app/templates/komax_app/upload_harness_chart.html:6
+#: komax_app/templates/komax_app/upload_harness_chart.html:10
+msgid "Harness chart"
+msgstr ""
+
+#: komax_app/templates/komax_app/upload_harness_chart.html:6
+#: komax_app/templates/komax_app/upload_harness_chart.html:10
+msgid "upload"
+msgstr ""

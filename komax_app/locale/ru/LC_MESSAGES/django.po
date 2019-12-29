@@ -1,0 +1,431 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-27 10:43+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: komax_app/templates/komax_app/chart_view.html:12
+#, python-format
+msgid "Harness chart of %(harness_number)s"
+msgstr "Карта резки провода для жгута %(harness_number)s"
+
+#: komax_app/templates/komax_app/chart_view.html:26
+#: komax_app/templates/komax_app/harnesses.html:20
+#: komax_app/templates/komax_app/harnesses.html:52
+#, fuzzy
+#| msgid "Harnesses"
+msgid "Harness number"
+msgstr "Номер жгута"
+
+#: komax_app/templates/komax_app/chart_view.html:27
+msgid "Wire"
+msgstr "Провод"
+
+#: komax_app/templates/komax_app/chart_view.html:28
+#: komax_app/templates/komax_app/komaxes.html:51
+#: komax_app/templates/komax_app/komaxes.html:86
+#: komax_app/templates/komax_app/komaxes.html:135
+msgid "Marking"
+msgstr "Маркировка"
+
+#: komax_app/templates/komax_app/chart_view.html:29
+msgid "Number"
+msgstr "Номер"
+
+#: komax_app/templates/komax_app/chart_view.html:30
+msgid "Square"
+msgstr "Сечение"
+
+#: komax_app/templates/komax_app/chart_view.html:31
+msgid "Color"
+msgstr "Цвет"
+
+#: komax_app/templates/komax_app/chart_view.html:32
+msgid "Length"
+msgstr "Длина"
+
+#: komax_app/templates/komax_app/chart_view.html:33
+msgid "Seal 1"
+msgstr "Уплотнитель 1"
+
+#: komax_app/templates/komax_app/chart_view.html:34
+msgid "Cut len 1"
+msgstr "Частичное снятие 1"
+
+#: komax_app/templates/komax_app/chart_view.html:35
+msgid "Terminal 1"
+msgstr "Наконечник 1"
+
+#: komax_app/templates/komax_app/chart_view.html:36
+msgid "Aplicator 1"
+msgstr "Аппликатор 1"
+
+#: komax_app/templates/komax_app/chart_view.html:37
+msgid "Armirovka 1"
+msgstr "Армировка 1"
+
+#: komax_app/templates/komax_app/chart_view.html:38
+msgid "Tube len 1"
+msgstr "Длина трубки 1"
+
+#: komax_app/templates/komax_app/chart_view.html:39
+msgid "Seal 2"
+msgstr "Уплотнитель 2"
+
+#: komax_app/templates/komax_app/chart_view.html:40
+msgid "Cut len 2"
+msgstr "Частичное снятие 2"
+
+#: komax_app/templates/komax_app/chart_view.html:41
+msgid "Terminal 2"
+msgstr "Наконечник 2"
+
+#: komax_app/templates/komax_app/chart_view.html:42
+msgid "Aplicator 2"
+msgstr "Аппликатор 2"
+
+#: komax_app/templates/komax_app/chart_view.html:43
+msgid "Armirovka 2"
+msgstr "Армировка 2"
+
+#: komax_app/templates/komax_app/chart_view.html:44
+msgid "Tube len 2"
+msgstr "Длина трубки 2"
+
+#: komax_app/templates/komax_app/harnesses.html:6
+#: komax_app/templates/komax_app/komax_app_main.html:18
+#: komax_app/templates/komax_app/komax_app_setup.html:34
+#: komax_app/templates/komax_app/komax_app_setup.html:53
+#: komax_app/templates/komax_app/komax_app_task.html:60
+#: komax_app/templates/komax_app/komax_app_view.html:32
+msgid "Harnesses"
+msgstr "Жгуты"
+
+#: komax_app/templates/komax_app/harnesses.html:12
+msgid "Wire charts"
+msgstr "Карта резки провода"
+
+#: komax_app/templates/komax_app/harnesses.html:30
+#: komax_app/templates/komax_app/harnesses.html:37
+#: komax_app/templates/komax_app/upload.html:6
+#: komax_app/templates/komax_app/upload.html:10
+#: komax_app/templates/komax_app/upload.html:14
+#: komax_app/templates/komax_app/upload_harness_chart.html:19
+msgid "Upload"
+msgstr "Загрузить"
+
+#: komax_app/templates/komax_app/harnesses.html:30
+#: komax_app/templates/komax_app/upload.html:14
+#: komax_app/templates/komax_app/upload.html:16
+msgid "file"
+msgstr "файл"
+
+#: komax_app/templates/komax_app/harnesses.html:53
+msgid "Date"
+msgstr "Дата"
+
+#: komax_app/templates/komax_app/harnesses.html:67
+#, fuzzy
+#| msgid "detailed"
+msgid "Detailed"
+msgstr "Подробнее"
+
+#: komax_app/templates/komax_app/harnesses.html:74
+msgid "Download"
+msgstr "Скачать"
+
+#: komax_app/templates/komax_app/harnesses.html:81
+msgid "Delete"
+msgstr "Удалить"
+
+#: komax_app/templates/komax_app/komax_app_amount.html:6
+#: komax_app/templates/komax_app/komax_app_amount.html:31
+#: komax_app/templates/komax_app/komax_app_setup.html:162
+msgid "Amount"
+msgstr "Количество"
+
+#: komax_app/templates/komax_app/komax_app_amount.html:10
+#: komax_app/templates/komax_app/komax_app_setup.html:30
+msgid "Set up task"
+msgstr "Настроить задание"
+
+#: komax_app/templates/komax_app/komax_app_amount.html:24
+#, fuzzy
+#| msgid "Harnesses"
+msgid "Harness"
+msgstr "Жгут"
+
+#: komax_app/templates/komax_app/komax_app_amount.html:35
+#: komax_app/templates/komax_app/komax_app_setup.html:84
+#: komax_app/templates/komax_app/komax_app_setup.html:232
+msgid "Submit"
+msgstr "Продолжить"
+
+#: komax_app/templates/komax_app/komax_app_main.html:9
+msgid "Main"
+msgstr "Главная"
+
+#: komax_app/templates/komax_app/komax_app_main.html:13
+#: komax_app/templates/komax_app/komax_app_main.html:17
+msgid "App"
+msgstr "Приложение"
+
+#: komax_app/templates/komax_app/komax_app_main.html:14
+msgid "current"
+msgstr "текущий"
+
+#: komax_app/templates/komax_app/komax_app_main.html:19
+#: komax_app/templates/komax_app/komax_app_setup.html:35
+#: komax_app/templates/komax_app/komax_app_setup.html:66
+#: komax_app/templates/komax_app/komax_app_view.html:35
+#: komax_app/templates/komax_app/komaxes.html:6
+#: komax_app/templates/komax_app/komaxes.html:16
+msgid "Komaxes"
+msgstr "Комаксы"
+
+#: komax_app/templates/komax_app/komax_app_main.html:20
+#: komax_app/templates/komax_app/komax_app_setup.html:36
+#: komax_app/templates/komax_app/komax_app_view.html:38
+#: komax_app/templates/komax_app/laboriousness.html:6
+#: komax_app/templates/komax_app/laboriousness.html:10
+msgid "Laboriousness"
+msgstr "Трудоёмкость"
+
+#: komax_app/templates/komax_app/komax_app_main.html:24
+msgid "About"
+msgstr "О проекте"
+
+#: komax_app/templates/komax_app/komax_app_setup.html:9
+#: komax_app/templates/komax_app/komax_app_view.html:7
+#, fuzzy
+#| msgid "Komaxes"
+msgid "Komax app"
+msgstr "Приложение для komax"
+
+#: komax_app/templates/komax_app/komax_app_setup.html:31
+msgid "Here you can set up your task"
+msgstr "Здесь вы можете настроить наряд-задание"
+
+#: komax_app/templates/komax_app/komax_app_setup.html:47
+msgid "Task name"
+msgstr "Номер задания"
+
+#: komax_app/templates/komax_app/komax_app_setup.html:79
+msgid "Shift"
+msgstr "Смена"
+
+#: komax_app/templates/komax_app/komax_app_setup.html:79
+#: komax_app/templates/komax_app/komax_app_view.html:70
+msgid "hours"
+msgstr "часов"
+
+#: komax_app/templates/komax_app/komax_app_setup.html:204
+msgid " Task with this name already exists or its incorrect"
+msgstr "Задание с таким именем уже существует или имя задания неверно"
+
+#: komax_app/templates/komax_app/komax_app_setup.html:219
+msgid "Too big task or not enough komaxes"
+msgstr "Слишком большое задание или недостаточно комаксов"
+
+#: komax_app/templates/komax_app/komax_app_task.html:6
+msgid "Task"
+msgstr "Задание"
+
+#: komax_app/templates/komax_app/komax_app_task.html:17
+#: komax_app/templates/komax_app/komax_app_task.html:21
+#: komax_app/templates/komax_app/komax_app_task.html:26
+msgid "task"
+msgstr "задание"
+
+#: komax_app/templates/komax_app/komax_app_task.html:18
+msgid "Succesfully allocated!"
+msgstr "Успешно распределено!"
+
+#: komax_app/templates/komax_app/komax_app_task.html:21
+msgid "Full"
+msgstr "Полное"
+
+#: komax_app/templates/komax_app/komax_app_task.html:31
+#: komax_app/templates/komax_app/task_status.html:12
+msgid "Again"
+msgstr "Заново"
+
+#: komax_app/templates/komax_app/komax_app_task.html:42
+msgid "Tickets"
+msgstr "Бирки"
+
+#: komax_app/templates/komax_app/komax_app_task.html:46
+msgid "Ticket"
+msgstr "Бирка"
+
+#: komax_app/templates/komax_app/komax_app_task.html:60
+#: komax_app/templates/komax_app/komax_app_task.html:78
+msgid "used"
+msgstr "использовано"
+
+#: komax_app/templates/komax_app/komax_app_view.html:18
+msgid "Komax allocation app"
+msgstr "Приложение для komax"
+
+#: komax_app/templates/komax_app/komax_app_view.html:20
+msgid ""
+"This app sort and allocate labourer task on each komax to increase "
+"efficiency of process."
+msgstr ""
+"Данное приложение отсортирует и распределить наряд-задания по komax для "
+"повышения эффективности процесса."
+
+#: komax_app/templates/komax_app/komax_app_view.html:23
+msgid "Start"
+msgstr "Начать"
+
+#: komax_app/templates/komax_app/komax_app_view.html:50
+msgid "tasks created"
+msgstr "наряд-заданий создано"
+
+#: komax_app/templates/komax_app/komax_app_view.html:59
+msgid "harnesses uploaded"
+msgstr "загруженные жгуты"
+
+#: komax_app/templates/komax_app/komax_app_view.html:70
+msgid "loaded komaxes"
+msgstr "загружены komaxы"
+
+#: komax_app/templates/komax_app/komaxes.html:18
+msgid "New"
+msgstr "Создать"
+
+#: komax_app/templates/komax_app/komaxes.html:28
+msgid "Add"
+msgstr "Добавить"
+
+#: komax_app/templates/komax_app/komaxes.html:35
+#: komax_app/templates/komax_app/komaxes.html:119
+#, fuzzy
+#| msgid "Komaxes"
+msgid "Komax"
+msgstr "Комаксы"
+
+#: komax_app/templates/komax_app/komaxes.html:35
+#: komax_app/templates/komax_app/komaxes.html:119
+#, fuzzy
+#| msgid "Number"
+msgid "number"
+msgstr "Номер"
+
+#: komax_app/templates/komax_app/komaxes.html:37
+msgid "1"
+msgstr "1"
+
+#: komax_app/templates/komax_app/komaxes.html:41
+#: komax_app/templates/komax_app/komaxes.html:85
+#: komax_app/templates/komax_app/komaxes.html:125
+#: komax_app/templates/komax_app/task_status.html:6
+msgid "Status"
+msgstr "Статус"
+
+#: komax_app/templates/komax_app/komaxes.html:61
+#: komax_app/templates/komax_app/komaxes.html:87
+#: komax_app/templates/komax_app/komaxes.html:145
+msgid "Pairing"
+msgstr "Спаривание"
+
+#: komax_app/templates/komax_app/komaxes.html:72
+#: komax_app/templates/komax_app/komaxes.html:156
+msgid "Close"
+msgstr "Закрыть"
+
+#: komax_app/templates/komax_app/komaxes.html:73
+#: komax_app/templates/komax_app/komaxes.html:157
+msgid "Save"
+msgstr "Сохранить"
+
+#: komax_app/templates/komax_app/komaxes.html:84
+#, fuzzy
+#| msgid "Komaxes"
+msgid "Komax number"
+msgstr "Номер komax"
+
+#: komax_app/templates/komax_app/komaxes.html:112
+msgid "Setup"
+msgstr "Настроить"
+
+#: komax_app/templates/komax_app/komaxes_edit.html:11
+msgid "Update komax"
+msgstr "Обновить komax"
+
+#: komax_app/templates/komax_app/komaxes_edit.html:15
+#, fuzzy
+#| msgid "Set up task"
+msgid "Set up"
+msgstr "Настроить задание"
+
+#: komax_app/templates/komax_app/komaxes_edit.html:24
+msgid "Change"
+msgstr "Изменить"
+
+#: komax_app/templates/komax_app/laboriousness.html:18
+msgid "Action"
+msgstr "Действие"
+
+#: komax_app/templates/komax_app/laboriousness.html:19
+msgid "Time"
+msgstr "Время"
+
+#: komax_app/templates/komax_app/laboriousness.html:19
+msgid "sec"
+msgstr "сек"
+
+#: komax_app/templates/komax_app/task_status.html:11
+msgid "Failed"
+msgstr "Не получилось"
+
+#: komax_app/templates/komax_app/upload.html:16
+msgid "Uploaded"
+msgstr "Загружен"
+
+#: komax_app/templates/komax_app/upload_harness_chart.html:6
+#: komax_app/templates/komax_app/upload_harness_chart.html:10
+#, fuzzy
+#| msgid "Harnesses"
+msgid "Harness chart"
+msgstr "Карта резки провода"
+
+#: komax_app/templates/komax_app/upload_harness_chart.html:6
+#: komax_app/templates/komax_app/upload_harness_chart.html:10
+msgid "upload"
+msgstr "загрузить"
+
+#, fuzzy
+#~| msgid "tasks created"
+#~ msgid "created"
+#~ msgstr "наряд-заданий создано"
+
+#, fuzzy
+#~| msgid "Harnesses"
+#~ msgid "harness number"
+#~ msgstr "Номер жгута"
+
+#, fuzzy
+#~| msgid "Komaxes"
+#~ msgid "komaxes"
+#~ msgstr "Комаксы"
+
+#~ msgid "Edit"
+#~ msgstr "Изменить"

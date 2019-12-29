@@ -1,0 +1,38 @@
+
+p {
+    text-align: center;
+}
+
+h5 {
+    margin-bottom: 1.5rem;
+}
+
+.jumbotron {
+    padding-top: var(--jumbotron-padding-y);
+    padding-bottom: var(--jumbotron-padding-y);
+    margin-bottom: 0;
+}
+
+.card {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-img-top {
+    margin-top: 1.5rem;
+}
+
+.btn {
+    margin-left: 1.5rem;
+}
+.jumbotron p:last-child {
+  margin-bottom: 0;
+}
+
+.jumbotron-heading {
+  font-weight: 300;
+}
+
+:root {
+  --jumbotron-padding-y: 10rem;
+}
