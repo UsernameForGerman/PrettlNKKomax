@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404, redirec
 from django_pandas.io import read_frame
 from .modules.outer import OutProcess
 from .celery import app
+from celery import shared_task
 from .models import Tickets, Komax, KomaxTask, TaskPersonal
 from django.core.files import File
 from django.core.files.storage import FileSystemStorage
@@ -9,6 +10,11 @@ from openpyxl import load_workbook
 import pandas as pd
 from .modules.HarnessChartProcessing import ProcessDataframe
 from .modules.process import ProcessDataframe, get_komaxes_from, get_time_from, get_amount_from
+
+from django.core.mail import send_mail
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.utils import translation
 
 
 def get_wb_labels(task_pers_df):
@@ -126,5 +132,25 @@ def save_tickets(pk, komax_numbers):
         tickets_obj.save()
         tickets_obj = Tickets.objects.filter(labels=wb)
         tickets_obj.name = '{}-{}'.format(pk, komax)"""
+
+@app.task
+def send_mail_delay(template_path: str, context: dict, from_mail: str, emails: list, topic: str, text: str,
+                    language: str):
+
+    translation.activate(language)
+    email_html = render_to_string(template_path, context)
+
+    number_success_emails = send_mail(
+        topic,
+        text,
+        from_mail,
+        emails,
+        html_message=email_html,
+        fail_silently=False
+    )
+
+    return number_success_emails
+
+
 
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-27 10:43+0300\n"
+"POT-Creation-Date: 2020-01-27 10:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,8 +39,8 @@ msgstr "Провод"
 
 #: komax_app/templates/komax_app/chart_view.html:28
 #: komax_app/templates/komax_app/komaxes.html:51
-#: komax_app/templates/komax_app/komaxes.html:86
-#: komax_app/templates/komax_app/komaxes.html:135
+#: komax_app/templates/komax_app/komaxes.html:92
+#: komax_app/templates/komax_app/komaxes.html:142
 msgid "Marking"
 msgstr "Маркировка"
 
@@ -107,6 +107,39 @@ msgstr "Армировка 2"
 #: komax_app/templates/komax_app/chart_view.html:44
 msgid "Tube len 2"
 msgstr "Длина трубки 2"
+
+#: komax_app/templates/komax_app/email_new_task_template.html:8
+#, python-format
+msgid ""
+"\n"
+"        Номер задания %(task_name)s\n"
+"    "
+msgstr ""
+"\n"
+"        New task %(task_name)s\n"
+"    "
+
+#: komax_app/templates/komax_app/email_new_task_template.html:15
+#, python-format
+msgid ""
+"\n"
+"            Hello! New task %(task_name)s successfully created and "
+"allocated.\n"
+"        "
+msgstr ""
+"\n"
+"            Привет! Новое наряд-задание %(task_name)s успешно создано.\n"
+"        "
+
+#: komax_app/templates/komax_app/email_new_task_template.html:22
+msgid ""
+"\n"
+"            See more\n"
+"        "
+msgstr ""
+"\n"
+"            Подробнее\n"
+"        "
 
 #: komax_app/templates/komax_app/harnesses.html:6
 #: komax_app/templates/komax_app/komax_app_main.html:18
@@ -316,14 +349,14 @@ msgid "Add"
 msgstr "Добавить"
 
 #: komax_app/templates/komax_app/komaxes.html:35
-#: komax_app/templates/komax_app/komaxes.html:119
+#: komax_app/templates/komax_app/komaxes.html:126
 #, fuzzy
 #| msgid "Komaxes"
 msgid "Komax"
 msgstr "Комаксы"
 
 #: komax_app/templates/komax_app/komaxes.html:35
-#: komax_app/templates/komax_app/komaxes.html:119
+#: komax_app/templates/komax_app/komaxes.html:126
 #, fuzzy
 #| msgid "Number"
 msgid "number"
@@ -334,35 +367,41 @@ msgid "1"
 msgstr "1"
 
 #: komax_app/templates/komax_app/komaxes.html:41
-#: komax_app/templates/komax_app/komaxes.html:85
-#: komax_app/templates/komax_app/komaxes.html:125
+#: komax_app/templates/komax_app/komaxes.html:91
+#: komax_app/templates/komax_app/komaxes.html:132
 #: komax_app/templates/komax_app/task_status.html:6
 msgid "Status"
 msgstr "Статус"
 
 #: komax_app/templates/komax_app/komaxes.html:61
-#: komax_app/templates/komax_app/komaxes.html:87
-#: komax_app/templates/komax_app/komaxes.html:145
+#: komax_app/templates/komax_app/komaxes.html:93
+#: komax_app/templates/komax_app/komaxes.html:152
 msgid "Pairing"
 msgstr "Спаривание"
 
-#: komax_app/templates/komax_app/komaxes.html:72
-#: komax_app/templates/komax_app/komaxes.html:156
+#: komax_app/templates/komax_app/komaxes.html:71
+#: komax_app/templates/komax_app/komaxes.html:94
+#: komax_app/templates/komax_app/komaxes.html:162
+msgid "Identifier"
+msgstr "Идентификатор"
+
+#: komax_app/templates/komax_app/komaxes.html:78
+#: komax_app/templates/komax_app/komaxes.html:169
 msgid "Close"
 msgstr "Закрыть"
 
-#: komax_app/templates/komax_app/komaxes.html:73
-#: komax_app/templates/komax_app/komaxes.html:157
+#: komax_app/templates/komax_app/komaxes.html:79
+#: komax_app/templates/komax_app/komaxes.html:170
 msgid "Save"
 msgstr "Сохранить"
 
-#: komax_app/templates/komax_app/komaxes.html:84
+#: komax_app/templates/komax_app/komaxes.html:90
 #, fuzzy
 #| msgid "Komaxes"
 msgid "Komax number"
 msgstr "Номер komax"
 
-#: komax_app/templates/komax_app/komaxes.html:112
+#: komax_app/templates/komax_app/komaxes.html:119
 msgid "Setup"
 msgstr "Настроить"
 
@@ -411,6 +450,9 @@ msgstr "Карта резки провода"
 #: komax_app/templates/komax_app/upload_harness_chart.html:10
 msgid "upload"
 msgstr "загрузить"
+
+#~ msgid "Task and allocation created"
+#~ msgstr "Новое наряд-задание создано"
 
 #, fuzzy
 #~| msgid "tasks created"

@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.views import generic
 from django.urls import reverse_lazy
 from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask, HarnessAmount, TaskPersonal, \
-    Tickets, KomaxTime
+    Tickets, KomaxTime, KomaxWork
 from .forms import KomaxEditForm, KomaxCreateForm
 from .modules.ioputter import FileReader
 from django_pandas.io import read_frame
@@ -157,7 +157,7 @@ class KomaxListView(View):
         komaxes = Komax.objects.order_by('number')
 
         komaxes = [(komax.number, self.status.get(komax.status), self.marking.get(komax.marking),
-                                   self.pairing.get(komax.pairing)) for komax in komaxes]
+                                   self.pairing.get(komax.pairing), komax.identifier) for komax in komaxes]
 
         context = {
             'komaxes': komaxes,
@@ -168,6 +168,7 @@ class KomaxListView(View):
 
         return render(request, self.template_name, context)
 
+    #TODO: add reading feature of russian lang
     def post(self, request, *args, **kwargs):
         """
         correcting or adding komaxes
@@ -181,8 +182,9 @@ class KomaxListView(View):
         status = get_key(self.status, request.POST['status'])
         marking = get_key(self.marking, request.POST['marking'])
         pairing = get_key(self.pairing, request.POST['pairing'])
+        identifier = request.POST['identifier']
 
-        if status is None or marking is None or pairing is None:
+        if status is None or marking is None or pairing is None or identifier is None:
             return redirect('komax_app:komaxes')
 
         komax_query = Komax.objects.filter(number=number)
@@ -192,16 +194,16 @@ class KomaxListView(View):
             komax.status = status
             komax.marking = marking
             komax.pairing = pairing
+            komax.identifier = identifier
             komax.save()
         else:
             Komax(
                 number=number,
                 status=status,
                 marking=marking,
-                pairing=pairing
+                pairing=pairing,
+                identifier=identifier
             ).save()
-
-        close_old_connections()
 
         return redirect('komax_app:komaxes')
 
@@ -269,6 +271,39 @@ class KomaxAppSetupView(View):
 
         return redirect('komax_app:task_setup')
 
+class TaskPersonalJsonView(View):
+
+    def __error(self):
+        return
+
+    def get(self, request, identifier, *args, **kwargs):
+        if not request_from_browser(request):
+            if type(identifier) is not str:
+                return self.__error()
+
+            komax_query = Komax.objects.filter(identifier=identifier)
+            if not len(komax_query):
+                return self.__error()
+
+            komax = komax_query[0]
+            komax_work_query = KomaxWork.objects.filter(komax=komax)
+
+            response_data = dict()
+
+            if len(komax_work_query):
+                komax_work = komax_work_query[0]
+                komax_task = komax_work.komax_task
+                task_personal_query = TaskPersonal.objects.filter(komax_task=komax_task, komax=komax)
+                response_data = read_frame(task_personal_query).to_dict()
+
+            return JsonResponse(response_data)
+        else:
+            return redirect('komax_app:task_setup')
+
+    def post(self, *args, **kwargs):
+        return
+
+
 def get_key(dict, val, returns=None):
     for key, value in dict.items():
          if val == value:
@@ -310,7 +345,7 @@ class KomaxTaskView(View):
         for key, item in final_alloc.items():
             final_alloc[key] = seconds_to_str_hours(final_alloc[key])
 
-        close_old_connections()
+
         context = {
             'name': str(task_name),
             'harnesses': harnesses,
@@ -348,7 +383,7 @@ def get_harness_chart_view(request, harness_number):
 def get_personal_task_view(request, task_name, komax):
     komax_obj = get_object_or_404(Komax, number=komax)
     tasks_obj = get_object_or_404(KomaxTask, task_name=task_name)
-    task_pers_df = read_frame(TaskPersonal.objects.filter(task=tasks_obj, komax=komax_obj))
+    task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=tasks_obj, komax=komax_obj))
 
     task_pers_df.sort_values(
         by=['id'],
@@ -375,7 +410,7 @@ def get_personal_task_view(request, task_name, komax):
     return response
 
 def get_general_task_view(request, task_name):
-    task_pers_df = read_frame(TaskPersonal.objects.filter(task=get_object_or_404(KomaxTask, task_name=task_name)))
+    task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=get_object_or_404(KomaxTask, task_name=task_name)))
 
     task_pers_df.sort_values(
         by=['id'],
@@ -403,7 +438,7 @@ def get_general_task_view(request, task_name):
 def get_komax_ticket_view(self, task_name, komax):
     komax_obj = get_object_or_404(Komax, number=komax)
     tasks_obj = get_object_or_404(KomaxTask, task_name=task_name)
-    task_pers_df = read_frame(TaskPersonal.objects.filter(task=tasks_obj, komax=komax_obj))
+    task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=tasks_obj, komax=komax_obj))
 
     task_pers_df.sort_values(
         by=['id'],
@@ -633,7 +668,7 @@ class KomaxTaskProcessing():
         if task_obj is None:
             return TaskPersonal.objects.all()
         else:
-            return TaskPersonal.objects.filter(task=task_obj)
+            return TaskPersonal.objects.filter(komax_task=task_obj)
 
     def get_laboriousness(self):
         return Laboriousness.objects.all()
@@ -729,6 +764,9 @@ class KomaxTaskProcessing():
         self.sort_alloc_data = final_data
 
         if final_data['allocation'][0] == -1:
+            task_obj.harnesses.all().delete()
+            task_obj.komaxes.all().delete()
+            task_obj.delete()
             return final_data
 
         """
@@ -825,7 +863,7 @@ class KomaxTaskProcessing():
 
     def save_task_personal(self, row_dict, task_obj, harness_obj, komax_obj):
         task_pers_obj = TaskPersonal(
-            task=task_obj,
+            komax_task=task_obj,
             # harness=get_object_or_404(Harness, harness_number=row_dict['harness']),
             # komax=get_object_or_404(Komax, number=row_dict['komax']),
             harness=harness_obj,
@@ -946,11 +984,12 @@ class KomaxTaskProcessing():
 
         alloc = process.task_allocation(komax_dict, quantity=None, time=time_dict, hours=shift)
 
-
-
         if type(alloc) is int:
+            task_obj.harnesses.all().delete()
+            task_obj.komaxes.all().delete()
+            task_obj.delete()
+            TaskPersonal.objects.filter(komax_task=task_obj).delete()
             return alloc
-
 
         komax_task_query = self.get_komax_task(task_name=task_name)
         komax_task = komax_task_query[0]
@@ -1007,7 +1046,7 @@ def create_task_view(request):
     return render(request, 'komax_app/komax_app_setup.html', context)
 
 def get_task_view(request, pk):
-    task_pers_df = read_frame(TaskPersonal.objects.filter(task=get_object_or_404(KomaxTask, task_name=pk)))
+    task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=get_object_or_404(KomaxTask, task_name=pk)))
 
     task_pers_df['done'] = ''
     alloc_df = read_frame(KomaxTaskAllocation.objects.filter(task=get_object_or_404(KomaxTask, task_name=pk)))
@@ -1032,7 +1071,7 @@ def get_task_view(request, pk):
 def get_spec_task_view(request, pk, komax):
     komax_obj = get_object_or_404(Komax, number=komax)
     tasks_obj = get_object_or_404(KomaxTask, task_name=pk)
-    task_pers_df = read_frame(TaskPersonal.objects.filter(task=tasks_obj, komax=komax_obj))
+    task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=tasks_obj, komax=komax_obj))
     task_pers_df['done'] = ''
 
     response = HttpResponse(
@@ -1084,7 +1123,7 @@ def task_view(request, pk):
         if amount_less_zero:
             return redirect('komax_app:task_amount', pk=pk)
         else:
-            task_pers_query = TaskPersonal.objects.filter(task=task_obj_query[0])
+            task_pers_query = TaskPersonal.objects.filter(komax_task=task_obj_query[0])
             if len(task_pers_query) > 0:
                 task_pers_obj = task_pers_query[0]
                 harnesses = task_obj.harnesses.all()
@@ -1157,7 +1196,7 @@ def task_view(request, pk):
                 for row in final_chart.iterrows():
                     row_dict = row[1]
                     task_pers_obj = TaskPersonal(
-                        task=task_obj,
+                        komax_task=task_obj,
                         harness=get_object_or_404(Harness, harness_number=row_dict['harness']),
                         komax=get_object_or_404(Komax, number=row_dict['komax']),
                         amount=row_dict["amount"],
@@ -1235,7 +1274,7 @@ def delete_harness_view(request, harness_number):
 def get_ticket_view(request, pk, komax):
     komax_obj = get_object_or_404(Komax, number=komax)
     tasks_obj = get_object_or_404(KomaxTask, task_name=pk)
-    task_pers_df = read_frame(TaskPersonal.objects.filter(task=tasks_obj, komax=komax_obj))
+    task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=tasks_obj, komax=komax_obj))
 
     response = HttpResponse(
         content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',

@@ -93,6 +93,7 @@ class Komax(models.Model):
     ]
 
     number = models.PositiveSmallIntegerField(unique=True, verbose_name=_('komaxes'))
+    identifier = models.CharField(max_length=256)
     status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, default=1)
     marking = models.PositiveSmallIntegerField(choices=MARKING_CHOICES, default=1)
     pairing = models.PositiveSmallIntegerField(choices=PAIRING_CHOICES, default=0)
@@ -123,6 +124,7 @@ class KomaxTime(models.Model):
 
 class KomaxTask(models.Model):
     task_name = models.CharField(max_length=128, unique=True)
+    created = models.DateField(verbose_name=_('created'), auto_now_add=True)
     harnesses = models.ManyToManyField(HarnessAmount)
     komaxes = models.ManyToManyField(KomaxTime)
     shift = models.PositiveSmallIntegerField()
@@ -131,7 +133,7 @@ class KomaxTask(models.Model):
         return self.task_name
 
 class TaskPersonal(models.Model):
-    task = models.ForeignKey(KomaxTask, on_delete=models.CASCADE)
+    komax_task = models.ForeignKey(KomaxTask, on_delete=models.CASCADE)
     amount = models.PositiveSmallIntegerField()
     harness = models.ForeignKey(Harness, on_delete=models.CASCADE)
     komax = models.ForeignKey(Komax, on_delete=models.CASCADE)
@@ -167,4 +169,18 @@ class Tickets(models.Model):
     def __str__(self):
         return self.name
 
+class KomaxWork(models.Model):
+    komax_task = models.ForeignKey(KomaxTask, on_delete=models.CASCADE)
+    komax = models.ForeignKey(Komax, on_delete=models.CASCADE)
+    status = models.PositiveSmallIntegerField()
 
+    def __str__(self):
+        return self.komax_task
+
+class EmailUser(models.Model):
+    name = models.CharField(max_length=128)
+    surname = models.CharField(max_length=128)
+    email = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.email

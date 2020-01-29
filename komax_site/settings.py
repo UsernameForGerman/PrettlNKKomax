@@ -199,6 +199,32 @@ IS_CI = os.environ.get('IS_CI', False)
 if not IS_CI:
     django_heroku.settings(locals())
 
+# Email send
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'polyakgerman@gmail.com'
+EMAIL_HOST_PASSWORD = 'Polyak11'
+EMAIL_USE_TLS = True
+SITE_URL = 'komaxsite.herokuapp.com'
+
+
+# REDIS related settings
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6379'
+BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+"""
+# celery
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+INVENIO_CELERY_BROKER_URL = 'amqp://guest:guest@mq:5672//'
+"""
+
 # REDIS related settings
 """
 REDIS_HOST = 'localhost'

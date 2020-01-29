@@ -41,3 +41,5 @@ six==1.11.0
 Twisted==18.9.0
 txaio==18.8.1
 zope.interface==4.5.0
+rabbit-mq
+celery==4.3.0

@@ -6,8 +6,14 @@ from django.contrib.auth import get_user_model
 from channels.consumer import AsyncConsumer
 from channels.db import database_sync_to_async
 from .views import KomaxTaskProcessing
-from .models import KomaxTask
+from .models import KomaxTask, EmailUser
 from django.db import close_old_connections
+from django.core.mail import send_mail
+from django.conf import settings
+from django.template.loader import render_to_string
+from .task import send_mail_delay
+from django.utils import translation
+from django.utils.translation import gettext_lazy as _
 
 class KomaxAppTaskConsumer(AsyncConsumer):
     data_task = None
@@ -42,13 +48,38 @@ class KomaxAppTaskConsumer(AsyncConsumer):
     async def async_create_allocation(self, loaded_dict_data):
         self.data_alloc = await database_sync_to_async(self.create_allocation)(loaded_dict_data)
 
+    def send_new_task_email(self, info_dict: dict):
+
+        if type(info_dict['task_name']) is str and 'German' in info_dict['task_name']:
+            return
+
+        context = {
+            'task_name': info_dict['task_name'],
+            'task_url': settings.SITE_URL + '/komax_app/task/' + info_dict['task_name'] + '/'
+        }
+
+        email_html_path = 'komax_app/email_new_task_template.html'
+        text = 'Task and allocation for {} created'.format(info_dict['task_name'])
+        topic = 'Task and allocation created'
+        from_send = settings.EMAIL_HOST_USER
+        email_users = EmailUser.objects.all()
+        to_send = [email_user.email for email_user in email_users]
+        lang = translation.get_language()
+        task = send_mail_delay.delay(email_html_path, context, from_send, to_send, _(topic), text, lang)
+
+        return task
+
     def create_allocation(self, loaded_dict_data):
         processor = KomaxTaskProcessing()
         harness_amount_dict = loaded_dict_data
 
         processor.update_harness_amount(harness_amount_dict['task_name'], harness_amount_dict)
 
-        self.data_alloc = processor.create_allocation(harness_amount_dict['task_name'])
+        data_alloc = processor.create_allocation(harness_amount_dict['task_name'])
+
+        self.send_new_task_email(harness_amount_dict)
+
+        return data_alloc
 
     async def websocket_receive(self, event):
         # print("receive", event)
@@ -123,18 +154,18 @@ class KomaxAppTaskConsumer(AsyncConsumer):
                         "type": "websocket.send",
                         "text": json.dumps(response)
                     })
+                else:
+                    url = '/komax_app/task/' + task_name + '/'
+                    response = {
+                        "info_type": "page_status",
+                        "status": "http_redirect",
+                        "url": url,
+                    }
 
-                url = '/komax_app/task/' + task_name + '/'
-                response = {
-                    "info_type": "page_status",
-                    "status": "http_redirect",
-                    "url": url,
-                }
-
-                await self.send({
-                    "type": "websocket.send",
-                    "text": json.dumps(response)
-                })
+                    await self.send({
+                        "type": "websocket.send",
+                        "text": json.dumps(response)
+                    })
 
 
     async def websocket_disconnect(self, event):

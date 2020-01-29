@@ -62,9 +62,15 @@
                             <div class="col-sm-7">
                                 <select id="pairing" name="pairing" class="form-control">
                                     {% for pairing in komax_pairing %}
-                                    <option>{% trans pairing %}</option>
+                                    <option>{{ pairing }}</option>
                                     {% endfor %}
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="identifier" class="col-sm-5 col-form-label">{% trans 'Identifier' %}</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" placeholder='AAAAA' id="identifier" name="identifier">
                             </div>
                         </div>
                     </div>
@@ -85,7 +91,7 @@
             <th class='text-center' scope="col">{% trans 'Status' %}</th>
             <th class='text-center' scope="col">{% trans 'Marking' %}</th>
             <th class='text-center' scope="col">{% trans 'Pairing' %}</th>
-            <th class='text-center' scope="col"></th>
+            <th class='text-center' scope="col">{% trans 'Identifier' %}</th>
         </tr>
     </thred>
     <tbody>
@@ -97,6 +103,7 @@
                 <td class="text-center">{% trans komax.1 %}</td>
                 <td class="text-center">{% trans komax.2 %}</td>
                 <td class="text-center">{% trans komax.3 %}</td>
+                <td class="text-center">{{ komax.4 }}</td>
 
                 <td class="text-center">
                     <button type="button" class="btn btn-primary change-button" data-toggle="modal" data-target="#komax-change-modal" data-whatever="{{ komax.0 }}">
@@ -118,7 +125,7 @@
                                         <div class="form-group row">
                                             <label for="number" class="col-sm-5 col-form-label">{% trans 'Komax' %} {% trans 'number' %}</label>
                                             <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext" value="{{ komax.0 }}" name="number">
+                                                <input type="text" class="form-control" value="{{ komax.0 }}" name="number">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -146,11 +153,17 @@
                                             <div class="col-sm-7">
                                                 <select name="pairing" class="form-control">
                                                     {% for pairing in komax_pairing %}
-                                                    <option>{% trans pairing %}</option>
+                                                    <option>{{ pairing }}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
                                         </div>
+                                    <div class="form-group row">
+                                        <label for="identifier" class="col-sm-5 col-form-label">{% trans 'Identifier' %}</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" value="{{ komax.4 }}" name="identifier">
+                                        </div>
+                                    </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
