@@ -210,11 +210,24 @@ SITE_URL = 'komaxsite.herokuapp.com'
 
 
 # REDIS related settings
+
+REDIS_HOST = 'ec2-3-215-69-57.compute-1.amazonaws.com'
+REDIS_PORT = '24709'
+REDIS_PASSWORD = "p12ca82f105d543e0d9248e8f33b1b459c1c4b3c14db4c362a28c9dadda1680e1"
+REDIS_USER = 'h'
+BROKER_URL = 'redis://' + REDIS_USER + REDIS_PASSWORD + REDIS_HOST + ':' + REDIS_PORT + '/0'
+BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_USER + REDIS_PASSWORD + REDIS_HOST + ':' + REDIS_PORT + '/0'
+
+"""
+# Localhost related seetings to redis
 REDIS_HOST = 'localhost'
 REDIS_PORT = '6379'
 BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
 CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+"""
+
 """
 # celery
 CELERY_BROKER_URL = 'redis://localhost:6379'
