@@ -7,9 +7,11 @@ redis==3.3.11
 bootstrap4==0.1.0
 celery==4.3.0
 django_channels==0.7.0
+django-celery
 django-pandas==0.6.1
 django-jquery==3.1.0
 django-redis==4.10.0
+django-redis-cache
 django-select-multiple-field==0.4.2
 django-select2==7.1.1
 django-chartjs==1.5.0
@@ -43,3 +45,4 @@ txaio==18.8.1
 zope.interface==4.5.0
 rabbit-mq
 celery==4.3.0
+urllib

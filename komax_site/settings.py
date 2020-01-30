@@ -14,7 +14,9 @@ import os
 import dj_database_url
 # import dotenv
 import django_heroku
+import redis
 from django.utils.translation import gettext_lazy as _
+import urllib.parse
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -208,9 +210,31 @@ EMAIL_HOST_PASSWORD = 'Polyak11'
 EMAIL_USE_TLS = True
 SITE_URL = 'komaxsite.herokuapp.com'
 
+r = redis.from_url(os.environ.get("REDIS_URL"))
+BROKER_URL = redis.from_url(os.environ.get("REDIS_URL"))
+#CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+#CELERY_RESULT_BACKEND = 'os.environ['REDIS_URL']'
+CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Canada/Eastern'
+
+redis_url = urllib.parse.urlparse(os.environ.get('REDIS_URL'))
+CACHES = {
+    "default": {
+    "BACKEND": "redis_cache.RedisCache",
+    "LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
+        "OPTIONS": {
+            "PASSWORD": redis_url.password,
+            "DB": 0,
+        }
+    }
+}
+
 
 # REDIS related settings
-
+"""
 REDIS_HOST = 'ec2-3-215-69-57.compute-1.amazonaws.com'
 REDIS_PORT = '24709'
 REDIS_PASSWORD = "p12ca82f105d543e0d9248e8f33b1b459c1c4b3c14db4c362a28c9dadda1680e1"
@@ -218,7 +242,7 @@ REDIS_USER = 'h'
 BROKER_URL = 'redis://' + REDIS_USER + REDIS_PASSWORD + REDIS_HOST + ':' + REDIS_PORT + '/0'
 BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
 CELERY_RESULT_BACKEND = 'redis://' + REDIS_USER + REDIS_PASSWORD + REDIS_HOST + ':' + REDIS_PORT + '/0'
-
+"""
 """
 # Localhost related seetings to redis
 REDIS_HOST = 'localhost'
