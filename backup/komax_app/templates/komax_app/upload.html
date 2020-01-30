@@ -1,0 +1,19 @@
+{% extends 'komax_app/komax_app_main.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}
+<title>{% trans 'Upload' %}</title>
+{% endblock %}
+
+{% block main_content %}
+    <h2>{% trans 'Upload' %}</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="chart_wires">
+        <button type="submit">{% trans 'Upload' %} {% trans 'file' %}</button>
+        {% if url %}
+            <p>{% trans 'Uploaded' %} {% trans 'file' %}: <a href="{{ url }}">{{ url }}</a></p>
+        {% endif %}
+    </form>
+{% endblock %}

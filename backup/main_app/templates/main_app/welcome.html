@@ -1,0 +1,40 @@
+{% extends 'main_app/main_app_main.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load static %}
+
+{% block tittle %}
+<title>PRETTL-NK</title>
+{% endblock %}
+{% block main_content %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'main_app/welcome.css' %}" >
+    <div class="carousel slide" data-ride="carousel" id="slides">
+    <ul class="carousel-indicators">
+        <li data-target="#slides" data-slide-to="0" class="active"></li>
+    </ul>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{% static 'main_app/image/background.jpg' %}">
+            <div class="carousel-caption">
+                <h1 class="display-2">{% trans 'Automation platform'%}</h1>
+                <h3>{% trans "Automated tasks create" %}</h3>
+                <a class="btn btn-primary btn-lg" type="button" href="{% url 'description:description' %}">
+                    {% trans 'About' %}
+                </a>
+                <a type="button" class="btn btn-warning btn-lg" href="{% url 'komax_app:task_setup' %}">
+                    {% trans 'Automate' %}
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+
+                <h1 class="display-2">Платформа автоматизации</h1>
+                <h3>Автоматизированная выдача наряд-заданий</h3>
+                <a class="btn btn-primary btn-lg" type="button" href="{% url 'description:description' %}">О платформе</a>
+                <a type="button" class="btn btn-secondary btn-lg" href="{% url 'komax_app:task_setup' %}">
+                    Автоматизировать
+                </a>
