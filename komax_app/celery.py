@@ -3,8 +3,8 @@ from celery import Celery
 from django.conf import settings
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'komax_site.settings')
-app = Celery('komax_app')
-app.config_from_object('django.conf:settings')
+app = Celery('komax_site')
+app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.conf.update()
 

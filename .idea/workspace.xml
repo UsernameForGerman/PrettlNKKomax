@@ -7,6 +7,7 @@
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/backup/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/LICENSE" beforeDir="false" />
@@ -1001,6 +1002,9 @@
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/static/main_app/welcome.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/base.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/celery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_site/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_site/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_site/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_site/celery.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_site/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_site/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/.gitignore" beforeDir="false" />
@@ -2061,9 +2065,9 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/komax_app/templates/komax_app" />
       <recent name="$PROJECT_DIR$/komax_app/static/komax_app" />
-      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/komaxsite/komax_app/static/komax_app" />
       <recent name="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app" />
     </key>
@@ -2206,7 +2210,7 @@
       <workItem from="1577265167448" duration="14045000" />
       <workItem from="1577387947384" duration="16435000" />
       <workItem from="1578675508645" duration="1137000" />
-      <workItem from="1578738522781" duration="45269000" />
+      <workItem from="1578738522781" duration="51109000" />
     </task>
     <servers />
   </component>

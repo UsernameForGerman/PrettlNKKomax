@@ -220,18 +220,35 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Canada/Eastern'
 
+CELERY_BROKER_URL = os.environ['REDIS_URL']
+CELERY_RESULT_BACKEND = os.environ['REDIS_URL']
+
 redis_url = urllib.parse.urlparse(os.environ.get('REDIS_URL'))
+
 CACHES = {
     "default": {
-    "BACKEND": "redis_cache.RedisCache",
-    "LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": os.environ['REDIS_URL'],  # Here we have Redis DSN (for ex. redis://localhost:6379/1)
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "MAX_ENTRIES": 1000  # Increase max cache entries to 1k (from 300)
+        },
+    }
+}
+
+
+"""
+CACHES = {
+    "default": {
+        "BACKEND": "redis_cache.RedisCache",
+        "LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
         "OPTIONS": {
             "PASSWORD": redis_url.password,
             "DB": 0,
         }
     }
 }
-
+"""
 
 # REDIS related settings
 """

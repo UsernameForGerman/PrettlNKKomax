@@ -1,10 +1,22 @@
 {
-  "name": "Django Channels Heroku",
-  "description": "Running a simple chat on Heroku",
-  "repository": "https://github.com/pocosoft/django_channels_heroku",
-  "keywords": ["django", "channels", "websockets", "heroku"],
-  "scripts": {
-    "postdeploy": "python manage.py migrate"
-  },
-  "addons": ["heroku-postgresql", "heroku-redis"]
-}
+    "name": "Django Chatbot",
+    "repository": "https://github.com/UsernameForGerman/PrettlNKKomax",
+    "env": {
+      "DJANGO_SECRET_KEY": {
+        "description": "A secret key for a particular Django installation."
+      }
+    },
+    "buildpacks": [
+      {
+        "url": "heroku/python"
+      }
+    ],
+    "addons": [
+        {
+            "plan": "heroku-postgresql"
+        },
+        {
+            "plan": "heroku-redis"
+        }
+    ]
+  }
