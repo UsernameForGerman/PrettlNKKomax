@@ -218,6 +218,13 @@ class ProcessDataframe:
     chart = None
     chart_copy = None
     new_chart = None
+    HARNESS_NUMBER_COL = "harness"
+    AMOUNT_COL = "amount"
+    KOMAX_COL = 'komax'
+    MARKING_COL = "marking"
+    TERMINAL_1_COL = 'wire_terminal_1'
+    TERMINAL_2_COL = 'wire_terminal_2'
+    TIME_COL = 'time'
 
 
     __cols_name = {
@@ -629,6 +636,293 @@ class ProcessDataframe:
 
         return time_position
 
+    def __is_marking_black(self, marking):
+        marking = marking.lower()
+        return 'черный' in marking or 'чёрный' in marking
+
+    def __is_marking_white(self, marking):
+        return 'белый' in marking.lower()
+
+    def __get_last_value_of_column(self, current_index, column_name):
+        """
+        Finds last(nearest) value from column(especially from terminal columns)
+
+        :param current_index: idxd of current row
+        :param column_name: name of terminal column
+        :return: value of last(nearest) cell
+        """
+
+        back_col_value = self.chart.loc[current_index - 1, column_name]
+        col_value = self.chart.loc[current_index, column_name]
+
+        last_value = None, None
+
+        if back_col_value is None or back_col_value == ' ' or back_col_value == '':
+            if col_value is not None and col_value != ' ' and col_value != '':
+                index = current_index - 1
+                while index > 0:
+                    if back_col_value is not None and back_col_value != ' ' and back_col_value != '':
+                        break
+                    else:
+                        index -= 1
+                    back_col_value = self.chart.loc[index, column_name]
+                last_value = self.chart.loc[index, column_name]
+
+        return last_value
+
+    def __time_quantity_allocation(self, quantity, time):
+        """
+        count time on each row
+        change self.chart
+
+        :param quantity: dict, harness_number(str): quantity(int)
+        :param time: labourisness dict, action(str): sec(int)
+        :param hours: shift time, int
+        :return:
+        """
+
+        self.chart[self.AMOUNT_COL] = 0
+
+        first_black_passed = False
+        first_white_passed = False
+
+        for idx, row in self.chart.iterrows():
+            # harness number inserting
+            harness_number = self.chart.loc[idx, self.HARNESS_NUMBER_COL]
+            amount = quantity[harness_number]
+            self.chart.loc[idx, self.AMOUNT_COL] = amount
+
+            # time inserting
+            marking = self.chart.loc[idx, self.MARKING_COL]
+            if self.__is_marking_black(marking) and not first_black_passed:
+                first_black_passed = True
+                time_changeover_row = self.__time_changeover(idx, time, amount, full=True)
+            elif self.__is_marking_white(marking) and not first_white_passed:
+                first_white_passed = True
+                time_changeover_row = self.__time_changeover(idx, time, amount, full=True)
+            else:
+                last_first = self.__get_last_value_of_column(idx, self.TERMINAL_1_COL)
+                last_second = self.__get_last_value_of_column(idx, self.TERMINAL_2_COL)
+
+                time_changeover_row = self.__time_changeover(idx, time, amount, last_first, last_second)
+
+            self.chart.loc[idx, self.TIME_COL] = time_changeover_row
+
+    def pass_by_allocation(self, komaxes, quantity, time, hours):
+        """
+        allocation pass by, NOT parallel
+
+        if not enough komaxes without pairing ability, gets komaxes with pairing ability
+        if not enough komaxes with pairing ability, gets komaxes without pairing ability
+
+        :param komaxes: dict, komax(int): [status(int:1, 0), marking(int: 1(white), 2(black)), pairing(int: 1, 0)]
+        :param quantity: dict, harness_number(str): amount(int)
+        :param time: labourisness dict, acting(str): sec(int/float)
+        :param hours: shift in hours, int
+        :return: allocation dict, komax_number(int): seconds(float)
+        """
+
+        self.__correct_marking()
+        self.__time_quantity_allocation(quantity, time)
+
+        # create dict of allocation
+        alloc = {i: [0] for i in komaxes}
+        shift = hours*60*60       # in seconds
+
+        # get komax config info
+        black_pairing_komax, black_komax, white_pairing_komax, white_komax = self.__get_black_white_komax_key(komaxes)
+        amount_black_pairing_komax, amount_white_pairing_komax, \
+        amount_black_komax, amount_white_komax = self.__get_amount_black_white_komax(komaxes)
+
+        black_pairing_komax_more = amount_black_pairing_komax >= amount_white_pairing_komax
+        black_komax_more = amount_black_komax >= amount_white_komax
+
+        # create komax column
+        self.chart[self.KOMAX_COL] = 0
+
+        # without pairing komaxes
+        for idx, row in self.chart.iterrows():
+            marking = self.chart.loc[idx, self.MARKING_COL]
+            time_changeover_position = self.chart.loc[idx, self.TIME_COL]
+            if self.__is_marking_black(marking):
+                alloc[black_komax][0] += time_changeover_position
+                self.chart.loc[idx, self.KOMAX_COL] = black_komax
+            elif self.__is_marking_white(marking):
+                alloc[white_komax][0] += time_changeover_position
+                self.chart.loc[idx, self.KOMAX_COL] = white_komax
+            else:
+                pass
+
+            if alloc[black_komax][0] >= shift:
+                black_komax = self.__get_next_komax(alloc, shift, komaxes, black_komax, 1, 1, 0)
+            elif alloc[white_komax][0] >= shift:
+                white_komax = self.__get_next_komax(alloc, shift, komaxes, white_komax, 1, 2, 0)
+
+            if black_komax is None or white_komax is None:
+                return -1
+
+        return alloc
+
+    def __get_black_white_komax_key(self, komaxes):
+        black_pairing_komax = 0
+        white_pairing_komax = 0
+        black_komax = 0
+        white_komax = 0
+
+        for key, item in komaxes.items():
+            if komaxes[key][0] == 1:
+                if komaxes[key][1] == 2:
+                    if komaxes[key][2] == 1 and white_pairing_komax == 0:
+                        white_pairing_komax = key
+                    elif komaxes[key][2] == 0 and white_komax == 0:
+                        white_komax = key
+                elif komaxes[key][1] == 1:
+                    if komaxes[key][2] == 1 and black_pairing_komax == 0:
+                        black_pairing_komax = key
+                    elif komaxes[key][2] == 0 and black_komax == 0:
+                        black_komax = key
+
+        if black_komax == 0:
+            black_komax = black_pairing_komax
+        if white_komax == 0:
+            white_komax = white_pairing_komax
+
+        return (black_pairing_komax, black_komax, white_pairing_komax, white_komax)
+
+    def __get_amount_black_white_komax(self, komaxes):
+        amount_black_pairing_komax = 0
+        amount_white_pairing_komax = 0
+
+        amount_black_komax = 0
+        amount_white_komax = 0
+
+        for key, item in komaxes.items():
+            if item[0] == 1 and item[1] == 1 and item[2] == 1:
+                amount_white_pairing_komax += 1
+            elif item[0] == 1 and item[1] == 2 and item[2] == 1:
+                amount_black_pairing_komax += 1
+            elif item[0] == 1 and item[1] == 1 and item[2] == 0:
+                amount_white_komax += 1
+            elif item[0] == 1 and item[1] == 2 and item[2] == 0:
+                amount_black_komax += 1
+
+        return (amount_black_pairing_komax, amount_black_komax, amount_white_pairing_komax, amount_white_komax)
+
+    def __get_next_komax(self, alloc, shift, komaxes, current_komax, status=1, marking=1, pairing=0):
+        """
+        Get komax with suitable params with index more than current
+
+        :param current_komax: index of current komax
+        :param komaxes: komaxes dict
+        :return: index of next working komax of type current_komax or None
+        """
+
+        for komax_idx, params in komaxes.items():
+            if komax_idx > current_komax and params == [status, marking, pairing]:
+                return komax_idx
+
+        for komax_idx, params in komaxes.items():
+            if alloc[komax_idx][0] <= shift and params == [status, marking, int(not bool(pairing))]:
+                return komax_idx
+
+        return None
+
+    def __get_all_komaxes_keys(self, komaxes, status, marking, pairing):
+        output_komaxes = list()
+
+        for komax_idx, params in komaxes.items():
+            if type(pairing) is list:
+                if params == (status, marking, pairing[0]) or params == (status, marking, pairing[1]):
+                    output_komaxes.append(komax_idx)
+            elif type(pairing) is int:
+                if params == [status, marking, pairing]:
+                    output_komaxes.append(komax_idx)
+
+        return output_komaxes
+
+    def __get_sum_black_white_marking_time(self):
+        sum_black_marking, sum_white_marking = 0, 0
+
+        for idx, row in self.chart.iterrows():
+            marking = self.chart.loc[idx, self.MARKING_COL]
+            time = self.chart.loc[idx, self.TIME_COL]
+
+            if self.__is_marking_black(marking):
+                sum_black_marking += time
+            elif self.__is_marking_white(marking):
+                sum_white_marking += time
+            else:
+                pass
+
+        return (sum_black_marking, sum_white_marking)
+
+    def average(self, items: int, divider: int):
+        if divider == 0 and items == 0:
+            return 0
+        elif divider == 0 and items != 0:
+            return None
+        else:
+            return items / divider
+
+    def parallel_allocation(self, komaxes, quantity, time, hours):
+        """
+        parallel allocation
+
+        Uses all komaxes without priority
+
+        :param komaxes: dict, komax(int): [status(int:1, 0), marking(int: 1(white), 2(black)), pairing(int: 1, 0)]
+        :param quantity: dict, harness_number(str): amount(int)
+        :param time: labourisness dict, acting(str): sec(int/float)
+        :param hours: shift in hours, int
+        :return: allocation dict, komax_number(int): seconds(float)
+        """
+
+        self.__correct_marking()
+        self.__time_quantity_allocation(quantity, time)
+
+        # create dict of allocation
+        alloc = {i: [0] for i in komaxes}
+
+        black_komaxes = self.__get_all_komaxes_keys(komaxes, 1, 1, [0, 1])
+        amount_black_komaxes = len(black_komaxes)
+        white_komaxes = self.__get_all_komaxes_keys(komaxes, 1, 2, [0, 1])
+        amount_white_komaxes = len(white_komaxes)
+        black_komax_curr_idx = 0
+        white_komax_curr_idx = 0
+
+        sum_black_marking_time, sum_white_marking_time = self.__get_sum_black_white_marking_time()
+
+        average_black_time = self.average(sum_black_marking_time, len(black_komaxes)) * 1.1
+        average_white_time = self.average(sum_white_marking_time, len(white_komaxes))
+
+        # create komax column
+        self.chart[self.KOMAX_COL] = 0
+
+        # without pairing komaxes
+        for idx, row in self.chart.iterrows():
+            marking = self.chart.loc[idx, self.MARKING_COL]
+            time_changeover_position = self.chart.loc[idx, self.TIME_COL]
+            if self.__is_marking_black(marking) and amount_black_komaxes > 0:
+                alloc[black_komaxes[black_komax_curr_idx]][0] += time_changeover_position
+                self.chart.loc[idx, self.KOMAX_COL] = black_komaxes[black_komax_curr_idx]
+            elif self.__is_marking_white(marking) and amount_white_komaxes > 0:
+                alloc[white_komaxes[white_komax_curr_idx]][0] += time_changeover_position
+                self.chart.loc[idx, self.KOMAX_COL] = white_komaxes[white_komax_curr_idx]
+            else:
+                return -1
+
+            if alloc[black_komaxes[black_komax_curr_idx]][0] > average_black_time and \
+                    black_komax_curr_idx < amount_black_komaxes:
+                black_komax_curr_idx += 1
+            elif alloc[white_komaxes[white_komax_curr_idx]][0] > average_white_time and \
+                    white_komax_curr_idx < amount_white_komaxes :
+                white_komax_curr_idx += 1
+
+            if white_komax_curr_idx == amount_white_komaxes or black_komax_curr_idx == amount_black_komaxes:
+                return -1
+
+        return alloc
+
     def smart_sort(self, time, amount):
         HARNESS_NUMBER_COL = "harness"
         base_rows = self.chart_copy.shape[0]
@@ -816,7 +1110,6 @@ class ProcessDataframe:
         MARKING_COL = "marking"
         TERMINAL_1_COL = 'wire_terminal_1'
         TERMINAL_2_COL = 'wire_terminal_2'
-
 
         """
         try:

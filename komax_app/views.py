@@ -891,17 +891,23 @@ class KomaxTaskProcessing():
         process = ProcessDataframe(df)
 
         amount_dict = {harness.harness.harness_number: 1 for harness in harnesses}
-        alloc_base = process.task_allocation_base(komax_dict, amount_dict, time_dict, hours=shift)
+
+        # alloc_base = process.task_allocation_base(komax_dict, amount_dict, time_dict, hours=shift)
+        alloc_base = process.parallel_allocation(komax_dict, amount_dict, time_dict, shift)
 
         process.delete_word_contain('СВ', 'R')
         first_sort = process.chart.nunique()["wire_terminal_1"] <= process.chart.nunique()["wire_terminal_2"]
         process.sort(method='simple', first_sort=first_sort)
-        alloc = process.task_allocation(komax_dict, amount_dict, time_dict, hours=shift)
+
+        # alloc = process.task_allocation(komax_dict, amount_dict, time_dict, hours=shift)
+        alloc = process.parallel_allocation(komax_dict, amount_dict, time_dict, shift)
 
         first_sort = not first_sort
         new_process = ProcessDataframe(df)
         new_process.sort(method='simple', first_sort=first_sort)
-        new_alloc = new_process.task_allocation(komax_dict, amount_dict, time_dict, hours=shift)
+
+        # new_alloc = new_process.task_allocation(komax_dict, amount_dict, time_dict, hours=shift)
+        new_alloc = new_process.parallel_allocation(komax_dict, amount_dict, time_dict, shift)
 
         if new_alloc == -1 and alloc == -1:
             final_data = {
@@ -982,7 +988,9 @@ class KomaxTaskProcessing():
         time_dict = get_time_from(read_frame(laboriousness))
         # amount_dict = get_amount_from(read_frame(task_obj.harnesses.all()))
 
-        alloc = process.task_allocation(komax_dict, quantity=None, time=time_dict, hours=shift)
+        # alloc = process.task_allocation(komax_dict, quantity=None, time=time_dict, hours=shift)
+
+        alloc = process.parallel_allocation(komax_dict, amount_dict, time_dict, shift)
 
         if type(alloc) is int:
             task_obj.harnesses.all().delete()
