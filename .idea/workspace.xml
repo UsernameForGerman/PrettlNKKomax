@@ -1004,6 +1004,7 @@
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/main.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/celery.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/modules/HarnessChartProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/modules/HarnessChartProcessing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_setup.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_setup.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_site/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_site/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_site/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_site/celery.py" afterDir="false" />
@@ -2212,7 +2213,7 @@
       <workItem from="1577265167448" duration="14045000" />
       <workItem from="1577387947384" duration="16435000" />
       <workItem from="1578675508645" duration="1137000" />
-      <workItem from="1578738522781" duration="64828000" />
+      <workItem from="1578738522781" duration="65280000" />
     </task>
     <servers />
   </component>

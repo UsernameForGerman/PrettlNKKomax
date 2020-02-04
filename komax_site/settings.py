@@ -210,7 +210,6 @@ EMAIL_HOST_PASSWORD = 'Polyak11'
 EMAIL_USE_TLS = True
 SITE_URL = 'komaxsite.herokuapp.com'
 
-"""
 r = redis.from_url(os.environ.get("REDIS_URL"))
 BROKER_URL = redis.from_url(os.environ.get("REDIS_URL"))
 #CELERY_RESULT_BACKEND = 'redis://localhost:6379'
@@ -225,7 +224,7 @@ CELERY_BROKER_URL = os.environ['REDIS_URL']
 CELERY_RESULT_BACKEND = os.environ['REDIS_URL']
 
 redis_url = urllib.parse.urlparse(os.environ.get('REDIS_URL'))
-"""
+
 
 """
 CACHES = {
@@ -250,14 +249,15 @@ BROKER_URL = 'redis://' + REDIS_USER + REDIS_PASSWORD + REDIS_HOST + ':' + REDIS
 BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
 CELERY_RESULT_BACKEND = 'redis://' + REDIS_USER + REDIS_PASSWORD + REDIS_HOST + ':' + REDIS_PORT + '/0'
 """
+"""
 # Localhost related seetings to redis
 REDIS_HOST = 'localhost'
 REDIS_PORT = '6379'
 REDIS_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
 CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
-
 """
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
@@ -268,7 +268,7 @@ CACHES = {
         },
     }
 }
-"""
+
 """
 # celery
 CELERY_BROKER_URL = 'redis://localhost:6379'
