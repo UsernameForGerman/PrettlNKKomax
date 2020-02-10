@@ -124,7 +124,7 @@ class KomaxTime(models.Model):
 
 class KomaxTask(models.Model):
     task_name = models.CharField(max_length=128, unique=True)
-    created = models.DateField(verbose_name=_('created'), auto_now_add=True)
+    created = models.DateTimeField(verbose_name=_('created'), auto_now_add=True)
     harnesses = models.ManyToManyField(HarnessAmount)
     komaxes = models.ManyToManyField(KomaxTime)
     shift = models.PositiveSmallIntegerField()

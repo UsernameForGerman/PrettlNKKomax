@@ -307,7 +307,7 @@ class KomaxTaskListView(View):
     template_name = 'komax_app/komax_tasks.html'
 
     def get(self, request):
-        komax_tasks = KomaxTask.objects.order_by('-task_name')
+        komax_tasks = KomaxTask.objects.order_by('-created')
 
         context = {
             'tasks': komax_tasks,
@@ -752,7 +752,7 @@ class KomaxTaskProcessing():
         """
         sort komax task
         :param task_name:
-        :param type_of_allocation: str, parallel or step_by
+        :param type_of_allocation: str, parallel or consistently
         :return:
         """
         task_query = self.get_komax_task(task_name)
@@ -972,7 +972,7 @@ class KomaxTaskProcessing():
         """
         allocate
         :param task_name:
-        :param type_of_allocation: str, parallel or step_by
+        :param type_of_allocation: str, parallel or consistently
         :return:
         """
 
@@ -1018,6 +1018,7 @@ class KomaxTaskProcessing():
         # amount_dict = get_amount_from(read_frame(task_obj.harnesses.all()))
 
         # alloc = process.task_allocation(komax_dict, quantity=None, time=time_dict, hours=shift)
+
 
         alloc = process.allocate(komax_dict, amount_dict, time_dict, shift, type_of_allocation)
 

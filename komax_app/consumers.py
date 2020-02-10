@@ -32,7 +32,7 @@ class KomaxAppTaskConsumer(AsyncConsumer):
         :param harnesses:
         :param komaxes:
         :param shift:
-        :param type_of_allocation: str, parallel or step_by
+        :param type_of_allocation: str, parallel or consistently
         :return:
         """
         self.data_task = await database_sync_to_async(self.create_sort_task)(
@@ -50,7 +50,7 @@ class KomaxAppTaskConsumer(AsyncConsumer):
         :param harnesses:
         :param komaxes:
         :param shift:
-        :param type_of_allocation: str, parallel or step_by
+        :param type_of_allocation: str, parallel or consistently
         :return:
         """
         processor = KomaxTaskProcessing()
