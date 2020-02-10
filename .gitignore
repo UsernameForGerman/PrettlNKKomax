@@ -9,6 +9,5 @@ venv/
 komaxsite/.idea
 .ipynb_checkpoints
 __pycache__
-komax_app/migrations
 main_app/migrations
 description/migrations
