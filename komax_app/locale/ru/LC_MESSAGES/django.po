@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-27 10:14+0300\n"
+"POT-Creation-Date: 2020-02-10 16:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,14 +109,18 @@ msgid "Tube len 2"
 msgstr "Длина трубки 2"
 
 #: komax_app/templates/komax_app/email_new_task_template.html:8
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "        Номер задания %(task_name)s\n"
+#| "    "
 msgid ""
 "\n"
-"        Номер задания %(task_name)s\n"
+"        New task %(task_name)s\n"
 "    "
 msgstr ""
 "\n"
-"        New task %(task_name)s\n"
+"        Новое наряд-задание %(task_name)s\n"
 "    "
 
 #: komax_app/templates/komax_app/email_new_task_template.html:15
@@ -147,6 +151,7 @@ msgstr ""
 #: komax_app/templates/komax_app/komax_app_setup.html:53
 #: komax_app/templates/komax_app/komax_app_task.html:60
 #: komax_app/templates/komax_app/komax_app_view.html:32
+#: komax_app/templates/komax_app/komax_tasks.html:22
 msgid "Harnesses"
 msgstr "Жгуты"
 
@@ -174,6 +179,7 @@ msgid "Date"
 msgstr "Дата"
 
 #: komax_app/templates/komax_app/harnesses.html:67
+#: komax_app/templates/komax_app/komax_tasks.html:54
 #, fuzzy
 #| msgid "detailed"
 msgid "Detailed"
@@ -184,6 +190,7 @@ msgid "Download"
 msgstr "Скачать"
 
 #: komax_app/templates/komax_app/harnesses.html:81
+#: komax_app/templates/komax_app/komax_tasks.html:61
 msgid "Delete"
 msgstr "Удалить"
 
@@ -227,6 +234,7 @@ msgstr "текущий"
 #: komax_app/templates/komax_app/komax_app_setup.html:35
 #: komax_app/templates/komax_app/komax_app_setup.html:66
 #: komax_app/templates/komax_app/komax_app_view.html:35
+#: komax_app/templates/komax_app/komax_tasks.html:23
 #: komax_app/templates/komax_app/komaxes.html:6
 #: komax_app/templates/komax_app/komaxes.html:16
 msgid "Komaxes"
@@ -240,7 +248,16 @@ msgstr "Комаксы"
 msgid "Laboriousness"
 msgstr "Трудоёмкость"
 
-#: komax_app/templates/komax_app/komax_app_main.html:24
+#: komax_app/templates/komax_app/komax_app_main.html:21
+#: komax_app/templates/komax_app/komax_app_view.html:41
+#: komax_app/templates/komax_app/komax_tasks.html:8
+#: komax_app/templates/komax_app/komax_tasks.html:13
+#, fuzzy
+#| msgid "Komaxes"
+msgid "Komax tasks"
+msgstr "Наряд-задания"
+
+#: komax_app/templates/komax_app/komax_app_main.html:25
 msgid "About"
 msgstr "О проекте"
 
@@ -264,7 +281,7 @@ msgid "Shift"
 msgstr "Смена"
 
 #: komax_app/templates/komax_app/komax_app_setup.html:79
-#: komax_app/templates/komax_app/komax_app_view.html:70
+#: komax_app/templates/komax_app/komax_app_view.html:73
 msgid "hours"
 msgstr "часов"
 
@@ -328,17 +345,23 @@ msgstr ""
 msgid "Start"
 msgstr "Начать"
 
-#: komax_app/templates/komax_app/komax_app_view.html:50
+#: komax_app/templates/komax_app/komax_app_view.html:53
 msgid "tasks created"
 msgstr "наряд-заданий создано"
 
-#: komax_app/templates/komax_app/komax_app_view.html:59
+#: komax_app/templates/komax_app/komax_app_view.html:62
 msgid "harnesses uploaded"
 msgstr "загруженные жгуты"
 
-#: komax_app/templates/komax_app/komax_app_view.html:70
+#: komax_app/templates/komax_app/komax_app_view.html:73
 msgid "loaded komaxes"
 msgstr "загружены komaxы"
+
+#: komax_app/templates/komax_app/komax_tasks.html:21
+#, fuzzy
+#| msgid "Komaxes"
+msgid "Komax task"
+msgstr "Наряд-задание"
 
 #: komax_app/templates/komax_app/komaxes.html:18
 msgid "New"
@@ -450,6 +473,11 @@ msgstr "Карта резки провода"
 #: komax_app/templates/komax_app/upload_harness_chart.html:10
 msgid "upload"
 msgstr "загрузить"
+
+#, fuzzy
+#~| msgid "Komaxes"
+#~ msgid "Komax_tasks"
+#~ msgstr "Комаксы"
 
 #~ msgid "Task and allocation created"
 #~ msgstr "Новое наряд-задание создано"

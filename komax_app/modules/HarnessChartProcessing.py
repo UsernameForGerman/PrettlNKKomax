@@ -708,7 +708,7 @@ class ProcessDataframe:
 
             self.chart.loc[idx, self.TIME_COL] = time_changeover_row
 
-    def pass_by_allocation(self, komaxes, quantity, time, hours):
+    def __pass_by_allocation(self, komaxes, quantity, time, hours):
         """
         allocation pass by, NOT parallel
 
@@ -864,7 +864,7 @@ class ProcessDataframe:
         else:
             return items / divider
 
-    def parallel_allocation(self, komaxes, quantity, time, hours):
+    def __parallel_allocation(self, komaxes, quantity, time, hours):
         """
         parallel allocation
 
@@ -922,6 +922,14 @@ class ProcessDataframe:
                 return -1
 
         return alloc
+
+    def allocate(self, komaxes, quantity, time, hours=None, type='parallel'):
+        if type == 'parallel':
+            return self.__parallel_allocation(komaxes, quantity, time, hours)
+        elif type == 'pass_by':
+            return self.__pass_by_allocation(komaxes, quantity, time, hours)
+        else:
+            return -1
 
     def smart_sort(self, time, amount):
         HARNESS_NUMBER_COL = "harness"

@@ -128,6 +128,7 @@ class KomaxTask(models.Model):
     harnesses = models.ManyToManyField(HarnessAmount)
     komaxes = models.ManyToManyField(KomaxTime)
     shift = models.PositiveSmallIntegerField()
+    type_of_allocation = models.CharField(max_length=128)
 
     def __str__(self):
         return self.task_name

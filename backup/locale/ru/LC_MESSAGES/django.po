@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-27 10:14+0300\n"
+"POT-Creation-Date: 2020-02-10 16:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,51 +20,51 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: templates/base.html:35
+#: backup/templates/base.html:35
 msgid "Welcome,"
 msgstr ""
 
-#: templates/base.html:40
+#: backup/templates/base.html:40
 msgid "View site"
 msgstr ""
 
-#: templates/base.html:45
+#: backup/templates/base.html:45
 msgid "Documentation"
 msgstr ""
 
-#: templates/base.html:49
+#: backup/templates/base.html:49
 msgid "Change password"
 msgstr ""
 
-#: templates/base.html:51
+#: backup/templates/base.html:51
 msgid "Log out"
 msgstr ""
 
-#: templates/base.html:61
+#: backup/templates/base.html:61
 msgid "Home"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/bootstrap4/templates/bootstrap4/form_errors.html:3
-#: venv/lib/python3.6/site-packages/bootstrap4/templates/bootstrap4/messages.html:4
+#: backup/venv/lib/python3.6/site-packages/bootstrap4/templates/bootstrap4/form_errors.html:3
+#: backup/venv/lib/python3.6/site-packages/bootstrap4/templates/bootstrap4/messages.html:4
 msgid "close"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:6
+#: backup/venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:6
 msgid "Django: the Web framework for perfectionists with deadlines."
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:345
+#: backup/venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:345
 #, python-format
 msgid ""
 "View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
 "target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:367
+#: backup/venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:367
 msgid "The install worked successfully! Congratulations!"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:368
+#: backup/venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:368
 #, python-format
 msgid ""
 "You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
@@ -73,51 +73,51 @@ msgid ""
 "URLs."
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:383
+#: backup/venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:383
 msgid "Django Documentation"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:384
+#: backup/venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:384
 msgid "Topics, references, &amp; how-to's"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:395
+#: backup/venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:395
 msgid "Tutorial: A Polling App"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:396
+#: backup/venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:396
 msgid "Get started with Django"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:407
+#: backup/venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:407
 msgid "Django Community"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:408
+#: backup/venv/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:408
 msgid "Connect, get help, or contribute"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/django_admin/templates/admin/addonly_submit_line.html:3
+#: backup/venv/lib/python3.6/site-packages/django_admin/templates/admin/addonly_submit_line.html:3
 msgid "Save"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/django_admin/templates/admin/addonly_submit_line.html:6
-#: venv/lib/python3.6/site-packages/django_admin/templates/admin/deleteonly_submit_line.html:6
+#: backup/venv/lib/python3.6/site-packages/django_admin/templates/admin/addonly_submit_line.html:6
+#: backup/venv/lib/python3.6/site-packages/django_admin/templates/admin/deleteonly_submit_line.html:6
 msgid "Delete"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/django_admin/templates/admin/addonly_submit_line.html:8
+#: backup/venv/lib/python3.6/site-packages/django_admin/templates/admin/addonly_submit_line.html:8
 msgid "Save as new"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/django_admin/templates/admin/addonly_submit_line.html:9
+#: backup/venv/lib/python3.6/site-packages/django_admin/templates/admin/addonly_submit_line.html:9
 msgid "Save and add another"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/django_admin/templates/admin/addonly_submit_line.html:10
+#: backup/venv/lib/python3.6/site-packages/django_admin/templates/admin/addonly_submit_line.html:10
 msgid "Save and continue editing"
 msgstr ""
 
-#: venv/lib/python3.6/site-packages/notebook/templates/notebook.html:312
+#: backup/venv/lib/python3.6/site-packages/notebook/templates/notebook.html:312
 msgid "Opens in a new window"
 msgstr ""

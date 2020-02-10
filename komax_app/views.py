@@ -303,6 +303,20 @@ class TaskPersonalJsonView(View):
     def post(self, *args, **kwargs):
         return
 
+class KomaxTaskListView(View):
+    template_name = 'komax_app/komax_tasks.html'
+
+    def get(self, request):
+        komax_tasks = KomaxTask.objects.order_by('-task_name')
+
+        context = {
+            'tasks': komax_tasks,
+        }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        return redirect('komax_app:komax_task_list')
 
 def get_key(dict, val, returns=None):
     for key, value in dict.items():
@@ -691,10 +705,10 @@ class KomaxTaskProcessing():
 
         return komax_time_objs
 
-    def create_task(self, task_name, harnesses, komaxes, shift):
+    def create_task(self, task_name, harnesses, komaxes, shift, type_of_allocation):
         harness_amount_objs = self.create_harness_amount(harnesses)
         komax_time_objs = self.create_komax_time(komaxes)
-        komax_task_obj = KomaxTask(task_name=task_name, shift=shift)
+        komax_task_obj = KomaxTask(task_name=task_name, shift=shift, type_of_allocation=type_of_allocation)
         self.save_obj(komax_task_obj)
         komax_task_obj.harnesses.add(*harness_amount_objs)
         komax_task_obj.komaxes.add(*komax_time_objs)
@@ -734,7 +748,13 @@ class KomaxTaskProcessing():
 
         return output_dict
 
-    def sort_komax_task(self, task_name):
+    def sort_komax_task(self, task_name, type_of_allocation='parallel'):
+        """
+        sort komax task
+        :param task_name:
+        :param type_of_allocation: str, parallel or step_by
+        :return:
+        """
         task_query = self.get_komax_task(task_name)
         task_obj = task_query[0]
         harnesses_query = self.get_harnesses(komax_task_obj=task_obj)
@@ -893,21 +913,21 @@ class KomaxTaskProcessing():
         amount_dict = {harness.harness.harness_number: 1 for harness in harnesses}
 
         # alloc_base = process.task_allocation_base(komax_dict, amount_dict, time_dict, hours=shift)
-        alloc_base = process.parallel_allocation(komax_dict, amount_dict, time_dict, shift)
+        alloc_base = process.allocate(komax_dict, amount_dict, time_dict, shift)
 
         process.delete_word_contain('СВ', 'R')
         first_sort = process.chart.nunique()["wire_terminal_1"] <= process.chart.nunique()["wire_terminal_2"]
         process.sort(method='simple', first_sort=first_sort)
 
         # alloc = process.task_allocation(komax_dict, amount_dict, time_dict, hours=shift)
-        alloc = process.parallel_allocation(komax_dict, amount_dict, time_dict, shift)
+        alloc = process.allocate(komax_dict, amount_dict, time_dict, shift)
 
         first_sort = not first_sort
         new_process = ProcessDataframe(df)
         new_process.sort(method='simple', first_sort=first_sort)
 
         # new_alloc = new_process.task_allocation(komax_dict, amount_dict, time_dict, hours=shift)
-        new_alloc = new_process.parallel_allocation(komax_dict, amount_dict, time_dict, shift)
+        new_alloc = new_process.allocate(komax_dict, amount_dict, time_dict, shift)
 
         if new_alloc == -1 and alloc == -1:
             final_data = {
@@ -949,6 +969,13 @@ class KomaxTaskProcessing():
 
     # TODO: add comparison with base allocation
     def create_allocation(self, task_name):
+        """
+        allocate
+        :param task_name:
+        :param type_of_allocation: str, parallel or step_by
+        :return:
+        """
+
         task_query = self.get_komax_task(task_name=task_name)
         task_df = 0
         task_obj = 0
@@ -986,11 +1013,13 @@ class KomaxTaskProcessing():
         laboriousness = laboriousness_query
         komax_dict = self.__get_komaxes_from(read_frame(komaxes))
         time_dict = get_time_from(read_frame(laboriousness))
+        type_of_allocation = task_obj.type_of_allocation
+
         # amount_dict = get_amount_from(read_frame(task_obj.harnesses.all()))
 
         # alloc = process.task_allocation(komax_dict, quantity=None, time=time_dict, hours=shift)
 
-        alloc = process.parallel_allocation(komax_dict, amount_dict, time_dict, shift)
+        alloc = process.allocate(komax_dict, amount_dict, time_dict, shift, type_of_allocation)
 
         if type(alloc) is int:
             task_obj.harnesses.all().delete()

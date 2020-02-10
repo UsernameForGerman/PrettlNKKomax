@@ -25,13 +25,38 @@ class KomaxAppTaskConsumer(AsyncConsumer):
             "type": "websocket.accept"
         })
 
-    async def async_create_sort_task(self, komax_task_name, harnesses, komaxes, shift):
-        self.data_task = await database_sync_to_async(self.create_sort_task)(komax_task_name, harnesses, komaxes, shift)
+    async def async_create_sort_task(self, komax_task_name, harnesses, komaxes, shift, type_of_allocation='parallel'):
+        """
 
-    def create_sort_task(self, komax_task_name, harnesses, komaxes, shift):
+        :param komax_task_name:
+        :param harnesses:
+        :param komaxes:
+        :param shift:
+        :param type_of_allocation: str, parallel or step_by
+        :return:
+        """
+        self.data_task = await database_sync_to_async(self.create_sort_task)(
+            komax_task_name,
+            harnesses,
+            komaxes,
+            shift,
+            type_of_allocation
+        )
+
+    def create_sort_task(self, komax_task_name, harnesses, komaxes, shift, type_of_allocation='parallel'):
+        """
+
+        :param komax_task_name:
+        :param harnesses:
+        :param komaxes:
+        :param shift:
+        :param type_of_allocation: str, parallel or step_by
+        :return:
+        """
         processor = KomaxTaskProcessing()
-        processor.create_task(komax_task_name, harnesses, komaxes, shift)
-        final_data = processor.sort_komax_task(komax_task_name)
+        processor.create_task(komax_task_name, harnesses, komaxes, shift, type_of_allocation)
+        final_data = processor.sort_komax_task(komax_task_name, type_of_allocation)
+
         return final_data
 
     def delete_task(self, task_name):
@@ -111,8 +136,9 @@ class KomaxAppTaskConsumer(AsyncConsumer):
                 harnesses = loaded_dict_data.get('harnesses')
                 komaxes = loaded_dict_data.get('komaxes')
                 shift = loaded_dict_data.get('shift')
+                type_of_allocation = loaded_dict_data.get('type_of_allocation')
 
-                await self.async_create_sort_task(task_name, harnesses, komaxes, shift)
+                await self.async_create_sort_task(task_name, harnesses, komaxes, shift, type_of_allocation)
 
                 if self.data_task is not None and self.data_task['allocation'][0] == -1:
                     await self.async_delete_task(task_name)
@@ -155,7 +181,7 @@ class KomaxAppTaskConsumer(AsyncConsumer):
                         "text": json.dumps(response)
                     })
                 else:
-                    url = '/komax_app/task/' + task_name + '/'
+                    url = '/komax_app/komax_tasks/' + task_name + '/'
                     response = {
                         "info_type": "page_status",
                         "status": "http_redirect",

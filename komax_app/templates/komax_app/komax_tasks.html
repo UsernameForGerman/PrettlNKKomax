@@ -1,0 +1,70 @@
+{% extends "komax_app/komax_app_main.html" %}
+{% load static %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}
+    <title>
+    {% trans 'Komax tasks' %}
+    </title>
+{% endblock %}
+
+{% block header_body %}
+    <h2 class="text-center">{% trans 'Komax tasks' %}</h2>
+{% endblock %}
+
+{% block main_content %}
+    <table class="table table-stripped">
+    <thred>
+        <tr>
+            <th class='text-center' scope="col">#</th>
+            <th class='text-center' scope="col">{% trans 'Komax task' %}</th>
+            <th class='text-center' scope="col">{% trans 'Harnesses' %}</th>
+            <th class="text-center" scope="col">{% trans "Komaxes" %}</th>
+        </tr>
+    </thred>
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+            <th class="text-center" scope="row">{{ forloop.counter }}</th>
+            <td class="text-center">{{ task.task_name }}</td>
+
+            <td class="text-center">
+            <p>
+                {% for harness in task.harnesses.all %}
+                    {% if forloop.counter0|divisibleby:2 %}
+                        {{ harness }} |
+                    {% else %}
+                        {{ harness }}
+                        </p>
+                        <p>
+                    {% endif %}
+                {% endfor %}
+                </p>
+            </td>
+            <td class="text-center">
+            <p>
+                {% for komax in task.komaxes.all %}
+                    {{ komax.komax }}
+                {% endfor %}
+            </p>
+            </td>
+            <td>
+                <a href="{% url 'komax_app:task_view' task_name=task.task_name %}">
+                    <button title="{% trans 'Detailed' %}" class="btn btn-secondary show-btn" >
+                        <i class="fa fa-search"> </i>
+                    </button>
+                </a>
+            </td>
+            <td>
+                <a href="#">
+                    <button title="{% trans 'Delete' %}" class="btn btn-danger delete-btn">
+                        <i class="fa fa-trash"> </i>
+                    </button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}
