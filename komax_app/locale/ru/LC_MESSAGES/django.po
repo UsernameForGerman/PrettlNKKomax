@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-10 16:24+0300\n"
+"POT-Creation-Date: 2020-02-10 22:12+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -196,7 +196,7 @@ msgstr "Удалить"
 
 #: komax_app/templates/komax_app/komax_app_amount.html:6
 #: komax_app/templates/komax_app/komax_app_amount.html:31
-#: komax_app/templates/komax_app/komax_app_setup.html:162
+#: komax_app/templates/komax_app/komax_app_setup.html:182
 msgid "Amount"
 msgstr "Количество"
 
@@ -212,8 +212,8 @@ msgid "Harness"
 msgstr "Жгут"
 
 #: komax_app/templates/komax_app/komax_app_amount.html:35
-#: komax_app/templates/komax_app/komax_app_setup.html:84
-#: komax_app/templates/komax_app/komax_app_setup.html:232
+#: komax_app/templates/komax_app/komax_app_setup.html:100
+#: komax_app/templates/komax_app/komax_app_setup.html:252
 msgid "Submit"
 msgstr "Продолжить"
 
@@ -285,11 +285,19 @@ msgstr "Смена"
 msgid "hours"
 msgstr "часов"
 
-#: komax_app/templates/komax_app/komax_app_setup.html:204
+#: komax_app/templates/komax_app/komax_app_setup.html:88
+msgid "Parallel"
+msgstr "Параллельно"
+
+#: komax_app/templates/komax_app/komax_app_setup.html:94
+msgid "Step by"
+msgstr "Последовательно"
+
+#: komax_app/templates/komax_app/komax_app_setup.html:224
 msgid " Task with this name already exists or its incorrect"
 msgstr "Задание с таким именем уже существует или имя задания неверно"
 
-#: komax_app/templates/komax_app/komax_app_setup.html:219
+#: komax_app/templates/komax_app/komax_app_setup.html:239
 msgid "Too big task or not enough komaxes"
 msgstr "Слишком большое задание или недостаточно комаксов"
 
