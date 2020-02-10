@@ -5,6 +5,7 @@
       <change afterPath="$PROJECT_DIR$/backup/komaxsite/test1.xlsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/komaxsite/test1.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/backup/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/LICENSE" beforeDir="false" />
@@ -2206,7 +2207,7 @@
       <workItem from="1578738522781" duration="65671000" />
       <workItem from="1580883514383" duration="299000" />
       <workItem from="1581333551594" duration="14292000" />
-      <workItem from="1581369160641" duration="3426000" />
+      <workItem from="1581369160641" duration="4011000" />
     </task>
     <servers />
   </component>

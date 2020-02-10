@@ -211,7 +211,7 @@ EMAIL_USE_TLS = True
 SITE_URL = 'komaxsite.herokuapp.com'
 
 
-
+"""
 # Prod settings related REDIS and CELERY
 
 r = redis.from_url(os.environ.get("REDIS_URL"))
@@ -239,7 +239,7 @@ CACHES = {
         },
     }
 }
-
+"""
 
 
 """
@@ -266,14 +266,14 @@ BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
 CELERY_RESULT_BACKEND = 'redis://' + REDIS_USER + REDIS_PASSWORD + REDIS_HOST + ':' + REDIS_PORT + '/0'
 """
 
-"""
+
 # Localhost related seetings to REDIS and CELERY
 REDIS_HOST = 'localhost'
 REDIS_PORT = '6379'
 REDIS_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
 CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
-"""
+
 
 
 """
