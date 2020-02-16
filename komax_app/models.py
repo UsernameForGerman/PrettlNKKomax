@@ -97,6 +97,7 @@ class Komax(models.Model):
     status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, default=1)
     marking = models.PositiveSmallIntegerField(choices=MARKING_CHOICES, default=1)
     pairing = models.PositiveSmallIntegerField(choices=PAIRING_CHOICES, default=0)
+    group_of_square = models.CharField(max_length=6)
 
     def __str__(self):
         return str(self.number)

@@ -152,18 +152,33 @@ class KomaxListView(View):
         0: 'No',
         1: 'Yes',
     }
+    group_of_square = {
+        1: '0.5 - 1.0',
+        2: '1.5 - 2.5',
+        3: '4.0 - 6.0'
+    }
 
     def get(self, request, *args, **kwargs):
         komaxes = Komax.objects.order_by('number')
 
-        komaxes = [(komax.number, self.status.get(komax.status), self.marking.get(komax.marking),
-                                   self.pairing.get(komax.pairing), komax.identifier) for komax in komaxes]
+        komaxes = [
+            (
+                komax.number,
+                self.status.get(komax.status),
+                self.marking.get(komax.marking),
+                self.pairing.get(komax.pairing),
+                [self.group_of_square.get(group) for group in list(map(int, komax.group_of_square.split()))],
+                komax.identifier
+            )
+            for komax in komaxes
+        ]
 
         context = {
             'komaxes': komaxes,
             'komax_status': self.status.values(),
             'komax_marking': self.marking.values(),
             'komax_pairing': self.pairing.values(),
+            'komax_group_of_square': self.group_of_square.values()
         }
 
         return render(request, self.template_name, context)
@@ -183,8 +198,16 @@ class KomaxListView(View):
         marking = get_key(self.marking, request.POST['marking'])
         pairing = get_key(self.pairing, request.POST['pairing'])
         identifier = request.POST['identifier']
+        groups_of_square_text = request.POST.getlist('group_of_square')
 
-        if status is None or marking is None or pairing is None or identifier is None:
+        groups_of_square_int = list()
+        for group_of_square_text in groups_of_square_text:
+            group_of_square_int = get_key(self.group_of_square, group_of_square_text)
+            groups_of_square_int.append(str(group_of_square_int) + ' ')
+
+        group_of_square = (' ').join(groups_of_square_int)
+
+        if status is None or marking is None or pairing is None or identifier is None or group_of_square is None:
             return redirect('komax_app:komaxes')
 
         komax_query = Komax.objects.filter(number=number)
@@ -195,6 +218,7 @@ class KomaxListView(View):
             komax.marking = marking
             komax.pairing = pairing
             komax.identifier = identifier
+            komax.group_of_square = group_of_square
             komax.save()
         else:
             Komax(
@@ -202,6 +226,7 @@ class KomaxListView(View):
                 status=status,
                 marking=marking,
                 pairing=pairing,
+                group_of_square=group_of_square,
                 identifier=identifier
             ).save()
 
@@ -245,7 +270,7 @@ class KomaxAppSetupView(View):
         :return:
         """
         harnesses = Harness.objects.order_by('harness_number')
-        komaxes = Komax.objects.order_by('number')
+        komaxes = Komax.objects.order_by('number').filter(status=1)
 
         context = {
             'harnesses': harnesses,
@@ -356,16 +381,22 @@ class KomaxTaskView(View):
         komaxes_time = task.komaxes.all()
         final_alloc = {komax_time.komax.number: komax_time.time for komax_time in komaxes_time}
 
+        exceeds_shift = False
+
+
         for key, item in final_alloc.items():
+            if final_alloc[key] / 3600 > task.shift:
+                exceeds_shift = True
             final_alloc[key] = seconds_to_str_hours(final_alloc[key])
 
 
         context = {
-            'name': str(task_name),
+            'task': task,
             'harnesses': harnesses,
             'alloc': final_alloc,
             'harness_amount': 12 // len(harnesses),
             'komaxes_amount': 12 // len(final_alloc),
+            'exceeds_shift': exceeds_shift,
             'status': status
         }
 
@@ -744,11 +775,13 @@ class KomaxTaskProcessing():
             status = komax.status
             marking = komax.marking
             pairing = komax.pairing
-            output_dict[int(komax_num)] = (status, marking, pairing)
+            groups_of_square = tuple(map(int, komax.group_of_square.split()))
+
+            output_dict[int(komax_num)] = (status, marking, pairing, groups_of_square)
 
         return output_dict
 
-    def sort_komax_task(self, task_name, type_of_allocation='parallel'):
+    def sort_komax_task(self, task_name):
         """
         sort komax task
         :param task_name:
@@ -776,10 +809,11 @@ class KomaxTaskProcessing():
         laboriousness = self.get_laboriousness()
         komax_dict = self.__get_komaxes_from(read_frame(komaxes_query))
         time_dict = get_time_from(read_frame(laboriousness))
+        type_of_allocation = task_obj.type_of_allocation
         # amount_dict = get_amount_from(read_frame(task_obj.harnesses.all()))
 
         # print(df, komax_dict, harnesses, time_dict, shift)
-        final_data = self.__sort_allocated_task(df, komax_dict, harnesses, time_dict, shift)
+        final_data = self.__sort_allocated_task(df, komax_dict, harnesses, time_dict, shift, type_of_allocation)
 
         self.sort_alloc_data = final_data
 
@@ -795,6 +829,7 @@ class KomaxTaskProcessing():
             inplace=True
         )
         """
+
         for row in final_data['chart'].iterrows():
             row_dict = row[1]
             harness_obj = self.get_harnesses(harness=row_dict['harness'])[0]
@@ -907,27 +942,27 @@ class KomaxTaskProcessing():
         )
         task_pers_obj.save()
 
-    def __sort_allocated_task(self, df, komax_dict, harnesses, time_dict, shift):
+    def __sort_allocated_task(self, df, komax_dict, harnesses, time_dict, shift, type_of_allocaton='parallel'):
         process = ProcessDataframe(df)
 
         amount_dict = {harness.harness.harness_number: 1 for harness in harnesses}
 
         # alloc_base = process.task_allocation_base(komax_dict, amount_dict, time_dict, hours=shift)
-        alloc_base = process.allocate(komax_dict, amount_dict, time_dict, shift)
+        alloc_base = process.allocate(komax_dict, amount_dict, time_dict, shift, type_of_allocation=type_of_allocaton)
 
         process.delete_word_contain('СВ', 'R')
         first_sort = process.chart.nunique()["wire_terminal_1"] <= process.chart.nunique()["wire_terminal_2"]
         process.sort(method='simple', first_sort=first_sort)
 
         # alloc = process.task_allocation(komax_dict, amount_dict, time_dict, hours=shift)
-        alloc = process.allocate(komax_dict, amount_dict, time_dict, shift)
+        alloc = process.allocate(komax_dict, amount_dict, time_dict, shift, type_of_allocation=type_of_allocaton)
 
         first_sort = not first_sort
         new_process = ProcessDataframe(df)
         new_process.sort(method='simple', first_sort=first_sort)
 
         # new_alloc = new_process.task_allocation(komax_dict, amount_dict, time_dict, hours=shift)
-        new_alloc = new_process.allocate(komax_dict, amount_dict, time_dict, shift)
+        new_alloc = new_process.allocate(komax_dict, amount_dict, time_dict, shift, type_of_allocation=type_of_allocaton)
 
         if new_alloc == -1 and alloc == -1:
             final_data = {

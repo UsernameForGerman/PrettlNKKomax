@@ -36,6 +36,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', True)
+INPROD = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -203,41 +204,50 @@ if not IS_CI:
 
 # Email send
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'polyakgerman@gmail.com'
-EMAIL_HOST_PASSWORD = 'Polyak11'
-EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'info-komax@yandex.ru '
+EMAIL_HOST_PASSWORD = 'komax_prettl-nk'
+EMAIL_USE_SSL = True
 SITE_URL = 'komaxsite.herokuapp.com'
 
 
-# Prod settings related REDIS and CELERY
+if INPROD:
+    # Prod settings related REDIS and CELERY
 
-r = redis.from_url(os.environ.get("REDIS_URL"))
-BROKER_URL = redis.from_url(os.environ.get("REDIS_URL"))
-#CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-#CELERY_RESULT_BACKEND = 'os.environ['REDIS_URL']'
-CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Canada/Eastern'
+    r = redis.from_url(os.environ.get("REDIS_URL"))
+    BROKER_URL = redis.from_url(os.environ.get("REDIS_URL"))
+    #CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+    #CELERY_RESULT_BACKEND = 'os.environ['REDIS_URL']'
+    CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
+    CELERY_ACCEPT_CONTENT = ['application/json']
+    CELERY_TASK_SERIALIZER = 'json'
+    CELERY_RESULT_SERIALIZER = 'json'
+    CELERY_TIMEZONE = 'Canada/Eastern'
 
-CELERY_BROKER_URL = os.environ['REDIS_URL']
-CELERY_RESULT_BACKEND = os.environ['REDIS_URL']
+    CELERY_BROKER_URL = os.environ['REDIS_URL']
+    CELERY_RESULT_BACKEND = os.environ['REDIS_URL']
 
-redis_url = urllib.parse.urlparse(os.environ.get('REDIS_URL'))
+    redis_url = urllib.parse.urlparse(os.environ.get('REDIS_URL'))
 
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.environ['REDIS_URL'],  # Here we have Redis DSN (for ex. redis://localhost:6379/1)
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "MAX_ENTRIES": 1000  # Increase max cache entries to 1k (from 300)
-        },
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": os.environ['REDIS_URL'],  # Here we have Redis DSN (for ex. redis://localhost:6379/1)
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+                "MAX_ENTRIES": 1000  # Increase max cache entries to 1k (from 300)
+            },
+        }
     }
-}
+
+elif not INPROD:
+    # Localhost related seetings to REDIS and CELERY
+    REDIS_HOST = 'localhost'
+    REDIS_PORT = '6379'
+    REDIS_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+    BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+    CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 
 """
 CACHES = {
@@ -261,15 +271,6 @@ REDIS_USER = 'h'
 BROKER_URL = 'redis://' + REDIS_USER + REDIS_PASSWORD + REDIS_HOST + ':' + REDIS_PORT + '/0'
 BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
 CELERY_RESULT_BACKEND = 'redis://' + REDIS_USER + REDIS_PASSWORD + REDIS_HOST + ':' + REDIS_PORT + '/0'
-"""
-
-"""
-# Localhost related seetings to REDIS and CELERY
-REDIS_HOST = 'localhost'
-REDIS_PORT = '6379'
-REDIS_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
-BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
-CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 """
 
 

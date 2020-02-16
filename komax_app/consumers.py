@@ -55,7 +55,7 @@ class KomaxAppTaskConsumer(AsyncConsumer):
         """
         processor = KomaxTaskProcessing()
         processor.create_task(komax_task_name, harnesses, komaxes, shift, type_of_allocation)
-        final_data = processor.sort_komax_task(komax_task_name, type_of_allocation)
+        final_data = processor.sort_komax_task(komax_task_name)
 
         return final_data
 
@@ -80,7 +80,6 @@ class KomaxAppTaskConsumer(AsyncConsumer):
 
         context = {
             'task_name': info_dict['task_name'],
-            'task_url': settings.SITE_URL + '/komax_app/task/' + info_dict['task_name'] + '/'
         }
 
         email_html_path = 'komax_app/email_new_task_template.html'

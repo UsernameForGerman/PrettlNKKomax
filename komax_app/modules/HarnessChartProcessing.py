@@ -225,6 +225,7 @@ class ProcessDataframe:
     TERMINAL_1_COL = 'wire_terminal_1'
     TERMINAL_2_COL = 'wire_terminal_2'
     TIME_COL = 'time'
+    SQUARE_COL = 'wire_square'
 
 
     __cols_name = {
@@ -708,25 +709,31 @@ class ProcessDataframe:
 
             self.chart.loc[idx, self.TIME_COL] = time_changeover_row
 
-    def __consistently_allocation(self, komaxes, quantity, time, hours):
+    def __consistently_allocation(self, komaxes, quantity, time, hours, group_of_square, allocation, returned='error'):
         """
         allocation pass by, NOT parallel
 
         if not enough komaxes without pairing ability, gets komaxes with pairing ability
         if not enough komaxes with pairing ability, gets komaxes without pairing ability
-
+        
+        :param: returned, error if alloc > hours(shift) or allocation if alloc without error
         :param komaxes: dict, komax(int): [status(int:1, 0), marking(int: 1(white), 2(black)), pairing(int: 1, 0)]
         :param quantity: dict, harness_number(str): amount(int)
         :param time: labourisness dict, acting(str): sec(int/float)
         :param hours: shift in hours, int
         :return: allocation dict, komax_number(int): seconds(float)
         """
-
+        
+        if returned == 'error':
+            returned = 'None'
+        elif returned == 'allocation':
+            returned = 'komax'
+            
         self.__correct_marking()
         self.__time_quantity_allocation(quantity, time)
 
         # create dict of allocation
-        alloc = {i: [0] for i in komaxes}
+        alloc = allocation
         shift = hours*60*60       # in seconds
 
         # get komax config info
@@ -736,32 +743,37 @@ class ProcessDataframe:
 
         black_pairing_komax_more = amount_black_pairing_komax >= amount_white_pairing_komax
         black_komax_more = amount_black_komax >= amount_white_komax
-
-        # create komax column
-        self.chart[self.KOMAX_COL] = 0
+        
+        # error indicator
+        error = False
 
         # without pairing komaxes
         for idx, row in self.chart.iterrows():
             marking = self.chart.loc[idx, self.MARKING_COL]
             time_changeover_position = self.chart.loc[idx, self.TIME_COL]
-            if self.__is_marking_black(marking):
+            square_group = group_by(self.chart.loc[idx, self.SQUARE_COL])
+            if self.__is_marking_black(marking) and square_group == group_of_square and black_komax != 0:
                 alloc[black_komax][0] += time_changeover_position
                 self.chart.loc[idx, self.KOMAX_COL] = black_komax
-            elif self.__is_marking_white(marking):
+            elif self.__is_marking_white(marking) and square_group == group_of_square and white_komax != 0:
                 alloc[white_komax][0] += time_changeover_position
                 self.chart.loc[idx, self.KOMAX_COL] = white_komax
             else:
-                pass
+                if square_group != group_of_square and square_group is not None:
+                    pass
+                else:
+                    error = True
 
-            if alloc[black_komax][0] >= shift:
-                black_komax = self.__get_next_komax(alloc, shift, komaxes, black_komax, 1, 1, 0)
-            elif alloc[white_komax][0] >= shift:
-                white_komax = self.__get_next_komax(alloc, shift, komaxes, white_komax, 1, 2, 0)
-
+            if black_komax is not None and black_komax != 0 and alloc[black_komax][0] >= shift:
+                black_komax = self.__get_next_komax(alloc, shift, komaxes, black_komax, 1, 1, 0, group_of_square, 
+                                                    returned)
+            elif white_komax is not None and white_komax != 0 and alloc[white_komax][0] >= shift:
+                white_komax = self.__get_next_komax(alloc, shift, komaxes, white_komax, 1, 2, 0, group_of_square, 
+                                                    returned)
             if black_komax is None or white_komax is None:
                 return -1
 
-        return alloc
+        return (alloc, error)
 
     def __get_black_white_komax_key(self, komaxes):
         black_pairing_komax = 0
@@ -808,48 +820,57 @@ class ProcessDataframe:
 
         return (amount_black_pairing_komax, amount_black_komax, amount_white_pairing_komax, amount_white_komax)
 
-    def __get_next_komax(self, alloc, shift, komaxes, current_komax, status=1, marking=1, pairing=0):
+    def __get_next_komax(self, alloc, shift, komaxes, current_komax, status=1, marking=1, pairing=0, square_group=1, 
+                         returned='None'):
         """
         Get komax with suitable params with index more than current
-
+        
+        :param: output, None or komax, if current komax need to be returned
         :param current_komax: index of current komax
         :param komaxes: komaxes dict
         :return: index of next working komax of type current_komax or None
         """
 
         for komax_idx, params in komaxes.items():
-            if komax_idx > current_komax and params == [status, marking, pairing]:
+            if komax_idx > current_komax and status == params[0] and marking == params[1] and pairing == params[2] and \
+                    square_group in params[3]:
                 return komax_idx
 
         for komax_idx, params in komaxes.items():
-            if alloc[komax_idx][0] <= shift and params == [status, marking, int(not bool(pairing))]:
+            if alloc[komax_idx][0] <= shift and status == params[0] and marking == params[1] and \
+                    int(not bool(pairing)) == params[2] and square_group in params[3]:
                 return komax_idx
-
-        return None
+        
+        if returned == 'None':
+            return None
+        elif returned == 'komax':
+            return current_komax
 
     def __get_all_komaxes_keys(self, komaxes, status, marking, pairing):
         output_komaxes = list()
 
         for komax_idx, params in komaxes.items():
             if type(pairing) is list:
-                if params == (status, marking, pairing[0]) or params == (status, marking, pairing[1]):
+                if status == params[0] and marking == params[1] and (pairing[0] == params[2] or pairing[1] == params[2]):
                     output_komaxes.append(komax_idx)
             elif type(pairing) is int:
-                if params == [status, marking, pairing]:
+                if status == params[0] and marking == params[1] and pairing == params[2]:
                     output_komaxes.append(komax_idx)
 
         return output_komaxes
 
-    def __get_sum_black_white_marking_time(self):
+    def __get_sum_black_white_marking_time(self, group_of_square):
         sum_black_marking, sum_white_marking = 0, 0
 
         for idx, row in self.chart.iterrows():
             marking = self.chart.loc[idx, self.MARKING_COL]
             time = self.chart.loc[idx, self.TIME_COL]
+            square = self.chart.loc[idx, self.SQUARE_COL]
+            group = group_by(square)
 
-            if self.__is_marking_black(marking):
+            if self.__is_marking_black(marking) and group_of_square == group:
                 sum_black_marking += time
-            elif self.__is_marking_white(marking):
+            elif self.__is_marking_white(marking) and group_of_square == group:
                 sum_white_marking += time
             else:
                 pass
@@ -864,12 +885,16 @@ class ProcessDataframe:
         else:
             return items / divider
 
-    def __parallel_allocation(self, komaxes, quantity, time, hours):
+    def __create_komax_col(self):
+        self.chart[self.KOMAX_COL] = 0
+
+    def __parallel_allocation(self, komaxes, quantity, time, hours, group_of_square, allocation, returned='error'):
         """
         parallel allocation
 
         Uses all komaxes without priority
-
+        
+        :param: returned, error if alloc > hours(shift) or allocation if alloc without error
         :param komaxes: dict, komax(int): [status(int:1, 0), marking(int: 1(white), 2(black)), pairing(int: 1, 0)]
         :param quantity: dict, harness_number(str): amount(int)
         :param time: labourisness dict, acting(str): sec(int/float)
@@ -881,8 +906,11 @@ class ProcessDataframe:
         self.__time_quantity_allocation(quantity, time)
 
         # create dict of allocation
-        alloc = {i: [0] for i in komaxes}
-
+        alloc = allocation
+        
+        # errors indicator
+        error = False
+        
         black_komaxes = self.__get_all_komaxes_keys(komaxes, 1, 1, [0, 1])
         amount_black_komaxes = len(black_komaxes)
         white_komaxes = self.__get_all_komaxes_keys(komaxes, 1, 2, [0, 1])
@@ -890,47 +918,87 @@ class ProcessDataframe:
         black_komax_curr_idx = 0
         white_komax_curr_idx = 0
 
-        sum_black_marking_time, sum_white_marking_time = self.__get_sum_black_white_marking_time()
+        sum_black_marking_time, sum_white_marking_time = self.__get_sum_black_white_marking_time(group_of_square)
 
-        average_black_time = self.average(sum_black_marking_time, len(black_komaxes)) * 1.1
+        average_black_time = self.average(sum_black_marking_time, len(black_komaxes))
         average_white_time = self.average(sum_white_marking_time, len(white_komaxes))
 
-        # create komax column
-        self.chart[self.KOMAX_COL] = 0
+        if average_black_time is None or average_white_time is None:
+            error = True
+            return (alloc, error)
 
         # without pairing komaxes
         for idx, row in self.chart.iterrows():
             marking = self.chart.loc[idx, self.MARKING_COL]
             time_changeover_position = self.chart.loc[idx, self.TIME_COL]
-            if self.__is_marking_black(marking) and amount_black_komaxes > 0:
+            group_square = group_by(self.chart.loc[idx, self.SQUARE_COL])
+            if self.__is_marking_black(marking) and amount_black_komaxes > 0 and group_square == group_of_square:
                 alloc[black_komaxes[black_komax_curr_idx]][0] += time_changeover_position
                 self.chart.loc[idx, self.KOMAX_COL] = black_komaxes[black_komax_curr_idx]
-            elif self.__is_marking_white(marking) and amount_white_komaxes > 0:
+            elif self.__is_marking_white(marking) and amount_white_komaxes > 0 and group_square == group_of_square:
                 alloc[white_komaxes[white_komax_curr_idx]][0] += time_changeover_position
                 self.chart.loc[idx, self.KOMAX_COL] = white_komaxes[white_komax_curr_idx]
             else:
-                return -1
+                if group_square != group_of_square and group_square is not None:
+                    pass
+                else:
+                    error = True
 
-            if alloc[black_komaxes[black_komax_curr_idx]][0] > average_black_time and \
-                    black_komax_curr_idx < amount_black_komaxes:
+            if black_komax_curr_idx < amount_black_komaxes and len(black_komaxes) and \
+                    alloc[black_komaxes[black_komax_curr_idx]][0] > average_black_time:
                 black_komax_curr_idx += 1
-            elif alloc[white_komaxes[white_komax_curr_idx]][0] > average_white_time and \
-                    white_komax_curr_idx < amount_white_komaxes :
+            elif white_komax_curr_idx < amount_white_komaxes and len(white_komaxes) and \
+                    alloc[white_komaxes[white_komax_curr_idx]][0] > average_white_time:
                 white_komax_curr_idx += 1
+            
+            if white_komax_curr_idx == amount_white_komaxes:
+                if returned == 'error':
+                    return -1
+                elif returned == 'allocation':
+                    white_komax_curr_idx -= 1
+            if black_komax_curr_idx == amount_black_komaxes:
+                if returned == 'error':
+                    return -1
+                elif returned == 'allocation':
+                    black_komax_curr_idx -= 1
+            
 
-            if white_komax_curr_idx == amount_white_komaxes or black_komax_curr_idx == amount_black_komaxes:
+        return (alloc, error)
+
+    def allocate(self, komaxes, quantity, time, hours=None, type_of_allocation='parallel'):
+        komax_loading = KomaxLoading(komaxes)
+        self.__create_komax_col()
+        groups = (1, 2, 3)
+        for group in groups:
+            komaxes_group, allocation_group = komax_loading.get_komaxes_allocation_by_komax_group_square(group)
+            if type_of_allocation == 'parallel':
+                alloc_for_group, error = self.__parallel_allocation(komaxes_group,
+                                                                    quantity, 
+                                                                    time, 
+                                                                    hours, 
+                                                                    group, 
+                                                                    allocation_group,
+                                                                    returned='allocation')
+                # print(alloc_for_group, error)
+            elif type_of_allocation == 'consistently':
+                alloc_for_group, error = self.__consistently_allocation(komaxes_group,
+                                                                        quantity, 
+                                                                        time, 
+                                                                        hours, 
+                                                                        group, 
+                                                                        allocation_group,
+                                                                        returned='allocation')
+                # print(alloc_for_group, error)
+            else:
                 return -1
-
-        return alloc
-
-    def allocate(self, komaxes, quantity, time, hours=None, type='parallel'):
-        if type == 'parallel':
-            return self.__parallel_allocation(komaxes, quantity, time, hours)
-        elif type == 'consistently':
-            return self.__consistently_allocation(komaxes, quantity, time, hours)
-        else:
-            return -1
-
+            
+            komax_loading.set_allocation(alloc_for_group)
+            
+            if error:
+                return -1
+        
+        return komax_loading.get_allocation_dict()
+        
     def smart_sort(self, time, amount):
         HARNESS_NUMBER_COL = "harness"
         base_rows = self.chart_copy.shape[0]
@@ -1909,6 +1977,47 @@ class ProcessDataframe:
                 pass
 
         return df_dict
+
+class KomaxLoading:
+    __komaxes_dict = None
+    __allocation_dict = None
+
+    def __init__(self, komaxes):
+        self.__komaxes_dict = komaxes
+        self.__allocation_dict = {i: [0] for i in self.__komaxes_dict}
+
+    def get_komaxes_dict(self):
+        return self.__komaxes_dict
+
+    def get_allocation_dict(self):
+        return self.__allocation_dict
+
+    def get_komaxes_allocation_by_komax_group_square(self, group_of_square):
+        """
+        Returns allocation dict by group of square
+
+        :param group_of_square: int
+        :return: alloc_dict
+        """
+
+        suitable_komaxes = list()
+
+        for komax, params in self.__komaxes_dict.items():
+            if group_of_square in params[3]:
+                suitable_komaxes.append(komax)
+
+        output_allocation = dict()
+        output_komaxes = dict()
+
+        for komax in suitable_komaxes:
+            output_allocation[komax] = self.__allocation_dict[komax]
+            output_komaxes[komax] = self.__komaxes_dict[komax]
+
+        return (output_komaxes, output_allocation)
+
+    def set_allocation(self, new_allocation):
+        for komax, time in new_allocation.items():
+            self.__allocation_dict[komax][0] = time[0]
 
 class KomaxAppTaskName:
     task_name = None

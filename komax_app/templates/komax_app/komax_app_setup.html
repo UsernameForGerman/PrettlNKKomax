@@ -110,7 +110,7 @@
 <script>
 
     var loc = window.location;
-    var wsStart = 'wss://';
+    var wsStart = 'ws://';
     if (loc.protocol == 'https:'){
         wsStart = 'wss://'
     }
@@ -247,7 +247,7 @@
         if (message.info_type == 'page_status'){
             if (message.status == 'http_redirect') {
                 if ('error' in message) {
-                    alert("{% blocktrans %}Too big task or not enough komaxes{% endblocktrans %}");
+                    alert("{% blocktrans %}Check marking in harness chart or not enough komaxes{% endblocktrans %}");
                 }
                 if (message.url != '') {
                     url = message.url;
