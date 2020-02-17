@@ -15,7 +15,7 @@ class HarnessChart(models.Model):
     harness = models.ForeignKey(Harness, on_delete=models.CASCADE)
     notes = models.CharField(max_length=256)
     marking = models.CharField(max_length=8)
-    wire_type = models.CharField(max_length=8)
+    wire_type = models.CharField(max_length=256)
     wire_number = models.CharField(max_length=16)
     wire_square = models.FloatField()
     wire_color = models.CharField(max_length=4)
