@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.views import generic
 from django.urls import reverse_lazy
 from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask, HarnessAmount, TaskPersonal, \
-    Tickets, KomaxTime, KomaxWork
+    Tickets, KomaxTime, KomaxWork, Kappa
 from .forms import KomaxEditForm, KomaxCreateForm
 from .modules.ioputter import FileReader
 from django_pandas.io import read_frame
@@ -136,8 +136,8 @@ class HarnessesListView(View):
 
         return redirect('komax_app:harnesses')
 
-class KomaxListView(View):
-    template_name = 'komax_app/komaxes.html'
+class EquipmentListView(View):
+    template_name = 'komax_app/equipment.html'
     status = {
         1: 'Work',
         2: 'Repair',
@@ -161,7 +161,7 @@ class KomaxListView(View):
     def get(self, request, *args, **kwargs):
         komaxes = Komax.objects.order_by('number')
 
-        komaxes = [
+        komaxes_html = [
             (
                 komax.number,
                 self.status.get(komax.status),
@@ -173,8 +173,19 @@ class KomaxListView(View):
             for komax in komaxes
         ]
 
+        kappas = Kappa.objects.order_by('number')
+
+        kappas_html = [
+            (
+                kappa.number,
+                self.status.get(kappa.status)
+            )
+            for kappa in kappas
+        ]
+
         context = {
-            'komaxes': komaxes,
+            'komaxes': komaxes_html,
+            'kappas': kappas_html,
             'komax_status': self.status.values(),
             'komax_marking': self.marking.values(),
             'komax_pairing': self.pairing.values(),
@@ -203,7 +214,7 @@ class KomaxListView(View):
         groups_of_square_int = list()
         for group_of_square_text in groups_of_square_text:
             group_of_square_int = get_key(self.group_of_square, group_of_square_text)
-            groups_of_square_int.append(str(group_of_square_int) + ' ')
+            groups_of_square_int.append(str(group_of_square_int))
 
         group_of_square = (' ').join(groups_of_square_int)
 
@@ -425,7 +436,7 @@ def get_harness_chart_view(request, harness_number):
 
     return response
 
-def get_personal_task_view(request, task_name, komax):
+def get_personal_task_view_komax(request, task_name, komax):
     komax_obj = get_object_or_404(Komax, number=komax)
     tasks_obj = get_object_or_404(KomaxTask, task_name=task_name)
     task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=tasks_obj, komax=komax_obj))
@@ -475,6 +486,36 @@ def get_general_task_view(request, task_name):
     )
 
     out_file = OutProcess(task_pers_df)
+    workbook = out_file.get_task_xl()
+    workbook.save(response)
+
+    return response
+
+def get_personal_task_view_kappa(request, task_name, kappa):
+    kappa_obj = get_object_or_404(Kappa, number=kappa)
+    komax_task_obj = get_object_or_404(KomaxTask, kappas=kappa_obj)
+
+    kappa_task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=komax_task_obj, kappas=kappa_obj))
+
+    kappa_task_pers_df.sort_values(
+        by=['id'],
+        ascending=True,
+        inplace=True,
+    )
+
+    kappa_task_pers_df.index = pd.Index(range(komax_task_pers_df.shape[0]))
+
+    kappa_task_pers_df['done'] = ''
+
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    )
+    response['Content-Disposition'] = 'attachment; filename={task_name}-{komax_number}-Kappa.xlsx'.format(
+        task_name=task_name,
+        komax_number=kappa_obj.number,
+    )
+
+    out_file = OutProcess(kappa_task_pers_df)
     workbook = out_file.get_task_xl()
     workbook.save(response)
 
@@ -1443,7 +1484,7 @@ class KomaxesUpdateView(generic.UpdateView):
     success_url = reverse_lazy('komax_app:komaxes')
 
 class KomaxesView(generic.ListView):
-    template_name = 'komax_app/komaxes.html'
+    template_name = 'komax_app/equipment.html'
     model = Komax
     context_object_name = 'komaxes'
 

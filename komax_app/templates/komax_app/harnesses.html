@@ -111,8 +111,8 @@
 <script>
     var loc = window.location;
     var wsStart = 'wss://';
-    if (loc.protocol == 'https:'){
-        wsStart = 'wss://'
+    if (loc.host.includes('localhost')){
+        wsStart = 'ws://'
     }
     var endPoint = wsStart + loc.host + loc.pathname;
     var socket = new WebSocket(endPoint);
@@ -121,7 +121,7 @@
 
     socket.onopen = function(e) {
         input_harness_number.change(function(event){
-           event.prapp.autodiscover_tasks()eventDefault();
+           event.preventDefault();
            var harness_number = input_harness_number.val();
 
            if (harness_number.length > 0){

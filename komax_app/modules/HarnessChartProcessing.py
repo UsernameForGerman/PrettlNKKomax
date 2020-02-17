@@ -90,6 +90,17 @@ class HarnessChartReader:
 
             delete_rows = False
 
+    def __get_number_cabels_rows(self):
+        rows = list()
+
+        for merged_cell in self.worksheet_file.merged_cells.ranges:
+            main_cell = self.worksheet_file[merged_cell.coord][0][0]
+            if type(main_cell.value) is str and 'кабель' in main_cell.value.lower():
+                last_cell = self.worksheet_file[merged_cell.coord][-1][-1]
+                rows.append((main_cell.row, last_cell.row))
+
+        return rows
+
     def __close_xlsx(self):
         self.workbook_file.save(self.file)
         self.worksheet_file = None
@@ -198,13 +209,21 @@ class HarnessChartReader:
         temp_df.index = pd.Index(range(temp_df.shape[0]))
         return temp_df
 
+    def __fulfill_cabels(self, start_row, cabels_rows):
+        for row_pair in cabels_rows:
+            cabel_name = self.__dataframe_file.loc[row_pair[0] - start_row - 2, 'Вид провода']
+            for row in range(row_pair[0], row_pair[1] + 1):
+                self.__dataframe_file.loc[row - start_row - 2, 'Вид провода'] = cabel_name
+
+
     def read_file_chart(self):
         if self.file.name.endswith('xlsx'):
 
             # xlsx processing
 
             self.__delete_gray_xlsx()
-            self.__detect_cabels_xlsx()
+            cabels_rows = self.__get_number_cabels_rows()
+
             row_start = self.__get_first_row_to_read()
 
             # dataframe processing
@@ -213,6 +232,8 @@ class HarnessChartReader:
 
             self.__close_xlsx()
             self.__process_file()
+
+            self.__fulfill_cabels(row_start, cabels_rows)
 
 class ProcessDataframe:
     chart = None
@@ -463,13 +484,13 @@ class ProcessDataframe:
 
         if first_sort:
             self.chart.sort_values(
-                by=['marking', 'groups', 'wire_terminal_1', 'wire_terminal_2', 'wire_square', 'wire_color'],
+                by=['wire_type', 'marking', 'groups', 'wire_terminal_1', 'wire_terminal_2', 'wire_square', 'wire_color'],
                 ascending=True,
                 inplace=True
             )
         else:
             self.chart.sort_values(
-                by=['marking', 'groups', 'wire_terminal_2', 'wire_terminal_1', 'wire_square', 'wire_color'],
+                by=['wire_type', 'marking', 'groups', 'wire_terminal_2', 'wire_terminal_1', 'wire_square', 'wire_color'],
                 ascending=True,
                 inplace=True
             )
@@ -491,13 +512,13 @@ class ProcessDataframe:
 
             if first_sort:
                 self.chart.sort_values(
-                    by=['marking', 'groups', 'wire_terminal_1', 'wire_terminal_2', 'wire_square', 'wire_color'],
+                    by=['wire_type', 'marking', 'groups', 'wire_terminal_1', 'wire_terminal_2', 'wire_square', 'wire_color'],
                     ascending=True,
                     inplace=True
                 )
             else:
                 self.chart.sort_values(
-                    by=['marking', 'groups', 'wire_terminal_2', 'wire_terminal_1', 'wire_square', 'wire_color'],
+                    by=['wire_type', 'marking', 'groups', 'wire_terminal_2', 'wire_terminal_1', 'wire_square', 'wire_color'],
                     ascending=True,
                     inplace=True
                 )

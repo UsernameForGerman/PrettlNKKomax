@@ -76,6 +76,19 @@ class Temp_chart(models.Model):
     def __str__(self):
         return self.harness
 
+class Kappa(models.Model):
+    STATUS_CHOICES = [
+        (1, 'Work'),
+        (2, 'Repair'),
+        (0, 'Not working')
+    ]
+
+    number = models.PositiveSmallIntegerField(unique=True, verbose_name=_('kappa'))
+    status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, default=1)
+
+    def __str__(self):
+        return str(self.number)
+
 class Komax(models.Model):
     STATUS_CHOICES = [
         (1, 'Work'),
@@ -128,6 +141,7 @@ class KomaxTask(models.Model):
     created = models.DateTimeField(verbose_name=_('created'), auto_now_add=True)
     harnesses = models.ManyToManyField(HarnessAmount)
     komaxes = models.ManyToManyField(KomaxTime)
+    kappas = models.ForeignKey(Kappa, on_delete=models.CASCADE)
     shift = models.PositiveSmallIntegerField()
     type_of_allocation = models.CharField(max_length=128)
 

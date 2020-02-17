@@ -137,7 +137,7 @@ class HarnessesListView(View):
         return redirect('komax_app:harnesses')
 
 class KomaxListView(View):
-    template_name = 'komax_app/komaxes.html'
+    template_name = 'komax_app/equipment.html'
     status = {
         1: 'Work',
         2: 'Repair',
@@ -1370,7 +1370,7 @@ class KomaxesUpdateView(generic.UpdateView):
     success_url = reverse_lazy('komax_app:komaxes')
 
 class KomaxesView(generic.ListView):
-    template_name = 'komax_app/komaxes.html'
+    template_name = 'komax_app/equipment.html'
     model = Komax
     context_object_name = 'komaxes'
 

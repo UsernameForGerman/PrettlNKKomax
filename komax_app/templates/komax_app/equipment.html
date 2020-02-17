@@ -97,7 +97,8 @@
     <thred>
         <tr>
             <th class='text-center' scope="col">#</th>
-            <th class='text-center' scope="col">{% blocktrans %}Komax number{% endblocktrans %}</th>
+            <th class='text-center' scope="col">{% blocktrans %}Equipment number{% endblocktrans %}</th>
+            <th class="text-center" scope="col">{% trans 'Type' %}</th>
             <th class='text-center' scope="col">{% trans 'Status' %}</th>
             <th class='text-center' scope="col">{% trans 'Marking' %}</th>
             <th class='text-center' scope="col">{% trans 'Pairing' %}</th>
@@ -111,6 +112,7 @@
             <tr>
                 <th class='text-center' scope="row">{{ forloop.counter }}</th>
                 <td class="text-center">{{ komax.0 }}</td>
+                <td class="text-center">Komax</td>
                 <td class="text-center">{% trans komax.1 %}</td>
                 <td class="text-center">{% trans komax.2 %}</td>
                 <td class="text-center">{% trans komax.3 %}</td>
@@ -202,6 +204,20 @@
 
                 </td>
 
+            </tr>
+        {% endfor %}
+
+        {% for kappa in kappas %}
+            <tr>
+                <th class='text-center' scope="row">{{ forloop.counter }}</th>
+                <td class="text-center">{{ kappa.0 }}</td>
+                <td class="text-center">Kappa</td>
+                <td class="text-center">{% trans kappa.1 %}</td>
+                <td class="text-center"> - </td>
+                <td class="text-center"> - </td>
+                <td class="text-center"> - </td>
+                <td class="text-center"> - </td>
+                <td class="text-center"> </td>
             </tr>
         {% endfor %}
     </tbody>
