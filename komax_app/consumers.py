@@ -25,7 +25,8 @@ class KomaxAppTaskConsumer(AsyncConsumer):
             "type": "websocket.accept"
         })
 
-    async def async_create_sort_task(self, komax_task_name, harnesses, komaxes, shift, type_of_allocation='parallel'):
+    async def async_create_sort_task(self, komax_task_name, harnesses, komaxes, kappas, shift,
+                                     type_of_allocation='parallel'):
         """
 
         :param komax_task_name:
@@ -39,11 +40,12 @@ class KomaxAppTaskConsumer(AsyncConsumer):
             komax_task_name,
             harnesses,
             komaxes,
+            kappas,
             shift,
             type_of_allocation
         )
 
-    def create_sort_task(self, komax_task_name, harnesses, komaxes, shift, type_of_allocation='parallel'):
+    def create_sort_task(self, komax_task_name, harnesses, komaxes, kappas, shift, type_of_allocation='parallel'):
         """
 
         :param komax_task_name:
@@ -54,7 +56,7 @@ class KomaxAppTaskConsumer(AsyncConsumer):
         :return:
         """
         processor = KomaxTaskProcessing()
-        processor.create_task(komax_task_name, harnesses, komaxes, shift, type_of_allocation)
+        processor.create_task(komax_task_name, harnesses, komaxes, kappas, shift, type_of_allocation)
         final_data = processor.sort_komax_task(komax_task_name)
 
         return final_data
@@ -134,10 +136,12 @@ class KomaxAppTaskConsumer(AsyncConsumer):
                 task_name = loaded_dict_data.get('task_name')
                 harnesses = loaded_dict_data.get('harnesses')
                 komaxes = loaded_dict_data.get('komaxes')
+                kappas = loaded_dict_data.get('kappas')
                 shift = loaded_dict_data.get('shift')
                 type_of_allocation = loaded_dict_data.get('type_of_allocation')
 
-                await self.async_create_sort_task(task_name, harnesses, komaxes, shift, type_of_allocation)
+
+                await self.async_create_sort_task(task_name, harnesses, komaxes, kappas, shift, type_of_allocation)
 
                 if self.data_task is not None and self.data_task['allocation'][0] == -1:
                     await self.async_delete_task(task_name)

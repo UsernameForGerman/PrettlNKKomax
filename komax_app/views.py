@@ -282,10 +282,12 @@ class KomaxAppSetupView(View):
         """
         harnesses = Harness.objects.order_by('harness_number')
         komaxes = Komax.objects.order_by('number').filter(status=1)
+        kappas = Kappa.objects.order_by('number').filter(status=1)
 
         context = {
             'harnesses': harnesses,
             'komaxes': komaxes,
+            'kappas': kappas,
         }
 
         return render(request, self.template_name, context)
@@ -391,7 +393,7 @@ class KomaxTaskView(View):
         status = 'success'
         komaxes_time = task.komaxes.all()
         final_alloc = {komax_time.komax.number: komax_time.time for komax_time in komaxes_time}
-
+        kappas = [task.kappas, ]
         exceeds_shift = False
 
 
@@ -408,7 +410,8 @@ class KomaxTaskView(View):
             'harness_amount': 12 // len(harnesses),
             'komaxes_amount': 12 // len(final_alloc),
             'exceeds_shift': exceeds_shift,
-            'status': status
+            'status': status,
+            'kappas': kappas,
         }
 
         return render(request, 'komax_app/komax_app_task.html', context=context)
@@ -492,10 +495,9 @@ def get_general_task_view(request, task_name):
     return response
 
 def get_personal_task_view_kappa(request, task_name, kappa):
-    kappa_obj = get_object_or_404(Kappa, number=kappa)
-    komax_task_obj = get_object_or_404(KomaxTask, kappas=kappa_obj)
+    komax_task_obj = get_object_or_404(KomaxTask, task_name=task_name)
 
-    kappa_task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=komax_task_obj, kappas=kappa_obj))
+    kappa_task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=komax_task_obj, kappa=komax_task_obj.kappas))
 
     kappa_task_pers_df.sort_values(
         by=['id'],
@@ -503,16 +505,16 @@ def get_personal_task_view_kappa(request, task_name, kappa):
         inplace=True,
     )
 
-    kappa_task_pers_df.index = pd.Index(range(komax_task_pers_df.shape[0]))
+    kappa_task_pers_df.index = pd.Index(range(kappa_task_pers_df.shape[0]))
 
     kappa_task_pers_df['done'] = ''
 
     response = HttpResponse(
         content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     )
-    response['Content-Disposition'] = 'attachment; filename={task_name}-{komax_number}-Kappa.xlsx'.format(
+    response['Content-Disposition'] = 'attachment; filename={task_name}-{kappa_number}-Kappa.xlsx'.format(
         task_name=task_name,
-        komax_number=kappa_obj.number,
+        kappa_number=komax_task_obj.kappas.number,
     )
 
     out_file = OutProcess(kappa_task_pers_df)
@@ -545,8 +547,31 @@ def get_komax_ticket_view(self, task_name, komax):
     wb = out_file.get_labels()
 
     wb.save(response)
+    return response
 
-    close_old_connections()
+def get_kappa_ticket_view(request, task_name, kappa):
+    task_obj = get_object_or_404(KomaxTask, task_name=task_name)
+    task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=task_obj, kappa=task_obj.kappas))
+
+    task_pers_df.sort_values(
+        by=['id'],
+        ascending=True,
+        inplace=True,
+    )
+
+    task_pers_df.index = pd.Index(range(task_pers_df.shape[0]))
+
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    )
+    response['Content-Disposition'] = 'attachment; filename={kappa_number}-ticket.xlsx'.format(
+        kappa_number=task_obj.kappas.number,
+    )
+
+    out_file = OutProcess(task_pers_df)
+    wb = out_file.get_labels()
+
+    wb.save(response)
     return response
 
 def harness_delete(request, harness_number):
@@ -759,6 +784,12 @@ class KomaxTaskProcessing():
     def get_laboriousness(self):
         return Laboriousness.objects.all()
 
+    def get_kappas(self, kappa_number=1):
+        if kappa_number is None:
+            return [None, ]
+        else:
+            return Kappa.objects.filter(number=kappa_number)
+
     def create_harness_amount(self, harnesses, amount=-1):
         harness_amount_objs = list()
         for harness in harnesses:
@@ -777,10 +808,15 @@ class KomaxTaskProcessing():
 
         return komax_time_objs
 
-    def create_task(self, task_name, harnesses, komaxes, shift, type_of_allocation):
+    def create_task(self, task_name, harnesses, komaxes, kappas, shift, type_of_allocation):
         harness_amount_objs = self.create_harness_amount(harnesses)
         komax_time_objs = self.create_komax_time(komaxes)
-        komax_task_obj = KomaxTask(task_name=task_name, shift=shift, type_of_allocation=type_of_allocation)
+        komax_task_obj = KomaxTask(
+            task_name=task_name,
+            kappas=self.get_kappas(kappas[0])[0],
+            shift=shift,
+            type_of_allocation=type_of_allocation
+        )
         self.save_obj(komax_task_obj)
         komax_task_obj.harnesses.add(*harness_amount_objs)
         komax_task_obj.komaxes.add(*komax_time_objs)
@@ -833,6 +869,7 @@ class KomaxTaskProcessing():
         task_obj = task_query[0]
         harnesses_query = self.get_harnesses(komax_task_obj=task_obj)
         komaxes_query = self.get_komaxes(komax_task_obj=task_obj)
+        kappas = [task_obj.kappas]
 
         shift = self.get_shift(task_obj)
         harnesses = harnesses_query
@@ -854,7 +891,7 @@ class KomaxTaskProcessing():
         # amount_dict = get_amount_from(read_frame(task_obj.harnesses.all()))
 
         # print(df, komax_dict, harnesses, time_dict, shift)
-        final_data = self.__sort_allocated_task(df, komax_dict, harnesses, time_dict, shift, type_of_allocation)
+        final_data = self.__sort_allocated_task(df, komax_dict, kappas, harnesses, time_dict, shift, type_of_allocation)
 
         self.sort_alloc_data = final_data
 
@@ -874,8 +911,12 @@ class KomaxTaskProcessing():
         for row in final_data['chart'].iterrows():
             row_dict = row[1]
             harness_obj = self.get_harnesses(harness=row_dict['harness'])[0]
-            komax_obj = self.get_komaxes(komax=row_dict['komax'])[0]
-            self.save_task_personal(row_dict, task_obj, harness_obj, komax_obj)
+            if row_dict['komax'] is None:
+                komax_obj = None
+            else:
+                komax_obj = self.get_komaxes(komax=row_dict['komax'])[0]
+            kappa_obj = self.get_kappas(kappa_number=row_dict['kappa'])[0]
+            self.save_task_personal(row_dict, task_obj, kappa_obj, harness_obj, komax_obj)
 
         """
         process = ProcessDataframe(df)
@@ -957,13 +998,14 @@ class KomaxTaskProcessing():
         """
         return final_data
 
-    def save_task_personal(self, row_dict, task_obj, harness_obj, komax_obj):
+    def save_task_personal(self, row_dict, task_obj, kappa_obj, harness_obj, komax_obj):
         task_pers_obj = TaskPersonal(
             komax_task=task_obj,
             # harness=get_object_or_404(Harness, harness_number=row_dict['harness']),
             # komax=get_object_or_404(Komax, number=row_dict['komax']),
             harness=harness_obj,
             komax=komax_obj,
+            kappa=kappa_obj,
             amount=row_dict["amount"],
             notes=row_dict["notes"],
             marking=row_dict["marking"],
@@ -983,27 +1025,27 @@ class KomaxTaskProcessing():
         )
         task_pers_obj.save()
 
-    def __sort_allocated_task(self, df, komax_dict, harnesses, time_dict, shift, type_of_allocaton='parallel'):
+    def __sort_allocated_task(self, df, komax_dict, kappas, harnesses, time_dict, shift, type_of_allocaton='parallel'):
         process = ProcessDataframe(df)
 
         amount_dict = {harness.harness.harness_number: 1 for harness in harnesses}
 
         # alloc_base = process.task_allocation_base(komax_dict, amount_dict, time_dict, hours=shift)
-        alloc_base = process.allocate(komax_dict, amount_dict, time_dict, shift, type_of_allocation=type_of_allocaton)
+        alloc_base = process.allocate(komax_dict, kappas, amount_dict, time_dict, shift, type_of_allocation=type_of_allocaton)
 
         process.delete_word_contain('СВ', 'R')
         first_sort = process.chart.nunique()["wire_terminal_1"] <= process.chart.nunique()["wire_terminal_2"]
         process.sort(method='simple', first_sort=first_sort)
 
         # alloc = process.task_allocation(komax_dict, amount_dict, time_dict, hours=shift)
-        alloc = process.allocate(komax_dict, amount_dict, time_dict, shift, type_of_allocation=type_of_allocaton)
+        alloc = process.allocate(komax_dict, kappas, amount_dict, time_dict, shift, type_of_allocation=type_of_allocaton)
 
         first_sort = not first_sort
         new_process = ProcessDataframe(df)
         new_process.sort(method='simple', first_sort=first_sort)
 
         # new_alloc = new_process.task_allocation(komax_dict, amount_dict, time_dict, hours=shift)
-        new_alloc = new_process.allocate(komax_dict, amount_dict, time_dict, shift, type_of_allocation=type_of_allocaton)
+        new_alloc = new_process.allocate(komax_dict, kappas, amount_dict, time_dict, shift, type_of_allocation=type_of_allocaton)
 
         if new_alloc == -1 and alloc == -1:
             final_data = {
@@ -1089,6 +1131,7 @@ class KomaxTaskProcessing():
         laboriousness = laboriousness_query
         komax_dict = self.__get_komaxes_from(read_frame(komaxes))
         time_dict = get_time_from(read_frame(laboriousness))
+        kappas = [task_obj.kappas, ]
         type_of_allocation = task_obj.type_of_allocation
 
         # amount_dict = get_amount_from(read_frame(task_obj.harnesses.all()))
@@ -1096,7 +1139,7 @@ class KomaxTaskProcessing():
         # alloc = process.task_allocation(komax_dict, quantity=None, time=time_dict, hours=shift)
 
 
-        alloc = process.allocate(komax_dict, amount_dict, time_dict, shift, type_of_allocation)
+        alloc = process.allocate(komax_dict, kappas, amount_dict, time_dict, shift, type_of_allocation)
 
         if type(alloc) is int:
             task_obj.harnesses.all().delete()

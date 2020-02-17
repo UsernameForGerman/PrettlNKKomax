@@ -141,7 +141,7 @@ class KomaxTask(models.Model):
     created = models.DateTimeField(verbose_name=_('created'), auto_now_add=True)
     harnesses = models.ManyToManyField(HarnessAmount)
     komaxes = models.ManyToManyField(KomaxTime)
-    # kappas = models.ForeignKey(Kappa, on_delete=models.CASCADE, null=True)
+    kappas = models.ForeignKey(Kappa, on_delete=models.CASCADE, null=True)
     shift = models.PositiveSmallIntegerField()
     type_of_allocation = models.CharField(max_length=128)
 
@@ -153,7 +153,7 @@ class TaskPersonal(models.Model):
     amount = models.PositiveSmallIntegerField()
     harness = models.ForeignKey(Harness, on_delete=models.CASCADE)
     komax = models.ForeignKey(Komax, on_delete=models.CASCADE, null=True)
-    # kappa = models.ForeignKey(Kappa, on_delete=models.CASCADE, null=True)
+    kappa = models.ForeignKey(Kappa, on_delete=models.CASCADE, null=True)
     notes = models.CharField(max_length=256, null=True)
     marking = models.CharField(max_length=8, null=True)
     wire_type = models.CharField(max_length=8, null=True)

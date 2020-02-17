@@ -76,6 +76,19 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-form-label col-sm-2" for="kappas">{% trans "Kappas" %}:</label>
+                                <div class="col-sm-10">
+                                    <select class="selectpicker form-control" name="kappas" id="kappas" multiple data-live-search="true">
+                                        {% for kappa in kappas %}
+                                        <option>{{ kappa }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <!--
+                                    <input class="form-control" type="text" name="task_name" required_id="id_task_name">
+                                    -->
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-form-label col-sm-2" for="shift">{% trans "Shift" %}({% trans "hours" %}):</label>
                                 <div class="col-sm-10">
                                     <input class="form-control" type="text" name="shift" id="shift" required>
@@ -123,6 +136,7 @@
     var task_name = $('#task_name');
     var harnesses = $('#harnesses');
     var komaxes = $('#komaxes');
+    var kappas = $('#kappas');
     var shift = $('#shift');
     var url = '';
     var harness_amount_form;
@@ -170,6 +184,7 @@
                 'task_name': task_name.val(),
                 'harnesses': harnesses.val(),
                 'komaxes': komaxes.val(),
+                'kappas': kappas.val(),
                 'shift': shift.val(),
                 'type_of_allocation': type_of_allocation,
             };

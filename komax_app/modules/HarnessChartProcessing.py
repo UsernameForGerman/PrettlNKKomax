@@ -213,7 +213,8 @@ class HarnessChartReader:
         for row_pair in cabels_rows:
             cabel_name = self.__dataframe_file.loc[row_pair[0] - start_row - 2, 'Вид провода']
             for row in range(row_pair[0], row_pair[1] + 1):
-                self.__dataframe_file.loc[row - start_row - 2, 'Вид провода'] = cabel_name
+                wire_number = self.__dataframe_file.loc[row - start_row - 2, '№ провода']
+                self.__dataframe_file.loc[row - start_row - 2, 'Вид провода'] = str(cabel_name) + ' ' + str(wire_number)
 
 
     def read_file_chart(self):
@@ -247,6 +248,8 @@ class ProcessDataframe:
     TERMINAL_2_COL = 'wire_terminal_2'
     TIME_COL = 'time'
     SQUARE_COL = 'wire_square'
+    WIRE_TYPE_COL = 'wire_type'
+    KAPPA_COL = 'kappa'
 
 
     __cols_name = {
@@ -730,7 +733,8 @@ class ProcessDataframe:
 
             self.chart.loc[idx, self.TIME_COL] = time_changeover_row
 
-    def __consistently_allocation(self, komaxes, quantity, time, hours, group_of_square, allocation, returned='error'):
+    def __consistently_allocation(self, komaxes, kappas, quantity, time, hours, group_of_square, allocation,
+                                  returned='error'):
         """
         allocation pass by, NOT parallel
 
@@ -770,6 +774,10 @@ class ProcessDataframe:
 
         # without pairing komaxes
         for idx, row in self.chart.iterrows():
+            wire_type = self.chart.loc[idx, self.WIRE_TYPE_COL]
+            if type(wire_type) is str and 'Кабель' in wire_type:
+                self.chart.loc[idx, self.KAPPA_COL] = kappas[0].number
+                continue
             marking = self.chart.loc[idx, self.MARKING_COL]
             time_changeover_position = self.chart.loc[idx, self.TIME_COL]
             square_group = group_by(self.chart.loc[idx, self.SQUARE_COL])
@@ -907,9 +915,13 @@ class ProcessDataframe:
             return items / divider
 
     def __create_komax_col(self):
-        self.chart[self.KOMAX_COL] = 0
+        self.chart[self.KOMAX_COL] = None
 
-    def __parallel_allocation(self, komaxes, quantity, time, hours, group_of_square, allocation, returned='error'):
+    def __create_kappa_col(self):
+        self.chart[self.KAPPA_COL] = None
+
+    def __parallel_allocation(self, komaxes, kappas, quantity, time, hours, group_of_square, allocation,
+                              returned='error'):
         """
         parallel allocation
 
@@ -950,6 +962,10 @@ class ProcessDataframe:
 
         # without pairing komaxes
         for idx, row in self.chart.iterrows():
+            wire_type = self.chart.loc[idx, self.WIRE_TYPE_COL]
+            if type(wire_type) is str and 'Кабель' in wire_type:
+                self.chart.loc[idx, self.KAPPA_COL] = kappas[0].number
+                continue
             marking = self.chart.loc[idx, self.MARKING_COL]
             time_changeover_position = self.chart.loc[idx, self.TIME_COL]
             group_square = group_by(self.chart.loc[idx, self.SQUARE_COL])
@@ -964,7 +980,6 @@ class ProcessDataframe:
                     pass
                 else:
                     error = True
-
             if black_komax_curr_idx < amount_black_komaxes and len(black_komaxes) and \
                     alloc[black_komaxes[black_komax_curr_idx]][0] > average_black_time:
                 black_komax_curr_idx += 1
@@ -986,14 +1001,16 @@ class ProcessDataframe:
 
         return (alloc, error)
 
-    def allocate(self, komaxes, quantity, time, hours=None, type_of_allocation='parallel'):
+    def allocate(self, komaxes, kappas, quantity, time, hours=None, type_of_allocation='parallel'):
         komax_loading = KomaxLoading(komaxes)
         self.__create_komax_col()
+        self.__create_kappa_col()
         groups = (1, 2, 3)
         for group in groups:
             komaxes_group, allocation_group = komax_loading.get_komaxes_allocation_by_komax_group_square(group)
             if type_of_allocation == 'parallel':
                 alloc_for_group, error = self.__parallel_allocation(komaxes_group,
+                                                                    kappas,
                                                                     quantity, 
                                                                     time, 
                                                                     hours, 
@@ -1003,6 +1020,7 @@ class ProcessDataframe:
                 # print(alloc_for_group, error)
             elif type_of_allocation == 'consistently':
                 alloc_for_group, error = self.__consistently_allocation(komaxes_group,
+                                                                        kappas,
                                                                         quantity, 
                                                                         time, 
                                                                         hours, 

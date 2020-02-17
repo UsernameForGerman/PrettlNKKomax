@@ -26,6 +26,11 @@
                         {% trans 'task' %} {{ komax }}
                     </a>
                 {% endfor %}
+                {% for kappa in kappas %}
+                    <a class="btn btn-primary btn-lg" href="{% url 'komax_app:get_spec_task_kappa' task_name=task.task_name kappa=kappa.number %}">
+                        {% trans 'task' %} kappa {{ kappa.number }}
+                    </a>
+                {% endfor %}
             </p>
             <p>
                 <a class="btn btn-lg btn-warning" href="{% url 'komax_app:task_setup' %}">{% trans 'Again' %}</a>
@@ -46,6 +51,11 @@
                                     {% trans "Ticket" %} {{ komax }}
                                 </a>
 
+                            {% endfor %}
+                            {% for kappa in kappas %}
+                                <a class="btn btn-lg btn-info" href="{% url 'komax_app:get_kappa_ticket_view' task_name=task.task_name kappa=kappa.number %}">
+                                    {% trans 'Ticket' %} kappa {{ kappa.number }}
+                                </a>
                             {% endfor %}
                         </p>
                     </div>
