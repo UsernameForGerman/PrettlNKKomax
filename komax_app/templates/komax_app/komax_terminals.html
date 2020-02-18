@@ -6,9 +6,7 @@
 
 {% block title %}
     <title>
-    {% blocktrans %}
-    Komax terminals
-    {% endblocktrans %}
+    {% trans 'Komax terminals' %}
     </title>
 {% endblock %}
 
@@ -16,9 +14,7 @@
     <link type="text/css" rel="stylesheet" href="{% static 'komax_app/komax_terminals.css' %}">
     <div class="container main_content">
         <h2 class="text-center">
-        {% blocktrans %}
-        Komax terminals
-        {% endblocktrans %}
+        {% trans 'Komax terminals' %}
         </h2>
         <form class="form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -53,14 +49,10 @@
             <tr>
                 <th class='text-center' scope="col">#</th>
                 <th class='text-center' scope="col">
-                    {% blocktrans %}
-                    Terminal name
-                    {% endblocktrans %}
+                    {% trans 'Terminal name' %}
                 </th>
                 <th class="text-center" scope="col">
-                    {% blocktrans %}
-                    Available on komax
-                    {% endblocktrans %}
+                    {% trans 'Available on komax' %}
                 </th>
                 <th scope="col"></th>
                 <th scope="col"></th>

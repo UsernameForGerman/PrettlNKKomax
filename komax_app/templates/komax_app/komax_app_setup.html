@@ -35,9 +35,7 @@
             <a class="btn btn-primary btn-lg" href="{% url 'komax_app:komaxes' %}">{% trans "Komaxes" %}</a>
             <a class="btn btn-primary btn-lg" href="{% url 'komax_app:laboriousness' %}">{% trans 'Laboriousness'%}</a>
             <a class="btn btn-primary btn-lg" href="{% url 'komax_app:komax_terminals_list' %}">
-                {% blocktrans %}
-                    Komax terminals
-                {% endblocktrans %}
+                {% trans 'Komax terminals' %}
             </a>
         </p>
     </section>
@@ -49,7 +47,7 @@
                     <div class="card-body">
                         <form id="form">
                             <div class="form-group row">
-                                <label for="task_name" class="col-form-label col-sm-2">{% blocktrans %}Task name{% endblocktrans %}:</label>
+                                <label for="task_name" class="col-form-label col-sm-2">{% trans 'Task name' %}:</label>
                                 <div class="col-sm-10" id="task-name-handler">
                                     <input class="form-control" type="text" name="task_name" id="task_name" required>
                                 </div>
