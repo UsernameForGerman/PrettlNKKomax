@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.views import generic
 from django.urls import reverse_lazy
 from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask, HarnessAmount, TaskPersonal, \
-    Tickets, KomaxTime, KomaxWork, Kappa
+    Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal
 from .forms import KomaxEditForm, KomaxCreateForm
 from .modules.ioputter import FileReader
 from django_pandas.io import read_frame
@@ -103,6 +103,36 @@ def upload(request):
     return render(request, 'komax_app/upload_harness_chart.html', context)
 """
 
+class KomaxTerminalsListView(View):
+    template_name = 'komax_app/komax_terminals.html'
+
+    def get(self, request, *args, **kwargs):
+        komax_terminals = KomaxTerminal.objects.order_by('terminal_name')
+
+        context = {
+            'terminals': komax_terminals,
+        }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        if 'terminal_name' in request.POST and 'availability' in request.POST:
+            terminal_name = request.POST['terminal_name']
+            availability = True if request.POST['availability'] == 'yes' else False
+
+            KomaxTerminal(terminal_name=terminal_name, available=availability).save()
+
+        elif 'Change' in request.POST:
+            terminal_name = request.POST['terminal_name']
+            komax_terminal_obj = KomaxTerminal.objects.filter(terminal_name=terminal_name)[0]
+            komax_terminal_obj = not komax_terminal_obj.ability
+            komax_terminal_obj.save()
+
+        elif 'Delete' in request.POST:
+            terminal_name = request.POST['terminal_name']
+            KomaxTerminal.objects.filter(terminal_name=terminal_name)[0].delete()
+
+        return redirect('komax_app:komax_terminals_list')
 
 class HarnessesListView(View):
     template_name = 'komax_app/harnesses.html'
@@ -790,6 +820,9 @@ class KomaxTaskProcessing():
         else:
             return Kappa.objects.filter(number=kappa_number)
 
+    def get_komax_terminls(self):
+        return KomaxTerminal.objects.all()
+
     def create_harness_amount(self, harnesses, amount=-1):
         harness_amount_objs = list()
         for harness in harnesses:
@@ -888,10 +921,21 @@ class KomaxTaskProcessing():
         komax_dict = self.__get_komaxes_from(read_frame(komaxes_query))
         time_dict = get_time_from(read_frame(laboriousness))
         type_of_allocation = task_obj.type_of_allocation
+        terminals_df = read_frame(self.get_komax_terminls())
+
         # amount_dict = get_amount_from(read_frame(task_obj.harnesses.all()))
 
         # print(df, komax_dict, harnesses, time_dict, shift)
-        final_data = self.__sort_allocated_task(df, komax_dict, kappas, harnesses, time_dict, shift, type_of_allocation)
+        final_data = self.__sort_allocated_task(
+            df,
+            terminals_df,
+            komax_dict,
+            kappas,
+            harnesses,
+            time_dict,
+            shift,
+            type_of_allocation
+        )
 
         self.sort_alloc_data = final_data
 
@@ -1025,8 +1069,11 @@ class KomaxTaskProcessing():
         )
         task_pers_obj.save()
 
-    def __sort_allocated_task(self, df, komax_dict, kappas, harnesses, time_dict, shift, type_of_allocaton='parallel'):
+    def __sort_allocated_task(self, df, terminals_df, komax_dict, kappas, harnesses, time_dict, shift,
+                              type_of_allocaton='parallel'):
+
         process = ProcessDataframe(df)
+        process.filter_availability_komax_terminal(terminals_df)
 
         amount_dict = {harness.harness.harness_number: 1 for harness in harnesses}
 

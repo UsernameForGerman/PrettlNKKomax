@@ -13,6 +13,14 @@ COLUMN_NAMES = ("Примечание", "№ п/п", "Маркировка", "В
 class HarnessChartReader:
     CABEL = "Кабель"
     CABEL_COLUMN = "Примечание"
+    TERMINAL_1_COL = "Наконечник 1"
+    TERMINAL_2_COL = "Наконечник 2"
+    SEAL_1_COL = "Уплотнитель 1"
+    SEAL_2_COL = "Уплотнитель 2"
+    WIRE_CUT_1_COL = "Частичное снятие 1"
+    WIRE_CUT_2_COL = "Частичное снятие 2"
+    ARMIROVKA_1_COL = "Армировка 1 (Трубка ПВХ, Тр.Терм., изоляторы)"
+    ARMIROVKA_2_COL = "Армировка 2 (Трубка ПВХ, Тр.Терм., изоляторы)"
 
     numeric_columns = [
         "Сечение",
@@ -250,6 +258,12 @@ class ProcessDataframe:
     SQUARE_COL = 'wire_square'
     WIRE_TYPE_COL = 'wire_type'
     KAPPA_COL = 'kappa'
+    SEAL_1_COL = 'wire_seal_1'
+    SEAL_2_COL = 'wire_seal_2'
+    ARMIROVKA_1_COL = 'armirovka_1'
+    ARMIROVKA_2_COL = 'armirovka_2'
+    WIRE_CUT_1_COL = 'wire_cut_length_1'
+    WIRE_CUT_2_COL = 'wire_cut_length_2'
 
 
     __cols_name = {
@@ -454,6 +468,41 @@ class ProcessDataframe:
 
     def __reset_index(self):
         self.chart.index = pd.Index(range(self.chart.shape[0]))
+
+
+    def __check_for_availability(self, idx, terminal_info, terminal_col, armirovka_col, seal_col, wire_cut_col):
+        if not terminal_info.empty and terminal_info['available']:
+            pass
+        else:
+            self.chart.loc[idx, [terminal_col, armirovka_col, seal_col]] = 0, 0, 0
+            self.chart.loc[idx, wire_cut_col] = 16.0
+
+    def filter_availability_komax_terminal(self, terminals_df):
+        for idx, row in self.chart.iterrrows():
+            terminal_1 = self.chart.loc[idx, self.TERMINAL_1_COL]
+            terminal_2 = self.chart.loc[idx, self.TERMINAL_2_COL]
+            terminal_1_info = terminals_df.loc[terminals_df['terminal_name'] == terminal_1]
+            terminal_2_info = terminals_df.loc[terminals_df['terminal_name'] == terminal_2]
+
+
+            self.__check_for_availability(
+                idx,
+                terminal_1_info,
+                self.TERMINAL_1_COL,
+                self.ARMIROVKA_1_COL,
+                self.SEAL_1_COL,
+                self.WIRE_CUT_1_COL
+            )
+
+            self.__check_for_availability(
+                idx,
+                terminal_2_info,
+                self.TERMINAL_2_COL,
+                self.ARMIROVKA_2_COL,
+                self.SEAL_2_COL,
+                self.WIRE_CUT_2_COL
+            )
+
 
     def sort(self, method='simple', first_sort=False, test=False):
         self.delete_word_contain('*')

@@ -76,6 +76,13 @@ class Temp_chart(models.Model):
     def __str__(self):
         return self.harness
 
+class KomaxTerminal(models.Model):
+    terminal_name = models.CharField(max_length=64)
+    available = models.BooleanField()
+
+    def __str__(self):
+        return self.terminal_name
+
 class Kappa(models.Model):
     STATUS_CHOICES = [
         (1, 'Work'),

@@ -1,0 +1,84 @@
+{% extends 'komax_app/komax_app_main.html' %}
+{% load static %}
+{% load staticfiles %}
+{% load i18n %}
+
+
+<title>
+    {% blocktrans %}
+    Komax terminals
+    {% endblocktrans %}
+</title>
+
+{% block main_content %}
+    <link type="text/css" rel="stylesheet" href="{% static 'komax_app/komax_terminals.css' %}">
+    <div class="container main_content">
+        <form class="form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-8">
+                    <input class="form-control" name="terminal_name" type="text" required placeholder="7815049">
+                </div>
+
+                <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="available">+</label>
+                            <input class="form-check-inline" id="available" name="availability" value='yes' type="radio" checked>
+
+                            <label for="not_available">-</label>
+                            <input class="form-check-inline" id="not_available" name="availability" value='no' type="radio">
+
+                        </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-success">
+                        {% trans "Add" %}
+                    </button>
+
+
+                </div>
+            </div>
+        </form>
+
+        <table class="table table-stripped">
+        <thred>
+            <tr>
+                <th class='text-center' scope="col">#</th>
+                <th class='text-center' scope="col">
+                    {% blocktrans %}
+                    Komax terminal
+                    {% endblocktrans %}
+                </th>
+                <th class="text-center" scope="col">
+                    {% blocktrans %}
+                    Available on komax
+                    {% endblocktrans %}
+                </th>
+                <th scope="col"></th>
+            </tr>
+        </thred>
+        <tbody>
+
+        {% for terminal in terminals %}
+            <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <tr>
+                <th class='text-center' scope="row">{{ forloop.counter }}</th>
+                <td class="text-center">{{ terminal.terminal_name }}</td>
+                <td class="text-center">{{ terminal.available }}</td>
+                <td>
+                    <input type="submit" class="btn btn-info" name="Change" value="Change">
+                    <input type="hidden" name="terminal_name" value="{{ terminal.terminal_name }}">
+                </td>
+                <td>
+                    <input type="submit" class="btn btn-danger" name="Delete" value="Delete">
+                </td>
+
+            </tr>
+            </form>
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+{% endblock %}

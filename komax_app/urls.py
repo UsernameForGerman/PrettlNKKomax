@@ -31,5 +31,6 @@ urlpatterns = [
     re_path(r'^harnesses/(?P<pk>[a-zA-Z0-9_.-]*)/$', views.harness_chart_view, name='harness_chart'),
     re_path(r'^laboriousness/$', views.LaboriousnessListView.as_view(), name='laboriousness'),
     re_path(r'^komax_tasks/$', views.KomaxTaskListView.as_view(), name='komax_task_list'),
+    re_path(r'^komax_terminals/$', views.KomaxTerminalsListView.as_view(), name='komax_terminals_list'),
     #path('upload/', views.upload, name='upload'),
 ]
