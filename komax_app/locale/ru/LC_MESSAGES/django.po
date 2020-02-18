@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-16 13:25+0000\n"
+"POT-Creation-Date: 2020-02-18 22:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,9 +38,9 @@ msgid "Wire"
 msgstr "Провод"
 
 #: komax_app/templates/komax_app/chart_view.html:28
-#: komax_app/templates/komax_app/komaxes.html:51
-#: komax_app/templates/komax_app/komaxes.html:102
-#: komax_app/templates/komax_app/komaxes.html:158
+#: komax_app/templates/komax_app/equipment.html:51
+#: komax_app/templates/komax_app/equipment.html:103
+#: komax_app/templates/komax_app/equipment.html:160
 msgid "Marking"
 msgstr "Маркировка"
 
@@ -145,11 +145,95 @@ msgstr ""
 "            Подробнее\n"
 "        "
 
+#: komax_app/templates/komax_app/equipment.html:6
+#: komax_app/templates/komax_app/equipment.html:16
+#: komax_app/templates/komax_app/komax_app_main.html:19
+#: komax_app/templates/komax_app/komax_app_setup.html:35
+#: komax_app/templates/komax_app/komax_app_setup.html:71
+#: komax_app/templates/komax_app/komax_app_view.html:35
+#: komax_app/templates/komax_app/komax_tasks.html:23
+msgid "Komaxes"
+msgstr "Комаксы"
+
+#: komax_app/templates/komax_app/equipment.html:18
+msgid "New"
+msgstr "Создать"
+
+#: komax_app/templates/komax_app/equipment.html:28
+#: komax_app/templates/komax_app/komax_terminals.html:43
+msgid "Add"
+msgstr "Добавить"
+
+#: komax_app/templates/komax_app/equipment.html:35
+#: komax_app/templates/komax_app/equipment.html:144
+#, fuzzy
+#| msgid "Komaxes"
+msgid "Komax"
+msgstr "Комаксы"
+
+#: komax_app/templates/komax_app/equipment.html:35
+#: komax_app/templates/komax_app/equipment.html:144
+#, fuzzy
+#| msgid "Number"
+msgid "number"
+msgstr "Номер"
+
+#: komax_app/templates/komax_app/equipment.html:37
+msgid "1"
+msgstr "1"
+
+#: komax_app/templates/komax_app/equipment.html:41
+#: komax_app/templates/komax_app/equipment.html:102
+#: komax_app/templates/komax_app/equipment.html:150
+#: komax_app/templates/komax_app/task_status.html:6
+msgid "Status"
+msgstr "Статус"
+
+#: komax_app/templates/komax_app/equipment.html:61
+#: komax_app/templates/komax_app/equipment.html:104
+#: komax_app/templates/komax_app/equipment.html:170
+msgid "Pairing"
+msgstr "Спаривание"
+
+#: komax_app/templates/komax_app/equipment.html:71
+#: komax_app/templates/komax_app/equipment.html:105
+#: komax_app/templates/komax_app/equipment.html:180
+msgid "Group of square"
+msgstr "Группа сечения"
+
+#: komax_app/templates/komax_app/equipment.html:81
+#: komax_app/templates/komax_app/equipment.html:106
+#: komax_app/templates/komax_app/equipment.html:190
+msgid "Identifier"
+msgstr "Идентификатор"
+
+#: komax_app/templates/komax_app/equipment.html:88
+#: komax_app/templates/komax_app/equipment.html:197
+msgid "Close"
+msgstr "Закрыть"
+
+#: komax_app/templates/komax_app/equipment.html:89
+#: komax_app/templates/komax_app/equipment.html:198
+msgid "Save"
+msgstr "Сохранить"
+
+#: komax_app/templates/komax_app/equipment.html:100
+msgid "Equipment number"
+msgstr "Номер оборудования"
+
+#: komax_app/templates/komax_app/equipment.html:101
+msgid "Type"
+msgstr "Тип"
+
+#: komax_app/templates/komax_app/equipment.html:137
+msgid "Setup"
+msgstr "Настроить"
+
 #: komax_app/templates/komax_app/harnesses.html:6
 #: komax_app/templates/komax_app/komax_app_main.html:18
 #: komax_app/templates/komax_app/komax_app_setup.html:34
-#: komax_app/templates/komax_app/komax_app_setup.html:53
-#: komax_app/templates/komax_app/komax_app_task.html:60
+#: komax_app/templates/komax_app/komax_app_setup.html:58
+#: komax_app/templates/komax_app/komax_app_task.html:70
 #: komax_app/templates/komax_app/komax_app_view.html:32
 #: komax_app/templates/komax_app/komax_tasks.html:22
 msgid "Harnesses"
@@ -196,7 +280,7 @@ msgstr "Удалить"
 
 #: komax_app/templates/komax_app/komax_app_amount.html:6
 #: komax_app/templates/komax_app/komax_app_amount.html:31
-#: komax_app/templates/komax_app/komax_app_setup.html:193
+#: komax_app/templates/komax_app/komax_app_setup.html:213
 msgid "Amount"
 msgstr "Количество"
 
@@ -212,8 +296,8 @@ msgid "Harness"
 msgstr "Жгут"
 
 #: komax_app/templates/komax_app/komax_app_amount.html:35
-#: komax_app/templates/komax_app/komax_app_setup.html:100
-#: komax_app/templates/komax_app/komax_app_setup.html:263
+#: komax_app/templates/komax_app/komax_app_setup.html:118
+#: komax_app/templates/komax_app/komax_app_setup.html:283
 msgid "Submit"
 msgstr "Продолжить"
 
@@ -229,16 +313,6 @@ msgstr "Приложение"
 #: komax_app/templates/komax_app/komax_app_main.html:14
 msgid "current"
 msgstr "текущий"
-
-#: komax_app/templates/komax_app/komax_app_main.html:19
-#: komax_app/templates/komax_app/komax_app_setup.html:35
-#: komax_app/templates/komax_app/komax_app_setup.html:66
-#: komax_app/templates/komax_app/komax_app_view.html:35
-#: komax_app/templates/komax_app/komax_tasks.html:23
-#: komax_app/templates/komax_app/komaxes.html:6
-#: komax_app/templates/komax_app/komaxes.html:16
-msgid "Komaxes"
-msgstr "Комаксы"
 
 #: komax_app/templates/komax_app/komax_app_main.html:20
 #: komax_app/templates/komax_app/komax_app_setup.html:36
@@ -272,32 +346,51 @@ msgstr "Приложение для komax"
 msgid "Here you can set up your task"
 msgstr "Здесь вы можете настроить наряд-задание"
 
-#: komax_app/templates/komax_app/komax_app_setup.html:47
+#: komax_app/templates/komax_app/komax_app_setup.html:38
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "            See more\n"
+#| "        "
+msgid ""
+"\n"
+"                    Komax terminals\n"
+"                "
+msgstr ""
+"\n"
+"            Контакты komax\n"
+"        "
+
+#: komax_app/templates/komax_app/komax_app_setup.html:52
 msgid "Task name"
 msgstr "Номер задания"
 
-#: komax_app/templates/komax_app/komax_app_setup.html:79
+#: komax_app/templates/komax_app/komax_app_setup.html:84
+msgid "Kappas"
+msgstr "Каппы"
+
+#: komax_app/templates/komax_app/komax_app_setup.html:97
 msgid "Shift"
 msgstr "Смена"
 
-#: komax_app/templates/komax_app/komax_app_setup.html:79
+#: komax_app/templates/komax_app/komax_app_setup.html:97
 #: komax_app/templates/komax_app/komax_app_view.html:73
 msgid "hours"
 msgstr "часов"
 
-#: komax_app/templates/komax_app/komax_app_setup.html:88
+#: komax_app/templates/komax_app/komax_app_setup.html:106
 msgid "Parallel"
 msgstr "Параллельно"
 
-#: komax_app/templates/komax_app/komax_app_setup.html:94
+#: komax_app/templates/komax_app/komax_app_setup.html:112
 msgid "Consistently"
 msgstr "Последовательно"
 
-#: komax_app/templates/komax_app/komax_app_setup.html:235
+#: komax_app/templates/komax_app/komax_app_setup.html:255
 msgid " Task with this name already exists or its incorrect"
 msgstr "Задание с таким именем уже существует или имя задания неверно"
 
-#: komax_app/templates/komax_app/komax_app_setup.html:250
+#: komax_app/templates/komax_app/komax_app_setup.html:270
 #, fuzzy
 #| msgid "Too big task or not enough komaxes"
 msgid "Check marking in harness chart or not enough komaxes"
@@ -310,6 +403,7 @@ msgstr "Задание"
 #: komax_app/templates/komax_app/komax_app_task.html:17
 #: komax_app/templates/komax_app/komax_app_task.html:21
 #: komax_app/templates/komax_app/komax_app_task.html:26
+#: komax_app/templates/komax_app/komax_app_task.html:31
 msgid "task"
 msgstr "задание"
 
@@ -321,25 +415,26 @@ msgstr "Успешно распределено!"
 msgid "Full"
 msgstr "Полное"
 
-#: komax_app/templates/komax_app/komax_app_task.html:31
+#: komax_app/templates/komax_app/komax_app_task.html:36
 #: komax_app/templates/komax_app/task_status.html:12
 msgid "Again"
 msgstr "Заново"
 
-#: komax_app/templates/komax_app/komax_app_task.html:42
+#: komax_app/templates/komax_app/komax_app_task.html:47
 msgid "Tickets"
 msgstr "Бирки"
 
-#: komax_app/templates/komax_app/komax_app_task.html:46
+#: komax_app/templates/komax_app/komax_app_task.html:51
+#: komax_app/templates/komax_app/komax_app_task.html:57
 msgid "Ticket"
 msgstr "Бирка"
 
-#: komax_app/templates/komax_app/komax_app_task.html:60
-#: komax_app/templates/komax_app/komax_app_task.html:78
+#: komax_app/templates/komax_app/komax_app_task.html:70
+#: komax_app/templates/komax_app/komax_app_task.html:88
 msgid "used"
 msgstr "использовано"
 
-#: komax_app/templates/komax_app/komax_app_task.html:85
+#: komax_app/templates/komax_app/komax_app_task.html:95
 msgid ""
 "\n"
 "                                        Exceeds shift. Please load next "
@@ -377,7 +472,7 @@ msgstr "загруженные жгуты"
 
 #: komax_app/templates/komax_app/komax_app_view.html:73
 msgid "loaded komaxes"
-msgstr "загружены komaxы"
+msgstr "загружены комаксы"
 
 #: komax_app/templates/komax_app/komax_tasks.html:21
 #, fuzzy
@@ -385,76 +480,55 @@ msgstr "загружены komaxы"
 msgid "Komax task"
 msgstr "Наряд-задание"
 
-#: komax_app/templates/komax_app/komaxes.html:18
-msgid "New"
-msgstr "Создать"
-
-#: komax_app/templates/komax_app/komaxes.html:28
-msgid "Add"
-msgstr "Добавить"
-
-#: komax_app/templates/komax_app/komaxes.html:35
-#: komax_app/templates/komax_app/komaxes.html:142
-#, fuzzy
-#| msgid "Komaxes"
-msgid "Komax"
-msgstr "Комаксы"
-
-#: komax_app/templates/komax_app/komaxes.html:35
-#: komax_app/templates/komax_app/komaxes.html:142
-#, fuzzy
-#| msgid "Number"
-msgid "number"
-msgstr "Номер"
-
-#: komax_app/templates/komax_app/komaxes.html:37
-msgid "1"
-msgstr "1"
-
-#: komax_app/templates/komax_app/komaxes.html:41
-#: komax_app/templates/komax_app/komaxes.html:101
-#: komax_app/templates/komax_app/komaxes.html:148
-#: komax_app/templates/komax_app/task_status.html:6
-msgid "Status"
-msgstr "Статус"
-
-#: komax_app/templates/komax_app/komaxes.html:61
-#: komax_app/templates/komax_app/komaxes.html:103
-#: komax_app/templates/komax_app/komaxes.html:168
-msgid "Pairing"
-msgstr "Спаривание"
-
-#: komax_app/templates/komax_app/komaxes.html:71
-#: komax_app/templates/komax_app/komaxes.html:104
-#: komax_app/templates/komax_app/komaxes.html:178
-msgid "Group of square"
+#: komax_app/templates/komax_app/komax_terminals.html:9
+msgid ""
+"\n"
+"    Komax terminals\n"
+"    "
 msgstr ""
+"\n"
+"    Контакты komax\n"
+"    "
 
-#: komax_app/templates/komax_app/komaxes.html:81
-#: komax_app/templates/komax_app/komaxes.html:105
-#: komax_app/templates/komax_app/komaxes.html:188
-msgid "Identifier"
-msgstr "Идентификатор"
-
-#: komax_app/templates/komax_app/komaxes.html:88
-#: komax_app/templates/komax_app/komaxes.html:195
-msgid "Close"
-msgstr "Закрыть"
-
-#: komax_app/templates/komax_app/komaxes.html:89
-#: komax_app/templates/komax_app/komaxes.html:196
-msgid "Save"
-msgstr "Сохранить"
-
-#: komax_app/templates/komax_app/komaxes.html:100
+#: komax_app/templates/komax_app/komax_terminals.html:19
 #, fuzzy
-#| msgid "Komaxes"
-msgid "Komax number"
-msgstr "Номер komax"
+#| msgid ""
+#| "\n"
+#| "            See more\n"
+#| "        "
+msgid ""
+"\n"
+"        Komax terminals\n"
+"        "
+msgstr ""
+"\n"
+"        Контакты komax\n"
+"        "
 
-#: komax_app/templates/komax_app/komaxes.html:135
-msgid "Setup"
-msgstr "Настроить"
+#: komax_app/templates/komax_app/komax_terminals.html:56
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "                    Komax terminal\n"
+#| "                    "
+msgid ""
+"\n"
+"                    Terminal name\n"
+"                    "
+msgstr ""
+"\n"
+"                    Контакт\n"
+"                    "
+
+#: komax_app/templates/komax_app/komax_terminals.html:61
+msgid ""
+"\n"
+"                    Available on komax\n"
+"                    "
+msgstr ""
+"\n"
+"                    Доступно на komax\n"
+"                    "
 
 #: komax_app/templates/komax_app/komaxes_edit.html:11
 msgid "Update komax"
@@ -501,6 +575,11 @@ msgstr "Карта резки провода"
 #: komax_app/templates/komax_app/upload_harness_chart.html:10
 msgid "upload"
 msgstr "загрузить"
+
+#, fuzzy
+#~| msgid "Komaxes"
+#~ msgid "Komax number"
+#~ msgstr "Номер komax"
 
 #~ msgid "Step by"
 #~ msgstr "Последовательно"

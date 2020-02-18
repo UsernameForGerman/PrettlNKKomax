@@ -77,7 +77,7 @@ class Temp_chart(models.Model):
         return self.harness
 
 class KomaxTerminal(models.Model):
-    terminal_name = models.CharField(max_length=64)
+    terminal_name = models.CharField(max_length=64, unique=True)
     available = models.BooleanField()
 
     def __str__(self):

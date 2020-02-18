@@ -471,37 +471,40 @@ class ProcessDataframe:
 
 
     def __check_for_availability(self, idx, terminal_info, terminal_col, armirovka_col, seal_col, wire_cut_col):
-        if not terminal_info.empty and terminal_info['available']:
+        if not terminal_info.empty and terminal_info['available'].all():
             pass
         else:
-            self.chart.loc[idx, [terminal_col, armirovka_col, seal_col]] = 0, 0, 0
+            self.chart.loc[idx, [terminal_col, armirovka_col, seal_col]] = '-', '-', '-'
             self.chart.loc[idx, wire_cut_col] = 16.0
 
     def filter_availability_komax_terminal(self, terminals_df):
-        for idx, row in self.chart.iterrrows():
+        for idx, row in self.chart.iterrows():
             terminal_1 = self.chart.loc[idx, self.TERMINAL_1_COL]
             terminal_2 = self.chart.loc[idx, self.TERMINAL_2_COL]
-            terminal_1_info = terminals_df.loc[terminals_df['terminal_name'] == terminal_1]
-            terminal_2_info = terminals_df.loc[terminals_df['terminal_name'] == terminal_2]
 
+            if terminal_1 is not None and terminal_1 != ' ':
+                terminal_1_info = terminals_df.loc[terminals_df['terminal_name'] == terminal_1]
 
-            self.__check_for_availability(
-                idx,
-                terminal_1_info,
-                self.TERMINAL_1_COL,
-                self.ARMIROVKA_1_COL,
-                self.SEAL_1_COL,
-                self.WIRE_CUT_1_COL
-            )
+                self.__check_for_availability(
+                    idx,
+                    terminal_1_info,
+                    self.TERMINAL_1_COL,
+                    self.ARMIROVKA_1_COL,
+                    self.SEAL_1_COL,
+                    self.WIRE_CUT_1_COL
+                )
 
-            self.__check_for_availability(
-                idx,
-                terminal_2_info,
-                self.TERMINAL_2_COL,
-                self.ARMIROVKA_2_COL,
-                self.SEAL_2_COL,
-                self.WIRE_CUT_2_COL
-            )
+            if terminal_2 is not None and terminal_2 != ' ':
+                terminal_2_info = terminals_df.loc[terminals_df['terminal_name'] == terminal_2]
+
+                self.__check_for_availability(
+                    idx,
+                    terminal_2_info,
+                    self.TERMINAL_2_COL,
+                    self.ARMIROVKA_2_COL,
+                    self.SEAL_2_COL,
+                    self.WIRE_CUT_2_COL
+                )
 
 
     def sort(self, method='simple', first_sort=False, test=False):

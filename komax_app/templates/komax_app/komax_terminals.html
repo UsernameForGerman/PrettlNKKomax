@@ -4,15 +4,22 @@
 {% load i18n %}
 
 
-<title>
+{% block title %}
+    <title>
     {% blocktrans %}
     Komax terminals
     {% endblocktrans %}
-</title>
+    </title>
+{% endblock %}
 
 {% block main_content %}
     <link type="text/css" rel="stylesheet" href="{% static 'komax_app/komax_terminals.css' %}">
     <div class="container main_content">
+        <h2 class="text-center">
+        {% blocktrans %}
+        Komax terminals
+        {% endblocktrans %}
+        </h2>
         <form class="form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
@@ -47,7 +54,7 @@
                 <th class='text-center' scope="col">#</th>
                 <th class='text-center' scope="col">
                     {% blocktrans %}
-                    Komax terminal
+                    Terminal name
                     {% endblocktrans %}
                 </th>
                 <th class="text-center" scope="col">
@@ -55,6 +62,7 @@
                     Available on komax
                     {% endblocktrans %}
                 </th>
+                <th scope="col"></th>
                 <th scope="col"></th>
             </tr>
         </thred>
@@ -64,15 +72,19 @@
             <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <tr>
-                <th class='text-center' scope="row">{{ forloop.counter }}</th>
+                <td class='text-center' scope="row">{{ forloop.counter }}</td>
                 <td class="text-center">{{ terminal.terminal_name }}</td>
                 <td class="text-center">{{ terminal.available }}</td>
                 <td>
-                    <input type="submit" class="btn btn-info" name="Change" value="Change">
+                    <i class="fa">
+                        <input type="submit" class="btn btn-info" name="Change" value="&#xf0ec">
+                    </i>
                     <input type="hidden" name="terminal_name" value="{{ terminal.terminal_name }}">
                 </td>
                 <td>
-                    <input type="submit" class="btn btn-danger" name="Delete" value="Delete">
+                    <i class="fa">
+                        <input type="submit" class="btn btn-danger" name="Delete" value="&#xf1f8">
+                    </i>
                 </td>
 
             </tr>

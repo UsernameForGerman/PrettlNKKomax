@@ -125,7 +125,7 @@ class KomaxTerminalsListView(View):
         elif 'Change' in request.POST:
             terminal_name = request.POST['terminal_name']
             komax_terminal_obj = KomaxTerminal.objects.filter(terminal_name=terminal_name)[0]
-            komax_terminal_obj = not komax_terminal_obj.ability
+            komax_terminal_obj.available = not komax_terminal_obj.available
             komax_terminal_obj.save()
 
         elif 'Delete' in request.POST:
