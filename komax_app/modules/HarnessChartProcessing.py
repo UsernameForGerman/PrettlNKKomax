@@ -473,9 +473,11 @@ class ProcessDataframe:
     def __check_for_availability(self, idx, terminal_info, terminal_col, armirovka_col, seal_col, wire_cut_col):
         if not terminal_info.empty and terminal_info['available'].all():
             pass
-        else:
-            self.chart.loc[idx, [terminal_col, armirovka_col, seal_col]] = '-', '-', '-'
+        elif not terminal_info.empty and not terminal_info['available'].all():
+            self.chart.loc[idx, [terminal_col, armirovka_col, seal_col]] = None, None, None
             self.chart.loc[idx, wire_cut_col] = 16.0
+        else:
+            self.chart.loc[idx, [terminal_col, armirovka_col, seal_col]] = None, None, None
 
     def filter_availability_komax_terminal(self, terminals_df):
         for idx, row in self.chart.iterrows():
@@ -828,8 +830,12 @@ class ProcessDataframe:
         for idx, row in self.chart.iterrows():
             wire_type = self.chart.loc[idx, self.WIRE_TYPE_COL]
             if type(wire_type) is str and 'Кабель' in wire_type:
-                self.chart.loc[idx, self.KAPPA_COL] = kappas[0].number
+                if len(kappas) and kappas[0] is not None:
+                    self.chart.loc[idx, self.KAPPA_COL] = kappas[0].number
+                else:
+                    self.chart.loc[idx, self.KAPPA_COL] = None
                 continue
+
             marking = self.chart.loc[idx, self.MARKING_COL]
             time_changeover_position = self.chart.loc[idx, self.TIME_COL]
             square_group = group_by(self.chart.loc[idx, self.SQUARE_COL])
@@ -1014,10 +1020,15 @@ class ProcessDataframe:
 
         # without pairing komaxes
         for idx, row in self.chart.iterrows():
+
             wire_type = self.chart.loc[idx, self.WIRE_TYPE_COL]
             if type(wire_type) is str and 'Кабель' in wire_type:
-                self.chart.loc[idx, self.KAPPA_COL] = kappas[0].number
+                if len(kappas) and kappas[0] is not None:
+                    self.chart.loc[idx, self.KAPPA_COL] = kappas[0].number
+                else:
+                    self.chart.loc[idx, self.KAPPA_COL] = None
                 continue
+
             marking = self.chart.loc[idx, self.MARKING_COL]
             time_changeover_position = self.chart.loc[idx, self.TIME_COL]
             group_square = group_by(self.chart.loc[idx, self.SQUARE_COL])

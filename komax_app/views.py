@@ -416,6 +416,7 @@ def seconds_to_str_hours(seconds):
 
 class KomaxTaskView(View):
     model = KomaxTask
+    template_name = 'komax_app/komax_app_task.html'
 
     def get(self, request, task_name, *args, **kwargs):
         task = get_object_or_404(self.model, task_name=task_name)
@@ -423,8 +424,14 @@ class KomaxTaskView(View):
         status = 'success'
         komaxes_time = task.komaxes.all()
         final_alloc = {komax_time.komax.number: komax_time.time for komax_time in komaxes_time}
-        kappas = [task.kappas, ]
+        task_kappas = task.kappas
         exceeds_shift = False
+
+        kappas = None
+        if task_kappas is None:
+            kappas = []
+        else:
+            kappas = task_kappas
 
 
         for key, item in final_alloc.items():
@@ -444,7 +451,7 @@ class KomaxTaskView(View):
             'kappas': kappas,
         }
 
-        return render(request, 'komax_app/komax_app_task.html', context=context)
+        return render(request, self.template_name, context=context)
 
     def post(self, request, *args, **kwargs):
         close_old_connections()
@@ -844,9 +851,14 @@ class KomaxTaskProcessing():
     def create_task(self, task_name, harnesses, komaxes, kappas, shift, type_of_allocation):
         harness_amount_objs = self.create_harness_amount(harnesses)
         komax_time_objs = self.create_komax_time(komaxes)
+        kappa_obj = None
+        if len(kappas):
+            kappas_query = self.get_kappas(kappas[0])
+            if len(kappas_query):
+                kappa_obj = kappas_query[0]
         komax_task_obj = KomaxTask(
             task_name=task_name,
-            kappas=self.get_kappas(kappas[0])[0],
+            kappas=kappa_obj,
             shift=shift,
             type_of_allocation=type_of_allocation
         )
@@ -959,7 +971,12 @@ class KomaxTaskProcessing():
                 komax_obj = None
             else:
                 komax_obj = self.get_komaxes(komax=row_dict['komax'])[0]
-            kappa_obj = self.get_kappas(kappa_number=row_dict['kappa'])[0]
+
+            if row_dict['kappa'] is None:
+                kappa_obj = None
+            else:
+                kappa_obj = self.get_kappas(kappa_number=row_dict['kappa'])[0]
+
             self.save_task_personal(row_dict, task_obj, kappa_obj, harness_obj, komax_obj)
 
         """
