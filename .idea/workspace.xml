@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/DB_connection/DatabaseServer.mdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DB_connection/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DB_connection/highest_pos.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/backup/komaxsite/test1.xlsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/komaxsite/test1.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/komax_site.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/komax_site.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/backup/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/.gitignore" beforeDir="false" />
@@ -999,10 +1004,8 @@
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/static/main_app/welcome.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/base.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/main.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/modules/HarnessChartProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/modules/HarnessChartProcessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_site/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_site/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/consumers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/routing.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/routing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/LICENSE" beforeDir="false" />
@@ -2010,9 +2013,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="Python Script" />
         <option value="HTML File" />
         <option value="CSS File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -2061,15 +2064,15 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/komaxsite/komax_app" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/DB_connection" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/komax_app/templates/komax_app" />
       <recent name="$PROJECT_DIR$/komax_app/static/komax_app" />
       <recent name="$PROJECT_DIR$/komaxsite/komax_app/static/komax_app" />
-      <recent name="$PROJECT_DIR$/komaxsite/komax_app/templates/komax_app" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/komaxsite/komax_app" />
     </key>
   </component>
   <component name="RunManager">
@@ -2214,7 +2217,7 @@
       <workItem from="1581420607353" duration="58553000" />
       <workItem from="1581980152987" duration="682000" />
       <workItem from="1582031961335" duration="15348000" />
-      <workItem from="1582117097312" duration="1461000" />
+      <workItem from="1582117097312" duration="7953000" />
     </task>
     <servers />
   </component>

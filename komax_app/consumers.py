@@ -235,22 +235,11 @@ class KomaxConsumer(AsyncConsumer):
         })
 
     async def websocket_receive(self, event):
-        front_text = event.get('text', None)
-        if front_text is not None:
-            received_data = json.loads(front_text)
-            komax = received_data.get('komax', None)
-            if komax is not None:
-                checker = FieldChecker()
-                data_to_send = {}
-                if await checker.field_check_komax_number(komax):
-                    data_to_send['checker'] = 1
-                else:
-                    data_to_send['checker'] = 0
-
-                await self.send({
-                    "type": "websocket.send",
-                    "text": json.dumps(data_to_send)
-                })
+        print(event)
+        await self.send({
+            "type": "websocket.send",
+            "text": event['text'],
+        })
 
     async def websocket_disconnect(self, event):
         return
