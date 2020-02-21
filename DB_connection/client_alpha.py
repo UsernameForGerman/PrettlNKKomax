@@ -1,15 +1,19 @@
 import websocket
 import _thread
 import time
+import json
+import numpy as np
 
 import highest_pos as conn
 
 DB_PATH = 'DatabaseServer.mdb'
 KOMAX_ID = 'AAAAA'
 
-db_connection = conn.Position(DB_PATH)
+# db_connection = conn.Position(DB_PATH)
 
 def on_message(ws, message):
+
+    """
     if 'status' in message and message['status'] == 2:
         if message['type'] == 'new':
             db_connection.stop_komax('delete')
@@ -20,7 +24,8 @@ def on_message(ws, message):
             pass
     else:
         pass
-
+    """
+    received_data = json.loads(message)
 
 def on_error(ws, error):
     print(error)
@@ -30,16 +35,18 @@ def on_close(ws):
 
 def on_open(ws):
     def run(*args):
-        status = 1
 
-        for i in range(10):
-            current_position = db_connection.current_wire_pos()
-            ws.send({'komax': KOMAX_ID, 'status': status, 'text': current_position})
-
+        for i in range(5):
+            status = int(np.random.random_integers(1, 5))
+            data_to_send = {
+                'status': status,
+            }
+            json_data = json.dumps(data_to_send)
+            ws.send(json_data)
             time.sleep(1)
 
-            ws.close()
 
+        ws.close()
         print("thread_terminating")
 
     _thread.start_new_thread(run, ())
@@ -47,7 +54,7 @@ def on_open(ws):
 # websocket.enableTrace(True)
 
 ws = websocket.WebSocketApp(
-    "ws://localhost:8000/komax_app/komax_manager/",
+    "wss://komaxsite.herokuapp.com/komax_app/komax_manager/",
     on_message=on_message,
     on_error=on_error,
     on_close=on_close,

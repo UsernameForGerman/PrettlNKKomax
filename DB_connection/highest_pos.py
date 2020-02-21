@@ -163,13 +163,13 @@ class Position:
 
 
 
-#DB_path = 'C:\Komax\Data\TopWin\DatabaseServer.mdb'
-#DB_path = 'C:\Komax\Data\TopWin\DatabaseServer(1).mdb'
+# DB_path = 'C:\Komax\Data\TopWin\DatabaseServer.mdb'
+# DB_path = 'C:\Komax\Data\TopWin\DatabaseServer(1).mdb'
 
 
-bd_connector = Position('C:\Komax\Data\TopWin\DatabaseServerXP.mdb')
-#dict = bd_connector.current_wire_pos()
-print(dict)
+# bd_connector = Position('C:\Komax\Data\TopWin\DatabaseServerXP.mdb')
+# dict = bd_connector.current_wire_pos()
+# print(dict)
 
-#result = bd_connector.stop_komax('delete and save')
-#print(result)
+# result = bd_connector.stop_komax('delete and save')
+# print(result)
