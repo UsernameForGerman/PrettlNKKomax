@@ -9,6 +9,9 @@ channels = "*"
 channels-redis = "*"
 django-heroku = "*"
 daphne = "*"
+dj-database-url = "*"
+psycopg2 = "*"
+whitenoise = "*"
 
 [dev-packages]
 

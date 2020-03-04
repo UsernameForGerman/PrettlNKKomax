@@ -2,21 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/DB_connection/1821 (another copy).xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB_connection/1821 (copy).xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB_connection/1821.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB_connection/client_alpha_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB_connection/client_alpha_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB_connection/client_alpha_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB_connection/client_alpha_4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB_connection/client_alpha_5.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/backup/komaxsite/test1.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/komax_app/migrations/0008_auto_20200303_1502.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/komax_app/modules/KomaxTaskProcessing.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/komax_app/modules/KomaxTaskProcessingCopy.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/komaxsite/test1.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requierements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB_connection/client_alpha.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/backup/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/LICENSE" beforeDir="false" />
@@ -1012,16 +1001,6 @@
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/base.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/main.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/description/templates/description/description_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/description/templates/description/description_main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/consumers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/modules/HarnessChartProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/modules/HarnessChartProcessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/equipment.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/equipment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_setup.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_setup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_task.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_task.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_site/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_site/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/.gitignore" beforeDir="false" />
@@ -2017,7 +1996,7 @@
       <change beforePath="$PROJECT_DIR$/komaxsite/static/main_app/welcome.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/templates/base.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/templates/main.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_app/templates/main_app/main_app_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/main_app/templates/main_app/main_app_main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -2238,7 +2217,7 @@
       <workItem from="1582117097312" duration="8153000" />
       <workItem from="1582284254262" duration="1818000" />
       <workItem from="1582294678840" duration="53348000" />
-      <workItem from="1583246630418" duration="19162000" />
+      <workItem from="1583246630418" duration="20637000" />
     </task>
     <servers />
   </component>
