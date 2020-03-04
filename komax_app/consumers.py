@@ -5,8 +5,8 @@ import asyncio
 from django.contrib.auth import get_user_model
 from channels.consumer import AsyncConsumer
 from channels.db import database_sync_to_async
-from .views import KomaxTaskProcessing
-from .models import KomaxTask, EmailUser
+from .modules.KomaxTaskProcessing import KomaxTaskProcessing, delete_komax_order, get_task_to_load
+from .models import KomaxTask, EmailUser, TaskPersonal, KomaxOrder, Komax
 from django.db import close_old_connections
 from django.core.mail import send_mail
 from django.conf import settings
@@ -14,6 +14,7 @@ from django.template.loader import render_to_string
 from .task import send_mail_delay
 from django.utils import translation
 from django.utils.translation import gettext_lazy as _
+from django_pandas.io import read_frame
 
 class KomaxAppTaskConsumer(AsyncConsumer):
     data_task = None
@@ -25,7 +26,7 @@ class KomaxAppTaskConsumer(AsyncConsumer):
             "type": "websocket.accept"
         })
 
-    async def async_create_sort_task(self, komax_task_name, harnesses, komaxes, kappas, shift,
+    async def async_create_task(self, komax_task_name, harnesses, komaxes, kappas, shift,
                                      type_of_allocation='parallel'):
         """
 
@@ -36,6 +37,18 @@ class KomaxAppTaskConsumer(AsyncConsumer):
         :param type_of_allocation: str, parallel or consistently
         :return:
         """
+        """
+        processor = KomaxTaskProcessing()
+        await database_sync_to_async(processor.create_task)(
+            komax_task_name,
+            harnesses,
+            komaxes,
+            kappas,
+            shift,
+            type_of_allocation
+        )
+        """
+        """
         self.data_task = await database_sync_to_async(self.create_sort_task)(
             komax_task_name,
             harnesses,
@@ -44,7 +57,7 @@ class KomaxAppTaskConsumer(AsyncConsumer):
             shift,
             type_of_allocation
         )
-
+        """
     def create_sort_task(self, komax_task_name, harnesses, komaxes, kappas, shift, type_of_allocation='parallel'):
         """
 
@@ -56,10 +69,10 @@ class KomaxAppTaskConsumer(AsyncConsumer):
         :return:
         """
         processor = KomaxTaskProcessing()
-        processor.create_task(komax_task_name, harnesses, komaxes, kappas, shift, type_of_allocation)
-        final_data = processor.sort_komax_task(komax_task_name)
+        # return processor.create_task(komax_task_name, harnesses, komaxes, kappas, shift, type_of_allocation)
+        # final_data = processor.sort_komax_task(komax_task_name)
 
-        return final_data
+        # return final_data
 
     def delete_task(self, task_name):
         task = KomaxTask.objects.filter(task_name=task_name)
@@ -99,7 +112,7 @@ class KomaxAppTaskConsumer(AsyncConsumer):
         processor = KomaxTaskProcessing()
         harness_amount_dict = loaded_dict_data
 
-        processor.update_harness_amount(harness_amount_dict['task_name'], harness_amount_dict)
+       #  processor.update_harness_amount(harness_amount_dict['task_name'], harness_amount_dict)
 
         data_alloc = processor.create_allocation(harness_amount_dict['task_name'])
 
@@ -107,8 +120,46 @@ class KomaxAppTaskConsumer(AsyncConsumer):
 
         return data_alloc
 
+    def prepare_komax_task(self, komax_task_name, harnesses, komaxes, kappas, shift, type_of_allocation='parallel',
+                           loading_type='New'):
+        komax_task_processor = KomaxTaskProcessing()
+        delete_komax_order()
+        komax_task_processor.create_komax_task(komax_task_name, harnesses, komaxes, kappas, shift, type_of_allocation,
+                                               loading_type)
+        print('komax task prepared')
+        komax_task_processor.sort_save_komax_task(komax_task_name)
+        print('sorted and saved')
+
+    def complete_komax_task(self, amount_info_dict):
+        komax_task_processor = KomaxTaskProcessing()
+        komax_task_name = amount_info_dict['task_name']
+        harness_amount_dict = amount_info_dict['harness_amount']
+        print('updating harness amount')
+        komax_task_processor.update_harness_amount(komax_task_name, harness_amount_dict)
+        print('creating alloc')
+        allocation = komax_task_processor.create_allocation(komax_task_name)
+        print(allocation)
+        print('updating komaxime')
+        komax_task_processor.update_komax_time(komax_task_name, {komax: time[0] for komax, time in allocation.items()})
+        print('completed komax task')
+
+    async def async_complete_komax_task(self, amount_info_dict):
+        await database_sync_to_async(self.complete_komax_task)(amount_info_dict)
+
+    async def async_prepare_komax_task(self, komax_task_name, harnesses, komaxes, kappas, shift,
+                                 type_of_allocation='parallel', loading_type='New'):
+        await database_sync_to_async(self.prepare_komax_task)(
+            komax_task_name,
+            harnesses,
+            komaxes,
+            kappas,
+            shift,
+            type_of_allocation,
+            loading_type,
+        )
+
     async def websocket_receive(self, event):
-        # print("receive", event)
+        print("receive", event)
 
         front_text = event.get('text', None)
         if front_text is not None:
@@ -139,11 +190,9 @@ class KomaxAppTaskConsumer(AsyncConsumer):
                 kappas = loaded_dict_data.get('kappas')
                 shift = loaded_dict_data.get('shift')
                 type_of_allocation = loaded_dict_data.get('type_of_allocation')
-
-
-                await self.async_create_sort_task(task_name, harnesses, komaxes, kappas, shift, type_of_allocation)
-
-                if self.data_task is not None and self.data_task['allocation'][0] == -1:
+                loading_type = loaded_dict_data.get('loading_type')
+                """
+                if not result_good:
                     await self.async_delete_task(task_name)
                     url = '/komax_app/setup/'
                     response = {
@@ -156,10 +205,14 @@ class KomaxAppTaskConsumer(AsyncConsumer):
                         "type": "websocket.send",
                         "text": json.dumps(response)
                     })
+                """
+
+                await self.async_prepare_komax_task(task_name, harnesses, komaxes, kappas, shift, type_of_allocation,
+                                                    loading_type)
 
                 final_data = {
-                    'info_type': 'sort_data',
-                    'allocation': self.data_task['allocation']
+                    'info_type': 'task_status',
+                    'status': 'loaded',
                 }
                 await self.send({
                     "type": "websocket.send",
@@ -169,7 +222,7 @@ class KomaxAppTaskConsumer(AsyncConsumer):
             if loaded_dict_data['info_type'] == 'amount_info':
                 task_name = loaded_dict_data['task_name']
 
-                await self.async_create_allocation(loaded_dict_data)
+                await self.async_complete_komax_task(loaded_dict_data)
 
                 if self.data_alloc is not None and self.data_alloc == -1:
                     url = '/komax_app/setup/'
@@ -195,7 +248,6 @@ class KomaxAppTaskConsumer(AsyncConsumer):
                         "type": "websocket.send",
                         "text": json.dumps(response)
                     })
-
 
     async def websocket_disconnect(self, event):
         # print("disconnected", event)
@@ -228,21 +280,152 @@ class HarnessConsumer(AsyncConsumer):
     async def websocket_disconnect(self, event):
         return
 
+
+def load_current_position():
+    return
+
+def new_task_available():
+    komax_task_query = KomaxTask.objects.filter(loaded=True)
+    if len(komax_task_query):
+        return komax_task_query[0].loaded
+
+    return 0
+
+def get_new_loaded_task():
+    komax_task_query = KomaxTask.objects.filter(loaded=True)
+    if len(komax_task_query):
+        return komax_task_query[0]
+    return 0
+
+def get_new_komax_task_df(komax_task):
+    return read_frame(TaskPersonal.objects.filter(komax_task=komax_task))
+
 class KomaxConsumer(AsyncConsumer):
     async def websocket_connect(self, event):
         await self.send({
             "type": "websocket.accept"
         })
 
+    """
+    async def async_get_new_loaded_komax_task(self):
+        return await database_sync_to_async(get_new_loaded_task)()
+
+    async def async_get_komax_task_dataframe(self, komax_task):
+        return await database_sync_to_async(get_new_komax_task_df)(komax_task)
+    """
+
+    def save_komax_task_personal(self, komax_number, komax_task_personal_df_dict):
+        komax_task_processor = KomaxTaskProcessing()
+        komax_task_processor.create_task_personal_from_dataframe_dict(komax_task_personal_df_dict)
+        print('created task personal')
+        komax_task_processor.change_komax_order_status('Received', komax_number)
+        print('changed komax order to received')
+
+    async def async_save_komax_task_personal(self, komax_number, komax_task_personal_df_dict):
+        await database_sync_to_async(self.save_komax_task_personal)(komax_number, komax_task_personal_df_dict)
+
+    def get_komax_order(self, komax_number):
+        komax_obj = Komax.objects.filter(number=komax_number)[0]
+        komax_order_objs = KomaxOrder.objects.filter(komax=komax_obj)
+        if len(komax_order_objs):
+            return komax_order_objs[0]
+
+        return None
+
+    async def async_get_komax_order(self, komax_number):
+        return await database_sync_to_async(self.get_komax_order)(komax_number)
+
+    def get_new_komax_task_to_load(self, komax_number):
+        print('getting new task')
+        return get_task_to_load(komax_number)
+
+    async def async_get_new_komax_task_to_load(self, komax_number):
+        return await database_sync_to_async(self.get_new_komax_task_to_load)(komax_number)
+
     async def websocket_receive(self, event):
         print(event)
-        await self.send({
-            "type": "websocket.send",
-            "text": event['text'],
-        })
+        if 'text' in event:
+            print(event)
+            msg = json.loads(event['text'])
+            if msg['status'] == 1:
+                komax_order = await self.async_get_komax_order(msg['komax_number'])
+                if komax_order is not None:
+                    if komax_order.status == 'Requested':
+                        dict_to_send = {
+                            'status': 2,
+                            'text': komax_order.status,
+                        }
+                        await self.send({
+                            "type": "websocket.send",
+                            "text": json.dumps(dict_to_send)
+                        })
+                    elif komax_order.status == 'Received':
+                        komax_number = msg['komax_number']
+                        new_komax_task_df = await self.async_get_new_komax_task_to_load(komax_number)
+                        if new_komax_task_df is not None:
+                            dict_to_send = {
+                                'status': 2,
+                                'task': new_komax_task_df.to_dict()
+                            }
 
+                            await self.send({
+                                "type": "websocket.send",
+                                "text": json.dumps(dict_to_send)
+                            })
+                """
+                elif True:
+                    task_personal_df = await self.async_get_komax_task_dataframe(new_task)
+
+                    dict_to_send = {
+                        'status': 2,
+                        'type': new_task.loaded,
+                        'task': task_personal_df,
+                    }
+                    
+                    
+                    await self.send({
+                        "type": "websocket.send",
+                        "text": json.dumps(dict_to_send),
+                    })
+                
+                await self.send({
+                    "type": "websocket.send",
+                    "text": json.dumps(event["text"]),
+                })
+                """
+
+            elif msg['status'] == 2:
+                if msg['text'] == 'Requested' and 'task' in msg:
+                    print('msg received')
+                    komax_task_df_dict = msg['task']
+                    komax_number = msg['komax_number']
+
+                    await self.async_save_komax_task_personal(komax_number, komax_task_df_dict)
+
+
+                """
+                await self.send({
+                    "type": "websocket.send",
+                    "text": json.dumps(event["text"]),
+                })
+                """
+            """
+            else:
+                await self.send({
+                    "type": "websocket.send",
+                    "text": json.dumps(event["text"]),
+                })
+            """
+        """
+        else:
+            await self.send({
+                "type": "websocket.send",
+                "text": json.dumps(event["text"]),
+            })
+        """
     async def websocket_disconnect(self, event):
         return
+
 
 
 

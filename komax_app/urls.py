@@ -11,6 +11,7 @@ urlpatterns = [
     re_path(r'^setup/$', views.KomaxAppSetupView.as_view(), name='task_setup'),
     re_path(r'^komax_tasks/(?P<pk>\d+[\w-]+)/amount/$', views.set_amount_task_view, name='task_amount'),
     re_path(r'^komax_tasks/(?P<task_name>[a-zA-Z0-9_.-]*)/get_task/$', views.get_general_task_view, name='get_task'),
+    re_path(r'^komax_tasks/(?P<task_name>[a-zA-Z0-9_.-]*)/get_tech_task$', views.get_general_tech_task_view, name='get_tech_task'),
     re_path(r'^komax_tasks/(?P<task_name>[a-zA-Z0-9_.-]*)/get_task_komax/(?P<komax>\d+)/$',
             views.get_personal_task_view_komax, name='get_spec_task'),
     re_path(r'^komax_tasks/(?P<task_name>[a-zA-Z0-9_.-]*)/get_task_kappa/(?P<kappa>\d+)/$',
@@ -32,5 +33,6 @@ urlpatterns = [
     re_path(r'^laboriousness/$', views.LaboriousnessListView.as_view(), name='laboriousness'),
     re_path(r'^komax_tasks/$', views.KomaxTaskListView.as_view(), name='komax_task_list'),
     re_path(r'^komax_terminals/$', views.KomaxTerminalsListView.as_view(), name='komax_terminals_list'),
+    re_path(r'^komax_tasks/task/(?P<task_name>[a-zA-Z0-9_.-]*)/load_task/$', views.load_task, name='load_komax_task')
     #path('upload/', views.upload, name='upload'),
 ]

@@ -111,6 +111,26 @@
                                     </label>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="loading_type" id="type_new" value="New" checked>
+                                    <label class="form-check-label" type="type_new">
+                                        {% trans "New" %}
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="loading_type" id="type_mix" value="Mix">
+                                    <label class="form-check-label" for="type_mix">
+                                        {% trans "Mix" %}
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="loading_type" id="type_urgent" disabled value="Urgent">
+                                    <label class="form-check-label" for="type_urgent">
+                                        {% trans "Urgent" %}
+                                    </label>
+                                </div>
+                            </div>
 
                             <div class="form-group ">
                                 <button type="submit" class="btn btn-primary btn-lg">{% trans "Submit" %}</button>
@@ -145,6 +165,8 @@
     var harness_amount_form;
     var next_step = false;
     var amount_button = false;
+    var loading_types = document.getElementsByName('loading_type');
+    var loading_type;
 
     var types_of_allocation = document.getElementsByName('type_of_allocation');
     var type_of_allocation;
@@ -182,6 +204,12 @@
                 }
             }
 
+            for(var j = 0; j < loading_types.length; j++){
+                if (loading_types[j].checked){
+                    loading_type = loading_types[j].value;
+                }
+            }
+
             var final_data = {
                 'info_type': 'task_info',
                 'task_name': task_name.val(),
@@ -190,6 +218,7 @@
                 'kappas': kappas.val(),
                 'shift': shift.val(),
                 'type_of_allocation': type_of_allocation,
+                'loading_type': loading_type,
             };
 
             socket.send(JSON.stringify(final_data));
@@ -218,10 +247,12 @@
         harness_amount_form.submit( function(ev) {
             // console.log("Sumbitted second form");
             ev.preventDefault();
-            var harness_amount_dict = {
+            console.log('harness amount form');
+            var amount_info_dict = {
                 'info_type': 'amount_info',
             };
 
+            var harness_amount_dict = {};
             for (let i = 0; i < harnesses.val().length; i++){
 
                 var harness_amount = $('#harness_amount_'+ i).val();
@@ -230,8 +261,9 @@
                 harness_amount_dict[harness_str] = harness_amount;
 
             }
-            harness_amount_dict['task_name'] = task_name.val()
-            socket.send(JSON.stringify(harness_amount_dict));
+            amount_info_dict['task_name'] = task_name.val();
+            amount_info_dict['harness_amount'] = harness_amount_dict;
+            socket.send(JSON.stringify(amount_info_dict));
         });
         })
 
@@ -275,7 +307,7 @@
             }
         }
 
-        if (message.info_type == 'sort_data') {
+        if (message.info_type == 'task_status' && message.status == 'loaded') {
             harness_amount_form = $('#harness-amount-form');
             harness_amount_form.append(
                     '<button id="amount_button" type="submit" class="btn btn-warning btn-lg">{% trans "Submit" %}</button>'

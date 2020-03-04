@@ -124,11 +124,11 @@
                 <td class="text-center">{{ komax.5 }}</td>
 
                 <td class="text-center">
-                    <button type="button" class="btn btn-primary change-button" data-toggle="modal" data-target="#komax-change-modal" data-whatever="{{ komax.0 }}">
+                    <button type="button" class="btn btn-primary change-button" data-toggle="modal" data-target="#komax-change-modal-{{ komax.0 }}" data-whatever="{{ komax.0 }}">
                         <i class="fa fa-pencil"></i>
                     </button>
 
-                    <div class="modal fade" id="komax-change-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="komax-change-modal-{{ komax.0 }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <form method="post">

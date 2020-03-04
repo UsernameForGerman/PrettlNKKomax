@@ -3,6 +3,8 @@ import pandas as pd
 import re
 from openpyxl import load_workbook
 import random
+import numpy as np
+import time
 
 COLUMN_NAMES = ("Примечание", "№ п/п", "Маркировка", "Вид провода", "№ провода", "Сечение", "Цвет",
                 "Длина, мм (± 3мм)", "Уплотнитель 1", "Длина трубки, L (мм) 1", "Длина трубки, L (мм) 2",
@@ -404,6 +406,7 @@ class ProcessDataframe:
         return "Белый" if type(mark) is not None and ("б" in mark or "Б" in mark) else "Чёрный"
 
     def __fulfill_terminals(self):
+        start_time = time.time()
         MARKING_COL = 'marking'
         list_1 = []
         list_2 = []
@@ -449,7 +452,44 @@ class ProcessDataframe:
             if index in second:
                 self.chart.loc[index, 'wire_terminal_2'] = second[index]
 
+        print('Base fulfill terminals func time = {}'.format(time.time() - start_time))
         return (list_1, list_2)
+
+    def __fulfill_NaN(self, terminal):
+        return np.nan if terminal is None or terminal == '' or terminal == ' ' else terminal
+
+    def __fulfill_terminals_built_in(self):
+        start_time = time.time()
+        self.chart['wire_terminal_1'] = self.chart['wire_terminal_1'].apply(
+            lambda x: self.__fulfill_NaN(x)
+        )
+        self.chart['wire_terminal_2'] = self.chart['wire_terminal_2'].apply(
+            lambda x: self.__fulfill_NaN(x)
+        )
+        empty_terminals_idxs = np.where(pd.isnull(self.chart[['wire_terminal_1', 'wire_terminal_2']]))
+
+        idxs_1 = list()
+        idxs_2 = list()
+        len_empty_idxs = len(empty_terminals_idxs[0])
+        for i in range(len_empty_idxs):
+            if empty_terminals_idxs[1][i] == 0:
+                idxs_1.append(empty_terminals_idxs[0][i])
+            else:
+                idxs_2.append(empty_terminals_idxs[0][i])
+
+        for i in range(1, 4):
+            str_i = str(i)
+            self.chart[(self.chart['marking'] == 'Чёрный') & (self.chart['groups'] == str_i)][['wire_terminal_1', 'wire_terminal_2']] = \
+                self.chart[(self.chart['marking'] == 'Чёрный') & (self.chart['groups'] == str_i)][['wire_terminal_1', 'wire_terminal_2']].fillna(method='ffill')
+            self.chart[(self.chart['marking'] == 'Чёрный') & (self.chart['groups'] == str_i)][['wire_terminal_1', 'wire_terminal_2']] = \
+                self.chart[(self.chart['marking'] == 'Чёрный') & (self.chart['groups'] == str_i)][['wire_terminal_1', 'wire_terminal_2']].fillna(method='bfill')
+            self.chart[(self.chart['marking'] == 'Белый') & (self.chart['groups'] == str_i)][['wire_terminal_1', 'wire_terminal_2']] = \
+                self.chart[(self.chart['marking'] == 'Белый') & (self.chart['groups'] == str_i)][['wire_terminal_1', 'wire_terminal_2']].fillna(method='ffill')
+            self.chart[(self.chart['marking'] == 'Белый') & (self.chart['groups'] == str_i)][['wire_terminal_1', 'wire_terminal_2']] = \
+                self.chart[(self.chart['marking'] == 'Белый') & (self.chart['groups'] == str_i)][['wire_terminal_1', 'wire_terminal_2']].fillna(method='bfill')
+
+        print('Built-in funcs based fulfill terminals func time = {}'.format(time.time() - start_time))
+        return idxs_1, idxs_2
 
     def __swap_cols_after(self, col1, col2):
         rows_to_swap = []
@@ -469,50 +509,58 @@ class ProcessDataframe:
     def __reset_index(self):
         self.chart.index = pd.Index(range(self.chart.shape[0]))
 
-
+    #TODO: fix func
     def __check_for_availability(self, idx, terminal_info, terminal_col, armirovka_col, seal_col, wire_cut_col):
         if not terminal_info.empty and terminal_info['available'].all():
             pass
         elif not terminal_info.empty and not terminal_info['available'].all():
-            self.chart.loc[idx, [terminal_col, armirovka_col, seal_col]] = None, None, None
-            self.chart.loc[idx, wire_cut_col] = 16.0
+            self.chart.loc[idx, [armirovka_col, seal_col]] = None, None
         else:
             self.chart.loc[idx, [terminal_col, armirovka_col, seal_col]] = None, None, None
 
     def filter_availability_komax_terminal(self, terminals_df):
         for idx, row in self.chart.iterrows():
+            armirovka_1 = self.chart.loc[idx, self.ARMIROVKA_1_COL]
+            armirovka_2 = self.chart.loc[idx, self.ARMIROVKA_2_COL]
             terminal_1 = self.chart.loc[idx, self.TERMINAL_1_COL]
             terminal_2 = self.chart.loc[idx, self.TERMINAL_2_COL]
 
-            if terminal_1 is not None and terminal_1 != ' ':
-                terminal_1_info = terminals_df.loc[terminals_df['terminal_name'] == terminal_1]
+            if armirovka_1 is not None and armirovka_1 != ' ':
+                self.chart.loc[idx, [self.ARMIROVKA_1_COL, self.TERMINAL_1_COL, self.SEAL_1_COL]] = None, None, None
+            else:
+                if terminal_1 is not None and terminal_1 != ' ':
+                    terminal_1_info = terminals_df.loc[terminals_df['terminal_name'] == terminal_1]
 
-                self.__check_for_availability(
-                    idx,
-                    terminal_1_info,
-                    self.TERMINAL_1_COL,
-                    self.ARMIROVKA_1_COL,
-                    self.SEAL_1_COL,
-                    self.WIRE_CUT_1_COL
-                )
+                    self.__check_for_availability(
+                        idx,
+                        terminal_1_info,
+                        self.TERMINAL_1_COL,
+                        self.ARMIROVKA_1_COL,
+                        self.SEAL_1_COL,
+                        self.WIRE_CUT_1_COL
+                    )
 
-            if terminal_2 is not None and terminal_2 != ' ':
-                terminal_2_info = terminals_df.loc[terminals_df['terminal_name'] == terminal_2]
+            if armirovka_2 is not None and armirovka_2 != ' ':
+                self.chart.loc[idx, [self.ARMIROVKA_1_COL, self.TERMINAL_1_COL, self.SEAL_1_COL]] = None, None, None
+            else:
+                if terminal_2 is not None and terminal_2 != ' ':
+                    terminal_2_info = terminals_df.loc[terminals_df['terminal_name'] == terminal_2]
 
-                self.__check_for_availability(
-                    idx,
-                    terminal_2_info,
-                    self.TERMINAL_2_COL,
-                    self.ARMIROVKA_2_COL,
-                    self.SEAL_2_COL,
-                    self.WIRE_CUT_2_COL
-                )
-
+                    self.__check_for_availability(
+                        idx,
+                        terminal_2_info,
+                        self.TERMINAL_2_COL,
+                        self.ARMIROVKA_2_COL,
+                        self.SEAL_2_COL,
+                        self.WIRE_CUT_2_COL
+                    )
 
     def sort(self, method='simple', first_sort=False, test=False):
+
         self.delete_word_contain('*')
 
         self.__correct_marking()
+
         self.chart.sort_values(
             by=['marking'],
             ascending=True,
@@ -524,17 +572,22 @@ class ProcessDataframe:
         if test:
             self.chart.to_excel('test0.xlsx')
 
+
         self.__swap_cols('wire_terminal_1', 'wire_terminal_2')
 
         self.__reset_index()
 
         self.__divide_in_groups()
+
         pairing_required = str(int('wire_terminal_3' in self.chart.columns))
 
         if test:
             self.chart.to_excel('test.xlsx')
 
-        idxs_1, idxs_2 = self.__fulfill_terminals()
+        #TODO: increase speed of func
+
+        # idxs_1, idxs_2 = self.__fulfill_terminals()
+        idxs_1, idxs_2 = self.__fulfill_terminals_built_in()
 
         if test:
             self.chart.to_excel('test1.xlsx')
@@ -551,6 +604,7 @@ class ProcessDataframe:
                 ascending=True,
                 inplace=True
             )
+
 
         if test:
             self.chart.to_excel('test2.xlsx')
@@ -599,7 +653,7 @@ class ProcessDataframe:
         )
         """
 
-        self.__reset_index()
+        # self.__reset_index()
 
     def __time_changeover(self, idx, time, volume=1, last_first=None, last_second=None, pairing=False, full=False,
                           last_index=None, swapped=False):
@@ -760,16 +814,28 @@ class ProcessDataframe:
         :return:
         """
 
-        self.chart[self.AMOUNT_COL] = 0
 
         first_black_passed = False
         first_white_passed = False
 
+        if not self.AMOUNT_COL in self.chart:
+            self.chart[self.AMOUNT_COL] = 0
+
         for idx, row in self.chart.iterrows():
             # harness number inserting
             harness_number = self.chart.loc[idx, self.HARNESS_NUMBER_COL]
-            amount = quantity[harness_number]
-            self.chart.loc[idx, self.AMOUNT_COL] = amount
+            amount = self.chart.loc[idx, self.AMOUNT_COL]
+
+            """
+            print(curr_amount)
+            if curr_amount > 1:
+                pass
+            else:
+                if type(quantity) is dict:
+                    amount = quantity[harness_number]
+                else:
+                    amount = quantity
+            """
 
             # time inserting
             marking = self.chart.loc[idx, self.MARKING_COL]
@@ -786,6 +852,23 @@ class ProcessDataframe:
                 time_changeover_row = self.__time_changeover(idx, time, amount, last_first, last_second)
 
             self.chart.loc[idx, self.TIME_COL] = time_changeover_row
+
+    def __get_allocated_time(self, quantity, time):
+        self.__time_quantity_allocation(quantity, time)
+        return sum(self.chart.loc[:, 'time'])
+
+    def make_best_sort(self, quantity, time):
+        self.sort(method='simple', first_sort=True)
+        first_time = self.__get_allocated_time(quantity, time)
+        self.sort(method='simple', first_sort=False)
+        second_time = self.__get_allocated_time(quantity, time)
+
+        if second_time > first_time:
+            pass
+        else:
+            self.sort(method='simple', first_sort=True)
+
+        return
 
     def __consistently_allocation(self, komaxes, kappas, quantity, time, hours, group_of_square, allocation,
                                   returned='error'):
@@ -1095,10 +1178,10 @@ class ProcessDataframe:
                 return -1
             
             komax_loading.set_allocation(alloc_for_group)
-            
+
             if error:
                 return -1
-        
+
         return komax_loading.get_allocation_dict()
         
     def smart_sort(self, time, amount):
@@ -2103,6 +2186,7 @@ class KomaxLoading:
         """
 
         suitable_komaxes = list()
+        group_of_square = str(group_of_square)
 
         for komax, params in self.__komaxes_dict.items():
             if group_of_square in params[3]:

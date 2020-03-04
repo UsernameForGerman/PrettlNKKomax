@@ -35,6 +35,11 @@
             <p>
                 <a class="btn btn-lg btn-warning" href="{% url 'komax_app:task_setup' %}">{% trans 'Again' %}</a>
             </p>
+            <p>
+                <a class="btn btn-lg btn-success" href="{% url 'komax_app:load_komax_task' task_name=task.task_name %}">
+                    {% trans 'Load task' %}
+                </a>
+            </p>
         </div>
     </section>
 

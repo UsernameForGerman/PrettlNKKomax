@@ -144,16 +144,66 @@ class KomaxTime(models.Model):
         return  str(self.komax.number) + ' : ' + str(self.time)
 
 class KomaxTask(models.Model):
+    LOADING_TYPES = [
+        ('New', 'New'),
+        ('Mix', 'Mix'),
+        ('Urgent', 'Urgent')
+    ]
+
+    ALLOCATION_TYPES = [
+        ('Parallel', 'Parallel'),
+        ('Consistently', 'Consistently'),
+    ]
+
     task_name = models.CharField(max_length=128, unique=True)
     created = models.DateTimeField(verbose_name=_('created'), auto_now_add=True)
     harnesses = models.ManyToManyField(HarnessAmount)
     komaxes = models.ManyToManyField(KomaxTime)
     kappas = models.ForeignKey(Kappa, on_delete=models.CASCADE, null=True)
     shift = models.PositiveSmallIntegerField()
-    type_of_allocation = models.CharField(max_length=128)
+    type_of_allocation = models.CharField(default='Parallel', max_length=128, choices=ALLOCATION_TYPES)
+    loading_type = models.CharField(default='New', max_length=64, choices=LOADING_TYPES)
 
     def __str__(self):
         return self.task_name
+
+
+class KomaxOrder(models.Model):
+    STATUS_CHOICES = [
+        ('Requested', 'Requested'),
+        ('Received', 'Received')
+    ]
+
+    komax_task = models.ForeignKey(KomaxTask, on_delete=models.CASCADE, null=True)
+    komax = models.ForeignKey(Komax, on_delete=models.CASCADE, null=True)
+    status = models.CharField(max_length=32, choices=STATUS_CHOICES, null=True)
+
+    def __str__(self):
+        return self.komax_task.task_name + ' ' + self.status
+
+class KomaxTaskPersonal(models.Model):
+    komax_order = models.ForeignKey(KomaxOrder, on_delete=models.CASCADE)
+    komax_task = models.ForeignKey(KomaxTask, on_delete=models.CASCADE)
+    amount = models.PositiveSmallIntegerField()
+    harness = models.ForeignKey(Harness, on_delete=models.CASCADE)
+    komax = models.ForeignKey(Komax, on_delete=models.CASCADE, null=True)
+    kappa = models.ForeignKey(Kappa, on_delete=models.CASCADE, null=True)
+    notes = models.CharField(max_length=256, null=True)
+    marking = models.CharField(max_length=8, null=True)
+    wire_type = models.CharField(max_length=128, null=True)
+    wire_number = models.CharField(max_length=16, null=True)
+    wire_square = models.FloatField(null=True)
+    wire_color = models.CharField(max_length=8, null=True)
+    wire_length = models.PositiveSmallIntegerField(null=True)
+    wire_seal_1 = models.CharField(max_length=32, null=True)
+    wire_cut_length_1 = models.FloatField(null=True)
+    wire_terminal_1 = models.CharField(max_length=32, null=True)
+    aplicator_1 = models.CharField(max_length=64, null=True)
+    wire_seal_2 = models.CharField(max_length=32, null=True)
+    wire_cut_length_2 = models.FloatField(null=True)
+    wire_terminal_2 = models.CharField(max_length=32, null=True)
+    aplicator_2 = models.CharField(max_length=64, null=True)
+    time = models.IntegerField(null=True)
 
 class TaskPersonal(models.Model):
     komax_task = models.ForeignKey(KomaxTask, on_delete=models.CASCADE)
@@ -176,6 +226,8 @@ class TaskPersonal(models.Model):
     wire_cut_length_2 = models.FloatField(null=True)
     wire_terminal_2 = models.CharField(max_length=32, null=True)
     aplicator_2 = models.CharField(max_length=64, null=True)
+    time = models.IntegerField(null=True)
+    loaded = models.BooleanField(default=False)
 
     def save_from_df(self, row_dict, komax_task, harness_obj, komax_obj):
         return
