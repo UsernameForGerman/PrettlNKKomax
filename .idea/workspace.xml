@@ -4,9 +4,7 @@
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/backup/komaxsite/test1.xlsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/komaxsite/test1.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pipfile" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/backup/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/LICENSE" beforeDir="false" />
@@ -2215,7 +2213,7 @@
       <workItem from="1582117097312" duration="8153000" />
       <workItem from="1582284254262" duration="1818000" />
       <workItem from="1582294678840" duration="53348000" />
-      <workItem from="1583246630418" duration="22418000" />
+      <workItem from="1583246630418" duration="22557000" />
     </task>
     <servers />
   </component>
