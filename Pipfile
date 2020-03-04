@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-Django = {version = '>=2.2'}
+Django = {version = '2.2'}
 channels = "*"
 channels-redis = "*"
 django-heroku = "*"
@@ -17,8 +17,8 @@ bootstrap4 = "*"
 celery = "*"
 django-channels = "*"
 django-pandas = "*"
-django-redis = "*"
-django-redis-cache = "*"
+django-redis = {version = '4.11'}
+django-redis-cache = {version = '2.1'}
 django-select-multiple-field = "*"
 django-select2 = "*"
 numpy = "*"
