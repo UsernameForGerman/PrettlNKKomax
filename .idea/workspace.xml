@@ -1993,6 +1993,7 @@
       <change beforePath="$PROJECT_DIR$/komaxsite/static/main_app/welcome.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/templates/base.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/templates/main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -2213,7 +2214,7 @@
       <workItem from="1582117097312" duration="8153000" />
       <workItem from="1582284254262" duration="1818000" />
       <workItem from="1582294678840" duration="53348000" />
-      <workItem from="1583246630418" duration="22557000" />
+      <workItem from="1583246630418" duration="22810000" />
     </task>
     <servers />
   </component>
