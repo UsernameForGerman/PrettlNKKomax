@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-18 22:30+0000\n"
+"POT-Creation-Date: 2020-03-07 00:09+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: description/templates/description/description.html:6
 #: description/templates/description/description.html:10
-#: description/templates/description/description_main.html:24
+#: description/templates/description/description_main.html:25
 msgid "About"
 msgstr "О проекте"
 
@@ -57,6 +57,12 @@ msgstr "Трудоёмкость"
 msgid "Komax tasks"
 msgstr "Komaxы"
 
-#: description/templates/description/description_main.html:25
+#: description/templates/description/description_main.html:20
+#, fuzzy
+#| msgid "Komaxes"
+msgid "Komax terminals"
+msgstr "Komaxы"
+
+#: description/templates/description/description_main.html:26
 msgid "current"
 msgstr "текущая"

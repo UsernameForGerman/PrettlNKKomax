@@ -30,14 +30,25 @@
             <h1>{% blocktrans %}Set up task{% endblocktrans %}</h1>
             <p>{% blocktrans %}Here you can set up your task{% endblocktrans %}</p>
         </div>
-        <p>
-            <a class="btn btn-primary btn-lg" href="{% url 'komax_app:harnesses' %}">{% trans "Harnesses" %}</a>
-            <a class="btn btn-primary btn-lg" href="{% url 'komax_app:komaxes' %}">{% trans "Komaxes" %}</a>
-            <a class="btn btn-primary btn-lg" href="{% url 'komax_app:laboriousness' %}">{% trans 'Laboriousness'%}</a>
-            <a class="btn btn-primary btn-lg" href="{% url 'komax_app:komax_terminals_list' %}">
-                {% trans 'Komax terminals' %}
-            </a>
-        </p>
+        <div class="container">
+            <div class="row justify-content-around">
+                <div class="col-md-3 col-xs-12">
+                    <a class="btn btn-primary btn-lg" href="{% url 'komax_app:harnesses' %}">{% trans "Harnesses" %}</a>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <a class="btn btn-primary btn-lg" href="{% url 'komax_app:komaxes' %}">{% trans "Komaxes" %}</a>
+
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <a class="btn btn-primary btn-lg" href="{% url 'komax_app:laboriousness' %}">{% trans 'Laboriousness'%}</a>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <a class="btn btn-primary btn-lg" href="{% url 'komax_app:komax_terminals_list' %}">
+                        {% trans 'Terminals' %}
+                    </a>
+                </div>
+            </div>
+        </div>
     </section>
 
     <div class="container-fluid text-center" id="komax_app_setup">

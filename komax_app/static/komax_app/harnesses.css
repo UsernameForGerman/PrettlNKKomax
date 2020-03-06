@@ -14,10 +14,14 @@ h2 {
     color: #555;
     padding: 0;
     line-height: 34px;
-    width: 200px;
+    /*width: 200px;*/
     margin: auto;
     display: block;
     border: 2px solid #555
+}
+
+.harness-btn {
+    margin: auto;
 }
 
 .harness-upload-custom .btn-tertiary:hover,.harness-upload-custom .btn-tertiary:focus {
@@ -38,7 +42,6 @@ h2 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding: 0 10px;
     cursor: pointer
 }
 
@@ -88,11 +91,16 @@ h2 {
 .harness-upload-form {
     /* margin-top: 3vh;
 
-     */
+
     margin-bottom: 5px;
+    */
 }
 
+
 .btn-light {
+    /*
     padding-left: 80px;
     padding-right: 80px;
+
+     */
 }

@@ -514,7 +514,10 @@ class ProcessDataframe:
         if not terminal_info.empty and terminal_info['available'].all():
             pass
         elif not terminal_info.empty and not terminal_info['available'].all():
-            self.chart.loc[idx, [armirovka_col, seal_col]] = None, None
+            if seal_col != ' ' and seal_col is not None:
+                self.chart.loc[idx, [armirovka_col, terminal_col, seal_col]] = None, None, None
+            else:
+                pass
         else:
             self.chart.loc[idx, [terminal_col, armirovka_col, seal_col]] = None, None, None
 
