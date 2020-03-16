@@ -6,3 +6,12 @@ body {
 h2 {
     padding-bottom: 20px;
 }
+
+.add-button {
+    position: relative;
+    padding: 10px;
+    float: right;
+    /*
+    margin: 20px 0 0 500px;
+    */
+}

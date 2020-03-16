@@ -77,7 +77,7 @@ def get_kappas(kappa_number=1):
         return Kappa.objects.filter(number=kappa_number)
 
 
-def get_komax_terminls():
+def get_komax_terminals():
     return KomaxTerminal.objects.all()
 
 def get_df_from_harnesses(harnesses):
@@ -287,7 +287,7 @@ class KomaxTaskProcessing():
             harnesses_komax_df = pd.concat([harnesses_komax_df, komax_df], ignore_index=True)
 
         time_dict = get_time_from(read_frame(get_laboriousness()))
-        terminals_df = read_frame(get_komax_terminls())
+        terminals_df = read_frame(get_komax_terminals())
 
         dataframe = self.__sort_task(
             harnesses_komax_df,

@@ -78,10 +78,11 @@ class Temp_chart(models.Model):
 
 class KomaxTerminal(models.Model):
     terminal_name = models.CharField(max_length=64, unique=True)
-    available = models.BooleanField()
+    seal_available = models.BooleanField(default=True)
+    terminal_available = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.terminal_name
+        return self.terminal_name + str(self.seal_available) + str(self.terminal_available)
 
 class Kappa(models.Model):
     STATUS_CHOICES = [
@@ -260,3 +261,5 @@ class EmailUser(models.Model):
 
     def __str__(self):
         return self.email
+
+

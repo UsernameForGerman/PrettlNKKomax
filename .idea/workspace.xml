@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/backup/komaxsite/test1.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/migrations/0009_auto_20200313_2044.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/komaxsite/test1.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/description/locale/ru/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/backup/description/locale/ru/LC_MESSAGES/django.po" afterDir="false" />
@@ -1007,13 +1008,13 @@
       <change beforePath="$PROJECT_DIR$/description/locale/ru/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/description/locale/ru/LC_MESSAGES/django.po" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/locale/ru/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/locale/ru/LC_MESSAGES/django.mo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/locale/ru/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/locale/ru/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/modules/HarnessChartProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/modules/HarnessChartProcessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/static/komax_app/harnesses.css" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/static/komax_app/harnesses.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/static/komax_app/komax_app_main.css" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/static/komax_app/komax_app_main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/equipment.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/equipment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/harnesses.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/harnesses.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_setup.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_setup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_view.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_view.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/modules/KomaxTaskProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/modules/KomaxTaskProcessing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/static/komax_app/komax_terminals.css" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/static/komax_app/komax_terminals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/static/komax_app/komaxes.css" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/static/komax_app/komaxes.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_terminals.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_terminals.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_site/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_site/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/.gitignore" beforeDir="false" />
@@ -2011,8 +2012,6 @@
       <change beforePath="$PROJECT_DIR$/komaxsite/templates/main.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/locale/ru/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/locale/ru/LC_MESSAGES/django.po" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_app/locale/ru/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/main_app/locale/ru/LC_MESSAGES/django.po" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -2233,7 +2232,11 @@
       <workItem from="1582117097312" duration="8153000" />
       <workItem from="1582284254262" duration="1818000" />
       <workItem from="1582294678840" duration="53348000" />
-      <workItem from="1583246630418" duration="40935000" />
+      <workItem from="1583246630418" duration="41891000" />
+      <workItem from="1583925737674" duration="1852000" />
+      <workItem from="1584095032476" duration="1167000" />
+      <workItem from="1584128223132" duration="6080000" />
+      <workItem from="1584353575086" duration="4185000" />
     </task>
     <servers />
   </component>
@@ -2261,18 +2264,22 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="588" y="214" width="800" height="729" key="#Intentions/67.27.1853.1053@67.27.1853.1053" timestamp="1583078854756" />
+    <state x="771" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1583936095745">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="771" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1583936095745" />
     <state x="576" y="289" width="824" height="526" key="IDE.errors.dialog" timestamp="1581970246509">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="576" y="289" width="824" height="526" key="IDE.errors.dialog/67.27.1853.1053@67.27.1853.1053" timestamp="1581970246509" />
-    <state x="482" y="187" key="SettingsEditor" timestamp="1583348181939">
+    <state x="482" y="187" key="SettingsEditor" timestamp="1583936103574">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1583348181939" />
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1583246630344">
+    <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1583936103574" />
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1584128253490">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1583246630344" />
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1584128253490" />
     <state x="656" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1583509241508">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>

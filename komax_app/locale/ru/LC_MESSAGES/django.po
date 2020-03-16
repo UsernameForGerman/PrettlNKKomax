@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-07 00:09+0300\n"
+"POT-Creation-Date: 2020-03-13 23:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -156,7 +156,8 @@ msgstr "Комаксы"
 
 #: komax_app/templates/komax_app/equipment.html:18
 #: komax_app/templates/komax_app/equipment.html:28
-#: komax_app/templates/komax_app/komax_terminals.html:39
+#: komax_app/templates/komax_app/komax_terminals.html:21
+#: komax_app/templates/komax_app/komax_terminals.html:92
 msgid "Add"
 msgstr "Добавить"
 
@@ -169,6 +170,7 @@ msgstr "Комаксы"
 
 #: komax_app/templates/komax_app/equipment.html:35
 #: komax_app/templates/komax_app/equipment.html:144
+#: komax_app/templates/komax_app/komax_terminals.html:38
 #, fuzzy
 #| msgid "Number"
 msgid "number"
@@ -205,11 +207,15 @@ msgstr "Идентификатор"
 
 #: komax_app/templates/komax_app/equipment.html:88
 #: komax_app/templates/komax_app/equipment.html:197
+#: komax_app/templates/komax_app/komax_terminals.html:63
+#: komax_app/templates/komax_app/komax_terminals.html:152
 msgid "Close"
 msgstr "Закрыть"
 
 #: komax_app/templates/komax_app/equipment.html:89
 #: komax_app/templates/komax_app/equipment.html:198
+#: komax_app/templates/komax_app/komax_terminals.html:64
+#: komax_app/templates/komax_app/komax_terminals.html:153
 msgid "Save"
 msgstr "Сохранить"
 
@@ -493,15 +499,40 @@ msgstr "загружены комаксы"
 msgid "Komax task"
 msgstr "Наряд-задание"
 
-#: komax_app/templates/komax_app/komax_terminals.html:52
+#: komax_app/templates/komax_app/komax_terminals.html:31
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "    Komax terminals\n"
+#| "    "
+msgid "Add terminal"
+msgstr "Контакты komax"
+
+#: komax_app/templates/komax_app/komax_terminals.html:38
+#: komax_app/templates/komax_app/komax_terminals.html:104
+#: komax_app/templates/komax_app/komax_terminals.html:142
 #, fuzzy
 #| msgid "Terminal 1"
-msgid "Terminal name"
+msgid "Terminal"
 msgstr "Наконечник 1"
 
-#: komax_app/templates/komax_app/komax_terminals.html:55
-msgid "Available on komax"
-msgstr "Доступно на комаксе"
+#: komax_app/templates/komax_app/komax_terminals.html:44
+#: komax_app/templates/komax_app/komax_terminals.html:110
+msgid "Seal available"
+msgstr "Уплотнитель доступен"
+
+#: komax_app/templates/komax_app/komax_terminals.html:53
+#: komax_app/templates/komax_app/komax_terminals.html:107
+#, fuzzy
+#| msgid "Terminal 1"
+msgid "Terminal available"
+msgstr "Наконечник 1"
+
+#: komax_app/templates/komax_app/komax_terminals.html:133
+#, fuzzy
+#| msgid "Seal 1"
+msgid "Seal"
+msgstr "Уплотнитель 1"
 
 #: komax_app/templates/komax_app/komaxes_edit.html:11
 msgid "Update komax"
@@ -553,6 +584,9 @@ msgstr "Карта резки провода"
 #: komax_app/templates/komax_app/upload_harness_chart.html:10
 msgid "upload"
 msgstr "загрузить"
+
+#~ msgid "Available on komax"
+#~ msgstr "Доступно на комаксе"
 
 #, fuzzy
 #~| msgid ""

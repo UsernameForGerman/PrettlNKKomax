@@ -117,6 +117,29 @@ class KomaxTerminalsListView(View):
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
+        if 'Delete' in request.POST:
+            terminal_name = request.POST['terminal-name']
+
+            KomaxTerminal.objects.filter(terminal_name=terminal_name)[0].delete()
+
+        else:
+            terminal_name = request.POST['terminal-name']
+            terminal = True if request.POST['terminal'] == '+' else False
+            seal = True if request.POST['seal'] == '+' else False
+
+
+            komax_query = KomaxTerminal.objects.filter(terminal_name=terminal_name)
+
+            if len(komax_query):
+                komax_obj = komax_query[0]
+                komax_obj.terminal_available = terminal
+                komax_obj.seal_available = seal
+                komax_obj.save()
+            else:
+                KomaxTerminal(terminal_name=terminal_name, terminal_available=terminal, seal_available=seal).save()
+
+
+        """
         if 'terminal_name' in request.POST and 'availability' in request.POST:
             terminal_name = request.POST['terminal_name']
             availability = True if request.POST['availability'] == 'yes' else False
@@ -132,6 +155,7 @@ class KomaxTerminalsListView(View):
         elif 'Delete' in request.POST:
             terminal_name = request.POST['terminal_name']
             KomaxTerminal.objects.filter(terminal_name=terminal_name)[0].delete()
+        """
 
         return redirect('komax_app:komax_terminals_list')
 

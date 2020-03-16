@@ -509,17 +509,21 @@ class ProcessDataframe:
     def __reset_index(self):
         self.chart.index = pd.Index(range(self.chart.shape[0]))
 
-    #TODO: fix func
     def __check_for_availability(self, idx, terminal_info, terminal_col, armirovka_col, seal_col, wire_cut_col):
-        if not terminal_info.empty and terminal_info['available'].all():
+        if not terminal_info.empty and terminal_info['seal_available'].all():
             pass
-        elif not terminal_info.empty and not terminal_info['available'].all():
-            if seal_col != ' ' and seal_col is not None:
+        elif not terminal_info.empty and not terminal_info['seal_available'].all():
+            if self.chart.loc[idx, seal_col] != ' ' and self.chart.loc[idx, seal_col] is not None:
                 self.chart.loc[idx, [armirovka_col, terminal_col, seal_col]] = None, None, None
             else:
                 pass
         else:
             self.chart.loc[idx, [terminal_col, armirovka_col, seal_col]] = None, None, None
+
+        if not terminal_info.empty and not terminal_info['terminal_available'].all():
+            if self.chart.loc[idx, terminal_col] != ' ' and self.chart.loc[idx, terminal_col] is not None:
+                self.chart.loc[idx, terminal_col] = None
+
 
     def filter_availability_komax_terminal(self, terminals_df):
         for idx, row in self.chart.iterrows():

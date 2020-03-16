@@ -10,6 +10,7 @@ td {
 .add-button {
     position: relative;
     padding: 10px;
-    margin: 20px 0 0 1600px;
+    float: right;
+    margin: 20px;
 
 }
