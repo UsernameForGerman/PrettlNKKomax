@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+asgiref = "*"
 Django = '==2.2.7'
 channels = "*"
 channels-redis = "*"
@@ -31,7 +32,6 @@ requests = "*"
 xlrd = "*"
 xlutils = "*"
 xlwt = "*"
-asgiref = "*"
 
 [dev-packages]
 
