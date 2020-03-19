@@ -456,7 +456,7 @@ class KomaxTaskView(View):
         if task_kappas is None:
             kappas = []
         else:
-            kappas = task_kappas
+            kappas = list(task_kappas)
 
 
         for key, item in final_alloc.items():
