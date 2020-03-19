@@ -126,22 +126,15 @@ class KomaxAppTaskConsumer(AsyncConsumer):
         delete_komax_order()
         komax_task_processor.create_komax_task(komax_task_name, harnesses, komaxes, kappas, shift, type_of_allocation,
                                                loading_type)
-        print('komax task prepared')
         komax_task_processor.sort_save_komax_task(komax_task_name)
-        print('sorted and saved')
 
     def complete_komax_task(self, amount_info_dict):
         komax_task_processor = KomaxTaskProcessing()
         komax_task_name = amount_info_dict['task_name']
         harness_amount_dict = amount_info_dict['harness_amount']
-        print('updating harness amount')
         komax_task_processor.update_harness_amount(komax_task_name, harness_amount_dict)
-        print('creating alloc')
         allocation = komax_task_processor.create_allocation(komax_task_name)
-        print(allocation)
-        print('updating komaxime')
         komax_task_processor.update_komax_time(komax_task_name, {komax: time[0] for komax, time in allocation.items()})
-        print('completed komax task')
 
     async def async_complete_komax_task(self, amount_info_dict):
         await database_sync_to_async(self.complete_komax_task)(amount_info_dict)
@@ -159,7 +152,7 @@ class KomaxAppTaskConsumer(AsyncConsumer):
         )
 
     async def websocket_receive(self, event):
-        print("receive", event)
+        # print("receive", event)
 
         front_text = event.get('text', None)
         if front_text is not None:
@@ -317,9 +310,7 @@ class KomaxConsumer(AsyncConsumer):
     def save_komax_task_personal(self, komax_number, komax_task_personal_df_dict):
         komax_task_processor = KomaxTaskProcessing()
         komax_task_processor.create_task_personal_from_dataframe_dict(komax_task_personal_df_dict)
-        print('created task personal')
         komax_task_processor.change_komax_order_status('Received', komax_number)
-        print('changed komax order to received')
 
     async def async_save_komax_task_personal(self, komax_number, komax_task_personal_df_dict):
         await database_sync_to_async(self.save_komax_task_personal)(komax_number, komax_task_personal_df_dict)
@@ -336,16 +327,13 @@ class KomaxConsumer(AsyncConsumer):
         return await database_sync_to_async(self.get_komax_order)(komax_number)
 
     def get_new_komax_task_to_load(self, komax_number):
-        print('getting new task')
         return get_task_to_load(komax_number)
 
     async def async_get_new_komax_task_to_load(self, komax_number):
         return await database_sync_to_async(self.get_new_komax_task_to_load)(komax_number)
 
     async def websocket_receive(self, event):
-        print(event)
         if 'text' in event:
-            print(event)
             msg = json.loads(event['text'])
             if msg['status'] == 1:
                 komax_order = await self.async_get_komax_order(msg['komax_number'])
@@ -396,7 +384,6 @@ class KomaxConsumer(AsyncConsumer):
 
             elif msg['status'] == 2:
                 if msg['text'] == 'Requested' and 'task' in msg:
-                    print('msg received')
                     komax_task_df_dict = msg['task']
                     komax_number = msg['komax_number']
 

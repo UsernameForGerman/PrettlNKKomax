@@ -282,7 +282,6 @@ class KomaxTaskProcessing():
         base_komax_df = None
         if task_obj.loading_type == 'Mix':
             base_komax_df = get_task_personal(task_obj, output='dataframe')
-            print(base_komax_df['amount'])
             komax_df = self.__left_filter_columns(harnesses_komax_df, base_komax_df.copy())
             harnesses_komax_df = pd.concat([harnesses_komax_df, komax_df], ignore_index=True)
 
@@ -296,13 +295,11 @@ class KomaxTaskProcessing():
         )
 
         if base_komax_df is not None:
-            print(base_komax_df)
 
             for idx, row in dataframe.iterrows():
                 for idx_2, row_2 in base_komax_df.iterrows():
                     if dataframe.loc[idx, 'id'] == base_komax_df.loc[idx_2, 'id']:
                         dataframe.loc[idx, 'amount'] = base_komax_df.loc[idx_2, 'amount']
-                        print(dataframe.loc[idx, ['harness', 'amount']], base_komax_df.loc[idx_2, ['harness', 'amount']])
 
         """
         if final_data['allocation'][0] == -1:
@@ -514,11 +511,9 @@ class KomaxTaskProcessing():
             harnesses = dict()
             for harness_number in harnesses_number:
                 harnesses[harness_number] = Harness.objects.filter(harness_number=harness_number)[0]
-        print(harnesses)
         task_pers_objs = list()
         for row in dataframe.iterrows():
             row_dict = row[1]
-            print(row_dict['harness'] + ' ' + str(row_dict['amount']))
             task_pers_objs.append(
                 TaskPersonal(
                     komax_task=komax_task_obj,
@@ -556,7 +551,6 @@ class KomaxTaskProcessing():
     def create_task_personal_from_dataframe_dict(self, dataframe_dict):
         dataframe = pd.DataFrame.from_dict(dataframe_dict)
         dataframe.index = pd.Index(range(dataframe.shape[0]))
-        print(dataframe)
         komax_number = dataframe.loc[0, 'komax']
         harnesses_number = dataframe['harness'].unique()
         komax = Komax.objects.filter(number=komax_number)[0]
@@ -589,9 +583,6 @@ class KomaxTaskProcessing():
         """
         task_obj = get_komax_task(task_name=task_name)[0]
         task_df = get_task_personal(task_obj, output='dataframe')
-        print(task_df[task_df['amount'] > 1]['harness'])
-
-        print(task_df['amount'])
         """
         sorted_alloc = task_df['allocation'][0]
         alloc_base = alloc_chart_dict['allocation'][1]
@@ -600,7 +591,6 @@ class KomaxTaskProcessing():
         """
 
         amount_dict = self.__get_amount_dict(task_name)
-        print(amount_dict)
         process = ProcessDataframe(task_df)
         harnesses, komax_dict, kappas, shift, type_of_allocation = self.get_params_from_komax_task(task_obj)
         time_dict = get_time_from(read_frame(get_laboriousness()))

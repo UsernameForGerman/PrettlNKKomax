@@ -207,7 +207,6 @@ class HarnessChartReader:
         if any(column not in self.__dataframe_file for column in COLUMN_NAMES):
             for column in COLUMN_NAMES:
                 if column not in self.__dataframe_file:
-                    print(column)
                     self.__dataframe_file[column] = 0
 
         self.__dataframe_file.dropna(axis=0, how='all', inplace=True)
@@ -299,7 +298,7 @@ class HarnessChartReader:
             row_start = self.__get_first_row_to_read()
 
             paired_terminals, paired_cabels, paired_armirovka = self.__get_paired_terminals_cabels_armirovka(row_start)
-            print(paired_terminals, paired_cabels, paired_armirovka)
+
             # dataframe processing
 
             self.__dataframe_file = self.__read_xl(start_row=row_start)
@@ -307,11 +306,8 @@ class HarnessChartReader:
             self.__close_xlsx()
             self.__process_file()
 
-            print(self.__dataframe_file)
-
             self.__process_paired_cells(row_start, paired_terminals, paired_cabels, paired_armirovka)
 
-            print(self.__dataframe_file)
 
 class ProcessDataframe:
     chart = None
@@ -519,7 +515,6 @@ class ProcessDataframe:
             if index in second:
                 self.chart.loc[index, 'wire_terminal_2'] = second[index]
 
-        print('Base fulfill terminals func time = {}'.format(time.time() - start_time))
         return (list_1, list_2)
 
     def __fulfill_NaN(self, terminal):
@@ -555,7 +550,6 @@ class ProcessDataframe:
             self.chart[(self.chart['marking'] == 'Белый') & (self.chart['groups'] == str_i)][['wire_terminal_1', 'wire_terminal_2']] = \
                 self.chart[(self.chart['marking'] == 'Белый') & (self.chart['groups'] == str_i)][['wire_terminal_1', 'wire_terminal_2']].fillna(method='bfill')
 
-        print('Built-in funcs based fulfill terminals func time = {}'.format(time.time() - start_time))
         return idxs_1, idxs_2
 
     def __swap_cols_after(self, col1, col2):

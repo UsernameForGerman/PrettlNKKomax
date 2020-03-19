@@ -999,7 +999,7 @@
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/static/main_app/welcome.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/base.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/main.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_site/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_site/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/LICENSE" beforeDir="false" />
@@ -2219,7 +2219,7 @@
       <workItem from="1584095032476" duration="1167000" />
       <workItem from="1584128223132" duration="6080000" />
       <workItem from="1584353575086" duration="6182000" />
-      <workItem from="1584612548838" duration="16749000" />
+      <workItem from="1584612548838" duration="17597000" />
     </task>
     <servers />
   </component>
