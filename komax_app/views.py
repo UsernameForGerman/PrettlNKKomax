@@ -452,11 +452,10 @@ class KomaxTaskView(View):
         task_kappas = task.kappas
         exceeds_shift = False
 
-        kappas = None
         if task_kappas is None:
             kappas = []
         else:
-            kappas = list(task_kappas)
+            kappas = [task_kappas]
 
 
         for key, item in final_alloc.items():
