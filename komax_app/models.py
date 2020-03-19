@@ -31,7 +31,7 @@ class HarnessChart(models.Model):
     wire_terminal_2 = models.CharField(max_length=32, null=True)
     aplicator_2 = models.CharField(max_length=64, null=True)
     tube_len_2 = models.FloatField(null=True)
-    armirovka_2 = models.CharField(max_length=64, null=True)
+    armirovka_2 = models.CharField(max_length=128, null=True)
 
     def __str__(self):
         return self.harness.harness_number
