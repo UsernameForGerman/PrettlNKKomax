@@ -4,16 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-asgiref = "*"
 Django = '==2.2.7'
-channels = "*"
+Channels = "*"
 channels-redis = "*"
 django-heroku = "*"
 daphne = "*"
 dj-database-url = "*"
 psycopg2 = "*"
 whitenoise = "*"
-asgi-redis = "*"
 bootstrap4 = "*"
 celery = "*"
 django-channels = "*"
@@ -36,4 +34,4 @@ xlwt = "*"
 [dev-packages]
 
 [requires]
-python_version = "3.7.6"
+python_version = "3.6.8"
