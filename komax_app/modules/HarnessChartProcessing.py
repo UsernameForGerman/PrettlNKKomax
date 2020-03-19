@@ -8,9 +8,9 @@ import time
 
 COLUMN_NAMES = ("Примечание", "№ п/п", "Маркировка", "Вид провода", "№ провода", "Сечение", "Цвет",
                 "Длина, мм (± 3мм)", "Уплотнитель 1", "Длина трубки, L (мм) 1", "Длина трубки, L (мм) 2",
-                "Частичное снятие 1", "Частичное снятие 2", "Наконечник 1", "Аппликатор 1", "Уплотнитель 2",
-                "Наконечник 2", "Аппликатор 2", "Номер жгута", "Армировка 1 (Трубка ПВХ, Тр.Терм., изоляторы)",
-                "Армировка 2 (Трубка ПВХ, Тр.Терм., изоляторы)")
+                "Частичное снятие 1", "Частичное снятие 2", "Наконечник 1", "Апликатор 1", "Уплотнитель 2",
+                "Наконечник 2", "Апликатор 2", "Армировка 1 (Трубка ПВХ, Тр. Терм., изоляторы)",
+                "Армировка 2 (Трубка ПВХ, Тр. Терм., изоляторы)")
 
 class HarnessChartReader:
     CABEL = "Кабель"
@@ -21,8 +21,12 @@ class HarnessChartReader:
     SEAL_2_COL = "Уплотнитель 2"
     WIRE_CUT_1_COL = "Частичное снятие 1"
     WIRE_CUT_2_COL = "Частичное снятие 2"
-    ARMIROVKA_1_COL = "Армировка 1 (Трубка ПВХ, Тр.Терм., изоляторы)"
-    ARMIROVKA_2_COL = "Армировка 2 (Трубка ПВХ, Тр.Терм., изоляторы)"
+    ARMIROVKA_1_COL = "Армировка 1 (Трубка ПВХ, Тр. Терм., изоляторы)"
+    ARMIROVKA_2_COL = "Армировка 2 (Трубка ПВХ, Тр. Терм., изоляторы)"
+    TERMINAL_1_COL_NUM = 13
+    TERMINAL_2_COL_NUM = 19
+    ARMIROVKA_1_COL_NUM = 9
+    ARMIROVKA_2_COL_NUM = 18
 
     numeric_columns = [
         "Сечение",
@@ -119,7 +123,7 @@ class HarnessChartReader:
         for row in self.worksheet_file.iter_rows():
             for cell in row:
                 value = cell.value
-                if type(value) is str and value.lower() == "примечание":
+                if type(value) is str and value.lower() == "сечение":
                     return cell.row
 
     def __check_numeric_cols(self, numberic_cols):
@@ -155,6 +159,30 @@ class HarnessChartReader:
         # recover indecies
         self.__dataframe_file.index = pd.Index(range(self.__dataframe_file.shape[0]))
 
+    def __get_paired_terminals_cabels_armirovka(self, start_row):
+        rows_terminals = list()
+        rows_cabels = list()
+        rows_armirovka = list()
+
+        for merged_cell in self.worksheet_file.merged_cells.ranges:
+            main_cell = self.worksheet_file[merged_cell.coord][0][0]
+            if main_cell.row > start_row:
+                if main_cell.column == self.TERMINAL_1_COL_NUM or main_cell.column == self.TERMINAL_2_COL_NUM:
+                    last_cell = self.worksheet_file[merged_cell.coord][-1][-1]
+                    terminal_num = 1 if main_cell.column == self.TERMINAL_1_COL_NUM else 2
+                    rows_terminals.append((terminal_num, main_cell.row, last_cell.row))
+
+                if main_cell.column == self.ARMIROVKA_1_COL_NUM or self.ARMIROVKA_2_COL_NUM:
+                    last_cell = self.worksheet_file[merged_cell.coord][-1][-1]
+                    armirovka_num = 1 if main_cell.column == self.ARMIROVKA_1_COL_NUM else 2
+                    value = main_cell.value
+                    rows_armirovka.append((value, armirovka_num, main_cell.row, last_cell.row))
+                if type(main_cell.value) is str and 'кабель' in main_cell.value.lower():
+                    last_cell = self.worksheet_file[merged_cell.coord][-1][-1]
+                    rows_cabels.append((main_cell.row, last_cell.row))
+
+        return (rows_terminals, rows_cabels, rows_armirovka)
+
     def __process_file(self):
         """
         Delete or add permanent columns
@@ -175,9 +203,11 @@ class HarnessChartReader:
 
         self.__dataframe_file.drop(columns_to_drop, axis=1, inplace=True)
 
+
         if any(column not in self.__dataframe_file for column in COLUMN_NAMES):
             for column in COLUMN_NAMES:
                 if column not in self.__dataframe_file:
+                    print(column)
                     self.__dataframe_file[column] = 0
 
         self.__dataframe_file.dropna(axis=0, how='all', inplace=True)
@@ -194,10 +224,12 @@ class HarnessChartReader:
 
         self.__delete_positions_without_length()
 
+
     def __read_xl(self, start_row=0):
         cnt = 0
         ws = self.worksheet_file
 
+        """
         for row in ws.iter_rows():
             cnt += 1
             if cnt == start_row:
@@ -206,15 +238,17 @@ class HarnessChartReader:
                 for cell in row:
                     if cell.value != None:
                         cell.value = None
+        """
+
 
         temp_df = pd.DataFrame(ws.values)
+        temp_df.drop(list(range(0, start_row - 1)), axis=0, inplace=True)
 
         temp_df.dropna(inplace=True, how='all', axis=0)
         temp_df.dropna(inplace=True, how='all', axis=1)
         temp_df.index = pd.Index(range(temp_df.shape[0]))
 
         temp_df.rename(columns=temp_df.loc[0, :], inplace=True)
-
         temp_df.drop(index=[0, 1], inplace=True)
         temp_df.index = pd.Index(range(temp_df.shape[0]))
         return temp_df
@@ -226,6 +260,32 @@ class HarnessChartReader:
                 wire_number = self.__dataframe_file.loc[row - start_row - 2, '№ провода']
                 self.__dataframe_file.loc[row - start_row - 2, 'Вид провода'] = str(cabel_name) + ' ' + str(wire_number)
 
+    def __delete_paired_terminals(self, start_row, terminals_rows):
+        for paired_rows in terminals_rows:
+            terminal_num = paired_rows[0]
+
+            if terminal_num == 1:
+                cols = [self.ARMIROVKA_1_COL, self.SEAL_1_COL, self.TERMINAL_1_COL]
+            else:
+                cols = [self.ARMIROVKA_2_COL, self.SEAL_2_COL, self.TERMINAL_2_COL]
+
+            for row in range(paired_rows[1], paired_rows[2] + 1):
+                self.__dataframe_file.loc[row - start_row - 2, cols] = '', '', ''
+
+    def __unpair_armirovka(self, start_row, armirovka_rows):
+        for paired_rows in armirovka_rows:
+            armirovka = paired_rows[0]
+            armirovka_num = paired_rows[1]
+            armirovka_col = self.ARMIROVKA_1_COL if armirovka_num == 1 else self.ARMIROVKA_2_COL
+
+            for row in range(paired_rows[2], paired_rows[3] + 1):
+                self.__dataframe_file.loc[row - start_row - 2, armirovka_col] = armirovka
+
+    def __process_paired_cells(self, start_row, terminal_rows, cabels_rows, armirovka_rows):
+        self.__delete_paired_terminals(start_row, terminal_rows)
+        self.__fulfill_cabels(start_row, cabels_rows)
+        self.__unpair_armirovka(start_row, armirovka_rows)
+
 
     def read_file_chart(self):
         if self.file.name.endswith('xlsx'):
@@ -233,10 +293,13 @@ class HarnessChartReader:
             # xlsx processing
 
             self.__delete_gray_xlsx()
-            cabels_rows = self.__get_number_cabels_rows()
+
+            # cabels_rows = self.__get_number_cabels_rows()
 
             row_start = self.__get_first_row_to_read()
 
+            paired_terminals, paired_cabels, paired_armirovka = self.__get_paired_terminals_cabels_armirovka(row_start)
+            print(paired_terminals, paired_cabels, paired_armirovka)
             # dataframe processing
 
             self.__dataframe_file = self.__read_xl(start_row=row_start)
@@ -244,7 +307,11 @@ class HarnessChartReader:
             self.__close_xlsx()
             self.__process_file()
 
-            self.__fulfill_cabels(row_start, cabels_rows)
+            print(self.__dataframe_file)
+
+            self.__process_paired_cells(row_start, paired_terminals, paired_cabels, paired_armirovka)
+
+            print(self.__dataframe_file)
 
 class ProcessDataframe:
     chart = None
