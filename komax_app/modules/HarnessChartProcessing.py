@@ -26,7 +26,7 @@ class HarnessChartReader:
     TERMINAL_1_COL_NUM = 13
     TERMINAL_2_COL_NUM = 19
     ARMIROVKA_1_COL_NUM = 9
-    ARMIROVKA_2_COL_NUM = 18
+    ARMIROVKA_2_COL_NUM = 15
 
     numeric_columns = [
         "Сечение",
@@ -170,7 +170,7 @@ class HarnessChartReader:
                     terminal_num = 1 if main_cell.column == self.TERMINAL_1_COL_NUM else 2
                     rows_terminals.append((terminal_num, main_cell.row, last_cell.row))
 
-                if main_cell.column == self.ARMIROVKA_1_COL_NUM or self.ARMIROVKA_2_COL_NUM:
+                if main_cell.column == self.ARMIROVKA_1_COL_NUM or main_cell.column == self.ARMIROVKA_2_COL_NUM:
                     last_cell = self.worksheet_file[merged_cell.coord][-1][-1]
                     armirovka_num = 1 if main_cell.column == self.ARMIROVKA_1_COL_NUM else 2
                     value = main_cell.value
