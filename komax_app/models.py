@@ -22,14 +22,14 @@ class HarnessChart(models.Model):
     wire_length = models.PositiveSmallIntegerField()
 
     armirovka_1 = models.CharField(max_length=128, null=True)
-    tube_len_1 = models.FloatField(null=True)
+    tube_len_1 = models.CharField(max_length=256, null=True)
     wire_seal_1 = models.CharField(max_length=32, null=True)
     wire_cut_length_1 = models.FloatField()
     wire_terminal_1 = models.CharField(max_length=32, null=True)
     aplicator_1 = models.CharField(max_length=64, null=True)
 
     armirovka_2 = models.CharField(max_length=128, null=True)
-    tube_len_2 = models.FloatField(null=True)
+    tube_len_2 = models.CharField(max_length=256, null=True)
     wire_seal_2 = models.CharField(max_length=32, null=True)
     wire_cut_length_2 = models.FloatField()
     wire_terminal_2 = models.CharField(max_length=32, null=True)
@@ -56,14 +56,14 @@ class HarnessChart(models.Model):
                 wire_seal_1=row_dict["Уплотнитель 1"],
                 wire_cut_length_1=float(row_dict["Частичное снятие 1"]),
                 wire_terminal_1=row_dict["Наконечник 1"],
-                aplicator_1=row_dict["Апликатор 1"],
-                tube_len_1=float(row_dict["Длина трубки, L (мм) 1"]),
+                aplicator_1=row_dict["Аппликатор 1"],
+                tube_len_1=row_dict["Длина трубки, L (мм) 1"],
                 armirovka_1=row_dict["Армировка 1 (Трубка ПВХ, Тр. Терм., изоляторы)"],
                 wire_seal_2=row_dict["Уплотнитель 2"],
                 wire_cut_length_2=float(row_dict["Частичное снятие 2"]),
                 wire_terminal_2=row_dict["Наконечник 2"],
-                aplicator_2=row_dict["Апликатор 2"],
-                tube_len_2=float(row_dict["Длина трубки, L (мм) 2"]),
+                aplicator_2=row_dict["Аппликатор 2"],
+                tube_len_2=row_dict["Длина трубки, L (мм) 2"],
                 armirovka_2=row_dict["Армировка 2 (Трубка ПВХ, Тр. Терм., изоляторы)"]
             ).save()
 
@@ -225,13 +225,13 @@ class TaskPersonal(models.Model):
     wire_color = models.CharField(max_length=8, null=True)
     wire_length = models.PositiveSmallIntegerField(null=True)
 
-    tube_len_1 = models.FloatField(null=True)
+    tube_len_1 = models.CharField(max_length=256, null=True)
     wire_seal_1 = models.CharField(max_length=32, null=True)
     wire_cut_length_1 = models.FloatField(null=True)
     wire_terminal_1 = models.CharField(max_length=32, null=True)
     aplicator_1 = models.CharField(max_length=64, null=True)
 
-    tube_len_2 = models.FloatField(null=True)
+    tube_len_2 = models.CharField(max_length=256, null=True)
     wire_seal_2 = models.CharField(max_length=32, null=True)
     wire_cut_length_2 = models.FloatField(null=True)
     wire_terminal_2 = models.CharField(max_length=32, null=True)
