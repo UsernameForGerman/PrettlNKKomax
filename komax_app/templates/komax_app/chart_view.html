@@ -30,18 +30,20 @@
                     <th class="text-center" scope="col">{% trans 'Square' %}</th>
                     <th class="text-center" scope="col">{% trans 'Color' %}</th>
                     <th class="text-center" scope="col">{% trans 'Length' %}</th>
+
+                    <th class="text-center" scope="col">{% trans 'Armirovka 1' %}</th>
+                    <th class="text-center" scope="col">{% trans 'Tube len 1' %}</th>
                     <th class="text-center" scope="col">{% trans 'Seal 1' %}</th>
                     <th class="text-center" scope="col">{% trans 'Cut len 1' %}</th>
                     <th class="text-center" scope="col">{% trans 'Terminal 1' %}</th>
                     <th class="text-center" scope="col">{% trans 'Aplicator 1' %}</th>
-                    <th class="text-center" scope="col">{% trans 'Armirovka 1' %}</th>
-                    <th class="text-center" scope="col">{% trans 'Tube len 1' %}</th>
+
+                    <th class="text-center" scope="col">{% trans 'Armirovka 2' %}</th>
+                    <th class="text-center" scope="col">{% trans 'Tube len 2' %}</th>
                     <th class="text-center" scope="col">{% trans 'Seal 2' %}</th>
                     <th class="text-center" scope="col">{% trans 'Cut len 2' %}</th>
                     <th class="text-center" scope="col">{% trans 'Terminal 2' %}</th>
                     <th class="text-center" scope="col">{% trans 'Aplicator 2' %}</th>
-                    <th class="text-center" scope="col">{% trans 'Armirovka 2' %}</th>
-                    <th class="text-center" scope="col">{% trans 'Tube len 2' %}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -55,18 +57,20 @@
                         <td class="text-center">{{ harness_chart.wire_square }}</td>
                         <td class="text-center">{{ harness_chart.wire_color }}</td>
                         <td class="text-center">{{ harness_chart.wire_length }}</td>
+
+                        <td class="text-center">{{ harness_chart.armirovka_1 }}</td>
+                        <td class="text-center">{{ harness_chart.tube_len_1 }}</td>
                         <td class="text-center">{{ harness_chart.wire_seal_1 }}</td>
                         <td class="text-center">{{ harness_chart.wire_cut_length_1 }}</td>
                         <td class="text-center">{{ harness_chart.wire_terminal_1 }}</td>
                         <td class="text-center">{{ harness_chart.aplicator_1 }}</td>
-                        <td class="text-center">{{ harness_chart.armirovka_1 }}</td>
-                        <td class="text-center">{{ harness_chart.tube_len_1 }}</td>
+
+                        <td class="text-center">{{ harness_chart.armirovka_2 }}</td>
+                        <td class="text-center">{{ harness_chart.tube_len_2 }}</td>
                         <td class="text-center">{{ harness_chart.wire_seal_2 }}</td>
                         <td class="text-center">{{ harness_chart.wire_cut_length_2 }}</td>
                         <td class="text-center">{{ harness_chart.wire_terminal_2 }}</td>
                         <td class="text-center">{{ harness_chart.aplicator_2 }}</td>
-                        <td class="text-center">{{ harness_chart.armirovka_2 }}</td>
-                        <td class="text-center">{{ harness_chart.tube_len_2 }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

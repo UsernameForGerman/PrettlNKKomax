@@ -20,18 +20,22 @@ class HarnessChart(models.Model):
     wire_square = models.FloatField()
     wire_color = models.CharField(max_length=8)
     wire_length = models.PositiveSmallIntegerField()
+
+    armirovka_1 = models.CharField(max_length=128, null=True)
+    tube_len_1 = models.FloatField(null=True)
     wire_seal_1 = models.CharField(max_length=32, null=True)
     wire_cut_length_1 = models.FloatField()
     wire_terminal_1 = models.CharField(max_length=32, null=True)
     aplicator_1 = models.CharField(max_length=64, null=True)
-    tube_len_1 = models.FloatField(null=True)
-    armirovka_1 = models.CharField(max_length=128, null=True)
+
+    armirovka_2 = models.CharField(max_length=128, null=True)
+    tube_len_2 = models.FloatField(null=True)
     wire_seal_2 = models.CharField(max_length=32, null=True)
     wire_cut_length_2 = models.FloatField()
     wire_terminal_2 = models.CharField(max_length=32, null=True)
     aplicator_2 = models.CharField(max_length=64, null=True)
-    tube_len_2 = models.FloatField(null=True)
-    armirovka_2 = models.CharField(max_length=128, null=True)
+
+
 
     def __str__(self):
         return self.harness.harness_number
@@ -220,10 +224,14 @@ class TaskPersonal(models.Model):
     wire_square = models.FloatField(null=True)
     wire_color = models.CharField(max_length=8, null=True)
     wire_length = models.PositiveSmallIntegerField(null=True)
+
+    tube_len_1 = models.FloatField(null=True)
     wire_seal_1 = models.CharField(max_length=32, null=True)
     wire_cut_length_1 = models.FloatField(null=True)
     wire_terminal_1 = models.CharField(max_length=32, null=True)
     aplicator_1 = models.CharField(max_length=64, null=True)
+
+    tube_len_2 = models.FloatField(null=True)
     wire_seal_2 = models.CharField(max_length=32, null=True)
     wire_cut_length_2 = models.FloatField(null=True)
     wire_terminal_2 = models.CharField(max_length=32, null=True)
@@ -235,7 +243,7 @@ class TaskPersonal(models.Model):
         return
 
     def __str__(self):
-        return self.task.task_name
+        return self.komax_task.task_name
 
 def komax_number_harness_number_path(instance, komax_number, harness_number):
     return '{}-{}'.format(komax_number, harness_number)

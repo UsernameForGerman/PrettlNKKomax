@@ -181,6 +181,10 @@ class OutProcess:
                 cell.value = 'Армировка 1'
             elif value == 'armirovka_2':
                 cell.value = 'Армировка 2'
+            elif value == 'tube_len_1':
+                cell.value = "Длина трубки, L (мм) 1"
+            elif value == 'tube_len_2':
+                cell.value = "Длина трубки, L (мм) 2"
 
     def get_task_xl(self):
         if self.dataframe is not None:
@@ -191,6 +195,25 @@ class OutProcess:
 
         self.worksheet.delete_rows(2, 1)
         return self.workbook
+
+    def get_kappa_task_xl(self):
+        if self.dataframe is not None:
+            cols_to_drop = [
+                'wire_seal_1',
+                'wire_seal_2',
+                'wire_terminal_1',
+                'wire_terminal_2',
+                'aplicator_1',
+                'aplicator_2',
+            ]
+            self.dataframe = self.dataframe.drop(cols_to_drop, axis=1)
+            self.__read_dataframe()
+            self.__translate_cols_to_rus()
+
+        self.__style_xlsx()
+        self.worksheet.delete_rows(2, 1)
+        return self.workbook
+
 
     def get_harness_chart_xl(self):
         if self.dataframe is not None:

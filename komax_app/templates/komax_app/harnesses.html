@@ -73,7 +73,7 @@
                     <td class="text-center">{{ pos.harness_number }}</td>
                     <td class="text-center">{{ pos.created }}</td>
                 <td>
-                    <a href="{% url 'komax_app:harness_chart' pk=pos.harness_number %}">
+                    <a href="{% url 'komax_app:harness_chart' harness_number=pos.harness_number %}">
                         <button title="{% trans 'Detailed' %}" class="btn btn-secondary show-btn" >
                             <i class="fa fa-search"> </i>
                         </button>

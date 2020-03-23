@@ -616,7 +616,7 @@ def get_personal_task_view_kappa(request, task_name, kappa):
     )
 
     out_file = OutProcess(kappa_task_pers_df)
-    workbook = out_file.get_task_xl()
+    workbook = out_file.get_kappa_task_xl()
     workbook.save(response)
 
     return response
@@ -787,13 +787,13 @@ def upload_temp_chart(request):
         form = HarnessChartUploadForm
     return render(request, 'komax_app/upload_harness_chart.html', context)
 
-def harness_chart_view(request, pk):
+def harness_chart_view(request, harness_number):
     try:
-        obj = get_list_or_404(HarnessChart, harness_id=get_object_or_404(Harness, harness_number=pk))
+        obj = get_list_or_404(HarnessChart, harness_id=get_object_or_404(Harness, harness_number=harness_number))
     except:
         raise Http404('Not found Harness of Harness charts or returned list of Harnesses by this id')
     context = {
-        'harness_number': pk,
+        'harness_number': harness_number,
         'positions': obj
     }
     close_old_connections()

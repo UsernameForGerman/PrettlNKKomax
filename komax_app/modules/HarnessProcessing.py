@@ -25,7 +25,7 @@ class HarnessNumber():
             return True
         elif type(self.harness_number) is str:
             for symbol in self.harness_number:
-                if is_digit(symbol) or is_letter(symbol) or symbol == '-':
+                if is_digit(symbol) or is_letter(symbol) or symbol == '-' or symbol == '.':
                     continue
                 else:
                     return False

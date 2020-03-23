@@ -253,11 +253,27 @@ class HarnessChartReader:
         return temp_df
 
     def __fulfill_cabels(self, start_row, cabels_rows):
+        rows_to_drop = list()
         for row_pair in cabels_rows:
+            max_len_idx = row_pair[0]
+            max_len = self.__dataframe_file.loc[row_pair[0] - start_row - 2, "Длина, мм (± 3мм)"]
+            for row in range(row_pair[0] + 1, row_pair[1] + 1):
+                row_len = self.__dataframe_file.loc[row - start_row - 2, "Длина, мм (± 3мм)"]
+                if row_len > max_len:
+                    rows_to_drop.append(max_len_idx)
+                    max_len = row_len
+                    max_len_idx = row - start_row - 2
+                else:
+                    rows_to_drop.append(row - start_row - 2)
+        self.__dataframe_file.drop(rows_to_drop, axis=0, inplace=True)
+        self.__dataframe_file.index = pd.Index(range(self.__dataframe_file.shape[0]))
+
+        """
             cabel_name = self.__dataframe_file.loc[row_pair[0] - start_row - 2, 'Вид провода']
             for row in range(row_pair[0], row_pair[1] + 1):
                 wire_number = self.__dataframe_file.loc[row - start_row - 2, '№ провода']
                 self.__dataframe_file.loc[row - start_row - 2, 'Вид провода'] = str(cabel_name) + ' ' + str(wire_number)
+        """
 
     def __delete_paired_terminals(self, start_row, terminals_rows):
         for paired_rows in terminals_rows:
@@ -521,7 +537,6 @@ class ProcessDataframe:
         return np.nan if terminal is None or terminal == '' or terminal == ' ' else terminal
 
     def __fulfill_terminals_built_in(self):
-        start_time = time.time()
         self.chart['wire_terminal_1'] = self.chart['wire_terminal_1'].apply(
             lambda x: self.__fulfill_NaN(x)
         )
