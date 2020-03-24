@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.views import generic
 from django.urls import reverse_lazy
 from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask, HarnessAmount, TaskPersonal, \
-    Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal
+    Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker
 from .forms import KomaxEditForm, KomaxCreateForm
 from .modules.ioputter import FileReader
 from django_pandas.io import read_frame
@@ -33,6 +33,8 @@ import time
 from django.utils.timezone import now
 from django.db import close_old_connections
 from channels.db import database_sync_to_async
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 browser_useragents = ["ABrowse", "Acoo Browser", "America Online Browser", "AmigaVoyager", "AOL", "Arora",
                       "Avant Browser", "Beonex", "BonEcho", "Browzar", "Camino", "Charon", "Cheshire",
@@ -103,6 +105,53 @@ def upload(request):
         context['url'] = fs.url(name)
     return render(request, 'komax_app/upload_harness_chart.html', context)
 """
+
+
+def load_task(request, task_name):
+
+
+    """
+    processor = KomaxTaskProcessing()
+    processor.load_task_personal(task_name)
+    """
+    return redirect('komax_app:task_view', task_name=task_name)
+
+
+class WorkerAccountView(View):
+    template_name = ''
+    login_url = '/login/'
+
+    @method_decorator(login_required(login_url=login_url))
+    def get(self, request, username, *args, **kwargs):
+        if request.user.username == username:
+            worker = get_object_or_404(Worker, username=request.user.username)
+            komax_num = request.session.get('komax', None)
+            if komax_num is None:
+                context = {
+                    'worker': worker,
+                    'request_komax_num': True,
+                }
+
+                return render(request, self.template_name, context=context)
+            else:
+                komax = get_object_or_404(KomaxTime, komax=get_object_or_404(Komax, number=komax_num))
+                ordered_komax_tasks = get_list_or_404(OrderedKomaxTask, worker=worker, komax=komax)
+                context = {
+                    'worker': worker,
+                    'komax_tasks': ordered_komax_tasks,
+                }
+
+                return render(request, self.template_name, context=context)
+
+        # wirte redirect to user private account
+        return
+
+    def post(self, request, username, *args, **kwargs):
+        if request.user.username == username:
+            request.session['komax'] = request['komax']
+
+        # redirect to GET user private acc
+        return
 
 class KomaxTerminalsListView(View):
     template_name = 'komax_app/komax_terminals.html'
@@ -477,15 +526,18 @@ class KomaxTaskView(View):
 
         return render(request, self.template_name, context=context)
 
-    def post(self, request, *args, **kwargs):
-        close_old_connections()
-        return redirect('komax_app:task_setup')
+    def post(self, request, task_name, *args, **kwargs):
+        komax_task = get_object_or_404(KomaxTask, task_name=task_name)
+        ordered_komax_task_objs = OrderedKomaxTask.objects.filter(komax_task=komax_task)
 
-def load_task(request, task_name):
-    processor = KomaxTaskProcessing()
-    processor.load_task_personal(task_name)
-
-    return redirect('komax_app:task_view', task_name=task_name)
+        if len(ordered_komax_task_objs):
+            ordered_komax_task_objs.delete()
+        else:
+            ordered_komax_task_objs = [
+                OrderedKomaxTask(komax_task=komax_task, komax=komax_i) for komax_i in komax_task.komaxes.all()
+            ]
+            OrderedKomaxTask.objects.bulk_create(ordered_komax_task_objs)
+        return redirect('komax_app:task_view', task_name=task_name)
 
 def get_harness_chart_view(request, harness_number):
     harness_obj = get_object_or_404(Harness, harness_number=harness_number)
