@@ -1,0 +1,50 @@
+{% extends 'komax_app/komax_app_main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    <title>
+    {{ worker.username }}
+    </title>
+{% endblock %}
+
+{% block main_content %}
+        <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <p>User</p>
+            </div>
+            <div class="card-body">
+                <h5 class="card-text">{{ worker.username }}</h5>
+                <p>{{ worker.position }}</p>
+                <p>Salary</p>
+                <button class="btn btn-info">Edit</button>
+            </div>
+        </div>
+        {% if request_komax_num %}
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+            <input type="text" placeholder="№ komax" name="komax">
+            <button class="btn btn-success" type="sumbit">Submit</button>
+        </form>
+        {% else %}
+            {% for komax_task in komax_tasks %}
+                <div class="card">
+                    <div class="card-header">
+                        <p>{{ komax_task.task_name }}</p>
+                    </div>
+                    <div class="card-body">
+                        <!--
+                        <p>Time: {{ komax_times.0.time }}</p>
+                        -->
+                        <h5 class="card-text">{{ worker.username }}</h5>
+                        <p>{{ worker.position }}</p>
+                        <p>Salary</p>
+                        <button class="btn btn-info">Edit</button>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
+

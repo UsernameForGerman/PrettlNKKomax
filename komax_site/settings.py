@@ -41,8 +41,9 @@ INPROD = False
 ALLOWED_HOSTS = ['*']
 
 
-# Application definition
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
+# Application definition
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'description.apps.DescriptionConfig',
@@ -121,6 +122,11 @@ DATABASES = {
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 
+
+AUTHENTICATION_BACKENS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'komax_app.backends.WorkerAuthBackend'
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -249,51 +255,8 @@ elif not INPROD:
     BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
     CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 
-"""
-CACHES = {
-    "default": {
-        "BACKEND": "redis_cache.RedisCache",
-        "LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
-        "OPTIONS": {
-            "PASSWORD": redis_url.password,
-            "DB": 0,
-        }
-    }
-}
-"""
-
-# REDIS related settings
-"""
-REDIS_HOST = 'ec2-3-215-69-57.compute-1.amazonaws.com'
-REDIS_PORT = '24709'
-REDIS_PASSWORD = "p12ca82f105d543e0d9248e8f33b1b459c1c4b3c14db4c362a28c9dadda1680e1"
-REDIS_USER = 'h'
-BROKER_URL = 'redis://' + REDIS_USER + REDIS_PASSWORD + REDIS_HOST + ':' + REDIS_PORT + '/0'
-BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
-CELERY_RESULT_BACKEND = 'redis://' + REDIS_USER + REDIS_PASSWORD + REDIS_HOST + ':' + REDIS_PORT + '/0'
-"""
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/worker/'
 
 
-"""
-# celery
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-INVENIO_CELERY_BROKER_URL = 'amqp://guest:guest@mq:5672//'
-"""
-
-# REDIS related settings
-"""
-REDIS_HOST = 'localhost'
-REDIS_PORT = '6379'
-CELERY_BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
-BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
-CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-
-"""
 

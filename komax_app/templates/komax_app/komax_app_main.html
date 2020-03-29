@@ -4,10 +4,6 @@
 
 {% block navbar %}
     <link type="text/css" rel="stylesheet" href="{% static 'komax_app/komax_app_main.css' %}">
-    <li class="nav-item">
-      <!-- Set normal link for Main page -->
-        <a class="nav-link" href="{% url 'main_app:main_app' %}">{% trans 'Main' %}</a>
-    </li>
     <li class="nav-item dropdown active">
         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {% trans 'App' %}

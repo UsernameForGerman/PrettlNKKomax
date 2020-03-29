@@ -7,7 +7,7 @@ app_name = 'komax_app'
 
 urlpatterns = [
     path('', views.komax_app_view, name='komax_app_view'),
-    path('users/<username>', views.WorkerAccountView, name='personal_account'),
+    path('worker/', views.WorkerAccountView.as_view(), name='user_account'),
     re_path(r'^komax_tasks/(?P<task_name>[a-zA-Z0-9_.-]*)/$', views.KomaxTaskView.as_view(), name='task_view'),
     re_path(r'^setup/$', views.KomaxAppSetupView.as_view(), name='task_setup'),
     re_path(r'^komax_tasks/(?P<pk>\d+[\w-]+)/amount/$', views.set_amount_task_view, name='task_amount'),
@@ -34,6 +34,6 @@ urlpatterns = [
     re_path(r'^laboriousness/$', views.LaboriousnessListView.as_view(), name='laboriousness'),
     re_path(r'^komax_tasks/$', views.KomaxTaskListView.as_view(), name='komax_task_list'),
     re_path(r'^komax_terminals/$', views.KomaxTerminalsListView.as_view(), name='komax_terminals_list'),
-    re_path(r'^komax_tasks/task/(?P<task_name>[a-zA-Z0-9_.-]*)/load_task/$', views.load_task, name='load_komax_task')
+    re_path(r'^komax_tasks/task/(?P<task_name>[a-zA-Z0-9_.-]*)/send_task/$', views.send_task_to_worker, name='send_komax_task')
     #path('upload/', views.upload, name='upload'),
 ]

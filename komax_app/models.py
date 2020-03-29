@@ -2,18 +2,31 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 import datetime
+
 
 User = get_user_model()
 
-
-class Worker(User):
-    image = models.ImageField(upload_to='images/', null=True)
-    position = models.CharField(max_length=128, null=True)
+class Worker(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, db_index=True)
+    image = models.ImageField(upload_to='images/', blank=True)
 
     def __str__(self):
-        return self.username + ' - ' + self.position
+        return str(self.user)
 
+"""
+@receiver(post_save, sender=User)
+def create_user_worker(sender, instance, created, **kwargs):
+    if created:
+        Worker.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_worker(sender, instance, **kwargs):
+    instance.worker.save()
+"""
 class Harness(models.Model):
     created = models.DateField(verbose_name=_('created'), auto_now_add=True)
     harness_number = models.CharField(max_length=64, unique=True, verbose_name=_('harness number'))
@@ -57,24 +70,24 @@ class HarnessChart(models.Model):
             HarnessChart(
                 harness=get_object_or_404(Harness, harness_number=harness_number),
                 notes=row_dict["Примечание"],
-                marking=row_dict["Маркировка"],
-                wire_type=row_dict["Вид провода"],
-                wire_number=row_dict["№ провода"],
+                marking=str(row_dict["Маркировка"]),
+                wire_type=str(row_dict["Вид провода"]),
+                wire_number=str(row_dict["№ провода"]),
                 wire_square=float(row_dict["Сечение"]),
-                wire_color=row_dict["Цвет"],
+                wire_color=str(row_dict["Цвет"]),
                 wire_length=int(row_dict["Длина, мм (± 3мм)"]),
-                wire_seal_1=row_dict["Уплотнитель 1"],
+                wire_seal_1=str(row_dict["Уплотнитель 1"]),
                 wire_cut_length_1=float(row_dict["Частичное снятие 1"]),
-                wire_terminal_1=row_dict["Наконечник 1"],
-                aplicator_1=row_dict["Аппликатор 1"],
-                tube_len_1=row_dict["Длина трубки, L (мм) 1"],
-                armirovka_1=row_dict["Армировка 1 (Трубка ПВХ, Тр. Терм., изоляторы)"],
-                wire_seal_2=row_dict["Уплотнитель 2"],
+                wire_terminal_1=str(row_dict["Наконечник 1"]),
+                aplicator_1=str(row_dict["Аппликатор 1"]),
+                tube_len_1=str(row_dict["Длина трубки, L (мм) 1"]),
+                armirovka_1=str(row_dict["Армировка 1 (Трубка ПВХ, Тр. Терм., изоляторы)"]),
+                wire_seal_2=str(row_dict["Уплотнитель 2"]),
                 wire_cut_length_2=float(row_dict["Частичное снятие 2"]),
-                wire_terminal_2=row_dict["Наконечник 2"],
-                aplicator_2=row_dict["Аппликатор 2"],
-                tube_len_2=row_dict["Длина трубки, L (мм) 2"],
-                armirovka_2=row_dict["Армировка 2 (Трубка ПВХ, Тр. Терм., изоляторы)"]
+                wire_terminal_2=str(row_dict["Наконечник 2"]),
+                aplicator_2=str(row_dict["Аппликатор 2"]),
+                tube_len_2=str(row_dict["Длина трубки, L (мм) 2"]),
+                armirovka_2=str(row_dict["Армировка 2 (Трубка ПВХ, Тр. Терм., изоляторы)"])
             ).save()
 
             """except:
@@ -108,6 +121,7 @@ class Kappa(models.Model):
 
     number = models.PositiveSmallIntegerField(unique=True, verbose_name=_('kappa'))
     status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, default=1)
+
 
     def __str__(self):
         return str(self.number)
@@ -208,6 +222,7 @@ class KomaxOrder(models.Model):
     komax_task = models.ForeignKey(KomaxTask, on_delete=models.CASCADE, null=True)
     komax = models.ForeignKey(Komax, on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=32, choices=STATUS_CHOICES, null=True)
+
 
     def __str__(self):
         return self.komax_task.task_name + ' ' + self.status

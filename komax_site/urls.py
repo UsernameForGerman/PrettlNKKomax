@@ -21,12 +21,13 @@ from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
+from komax_app import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', LoginView(template_name='login.html'), name='login'),
-    path('logout/', LogoutView(template_name='logout.html'), name='logout'),
+    path('login/', LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', LogoutView.as_view(template_name='logout.html'), name='logout'),
     # re_path(r'^', include('main_app.urls')),
     path('', include('komax_app.urls')),
     re_path(r'^description/', include('description.urls')),

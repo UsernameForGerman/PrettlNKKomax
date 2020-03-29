@@ -221,6 +221,11 @@ class HarnessChartReader:
 
         self.__delete_positions_without_length()
 
+    def __str_wire_num(self, wire_num):
+        try:
+            return str(int(wire_num))
+        except:
+            return str(wire_num)
 
     def __read_xl(self, start_row=0):
         cnt = 0
@@ -248,6 +253,8 @@ class HarnessChartReader:
         temp_df.rename(columns=temp_df.loc[0, :], inplace=True)
         temp_df.drop(index=[0, 1], inplace=True)
         temp_df.index = pd.Index(range(temp_df.shape[0]))
+        # temp_df['№ провода'].apply(lambda wire_num: self.__str_wire_num(wire_num))
+
         return temp_df
 
     def __fulfill_cabels(self, start_row, cabels_rows):
@@ -316,7 +323,7 @@ class HarnessChartReader:
             # dataframe processing
 
             self.__dataframe_file = self.__read_xl(start_row=row_start)
-
+            print(self.__dataframe_file.loc[:, '№ провода'])
             self.__close_xlsx()
             self.__process_file()
 

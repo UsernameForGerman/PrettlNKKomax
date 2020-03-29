@@ -218,7 +218,7 @@ class KomaxAppTaskConsumer(AsyncConsumer):
                 await self.async_complete_komax_task(loaded_dict_data)
 
                 if self.data_alloc is not None and self.data_alloc == -1:
-                    url = '/komax_app/setup/'
+                    url = '/setup/'
                     response = {
                         "info_type": "page_status",
                         "status": "http_redirect",
@@ -230,7 +230,7 @@ class KomaxAppTaskConsumer(AsyncConsumer):
                         "text": json.dumps(response)
                     })
                 else:
-                    url = '/komax_app/komax_tasks/' + task_name + '/'
+                    url = '/komax_tasks/' + task_name + '/'
                     response = {
                         "info_type": "page_status",
                         "status": "http_redirect",

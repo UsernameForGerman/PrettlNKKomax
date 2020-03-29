@@ -36,12 +36,17 @@
                 <a class="btn btn-lg btn-warning" href="{% url 'komax_app:task_setup' %}">{% trans 'Again' %}</a>
             </p>
             <p>
+                <a class="btn btn-lg btn-success" href="{% url 'komax_app:send_komax_task' task_name=task.task_name %}">
+                    {% trans 'Load task' %}
+                </a>
+                <!--
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-lg btn-success">
                         {% trans 'Load task' %}
                     </button>
                 </form>
+                -->
 
             </p>
         </div>
