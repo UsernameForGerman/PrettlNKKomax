@@ -185,6 +185,13 @@ class KomaxTask(models.Model):
         ('Consistently', 'Consistently'),
     ]
 
+    STATUS_TYPES = [
+        (1, 'Created'),
+        (2, 'Ordered'),
+        (3, 'Loaded'),
+        (4, 'Done')
+    ]
+
     task_name = models.CharField(max_length=128, unique=True)
     created = models.DateTimeField(verbose_name=_('created'), auto_now_add=True)
     harnesses = models.ManyToManyField(HarnessAmount)
@@ -193,7 +200,9 @@ class KomaxTask(models.Model):
     shift = models.PositiveSmallIntegerField()
     type_of_allocation = models.CharField(default='Parallel', max_length=128, choices=ALLOCATION_TYPES)
     loading_type = models.CharField(default='New', max_length=64, choices=LOADING_TYPES)
-    ordered = models.BooleanField(default=False)
+    status = models.SmallIntegerField(choices=STATUS_TYPES, default=1)
+    # ordered = models.BooleanField(default=False)
+    # loaded = models.BooleanField(default=False)
 
     def __str__(self):
         return self.task_name

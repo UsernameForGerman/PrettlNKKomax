@@ -121,18 +121,20 @@ def must_be_master(user):
 def send_task_to_worker(request, task_name, *args, **kwargs):
     print(request.user)
     task_obj = get_object_or_404(KomaxTask, task_name=task_name)
-    task_obj.ordered = True
-    task_obj.save(update_fields=['ordered'])
+    task_obj.status = 2
+    task_obj.save(update_fields=['status'])
 
     return redirect('komax_app:task_view', task_name=task_name)
 
 @login_required
 @permission_required('komax_app.change_taskpersonal')
 def load_task_to_komax(request, task_name, *args, **kwargs):
+    TaskPersonal.objects.filter(loaded=True).update(loaded=False)
+    KomaxTask.objects.filter(task_name=task_name).update(status=3)
     processor = KomaxTaskProcessing()
     processor.load_task_personal(task_name)
 
-    return redirect('komax_app:task_view', task_name=task_name)
+    return redirect('komax_app:user_account')
 
 class WorkerAccountView(LoginRequiredMixin, View):
     template_name = 'komax_app/user_account.html'
@@ -149,18 +151,22 @@ class WorkerAccountView(LoginRequiredMixin, View):
 
             return render(request, self.template_name, context=context)
         else:
-            ordered_komax_tasks = KomaxTask.objects.filter(komaxes__komax__number__exact=komax_num, ordered=True)
-            komax_time_objs = list()
+            ordered_komax_tasks = KomaxTask.objects.filter(komaxes__komax__number__exact=komax_num).exclude(status=1)
+            komax_tasks_dict = dict()
+            for komax_task in ordered_komax_tasks:
+                komax_tasks_dict[komax_task] = komax_task.komaxes.filter(komax__number__exact=komax_num).first()
+                komax_tasks_dict[komax_task].time = seconds_to_str_hours(komax_tasks_dict[komax_task].time)
+
+            """komax_time_objs = list()
             for komax_task in ordered_komax_tasks:
                 for komax_time in komax_task.komaxes.all():
                     if komax_time.komax.number == komax_num:
                         komax_time_objs.append(komax_time)
-                        break
+                        break"""
             print(ordered_komax_tasks)
             context = {
                 'worker': worker,
-                'komax_tasks': ordered_komax_tasks,
-                'komax_times': komax_time_objs,
+                'komax_tasks': komax_tasks_dict,
             }
 
             return render(request, self.template_name, context=context)
@@ -596,7 +602,7 @@ def get_harness_chart_view(request, harness_number):
     return response
 
 @login_required
-@user_passes_test(must_be_master)
+@permission_required('komax_app.view_komaxtask')
 def get_personal_task_view_komax(request, task_name, komax):
     komax_obj = get_object_or_404(Komax, number=komax)
     tasks_obj = get_object_or_404(KomaxTask, task_name=task_name)

@@ -134,10 +134,6 @@ class KomaxTaskProcessing():
         komax_task_query = get_komax_task(komax_task_name)
         if len(komax_task_query):
             komax_task_obj = komax_task_query[0]
-            task_pers_loaded_objs = TaskPersonal.objects.filter(loaded=True)
-            for task_pers_loaded_obj in task_pers_loaded_objs:
-                task_pers_loaded_obj.loaded = False
-            TaskPersonal.objects.bulk_update(task_pers_loaded_objs, ['loaded'])
             task_pers_objs = TaskPersonal.objects.filter(komax_task=komax_task_obj)
             for task_pers_obj in task_pers_objs:
                 task_pers_obj.loaded = True

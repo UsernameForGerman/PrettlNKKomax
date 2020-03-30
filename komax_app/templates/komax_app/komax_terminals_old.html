@@ -1,4 +1,4 @@
-{% extends 'komax_app/dashboard_main.html' %}
+{% extends 'komax_app/komax_app_main.html' %}
 {% load static %}
 {% load staticfiles %}
 {% load i18n %}
@@ -10,10 +10,8 @@
     </title>
 {% endblock %}
 
-{% block main %}
-    <!--
+{% block main_content %}
     <link type="text/css" rel="stylesheet" href="{% static 'komax_app/komax_terminals.css' %}">
-    -->
     <div class="container main_content">
         <h2 class="text-center">
         {% trans 'Komax terminals' %}

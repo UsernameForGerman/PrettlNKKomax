@@ -1,4 +1,4 @@
-{% extends 'komax_app/komax_app_main.html' %}
+{% extends 'komax_app/dashboard_main.html' %}
 {% load static %}
 {% load i18n %}
 
@@ -8,19 +8,27 @@
     </title>
 {% endblock %}
 
-{% block main_content %}
-        <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <p>User</p>
+{% block main %}
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">
+            {{ worker.user.username }}
+        </h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Edit</button>
             </div>
-            <div class="card-body">
-                <h5 class="card-text">{{ worker.username }}</h5>
-                <p>{{ worker.position }}</p>
-                <p>Salary</p>
-                <button class="btn btn-info">Edit</button>
-            </div>
+            <!--
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+            </button>
+            -->
         </div>
+
+    </div>
+
+    <div class="container">
         {% if request_komax_num %}
         <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -28,23 +36,50 @@
             <button class="btn btn-success" type="sumbit">Submit</button>
         </form>
         {% else %}
-            {% for komax_task in komax_tasks %}
+            {% for komax_task, komax_time in komax_tasks.items %}
                 <div class="card">
                     <div class="card-header">
                         <p>{{ komax_task.task_name }}</p>
                     </div>
                     <div class="card-body">
-                        <!--
-                        <p>Time: {{ komax_times.0.time }}</p>
-                        -->
-                        <h5 class="card-text">{{ worker.username }}</h5>
-                        <p>{{ worker.position }}</p>
-                        <p>Salary</p>
-                        <button class="btn btn-info">Edit</button>
+
+                        <p>Time: {{ komax_time.time }}</p>
+
+                        {% if komax_task.status == 2 %}
+                            <a class="btn btn-warning" href="{% url 'komax_app:load_komax_task' task_name=komax_task.task_name %}">
+                                {% trans 'Load task' %}
+                            </a>
+                        {% elif komax_task.status == 3 %}
+                            <button class="btn btn-outline-info">
+                                {% trans 'Task loaded' %}
+                            </button>
+                        {% else %}
+                            <button class="btn btn-light">
+                                {% trans 'Done' %}
+                            </button>
+                        {% endif %}
+                        <a class="btn btn-primary" href="{% url 'komax_app:get_spec_task' task_name=komax_task.task_name komax=komax_time.komax.number %}">
+                            {% trans 'task' %} {{ komax }}
+                        </a>
                     </div>
                 </div>
             {% endfor %}
         {% endif %}
     </div>
+
+    <!--
+    <div class="card">
+        <div class="card-header">
+            <p>{{ worker.user.username }}</p>
+        </div>
+        <div class="card-body">
+            {% for position in worker.user.groups.all %}
+            <h5 class="card-text">{{ position }}</h5>
+            {% endfor %}
+            <button class="btn btn-info">Edit</button>
+        </div>
+    </div>
+    -->
+
 {% endblock %}
 

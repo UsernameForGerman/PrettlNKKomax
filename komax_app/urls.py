@@ -34,6 +34,7 @@ urlpatterns = [
     re_path(r'^laboriousness/$', views.LaboriousnessListView.as_view(), name='laboriousness'),
     re_path(r'^komax_tasks/$', views.KomaxTaskListView.as_view(), name='komax_task_list'),
     re_path(r'^komax_terminals/$', views.KomaxTerminalsListView.as_view(), name='komax_terminals_list'),
-    re_path(r'^komax_tasks/task/(?P<task_name>[a-zA-Z0-9_.-]*)/send_task/$', views.send_task_to_worker, name='send_komax_task')
+    re_path(r'^komax_tasks/task/(?P<task_name>[a-zA-Z0-9_.-]*)/send_task/$', views.send_task_to_worker, name='send_komax_task'),
+    path('komax_tasks/task/<task_name>/load_task/', views.load_task_to_komax, name='load_komax_task'),
     #path('upload/', views.upload, name='upload'),
 ]

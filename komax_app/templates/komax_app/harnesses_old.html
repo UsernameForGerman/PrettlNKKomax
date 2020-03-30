@@ -1,4 +1,4 @@
-{% extends 'komax_app/dashboard_main.html' %}
+{% extends 'komax_app/komax_app_main.html' %}
 {% load staticfiles %}
 {% load i18n %}
 
@@ -6,7 +6,7 @@
 <title>{% trans 'Harnesses' %}</title>
 {% endblock %}
 
-{% block main %}
+{% block main_content %}
 
     <link type="text/css" rel="stylesheet" href="{% static 'komax_app/harnesses.css' %}">
 
@@ -14,7 +14,7 @@
     <h2 class="text-center">{% trans 'Wire charts' %}</h2>
 
     <div class="harness-upload-form">
-            {% if perms.komax_app.create_harness %}
+
             <form class="form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="container">
@@ -22,7 +22,6 @@
                         <div class="col-xs-12 col-sm-6" id="harness_number_handler">
                                 <input class="harness-number form-control" id='harness_number' name="harness_number" type="text" required placeholder="5490-3724144-05">
                         </div>
-
 
 
 
@@ -39,7 +38,6 @@
                             </div>
                         </div>
 
-
                         <div class="col-xs-push-4 col-xs-pull-4 col-xs-4 col-sm-2">
                             <button type="submit" class="harness-btn btn btn-success">{% trans 'Upload' %}</button>
                         </div>
@@ -47,7 +45,6 @@
                 </div>
 
             </form>
-        {% endif %}
 
 
     </div>

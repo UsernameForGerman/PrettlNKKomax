@@ -273,39 +273,11 @@ class HarnessConsumer(AsyncConsumer):
     async def websocket_disconnect(self, event):
         return
 
-
-def load_current_position():
-    return
-
-def new_task_available():
-    komax_task_query = KomaxTask.objects.filter(loaded=True)
-    if len(komax_task_query):
-        return komax_task_query[0].loaded
-
-    return 0
-
-def get_new_loaded_task():
-    komax_task_query = KomaxTask.objects.filter(loaded=True)
-    if len(komax_task_query):
-        return komax_task_query[0]
-    return 0
-
-def get_new_komax_task_df(komax_task):
-    return read_frame(TaskPersonal.objects.filter(komax_task=komax_task))
-
 class KomaxConsumer(AsyncConsumer):
     async def websocket_connect(self, event):
         await self.send({
             "type": "websocket.accept"
         })
-
-    """
-    async def async_get_new_loaded_komax_task(self):
-        return await database_sync_to_async(get_new_loaded_task)()
-
-    async def async_get_komax_task_dataframe(self, komax_task):
-        return await database_sync_to_async(get_new_komax_task_df)(komax_task)
-    """
 
     def save_komax_task_personal(self, komax_number, komax_task_personal_df_dict):
         komax_task_processor = KomaxTaskProcessing()
