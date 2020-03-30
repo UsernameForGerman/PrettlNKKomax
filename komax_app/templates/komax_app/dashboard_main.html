@@ -13,13 +13,13 @@
 
 {% block body %}
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">PRETTL-NK</a>
-      <input class="form-control form-control-dark w-100" disabled type="text" placeholder="Search" aria-label="Search">
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" href="{% url 'logout' %}">Sign out</a>
-        </li>
-      </ul>
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">PRETTL-NK</a>
+        <input class="form-control form-control-dark w-100" disabled type="text" placeholder="Search" aria-label="Search">
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="{% url 'logout' %}">{% trans 'Sign out' %}</a>
+            </li>
+        </ul>
     </nav>
 
     <div class="container-fluid">
@@ -33,13 +33,13 @@
                         <li class="nav-item">
                             {% if request.resolver_match.view_name == 'komax_app:user_account' %}
                                 <a class="nav-link active" href="{% url 'komax_app:user_account' %}">
-                                    <span data-feather="home"></span>
+                                    <span data-feather="briefcase"></span>
                                     {% trans 'Tasks' %}
                                     <span class="sr-only">(current)</span>
                                 </a>
                             {% else %}
                                 <a class="nav-link" href="{% url 'komax_app:user_account' %}">
-                                    <span data-feather="home"></span>
+                                    <span data-feather="briefcase"></span>
                                     {% trans 'Tasks' %}
                                 </a>
                             {% endif %}
@@ -47,13 +47,13 @@
                         <li class="nav-item">
                             {% if request.resolver_match.view_name == 'komax_app:harnesses' %}
                                 <a class="nav-link active" href="{% url 'komax_app:harnesses' %}">
-                                    <span data-feather="file"></span>
+                                    <span data-feather="folder"></span>
                                     {% trans 'Harnesses' %}
                                     <span class="sr-only">(current)</span>
                                 </a>
                             {% else %}
                                 <a class="nav-link" href="{% url 'komax_app:harnesses' %}">
-                                    <span data-feather="file"></span>
+                                    <span data-feather="folder"></span>
                                     {% trans 'Harnesses' %}
                                 </a>
                             {% endif %}
@@ -61,13 +61,13 @@
                         <li class="nav-item">
                             {% if request.resolver_match.view_name == 'komax_app:komax_terminals_list' %}
                                 <a class="nav-link active" href="{% url 'komax_app:komax_terminals_list' %}">
-                                    <span data-feather="shopping-cart"></span>
+                                    <span data-feather="git-commit"></span>
                                     {% trans 'Komax terminals' %}
                                     <span class="sr-only">(current)</span>
                                 </a>
                             {% else %}
                                 <a class="nav-link" href="{% url 'komax_app:komax_terminals_list' %}">
-                                    <span data-feather="shopping-cart"></span>
+                                    <span data-feather="git-commit"></span>
                                     {% trans 'Komax terminals' %}
                                 </a>
                             {% endif %}
@@ -75,16 +75,31 @@
                         <li class="nav-item">
                             {% if request.resolver_match.view_name == 'komax_app:laboriousness' %}
                                 <a class="nav-link active" href="{% url 'komax_app:laboriousness' %}">
-                                    <span data-feather="users"></span>
+                                    <span data-feather="clock"></span>
                                     {% trans 'Laboriousness' %}
                                 </a>
                             {% else %}
                                 <a class="nav-link" href="{% url 'komax_app:laboriousness' %}">
-                                    <span data-feather="users"></span>
+                                    <span data-feather="clock"></span>
                                     {% trans 'Laboriousness' %}
                                 </a>
                             {% endif %}
                         </li>
+                        {% if user.groups.all.0.name == 'Master' %}
+                        <li class="nav-item">
+                            {% if request.resolver_match.view_name == 'komax_app:komaxes' %}
+                                <a class="nav-link active" href="{% url 'komax_app:komaxes' %}">
+                                    <span data-feather="settings"></span>
+                                    {% trans 'Komaxes' %}
+                                </a>
+                            {% else %}
+                                <a class="nav-link" href="{% url 'komax_app:komaxes' %}">
+                                    <span data-feather="settings"></span>
+                                    {% trans 'Komaxes' %}
+                                </a>
+                            {% endif %}
+                        </li>
+                        {% endif %}
 
                         <!-- Disabled -->
                         <!--

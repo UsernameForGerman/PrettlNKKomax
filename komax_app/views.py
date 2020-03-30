@@ -119,12 +119,11 @@ def must_be_master(user):
 @login_required
 @permission_required('komax_app.add_orderedkomaxtask', raise_exception=True)
 def send_task_to_worker(request, task_name, *args, **kwargs):
-    print(request.user)
     task_obj = get_object_or_404(KomaxTask, task_name=task_name)
     task_obj.status = 2
     task_obj.save(update_fields=['status'])
 
-    return redirect('komax_app:task_view', task_name=task_name)
+    return redirect('komax_app:user_account')
 
 @login_required
 @permission_required('komax_app.change_taskpersonal')
@@ -141,34 +140,32 @@ class WorkerAccountView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         worker = get_object_or_404(Worker, user=request.user)
-        print(worker)
-        komax_num = request.session.get('komax', None)
-        if komax_num is None:
+        if worker.user.groups.filter(name='Operator').exists():
+            komax_num = request.session.get('komax', None)
+            if komax_num is None:
+                context = {
+                    'request_komax_num': True,
+                }
+
+                return render(request, self.template_name, context=context)
+            else:
+                ordered_komax_tasks = KomaxTask.objects.filter(komaxes__komax__number__exact=komax_num).exclude(status=1).order_by('-created')
+                komax_tasks_dict = dict()
+                for komax_task in ordered_komax_tasks:
+                    komax_tasks_dict[komax_task] = komax_task.komaxes.filter(komax__number__exact=komax_num).first()
+                    komax_tasks_dict[komax_task].time = seconds_to_str_hours(komax_tasks_dict[komax_task].time)
+
+                context = {
+                    'komax_tasks': komax_tasks_dict,
+                }
+
+                return render(request, self.template_name, context=context)
+        elif worker.user.groups.filter(name='Master').exists():
+            komax_tasks = KomaxTask.objects.all().order_by('-created')
+
             context = {
-                'worker': worker,
-                'request_komax_num': True,
+                'komax_tasks': komax_tasks,
             }
-
-            return render(request, self.template_name, context=context)
-        else:
-            ordered_komax_tasks = KomaxTask.objects.filter(komaxes__komax__number__exact=komax_num).exclude(status=1)
-            komax_tasks_dict = dict()
-            for komax_task in ordered_komax_tasks:
-                komax_tasks_dict[komax_task] = komax_task.komaxes.filter(komax__number__exact=komax_num).first()
-                komax_tasks_dict[komax_task].time = seconds_to_str_hours(komax_tasks_dict[komax_task].time)
-
-            """komax_time_objs = list()
-            for komax_task in ordered_komax_tasks:
-                for komax_time in komax_task.komaxes.all():
-                    if komax_time.komax.number == komax_num:
-                        komax_time_objs.append(komax_time)
-                        break"""
-            print(ordered_komax_tasks)
-            context = {
-                'worker': worker,
-                'komax_tasks': komax_tasks_dict,
-            }
-
             return render(request, self.template_name, context=context)
 
     def post(self, request, *args, **kwargs):
@@ -267,6 +264,7 @@ class HarnessesListView(LoginRequiredMixin, View):
 
         return redirect('komax_app:harnesses')
 
+@method_decorator(user_passes_test(must_be_master), name='dispatch')
 class EquipmentListView(LoginRequiredMixin, View):
     template_name = 'komax_app/equipment.html'
     status = {
@@ -328,7 +326,6 @@ class EquipmentListView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
     #TODO: add reading feature of russian lang
-    @method_decorator(user_passes_test(must_be_master))
     def post(self, request, *args, **kwargs):
         """
         correcting or adding komaxes
@@ -1183,19 +1180,28 @@ def task_view(request, pk):
     else:
         return redirect('komax_app:task_setup')
 
-def komax_app_view(request):
-    tasks = KomaxTask.objects.count()
-    harnesses = Harness.objects.count()
-    tasks_time = KomaxTime.objects.aggregate(Sum('time'))
-    sum_time_task = 0
-    if tasks_time['time__sum'] is not None:
-        sum_time_task = tasks_time['time__sum'] // 3600
-    context = {
-        'tasks': tasks,
-        'harnesses': harnesses,
-        'tasks_time': round(sum_time_task)
-    }
-    return render(request, 'komax_app/komax_app_view.html', context=context)
+class MainPageKomaxAppView(View):
+    template_name = 'komax_app/main_page.html'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('komax_app:user_account')
+
+        tasks = KomaxTask.objects.count()
+        harnesses = Harness.objects.count()
+        tasks_time = KomaxTime.objects.aggregate(Sum('time'))
+        sum_time_task = 0
+        if tasks_time['time__sum'] is not None:
+            sum_time_task = tasks_time['time__sum'] // 3600
+        context = {
+            'tasks': tasks,
+            'harnesses': harnesses,
+            'tasks_time': round(sum_time_task)
+        }
+        return render(request, self.template_name, context=context)
+
+    def post(self, request, *args, **kwargs):
+        return
 
 @login_required
 def delete_harness_view(request, harness_number):

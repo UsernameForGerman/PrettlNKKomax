@@ -257,6 +257,7 @@ elif not INPROD:
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/worker/'
+LOGOUT_REDIRECT_URL = '/'
 
 
 

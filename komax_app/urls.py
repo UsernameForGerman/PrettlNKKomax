@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 app_name = 'komax_app'
 
 urlpatterns = [
-    path('', views.komax_app_view, name='komax_app_view'),
+    path('', views.MainPageKomaxAppView.as_view(), name='komax_app_view'),
     path('worker/', views.WorkerAccountView.as_view(), name='user_account'),
     re_path(r'^komax_tasks/(?P<task_name>[a-zA-Z0-9_.-]*)/$', views.KomaxTaskView.as_view(), name='task_view'),
     re_path(r'^setup/$', views.KomaxAppSetupView.as_view(), name='task_setup'),

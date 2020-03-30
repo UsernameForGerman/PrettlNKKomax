@@ -14,19 +14,14 @@
     <h2 class="text-center">{% trans 'Wire charts' %}</h2>
 
     <div class="harness-upload-form">
-            {% if perms.komax_app.create_harness %}
+        {% if perms.komax_app.add_harness %}
             <form class="form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xs-12 col-sm-6" id="harness_number_handler">
-                                <input class="harness-number form-control" id='harness_number' name="harness_number" type="text" required placeholder="5490-3724144-05">
+                            <input class="harness-number form-control" id='harness_number' name="harness_number" type="text" required placeholder="5490-3724144-05">
                         </div>
-
-
-
-
-
                         <div class="col-xs-12 col-sm-4">
                             <div class="harness-upload-custom">
                                 <div class="form-group">
@@ -38,8 +33,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="col-xs-push-4 col-xs-pull-4 col-xs-4 col-sm-2">
                             <button type="submit" class="harness-btn btn btn-success">{% trans 'Upload' %}</button>
                         </div>
@@ -48,8 +41,6 @@
 
             </form>
         {% endif %}
-
-
     </div>
 
     </div>
@@ -62,9 +53,15 @@
                     <div class="row">
                         <th class="text-center" scope="col">{% trans 'Harness number' %}</th>
                         <th class="text-center" scope="col">{% trans 'Date' %}</th>
+                        {% if perms.komax_app.view_harness %}
                         <th scope="col"></th>
+                        {% endif %}
+                        {% if perms.komax_app.view_harness %}
                         <th scope="col"></th>
+                        {% endif %}
+                        {% if perms.komax_app.delete_harness %}
                         <th scope="col"></th>
+                        {% endif %}
                     </div>
                 </tr>
             </thred>
@@ -75,27 +72,33 @@
                 <tr>
                     <td class="text-center">{{ pos.harness_number }}</td>
                     <td class="text-center">{{ pos.created }}</td>
-                <td>
-                    <a href="{% url 'komax_app:harness_chart' harness_number=pos.harness_number %}">
-                        <button title="{% trans 'Detailed' %}" class="btn btn-secondary show-btn" >
-                            <i class="fa fa-search"> </i>
-                        </button>
-                    </a>
-                </td>
-                <td>
-                    <a href="{% url 'komax_app:download_harness' harness_number=pos.harness_number %}">
-                        <button title="{% trans 'Download' %}" class="btn btn-info">
-                            <i class="fa fa-download"> </i>
-                        </button>
-                    </a>
-                </td>
-                <td>
-                    <a href="{% url 'komax_app:delete_harness' harness_number=pos.harness_number %}">
-                        <button title="{% trans 'Delete' %}" class="btn btn-danger delete-btn">
-                            <i class="fa fa-trash"> </i>
-                        </button>
-                    </a>
-                </td>
+                    {% if perms.komax_app.view_harness %}
+                    <td>
+                        <a href="{% url 'komax_app:harness_chart' harness_number=pos.harness_number %}">
+                            <button title="{% trans 'Detailed' %}" class="btn btn-secondary show-btn" >
+                                <i class="fa fa-search"> </i>
+                            </button>
+                        </a>
+                    </td>
+                    {% endif %}
+                    {% if perms.komax_app.view_harness %}
+                    <td>
+                        <a href="{% url 'komax_app:download_harness' harness_number=pos.harness_number %}">
+                            <button title="{% trans 'Download' %}" class="btn btn-info">
+                                <i class="fa fa-download"> </i>
+                            </button>
+                        </a>
+                    </td>
+                    {% endif %}
+                    {% if perms.komax_app.delete_harness %}
+                    <td>
+                        <a href="{% url 'komax_app:delete_harness' harness_number=pos.harness_number %}">
+                            <button title="{% trans 'Delete' %}" class="btn btn-danger delete-btn">
+                                <i class="fa fa-trash"> </i>
+                            </button>
+                        </a>
+                    </td>
+                    {% endif %}
                 </tr>
             </div>
             {% endfor %}
