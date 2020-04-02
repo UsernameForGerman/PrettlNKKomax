@@ -36,6 +36,7 @@ from channels.db import database_sync_to_async
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.utils import translation
 from django.contrib.auth import authenticate
 from komax_app.backends import WorkerAuthBackend
 
@@ -138,39 +139,86 @@ def load_task_to_komax(request, task_name, *args, **kwargs):
 class WorkerAccountView(LoginRequiredMixin, View):
     template_name = 'komax_app/user_account.html'
 
+
     def get(self, request, *args, **kwargs):
+        print()
         worker = get_object_or_404(Worker, user=request.user)
         if worker.user.groups.filter(name='Operator').exists():
             komax_num = request.session.get('komax', None)
             if komax_num is None:
                 context = {
+                    'worker': worker,
                     'request_komax_num': True,
                 }
 
                 return render(request, self.template_name, context=context)
             else:
-                ordered_komax_tasks = KomaxTask.objects.filter(komaxes__komax__number__exact=komax_num).exclude(status=1).order_by('-created')
+                ordered_komax_tasks = KomaxTask.objects.filter(komaxes__komax__number__exact=komax_num).exclude(
+                    status=1).order_by('-created')
                 komax_tasks_dict = dict()
                 for komax_task in ordered_komax_tasks:
                     komax_tasks_dict[komax_task] = komax_task.komaxes.filter(komax__number__exact=komax_num).first()
                     komax_tasks_dict[komax_task].time = seconds_to_str_hours(komax_tasks_dict[komax_task].time)
 
                 context = {
+                    'worker': worker,
                     'komax_tasks': komax_tasks_dict,
                 }
 
                 return render(request, self.template_name, context=context)
+
         elif worker.user.groups.filter(name='Master').exists():
-            komax_tasks = KomaxTask.objects.all().order_by('-created')
+            komax_task_obj = KomaxTask.objects.filter(status=3).first()
 
             context = {
-                'komax_tasks': komax_tasks,
+                'komax_task': komax_task_obj,
+                'worker': worker,
             }
+
             return render(request, self.template_name, context=context)
 
     def post(self, request, *args, **kwargs):
-        print(request.session)
-        request.session['komax'] = request.POST['komax']
+        worker = get_object_or_404(Worker, user=request.user)
+        if 'komax' in request.POST:
+            request.session['komax'] = request.POST['komax']
+
+        if 'language' in request.POST:
+            request.session[translation.LANGUAGE_SESSION_KEY] = request.POST['language']
+            """
+            print(request.LANGUAGE_CODE)
+            language = translation.get_language_from_request(request)
+            print(language)
+            translation.activate(request.POST['language'])
+            print(request.POST['language'])
+            request.LANGUAGE_CODE = translation.get_language()
+            translation.deactivate()
+            print(request.LANGUAGE_CODE)
+            """
+
+        print("IMAGE SAVING")
+        if 'image' in request.FILES:
+
+            worker.image = request.FILES['image']
+            worker.save(update_fields=['image'])
+
+        # redirect to GET user private acc
+        return redirect('komax_app:user_account')
+
+@method_decorator(user_passes_test(must_be_master), name='dispatch')
+class TasksView(LoginRequiredMixin, View):
+    template_name = 'komax_app/tasks.html'
+
+    def get(self, request, *args, **kwargs):
+        worker = get_object_or_404(Worker, user=request.user)
+
+        komax_tasks = KomaxTask.objects.all().order_by('-created')
+
+        context = {
+            'komax_tasks': komax_tasks,
+        }
+        return render(request, self.template_name, context=context)
+
+    def post(self, request, *args, **kwargs):
 
         # redirect to GET user private acc
         return redirect('komax_app:user_account')

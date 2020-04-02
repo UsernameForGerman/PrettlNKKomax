@@ -312,6 +312,12 @@ class KomaxConsumer(AsyncConsumer):
     async def async_get_new_komax_task_to_load(self, komax_number):
         return await database_sync_to_async(self.get_new_komax_task_to_load)(komax_number)
 
+    def clean_komax_orders(self):
+        delete_komax_order()
+
+    async def async_delete_komax_orders(self):
+        self.clean_komax_orders()
+
     async def websocket_receive(self, event):
         if 'text' in event:
             msg = json.loads(event['text'])
@@ -394,8 +400,8 @@ class KomaxConsumer(AsyncConsumer):
             """
 
     async def websocket_disconnect(self, event):
-        print('CLOSING KOMAX {}'.format(self.komax_number))
         komax_status_dict[self.komax_number] = 0
+        await self.async_delete_komax_orders()
         return
 
 class KomaxWebConsumer(AsyncConsumer):
@@ -406,10 +412,6 @@ class KomaxWebConsumer(AsyncConsumer):
         })
 
     async def websocket_receive(self, event):
-        print('msg', event)
-        for komax, pos in komax_status_dict.items():
-            if komax == 3 and pos == 0:
-                print(pos)
         time.sleep(1)
         dict_to_send = {
             'komax_status_dict': komax_status_dict,

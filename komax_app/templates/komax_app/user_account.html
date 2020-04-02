@@ -13,153 +13,154 @@
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h1 class="h2">
-            {{ user.username }}
+            {% trans 'Home' %}
         </h1>
-        {% if user.groups.all.0 == 'Operator' %}
-        <h5 class="h5">
-            Komax - {{ request.session.komax }}
-        </h5>
-        {% endif %}
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#settingsModal">
-                  {% trans 'Edit' %}
-                </button>
-            </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModal" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <form action="{% url 'set_language' %}" method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <div class="modal-header">
-                                <h5 class="modal-title">{% trans 'Settings' %}</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                {% get_current_language as LANGUAGE %}
-                                {% get_available_languages as AVAILABLE_LANGUAGES %}
-                                {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
-                                <input name="next" type="hidden" value="{{ redirect_to }}" >
-                                <label for="language">{% trans 'Language' %}: </label>
-                                <select id="language" name="language">
-                                    {% for language in languages %}
-                                        <option value="{{ language.code }}"{% if language.code == LANGUAGE %} selected{% endif %}>
-                                            {{ language.name_local }} ({{ language.code }})
-                                        </option>
-                                    {% endfor %}
-                                </select>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
-                                <button type="submit" class="btn btn-outline-primary">{% trans 'Save' %}</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-        </div>
 
     </div>
 
 
-    {% if user.groups.all.0.name == 'Operator' %}
+
     <div class="container">
-        {% if request_komax_num %}
-        <div class="modal fade" id="komaxNumberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <form class="form-inline justify-content-center" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                            <label class="sr-only" for="komax">Komax</label>
-                            <input class="form-control mb-2 mr-sm-2" type="text" placeholder="№ komax" id="komax" name="komax">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="h1">
+                    {{ user.username }}
+                </h1>
+            </div>
+            <div class="card-body">
 
-                            <button class="btn btn-success mb-2" type="sumbit">Submit</button>
-                        </form>
+                {% if worker.image %}
+                    <img src="{{ worker.image.url }}">
+                {% endif %}
+                <h4 class="h4 text-secondary">
+                    {{ user.groups.all.0 }}
+                </h4>
+                {% if user.groups.all.0 == 'Operator' %}
+                    <h5 class="h5">
+                        Komax - {{ request.session.komax }}
+                    </h5>
+                {% endif %}
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group mr-2">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#settingsModal">
+                          {% trans 'Edit' %}
+                        </button>
                     </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModal" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">{% trans 'Settings' %}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label class="label" for="image">{% trans 'Image' %}: </label>
+                                            <input class="input" id="image" name="image" type="file">
+                                        </div>
+                                        <div class="form-group">
+                                            {% get_current_language as LANGUAGE %}
+                                            {% get_available_languages as AVAILABLE_LANGUAGES %}
+                                            {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+                                            <!--
+                                            <input name="next" type="hidden" value="{{ redirect_to }}" >
+                                            -->
+                                            <label for="language">{% trans 'Language' %}: </label>
+                                            <select id="language" name="language">
+                                                {% for language in languages %}
+                                                    <option value="{{ language.code }}"{% if language.code == LANGUAGE %} selected{% endif %}>
+                                                        {{ language.name_local }} ({{ language.code }})
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
+                                        <button type="submit" class="btn btn-outline-primary">{% trans 'Save' %}</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-        {% else %}
-            {% for komax_task, komax_time in komax_tasks.items %}
-                {% if forloop.counter != 1 %}
-                    <hr>
-                {% endif %}
-                <div class="card">
-                    <div class="card-header">
-                        <p>{{ komax_task.task_name }}</p>
-                    </div>
-                    <div class="card-body">
 
-                        <p>Time: {{ komax_time.time }}</p>
+        <hr>
 
-                        {% if komax_task.status == 2 %}
-                            <a class="btn btn-warning" href="{% url 'komax_app:load_komax_task' task_name=komax_task.task_name %}">
-                                {% trans 'Load task' %}
-                            </a>
-                        {% elif komax_task.status == 3 %}
-                            <button class="btn btn-outline-info" disabled>
-                                {% trans 'Task loaded' %}
-                            </button>
-                            <a class="btn btn-outline-danger" href="#">
-                                {% trans "Stop komax" %}
-                            </a>
-                        {% else %}
-                            <button class="btn btn-light" disabled>
-                                {% trans 'Done' %}
-                            </button>
-                        {% endif %}
-                        <a class="btn btn-outline-primary" href="{% url 'komax_app:get_spec_task' task_name=komax_task.task_name komax=komax_time.komax.number %}">
-                            {% trans 'task' %} {{ komax }}
-                        </a>
+        {% if user.groups.all.0.name == 'Operator' %}
+            {% if request_komax_num %}
+            <div class="modal fade" id="komaxNumberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <form class="form-inline justify-content-center" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                                <label class="sr-only" for="komax">Komax</label>
+                                <input class="form-control mb-2 mr-sm-2" type="text" placeholder="№ komax" id="komax" name="komax">
+
+                                <button class="btn btn-success mb-2" type="sumbit">Submit</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            {% endfor %}
+            </div>
+            {% else %}
+                {% for komax_task, komax_time in komax_tasks.items %}
+
+                    <div class="card">
+                        <div class="card-header">
+                            <p>{{ komax_task.task_name }}</p>
+                        </div>
+                        <div class="card-body">
+
+                            <p>Time: {{ komax_time.time }}</p>
+
+                            {% if komax_task.status == 2 %}
+                                <a class="btn btn-warning" href="{% url 'komax_app:load_komax_task' task_name=komax_task.task_name %}">
+                                    {% trans 'Load task' %}
+                                </a>
+                            {% elif komax_task.status == 3 %}
+                                <button class="btn btn-outline-info" disabled>
+                                    {% trans 'Task loaded' %}
+                                </button>
+                                <a class="btn btn-outline-danger" href="#">
+                                    {% trans "Stop komax" %}
+                                </a>
+                            {% else %}
+                                <button class="btn btn-light" disabled>
+                                    {% trans 'Done' %}
+                                </button>
+                            {% endif %}
+                            <a class="btn btn-outline-primary" href="{% url 'komax_app:get_spec_task' task_name=komax_task.task_name komax=komax_time.komax.number %}">
+                                {% trans 'task' %} {{ komax }}
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+        {% elif user.groups.all.0.name == 'Master' %}
+            {% if komax_task %}
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="h3">
+                        {{ komax_task.task_name }}
+                    </h3>
+                </div>
+            </div>
+            {% endif %}
         {% endif %}
     </div>
-    {% elif user.groups.all.0.name == 'Master' %}
-        {% for komax_task in komax_tasks %}
-            {% if forloop.counter != 1 %}
-                <hr>
-            {% endif %}
-            <div class="card">
-                    <div class="card-header">
-                        <p>{{ komax_task.task_name }}</p>
-                    </div>
-                    <div class="card-body">
-                        {% if komax_task.status == 1 %}
-                            <a class="btn btn-outline-warning" href="{% url 'komax_app:send_komax_task' task_name=komax_task.task_name %}">
-                                {% trans 'Send task' %}
-                            </a>
-                        {% elif komax_task.status == 2 %}
-                            <button class="btn btn-outline-warning" disabled>
-                                {% trans 'Task ordered' %}
-                            </button>
-                        {% elif komax_task.status == 3 %}
-                            <button class="btn btn-outline-info" disabled>
-                                {% trans 'Task loaded' %}
-                            </button>
-                            <a class="btn btn-outline-danger" href="#">
-                                {% trans "Stop task" %}
-                            </a>
-                        {% else %}
-                            <button class="btn btn-light" disabled>
-                                {% trans 'Done' %}
-                            </button>
-                        {% endif %}
-                        <a class="btn btn-outline-primary" href="{% url 'komax_app:task_view' task_name=komax_task.task_name %}">
-                            {% trans 'More' %}
-                        </a>
-                    </div>
-                </div>
-        {% endfor %}
-    {% endif %}
 
     <!--
     <div class="card">
@@ -181,4 +182,3 @@
         });
     </script>
 {% endblock %}
-

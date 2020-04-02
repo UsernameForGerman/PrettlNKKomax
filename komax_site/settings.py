@@ -190,9 +190,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'temp_storage')
+MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
 
-MEDIA_URL = '/uploaded/'
+MEDIA_URL = '/media/'
 
 
 CHANNEL_LAYERS = {
@@ -256,7 +256,7 @@ elif not INPROD:
     CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/worker/'
+LOGIN_REDIRECT_URL = '/account/'
 LOGOUT_REDIRECT_URL = '/'
 
 

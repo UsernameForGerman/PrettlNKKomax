@@ -3,13 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/backup/komaxsite/test1.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/migrations/0017_auto_20200402_2222.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/tasks.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/komaxsite/test1.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/media/worker_images/Natural.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/media/worker_images/Question_for_AFL.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/media/worker_images/equipment_facility.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB_connection/client_alpha_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB_connection/client_alpha_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB_connection/client_alpha_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB_connection/client_alpha_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB_connection/client_alpha_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB_connection/client_alpha_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB_connection/client_alpha_4.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB_connection/client_alpha_4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB_connection/client_alpha_5.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB_connection/client_alpha_5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backup/komax_site/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/backup/komax_site/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/backup/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/LICENSE" beforeDir="false" />
@@ -1006,8 +1007,14 @@
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/main.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/consumers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/routing.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/routing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/dashboard_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/dashboard_main.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/equipment.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/equipment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/user_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/user_account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_site/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_site/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_site/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_site/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/LICENSE" beforeDir="false" />
@@ -2002,6 +2009,9 @@
       <change beforePath="$PROJECT_DIR$/komaxsite/static/main_app/welcome.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/templates/base.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/templates/main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp_storage/images/LogoMealDeal.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/user_imgs/LogoMealDeal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp_storage/images/LogoMealDeal_dcHOEnX.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/images/LogoMealDeal_dcHOEnX.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp_storage/images/SiteLogoMealDeal.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/images/SiteLogoMealDeal.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -2016,8 +2026,8 @@
       <list>
         <option value="JavaScript File" />
         <option value="Python Script" />
-        <option value="HTML File" />
         <option value="CSS File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -2066,17 +2076,17 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/DB_connection" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/komax_app/templates/komax_app" />
-      <recent name="$PROJECT_DIR$/komax_app/static/komax_app" />
-      <recent name="$PROJECT_DIR$/komaxsite/komax_app/static/komax_app" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/komax_app/templates/komax_app" />
       <recent name="$PROJECT_DIR$/templates" />
       <recent name="$PROJECT_DIR$/komaxsite/komax_app" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static/images/user_imgs" />
+      <recent name="$PROJECT_DIR$/temp_storage/user_imgs" />
+      <recent name="$PROJECT_DIR$/DB_connection" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/komax_app/templates/komax_app" />
     </key>
   </component>
   <component name="RunManager">
@@ -2237,7 +2247,8 @@
       <workItem from="1585348835991" duration="10009000" />
       <workItem from="1585508744414" duration="10538000" />
       <workItem from="1585558877418" duration="20980000" />
-      <workItem from="1585824261231" duration="17189000" />
+      <workItem from="1585824261231" duration="18043000" />
+      <workItem from="1585857946548" duration="9032000" />
     </task>
     <servers />
   </component>
@@ -2277,13 +2288,13 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1583936103574" />
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1585824383999">
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1585857969945">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1585824383999" />
-    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1585829540741">
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1585857969945" />
+    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1585868235900">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1585829540741" />
+    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1585868235900" />
   </component>
 </project>

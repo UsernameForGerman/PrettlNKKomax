@@ -12,7 +12,7 @@ User = get_user_model()
 
 class Worker(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, db_index=True)
-    image = models.ImageField(upload_to='images/', blank=True)
+    image = models.ImageField(upload_to='worker_images/', blank=True)
 
     def __str__(self):
         return str(self.user)
