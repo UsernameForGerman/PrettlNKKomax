@@ -67,6 +67,7 @@ def on_open(ws):
             data_to_send = {
                 'status': status,
                 'komax_number': KOMAX_NUMBER,
+                'position': komax_df.iloc[2, :].to_dict()
             }
             json_data = json.dumps(data_to_send)
             ws.send(json_data)

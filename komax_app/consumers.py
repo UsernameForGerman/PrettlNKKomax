@@ -15,6 +15,9 @@ from .task import send_mail_delay
 from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 from django_pandas.io import read_frame
+import time
+
+komax_status_dict = {komax.number: 0 for komax in Komax.objects.all()}
 
 class KomaxAppTaskConsumer(AsyncConsumer):
     data_task = None
@@ -274,6 +277,11 @@ class HarnessConsumer(AsyncConsumer):
         return
 
 class KomaxConsumer(AsyncConsumer):
+
+    def __init__(self, scope):
+        AsyncConsumer.__init__(self, scope)
+        self.komax_number = 0
+
     async def websocket_connect(self, event):
         await self.send({
             "type": "websocket.accept"
@@ -308,6 +316,8 @@ class KomaxConsumer(AsyncConsumer):
         if 'text' in event:
             msg = json.loads(event['text'])
             if msg['status'] == 1:
+                self.komax_number = msg['komax_number']
+                komax_status_dict[msg['komax_number']] = msg['position']
                 komax_order = await self.async_get_komax_order(msg['komax_number'])
                 if komax_order is not None:
                     if komax_order.status == 'Requested':
@@ -353,7 +363,6 @@ class KomaxConsumer(AsyncConsumer):
                     "text": json.dumps(event["text"]),
                 })
                 """
-
             elif msg['status'] == 2:
                 if msg['text'] == 'Requested' and 'task' in msg:
                     komax_task_df_dict = msg['task']
@@ -368,6 +377,7 @@ class KomaxConsumer(AsyncConsumer):
                     "text": json.dumps(event["text"]),
                 })
                 """
+
             """
             else:
                 await self.send({
@@ -375,15 +385,42 @@ class KomaxConsumer(AsyncConsumer):
                     "text": json.dumps(event["text"]),
                 })
             """
-        """
-        else:
-            await self.send({
-                "type": "websocket.send",
-                "text": json.dumps(event["text"]),
-            })
-        """
+            """
+            else:
+                await self.send({
+                    "type": "websocket.send",
+                    "text": json.dumps(event["text"]),
+                })
+            """
+
     async def websocket_disconnect(self, event):
+        print('CLOSING KOMAX {}'.format(self.komax_number))
+        komax_status_dict[self.komax_number] = 0
         return
+
+class KomaxWebConsumer(AsyncConsumer):
+
+    async def websocket_connect(self, event):
+        await self.send({
+            "type": "websocket.accept"
+        })
+
+    async def websocket_receive(self, event):
+        print('msg', event)
+        for komax, pos in komax_status_dict.items():
+            if komax == 3 and pos == 0:
+                print(pos)
+        time.sleep(1)
+        dict_to_send = {
+            'komax_status_dict': komax_status_dict,
+        }
+        await self.send({
+            "type": "websocket.send",
+            "text": json.dumps(dict_to_send)
+        })
+
+    async def websocket_disconnect(self, event):
+        print("disconnect", event)
 
 
 
