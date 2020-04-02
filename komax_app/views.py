@@ -141,7 +141,6 @@ class WorkerAccountView(LoginRequiredMixin, View):
 
 
     def get(self, request, *args, **kwargs):
-        print()
         worker = get_object_or_404(Worker, user=request.user)
         if worker.user.groups.filter(name='Operator').exists():
             komax_num = request.session.get('komax', None)
@@ -184,20 +183,8 @@ class WorkerAccountView(LoginRequiredMixin, View):
 
         if 'language' in request.POST:
             request.session[translation.LANGUAGE_SESSION_KEY] = request.POST['language']
-            """
-            print(request.LANGUAGE_CODE)
-            language = translation.get_language_from_request(request)
-            print(language)
-            translation.activate(request.POST['language'])
-            print(request.POST['language'])
-            request.LANGUAGE_CODE = translation.get_language()
-            translation.deactivate()
-            print(request.LANGUAGE_CODE)
-            """
 
-        print("IMAGE SAVING")
         if 'image' in request.FILES:
-
             worker.image = request.FILES['image']
             worker.save(update_fields=['image'])
 

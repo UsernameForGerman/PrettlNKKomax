@@ -3,6 +3,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+import sys
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import datetime
@@ -12,7 +16,30 @@ User = get_user_model()
 
 class Worker(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, db_index=True)
-    image = models.ImageField(upload_to='worker_images/', blank=True)
+    image = models.ImageField(
+        upload_to='worker_images/',
+        null=True,
+        blank=True,
+        editable=True,
+    )
+
+    def save(self, *args, **kwargs):
+        image = Image.open(self.image)
+        image_format = self.image.name.split('.')[-1]
+        image_name = self.image.name.split('.')[0]
+
+        output = BytesIO()
+
+        image = image.resize((200, 200))
+        if image_format == 'png':
+            image.save(output, format='PNG', quality=100)
+        else:
+            image.save(output, format='JPEG', quality=100)
+        output.seek(0)
+
+        self.image = InMemoryUploadedFile(output, 'ImageField', '{name}.{format}'.format(name=image_name, format=image_format), 'image/jpeg', sys.getsizeof(output), None)
+        super(Worker, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return str(self.user)
