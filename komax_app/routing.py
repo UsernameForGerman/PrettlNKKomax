@@ -8,5 +8,6 @@ websocket_urlpatterns = [
     url("harnesses/", consumers.HarnessConsumer),
     url("komax_manager/", consumers.KomaxConsumer),
     url('komaxes/', consumers.KomaxWebConsumer),
+    url('account/', consumers.WorkerConsumer),
     # path("komax_app/komaxes/", consumers.KomaxConsumer)
 ]

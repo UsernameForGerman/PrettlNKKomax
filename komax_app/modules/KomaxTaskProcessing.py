@@ -496,7 +496,8 @@ class KomaxTaskProcessing():
 
             task_pers.komax = komaxes[komax_number] if komax_number is not None else None
             task_pers.kappa = kappas[kappa_number] if kappa_number is not None else None
-        TaskPersonal.objects.bulk_update(task_pers_objs, ['komax', 'kappa'])
+            task_pers.time = dataframe_position['time'].iloc[0]
+        TaskPersonal.objects.bulk_update(task_pers_objs, ['komax', 'kappa', 'time'])
 
     #TODO: if harness obj not excisted, but it is in df, return smthg
     def __create_task_personal_from_dataframe(self, dataframe, komax_task_obj, harnesses_number=None):

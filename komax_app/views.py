@@ -124,7 +124,15 @@ def send_task_to_worker(request, task_name, *args, **kwargs):
     task_obj.status = 2
     task_obj.save(update_fields=['status'])
 
-    return redirect('komax_app:user_account')
+    return redirect('komax_app:tasks_view')
+
+@login_required
+@permission_required('komax_app.delete_komaxtask')
+def delete_task(request, task_name, *args, **kwargs):
+    task_obj = get_object_or_404(KomaxTask, task_name=task_name)
+    task_obj.delete()
+
+    return redirect('komax_app:tasks_view')
 
 @login_required
 @permission_required('komax_app.change_taskpersonal')
@@ -138,7 +146,6 @@ def load_task_to_komax(request, task_name, *args, **kwargs):
 
 class WorkerAccountView(LoginRequiredMixin, View):
     template_name = 'komax_app/user_account.html'
-
 
     def get(self, request, *args, **kwargs):
         worker = get_object_or_404(Worker, user=request.user)

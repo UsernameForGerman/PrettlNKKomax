@@ -39,7 +39,7 @@
                         <button class="btn btn-outline-info" disabled>
                             {% trans 'Task loaded' %}
                         </button>
-                        <a class="btn btn-outline-danger" href="#">
+                        <a class="btn btn-outline-danger" href="{% url 'komax_app:delete_task' task_name=komax_task.task_name %}">
                             {% trans "Stop task" %}
                         </a>
                     {% else %}

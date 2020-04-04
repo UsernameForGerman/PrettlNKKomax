@@ -7,6 +7,7 @@ from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys
+import os
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import datetime
@@ -24,6 +25,15 @@ class Worker(models.Model):
     )
 
     def save(self, *args, **kwargs):
+        image = Worker.objects.get(id=self.id).image
+        old_path = None
+        print(bool(image))
+        if bool(image):
+            old_path = image.url
+            print(os.path.exists(old_path))
+            if os.path.exists(old_path):
+                os.remove(image.url)
+
         image = Image.open(self.image)
         image_format = self.image.name.split('.')[-1]
         image_name = self.image.name.split('.')[0]
@@ -38,6 +48,10 @@ class Worker(models.Model):
         output.seek(0)
 
         self.image = InMemoryUploadedFile(output, 'ImageField', '{name}.{format}'.format(name=image_name, format=image_format), 'image/jpeg', sys.getsizeof(output), None)
+        print(os.path.exists(old_path), old_path)
+        if old_path is not None and os.path.exists(old_path):
+            print("REMOVING OLD", old_path)
+            os.remove(old_path)
         super(Worker, self).save(*args, **kwargs)
 
 

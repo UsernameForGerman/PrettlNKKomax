@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from channels.consumer import AsyncConsumer
 from channels.db import database_sync_to_async
 from .modules.KomaxTaskProcessing import KomaxTaskProcessing, delete_komax_order, get_task_to_load
+from .views import seconds_to_str_hours
 from .models import KomaxTask, EmailUser, TaskPersonal, KomaxOrder, Komax
 from django.db import close_old_connections
 from django.core.mail import send_mail
@@ -16,8 +17,17 @@ from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 from django_pandas.io import read_frame
 import time
+from django_pandas.io import read_frame
+import pandas as pd
 
 komax_status_dict = {komax.number: 0 for komax in Komax.objects.all()}
+komax_task_df = None
+task_pers_objs = TaskPersonal.objects.filter(komax_task__status__exact=3)
+if task_pers_objs is not None:
+    komax_task_df = read_frame(task_pers_objs)
+    komax_task_df.index = pd.Index(komax_task_df['id'])
+
+#komax_task_df.to_excel('New_excel.xlsx')
 
 class KomaxAppTaskConsumer(AsyncConsumer):
     data_task = None
@@ -318,7 +328,16 @@ class KomaxConsumer(AsyncConsumer):
     async def async_delete_komax_orders(self):
         self.clean_komax_orders()
 
+    def set_komax_task_df(self):
+        global komax_task_df
+        komax_task_df = read_frame(TaskPersonal.objects.filter(komax_task__status__exact=3))
+        komax_task_df.index = pd.Index(komax_task_df['id'])
+
+    async def async_set_komax_task_df(self):
+        return await database_sync_to_async(self.set_komax_task_df)()
+
     async def websocket_receive(self, event):
+        global komax_status_dict
         if 'text' in event:
             msg = json.loads(event['text'])
             if msg['status'] == 1:
@@ -339,6 +358,7 @@ class KomaxConsumer(AsyncConsumer):
                         komax_number = msg['komax_number']
                         new_komax_task_df = await self.async_get_new_komax_task_to_load(komax_number)
                         if new_komax_task_df is not None:
+                            await self.async_set_komax_task_df()
                             dict_to_send = {
                                 'status': 2,
                                 'task': new_komax_task_df.to_dict()
@@ -400,6 +420,7 @@ class KomaxConsumer(AsyncConsumer):
             """
 
     async def websocket_disconnect(self, event):
+        global komax_status_dict
         komax_status_dict[self.komax_number] = 0
         await self.async_delete_komax_orders()
         return
@@ -412,6 +433,7 @@ class KomaxWebConsumer(AsyncConsumer):
         })
 
     async def websocket_receive(self, event):
+        global komax_status_dict
         time.sleep(1)
         dict_to_send = {
             'komax_status_dict': komax_status_dict,
@@ -423,6 +445,83 @@ class KomaxWebConsumer(AsyncConsumer):
 
     async def websocket_disconnect(self, event):
         print("disconnect", event)
+
+class WorkerConsumer(AsyncConsumer):
+
+    def __init__(self, scope):
+        AsyncConsumer.__init__(self, scope)
+        self.last_dict = None
+
+    async def websocket_connect(self, event):
+        await self.send({
+            "type": "websocket.accept",
+        })
+
+    # TODO: handle if True-all idx not found
+    def get_harnesses_completion(self):
+        global komax_task_df
+        # print(komax_status_dict)
+        komax_idx_dict = dict()
+        for komax_number, position_dict in komax_status_dict.items():
+            # print(komax_task_df)
+            if position_dict != 1 and position_dict != 0:
+            # print([i for i in komax_task_df.isin(position_dict).all(axis=1)])
+            # print(komax_task_df[komax_task_df.isin(position_dict).all(axis=1)])
+            # print(komax_task_df[komax_task_df.isin(position_dict).all(axis=1)].index.values)
+            # idx = komax_task_df[komax_task_df.isin(position_dict).all(axis=1)].index.values[0]
+                """print(komax_task_df)
+                print(komax_task_df['id'])
+                print(position_dict['id'])
+                print(komax_task_df['id'] == position_dict['id'])
+                print(komax_task_df[komax_task_df['id'] == position_dict['id']])"""
+                idx = komax_task_df[komax_task_df['id'] == position_dict['id']].index.values[0]
+                komax_idx_dict[komax_number] = idx
+
+
+        harnesses = komax_task_df['harness'].unique()
+        harness_time_dict = dict()
+        for harness in harnesses:
+            times = [
+                sum(komax_task_df[(komax_task_df['id'] >= idx) & (komax_task_df['harness'] == harness)][
+                        'time']) if idx is not None else 0 for komax, idx in komax_idx_dict.items()
+            ]
+            if len(times):
+                harness_time_dict = {
+                    harness: seconds_to_str_hours(max(times))
+                }
+            else:
+                harness_time_dict = {
+                    harness: seconds_to_str_hours(0)
+                }
+
+
+
+        print(harness_time_dict)
+        return harness_time_dict
+
+    async def async_get_harnesses_completion(self):
+        return await database_sync_to_async(self.get_harnesses_completion)()
+
+    async def websocket_receive(self, event):
+        global komax_status_dict
+        global komax_task_df
+        while self.last_dict == komax_status_dict:
+            await asyncio.sleep(10)
+        else:
+            if komax_task_df is not None:
+
+                # msg = json.loads(event['text'])
+                self.last_dict = komax_status_dict
+
+                data_to_send = await self.async_get_harnesses_completion()
+
+                await self.send({
+                    "type": "websocket.send",
+                    "text": json.dumps(data_to_send)
+                })
+
+    async def websocket_disconnect(self, event):
+        return
 
 
 

@@ -157,6 +157,9 @@
                         {{ komax_task.task_name }}
                     </h3>
                 </div>
+                <div class="card-body">
+                    <div id="harness-completion"></div>
+                </div>
             </div>
             {% endif %}
         {% endif %}
@@ -181,4 +184,60 @@
             $('#komaxNumberModal').modal({show: true, focus: true, backdrop: 'static', keyboard: false});
         });
     </script>
+
+    <script type="text/javascript">
+    var loc = window.location;
+    var wsStart = 'wss://';
+    if (loc.host.includes('localhost')){
+        wsStart = 'ws://'
+    }
+    var endPoint = wsStart + loc.host + loc.pathname;
+    var socket = new WebSocket(endPoint);
+
+
+    socket.onopen = function(e) {
+        socket.send(JSON.stringify({
+            'info': 0,
+        }));
+
+    };
+    socket.onmessage = function(e) {
+
+        var harness_time_dict = JSON.parse(e.data);
+        var harness_time = document.getElementById('harness-completion');
+
+        var number;
+        if (harness_time.childNodes.length) {
+            for (number in harness_time_dict) {
+                document.getElementById('harness-' + number).innerHTML = harness_time_dict.number;
+            }
+        }
+        else {
+            for (number in harness_time_dict) {
+                var number_p = document.createElement('p');
+                number_p.setAttribute('id', 'harness-' + number);
+                number_p.innerHTML = '' + number + ' : ' + harness_time_dict[number];
+                harness_time.appendChild(number_p)
+            }
+        }
+
+
+
+        socket.send(JSON.stringify({
+            'harness_time_dict': harness_time_dict,
+        }))
+    };
+
+    socket.onerror = function(e) {
+        console.log(e)
+    };
+    socket.onclose = function(e) {
+        console.log(e)
+    };
+
+
+
+
+
+</script>
 {% endblock %}

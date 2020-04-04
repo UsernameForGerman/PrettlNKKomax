@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.MainPageKomaxAppView.as_view(), name='komax_app_view'),
     path('tasks/', views.TasksView.as_view(), name='tasks_view'),
     path('account/', views.WorkerAccountView.as_view(), name='user_account'),
+    path('tasks/<str:task_name>/', views.delete_task, name='delete_task'),
     re_path(r'^komax_tasks/(?P<task_name>[a-zA-Z0-9_.-]*)/$', views.KomaxTaskView.as_view(), name='task_view'),
     re_path(r'^setup/$', views.KomaxAppSetupView.as_view(), name='task_setup'),
     re_path(r'^komax_tasks/(?P<pk>\d+[\w-]+)/amount/$', views.set_amount_task_view, name='task_amount'),
