@@ -17,42 +17,61 @@
         </h1>
     </div>
 
-
-    {% for komax_task in komax_tasks %}
-        {% if forloop.counter != 1 %}
-            <hr>
-        {% endif %}
-        <div class="card">
-                <div class="card-header">
-                    <p>{{ komax_task.task_name }}</p>
-                </div>
-                <div class="card-body">
-                    {% if komax_task.status == 1 %}
-                        <a class="btn btn-outline-warning" href="{% url 'komax_app:send_komax_task' task_name=komax_task.task_name %}">
-                            {% trans 'Send task' %}
-                        </a>
-                    {% elif komax_task.status == 2 %}
-                        <button class="btn btn-outline-warning" disabled>
-                            {% trans 'Task ordered' %}
-                        </button>
-                    {% elif komax_task.status == 3 %}
-                        <button class="btn btn-outline-info" disabled>
-                            {% trans 'Task loaded' %}
-                        </button>
-                        <a class="btn btn-outline-danger" href="{% url 'komax_app:delete_task' task_name=komax_task.task_name %}">
-                            {% trans "Stop task" %}
-                        </a>
-                    {% else %}
-                        <button class="btn btn-light" disabled>
-                            {% trans 'Done' %}
-                        </button>
-                    {% endif %}
-                    <a class="btn btn-outline-primary" href="{% url 'komax_app:task_view' task_name=komax_task.task_name %}">
-                        {% trans 'More' %}
-                    </a>
-                </div>
+    <div class="container justify-content-center">
+        {% if komax_tasks %}
+            <div class="row justify-content-end">
+                <a href="{% url 'komax_app:task_setup' %}" class="btn btn-outline-success">
+                    <i class="fa fa-plus"></i> {% trans 'Create task' %}
+                </a>
             </div>
-    {% endfor %}
+            {% for komax_task in komax_tasks %}
+                {% if forloop.counter != 1 %}
+                    <hr>
+                {% endif %}
+                <div class="card">
+                        <div class="card-header">
+                            <p>{{ komax_task.task_name }}</p>
+                        </div>
+                        <div class="card-body">
+                            {% if komax_task.status == 1 %}
+                                <a class="btn btn-outline-warning" href="{% url 'komax_app:send_komax_task' task_name=komax_task.task_name %}">
+                                    {% trans 'Send task' %}
+                                </a>
+                            {% elif komax_task.status == 2 %}
+                                <button class="btn btn-outline-warning" disabled>
+                                    {% trans 'Task ordered' %}
+                                </button>
+                            {% elif komax_task.status == 3 %}
+                                <button class="btn btn-outline-info" disabled>
+                                    {% trans 'Task loaded' %}
+                                </button>
+                                <a class="btn btn-outline-danger" href="{% url 'komax_app:delete_task' task_name=komax_task.task_name %}">
+                                    {% trans "Delete task" %}
+                                </a>
+                            {% else %}
+                                <button class="btn btn-light" disabled>
+                                    {% trans 'Done' %}
+                                </button>
+                            {% endif %}
+                            <a class="btn btn-outline-primary" href="{% url 'komax_app:task_view' task_name=komax_task.task_name %}">
+                                {% trans 'More' %}
+                            </a>
+                        </div>
+                    </div>
+        {% endfor %}
+        {% else %}
+            <div class="row">
+                <h3 class="h3">{% trans 'Create new komax task' %}</h3>
+            </div>
+            <div class="row">
+                <a href="{% url 'komax_app:task_setup' %}" class="btn btn-outline-success">
+                    <i class="fa fa-plus"></i> {% trans 'Create task' %}
+                </a>
+            </div>
+
+        {% endif %}
+    </div>
+
 
 
 

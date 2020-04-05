@@ -85,6 +85,8 @@ def on_message(ws, message):
     elif received_data['status'] == 2 and 'task' in received_data:
         komax_df = pd.DataFrame(received_data['task'])
         komax_df.index = pd.Index(komax_df['id'])
+        # save komax_df to excel
+        komax_df.to_excel('komax_df_{}.xlsx'.format(KOMAX_NUMBER))
         print(komax_df)
 
 
@@ -98,9 +100,14 @@ def on_open(ws):
     def run(*args):
         global komax_df
         while True:
+            if komax_df is None:
+                try:
+                    komax_df = pd.read_excel('komax_df_{}.xlsx'.format(KOMAX_NUMBER))
+                except:
+                    pass
             status = 1
             if komax_df is not None:
-                to_send = komax_df.iloc[2, :].to_dict()
+                to_send = komax_df.iloc[109, :].to_dict()
                 for key, value in to_send.items():
                     to_send[key] = to_normal(value)
             else:

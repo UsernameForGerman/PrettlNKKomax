@@ -278,6 +278,7 @@
 
     };
     socket.onmessage = function(e) {
+        console.log(e.data);
         var komax_status_dict = JSON.parse(e.data).komax_status_dict;
 
         var komax_status = document.getElementById('komax-status');
@@ -305,7 +306,7 @@
                 komax_div.setAttribute('id', 'komax-' + number);
                 var komax_img = document.createElement('img');
                 komax_img.setAttribute('id', 'komax-' + number + '-img');
-                komax_img.setAttribute('src', 'https://cdn1.iconfinder.com/data/icons/ios-11-glyphs/30/car-512.png');
+                komax_img.setAttribute('src', '{% static 'images/komax.png' %}');
                 var komax_p = document.createElement('p');
                 komax_p.setAttribute('id', 'komax-' + number + '-p');
                 komax_p.setAttribute('class', 'text-center');

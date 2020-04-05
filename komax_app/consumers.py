@@ -231,7 +231,7 @@ class KomaxAppTaskConsumer(AsyncConsumer):
                 await self.async_complete_komax_task(loaded_dict_data)
 
                 if self.data_alloc is not None and self.data_alloc == -1:
-                    url = '/setup/'
+                    url = 'tasks/setup/'
                     response = {
                         "info_type": "page_status",
                         "status": "http_redirect",
@@ -243,7 +243,7 @@ class KomaxAppTaskConsumer(AsyncConsumer):
                         "text": json.dumps(response)
                     })
                 else:
-                    url = '/komax_tasks/' + task_name + '/'
+                    url = '/tasks/' + task_name + '/'
                     response = {
                         "info_type": "page_status",
                         "status": "http_redirect",
@@ -427,6 +427,10 @@ class KomaxConsumer(AsyncConsumer):
 
 class KomaxWebConsumer(AsyncConsumer):
 
+    def __init__(self, scope):
+        AsyncConsumer.__init__(self, scope)
+        self.last_dict = None
+
     async def websocket_connect(self, event):
         await self.send({
             "type": "websocket.accept"
@@ -434,14 +438,23 @@ class KomaxWebConsumer(AsyncConsumer):
 
     async def websocket_receive(self, event):
         global komax_status_dict
-        time.sleep(1)
-        dict_to_send = {
-            'komax_status_dict': komax_status_dict,
-        }
-        await self.send({
-            "type": "websocket.send",
-            "text": json.dumps(dict_to_send)
-        })
+
+        while self.last_dict == komax_status_dict:
+            await asyncio.sleep(1)
+        else:
+            komax_status_dict_tmp = dict()
+            for komax, value in komax_status_dict.items():
+                if type(value) is not int:
+                    komax_status_dict_tmp[komax] = 2
+                else:
+                    komax_status_dict_tmp[komax] = value
+            dict_to_send = {
+                'komax_status_dict': komax_status_dict_tmp
+            }
+            await self.send({
+                "type": "websocket.send",
+                "text": json.dumps(dict_to_send)
+            })
 
     async def websocket_disconnect(self, event):
         print("disconnect", event)
@@ -481,20 +494,26 @@ class WorkerConsumer(AsyncConsumer):
         harnesses = komax_task_df['harness'].unique()
         harness_time_dict = dict()
         for harness in harnesses:
-            times = [
-                sum(komax_task_df[(komax_task_df['id'] >= idx) & (komax_task_df['harness'] == harness)][
+            left_times = [
+                sum(
+                    komax_task_df[(komax_task_df['id'] >= idx) & (komax_task_df['harness'] == harness) & (komax_task_df['komax'] == str(komax))][
                         'time']) if idx is not None else 0 for komax, idx in komax_idx_dict.items()
             ]
-            if len(times):
-                harness_time_dict = {
-                    harness: seconds_to_str_hours(max(times))
+            sum_all_times = [
+                sum(komax_task_df[(komax_task_df['harness'] == harness) & (komax_task_df['komax'] == str(komax))][
+                        'time']) if idx is not None else 0 for komax, idx in komax_idx_dict.items()
+            ]
+
+            if len(left_times) and len(sum_all_times):
+                harness_time_dict[harness] = {
+                    'left': seconds_to_str_hours(max(left_times)),
+                    'all': round((sum(sum_all_times) - sum(left_times))/sum(sum_all_times)*100) if sum(sum_all_times) > 0 else 0,
                 }
             else:
-                harness_time_dict = {
-                    harness: seconds_to_str_hours(0)
+                harness_time_dict[harness] = {
+                    'left': seconds_to_str_hours(0),
+                    'all': 0,
                 }
-
-
 
         print(harness_time_dict)
         return harness_time_dict
@@ -502,11 +521,19 @@ class WorkerConsumer(AsyncConsumer):
     async def async_get_harnesses_completion(self):
         return await database_sync_to_async(self.get_harnesses_completion)()
 
+    def new_komax_status_dict(self):
+        while self.last_dict == komax_status_dict:
+            time.sleep(10)
+        return True
+
+    async def async_new_komax_status_dict(self):
+        return await database_sync_to_async(self.new_komax_status_dict)()
+
     async def websocket_receive(self, event):
         global komax_status_dict
         global komax_task_df
         while self.last_dict == komax_status_dict:
-            await asyncio.sleep(10)
+            await asyncio.sleep(1)
         else:
             if komax_task_df is not None:
 
@@ -514,7 +541,7 @@ class WorkerConsumer(AsyncConsumer):
                 self.last_dict = komax_status_dict
 
                 data_to_send = await self.async_get_harnesses_completion()
-
+                # print(data_to_send)
                 await self.send({
                     "type": "websocket.send",
                     "text": json.dumps(data_to_send)

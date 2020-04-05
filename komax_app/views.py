@@ -445,8 +445,8 @@ class LaboriousnessListView(LoginRequiredMixin, View):
         """
 
 @method_decorator(user_passes_test(must_be_master), name='dispatch')
-class KomaxAppSetupView(LoginRequiredMixin, View):
-    template_name = 'komax_app/komax_app_setup.html'
+class KomaxTaskSetupView(LoginRequiredMixin, View):
+    template_name = 'komax_app/task_setup.html'
 
     def get(self, request, *args, **kwargs):
         """
@@ -570,7 +570,7 @@ def seconds_to_str_hours(seconds):
 @method_decorator(user_passes_test(must_be_master), name='dispatch')
 class KomaxTaskView(LoginRequiredMixin, View):
     model = KomaxTask
-    template_name = 'komax_app/komax_app_task.html'
+    template_name = 'komax_app/task_view.html'
 
     def get(self, request, task_name, *args, **kwargs):
         task = get_object_or_404(self.model, task_name=task_name)

@@ -1,0 +1,330 @@
+{% extends 'komax_app/dashboard_main.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load static %}
+
+
+
+{% block title %}
+    <title>{% trans 'Komax app' %}</title>
+{% endblock %}
+
+
+{% block main %}
+
+
+<!-- Latest compiled and minified JavaScript -->
+
+    <link href="{% static 'komax_app/komax_app.css' %}" rel="stylesheet" type="text/css">
+    <section class="jumbotron text-center">
+        <div class="jumbotron-heading">
+            <h1>{% blocktrans %}Set up task{% endblocktrans %}</h1>
+            <p>{% blocktrans %}Here you can set up your task{% endblocktrans %}</p>
+        </div>
+        <div class="container">
+            <div class="row justify-content-around">
+                <div class="col-md-3 col-xs-12">
+                    <a class="btn btn-primary btn-lg" href="{% url 'komax_app:harnesses' %}">{% trans "Harnesses" %}</a>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <a class="btn btn-primary btn-lg" href="{% url 'komax_app:komaxes' %}">{% trans "Komaxes" %}</a>
+
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <a class="btn btn-primary btn-lg" href="{% url 'komax_app:laboriousness' %}">{% trans 'Laboriousness'%}</a>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <a class="btn btn-primary btn-lg" href="{% url 'komax_app:komax_terminals_list' %}">
+                        {% trans 'Terminals' %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container-fluid text-center" id="komax_app_setup">
+        <div class="row input-form">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="form">
+                            <div class="form-group row">
+                                <label for="task_name" class="col-form-label col-sm-2">{% trans 'Task name' %}:</label>
+                                <div class="col-sm-10" id="task-name-handler">
+                                    <input class="form-control" type="text" name="task_name" id="task_name" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-2" for="harnesses">{% trans "Harnesses" %}:</label>
+                                <div class="col-sm-10">
+                                    <select class="selectpicker form-control" name="harnesses" id="harnesses" multiple data-live-search="true" required>
+                                        {% for harness in harnesses %}
+                                        <option>{{ harness }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <!--
+                                    <input class="form-control" type="text" name="task_name" required_id="id_task_name">
+                                    -->
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-2" for="komaxes">{% trans "Komaxes" %}:</label>
+                                <div class="col-sm-10">
+                                    <select class="selectpicker form-control" name="komaxes" id="komaxes" multiple data-live-search="true" required>
+                                        {% for komax in komaxes %}
+                                        <option>{{ komax }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <!--
+                                    <input class="form-control" type="text" name="task_name" required_id="id_task_name">
+                                    -->
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-2" for="kappas">{% trans "Kappas" %}:</label>
+                                <div class="col-sm-10">
+                                    <select class="selectpicker form-control" name="kappas" id="kappas" multiple data-live-search="true">
+                                        {% for kappa in kappas %}
+                                        <option>{{ kappa }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <!--
+                                    <input class="form-control" type="text" name="task_name" required_id="id_task_name">
+                                    -->
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-2" for="shift">{% trans "Shift" %}({% trans "hours" %}):</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" name="shift" id="shift" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="type_of_allocation" id="type_parallel" value="parallel" checked>
+                                    <label class="form-check-label" type="type_paralel">
+                                        {% trans "Parallel" %}
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="type_of_allocation" id="type_consistently" value="consistently">
+                                    <label class="form-check-label" for="type_step_by">
+                                        {% trans "Consistently" %}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="loading_type" id="type_new" value="New" checked>
+                                    <label class="form-check-label" type="type_new">
+                                        {% trans "New" %}
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="loading_type" id="type_mix" value="Mix">
+                                    <label class="form-check-label" for="type_mix">
+                                        {% trans "Mix" %}
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="loading_type" id="type_urgent" disabled value="Urgent">
+                                    <label class="form-check-label" for="type_urgent">
+                                        {% trans "Urgent" %}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
+                                <button type="submit" class="btn btn-primary btn-lg">{% trans "Submit" %}</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    var loc = window.location;
+    var wsStart = 'wss://';
+    if (loc.host.includes('localhost')){
+        wsStart = 'ws://'
+    }
+    var endPoint = wsStart + loc.host + loc.pathname;
+    var socket = new WebSocket(endPoint);
+
+
+    var form = $('#form');
+    var komax_app_setup = $('#komax_app_setup');
+    var task_name = $('#task_name');
+    var harnesses = $('#harnesses');
+    var komaxes = $('#komaxes');
+    var kappas = $('#kappas');
+    var shift = $('#shift');
+    var url = '';
+    var harness_amount_form;
+    var next_step = false;
+    var amount_button = false;
+    var loading_types = document.getElementsByName('loading_type');
+    var loading_type;
+
+    var types_of_allocation = document.getElementsByName('type_of_allocation');
+    var type_of_allocation;
+
+
+    socket.onopen = function (e) {
+        // console.log(e);
+
+        $('#task_name').change(function(event){
+            var task_name_current = task_name.val();
+
+            if (task_name_current.length > 0){
+                var final_data = {
+                'info_type': 'checker_info',
+                'task_name': task_name_current,
+                };
+                socket.send(JSON.stringify(final_data))
+            }
+            else {
+                task_name.removeClass('is-valid');
+                task_name.removeClass('is-invalid');
+                $('.invalid-feedback').remove()
+            }
+
+
+        });
+        form.submit(function(event) {
+            event.preventDefault();
+            $(this).find("button[type='submit']").prop('disabled',true);
+
+
+            for(var i = 0; i < types_of_allocation.length; i++){
+                if(types_of_allocation[i].checked){
+                    type_of_allocation = types_of_allocation[i].value;
+                }
+            }
+
+            for(var j = 0; j < loading_types.length; j++){
+                if (loading_types[j].checked){
+                    loading_type = loading_types[j].value;
+                }
+            }
+
+            var final_data = {
+                'info_type': 'task_info',
+                'task_name': task_name.val(),
+                'harnesses': harnesses.val(),
+                'komaxes': komaxes.val(),
+                'kappas': kappas.val(),
+                'shift': shift.val(),
+                'type_of_allocation': type_of_allocation,
+                'loading_type': loading_type,
+            };
+
+            socket.send(JSON.stringify(final_data));
+
+            komax_app_setup.append(
+            '<div class="row input-form"><div class="col"><div class="card"><div class="card-body">' +
+            '<form id="harness-amount-form">' +
+            '</form>' +
+            '</div></div></div></div>'
+            );
+
+            harness_amount_form = $('#harness-amount-form');
+
+            for (let i = 0; i < harnesses.val().length; i++){
+                harness_amount_form.append(
+                '<div class="form-group row">' +
+                '<label for="harness_amount_' + i + '" class="col-sm-2 col-form-label">' + harnesses.val()[i] + '</label>' +
+                '<div class="col-sm-10">' +
+                '<input type="number" class="form-control" id="harness_amount_' + i + '" placeholder={% trans "Amount" %} required>' +
+                '</div>' +
+                '</div>'
+                )
+            }
+
+
+        harness_amount_form.submit( function(ev) {
+            // console.log("Sumbitted second form");
+            ev.preventDefault();
+            console.log('harness amount form');
+            var amount_info_dict = {
+                'info_type': 'amount_info',
+            };
+
+            var harness_amount_dict = {};
+            for (let i = 0; i < harnesses.val().length; i++){
+
+                var harness_amount = $('#harness_amount_'+ i).val();
+                var harness_str = harnesses.val()[i].toString();
+
+                harness_amount_dict[harness_str] = harness_amount;
+
+            }
+            amount_info_dict['task_name'] = task_name.val();
+            amount_info_dict['harness_amount'] = harness_amount_dict;
+            socket.send(JSON.stringify(amount_info_dict));
+        });
+        })
+
+    };
+    socket.onmessage = function (e) {
+        // console.log(e)
+
+        message = JSON.parse(e.data);
+        var task_name_handler;
+
+        if (message.info_type == 'checker_info') {
+            if (message.checker == 0) {
+                task_name.removeClass('is-valid');
+                task_name.addClass("is-invalid");
+                $('.invalid-feedback').remove();
+                task_name_handler = $('#task-name-handler');
+                task_name_handler.append(
+                    '<div class="invalid-feedback">' +
+                    '{% blocktrans %} Task with this name already exists or its incorrect{% endblocktrans %}' +
+                    '</div>'
+                )
+            }
+            else {
+                task_name.removeClass("is-invalid");
+                task_name.addClass("is-valid");
+                var feedback_invalid = $('.invalid-feedback');
+                feedback_invalid.remove();
+            }
+        }
+
+        if (message.info_type == 'page_status'){
+            if (message.status == 'http_redirect') {
+                if ('error' in message) {
+                    alert("{% blocktrans %}Check marking in harness chart or not enough komaxes{% endblocktrans %}");
+                }
+                if (message.url != '') {
+                    url = message.url;
+                    window.location.replace(url)
+                    // socket.close()
+                }
+            }
+        }
+
+        if (message.info_type == 'task_status' && message.status == 'loaded') {
+            harness_amount_form = $('#harness-amount-form');
+            harness_amount_form.append(
+                    '<button id="amount_button" type="submit" class="btn btn-warning btn-lg">{% trans "Submit" %}</button>'
+                );
+        }
+
+    };
+    socket.onerror = function (e) {
+        // console.log(e)
+    };
+    socket.onclose = function (e) {
+        // console.log(e)
+    };
+
+</script>
+
+
+{% endblock %}

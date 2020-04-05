@@ -149,7 +149,9 @@
                 {% endfor %}
             {% endif %}
 
-        {% elif user.groups.all.0.name == 'Master' %}
+
+        {% else %}
+
             {% if komax_task %}
             <div class="card">
                 <div class="card-header">
@@ -158,7 +160,18 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    <div id="harness-completion"></div>
+                    <!--
+                    <div style="width: 25%" id="harness__">
+                        <p class="font-weight-bold text-center">43118-3724544-42</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 61%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">61%</div>
+                        </div>
+                        <p class="text-center">
+                            {% trans '3:23 left' %}
+                        </p>
+                    </div>
+                    -->
+                    <div id="harness-completion" class="row justify-content-between"></div>
                 </div>
             </div>
             {% endif %}
@@ -204,20 +217,67 @@
     socket.onmessage = function(e) {
 
         var harness_time_dict = JSON.parse(e.data);
+
+
         var harness_time = document.getElementById('harness-completion');
 
         var number;
+        var progress_bar;
+
+
         if (harness_time.childNodes.length) {
             for (number in harness_time_dict) {
-                document.getElementById('harness-' + number).innerHTML = harness_time_dict.number;
+                document.getElementById('time-' + number).innerHTML = harness_time_dict[number]['left'];
+
+                progress_bar = document.getElementById('progress-' + number);
+                progress_bar.setAttribute('style', 'width: ' + harness_time_dict[number]['all'] + '%');
+                progress_bar.setAttribute('aria-valuenow', harness_time_dict[number]['all']);
+
+                if (harness_time_dict[number]['all'] === 100) {
+                    progress_bar.classList.add('bg-success')
+                }
             }
         }
         else {
             for (number in harness_time_dict) {
+
+                var harness_container = document.createElement('div');
+                harness_container.setAttribute('style', 'width: 20%');
+                harness_container.setAttribute('id', 'harness-container-' + number);
+
                 var number_p = document.createElement('p');
                 number_p.setAttribute('id', 'harness-' + number);
-                number_p.innerHTML = '' + number + ' : ' + harness_time_dict[number];
-                harness_time.appendChild(number_p)
+                number_p.setAttribute('class', 'font-weight-bold text-center');
+                number_p.innerHTML = number;
+
+                var progress_container = document.createElement('div');
+                progress_container.setAttribute('class', 'progress');
+
+                progress_bar = document.createElement('div');
+                progress_bar.setAttribute('id', 'progress-' + number);
+                progress_bar.setAttribute('class', 'progress-bar progress-bar-striped progress-bar-animated');
+                progress_bar.setAttribute('role', 'progressbar');
+                progress_bar.setAttribute('style', 'width: ' + harness_time_dict[number]['all'] + '%');
+                progress_bar.setAttribute('aria-valuenow', harness_time_dict[number]['all']);
+                progress_bar.setAttribute('aria-valuemin', '0');
+                progress_bar.setAttribute('aria-valuemax', '100');
+                progress_bar.innerHTML = harness_time_dict[number]['all'] + '%';
+                progress_container.appendChild(progress_bar);
+
+                var time_p = document.createElement('p');
+                time_p.setAttribute('class', 'text-center');
+                time_p.setAttribute('id', 'time-' + number);
+                time_p.innerHTML = harness_time_dict[number]['left'];
+
+                harness_container.appendChild(number_p);
+                harness_container.appendChild(progress_container);
+                harness_container.appendChild(time_p);
+
+                harness_time.appendChild(harness_container);
+
+                if (harness_time_dict[number]['all'] === 100) {
+                    progress_bar.classList.add('bg-success')
+                }
             }
         }
 
