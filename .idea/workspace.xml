@@ -4,7 +4,9 @@
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/backup/komaxsite/test1.xlsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/komaxsite/test1.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pipfile" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/backup/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/LICENSE" beforeDir="false" />
@@ -2233,7 +2235,7 @@
       <workItem from="1585998305718" duration="19042000" />
       <workItem from="1586086385292" duration="10265000" />
       <workItem from="1586209397982" duration="44217000" />
-      <workItem from="1586300059555" duration="2909000" />
+      <workItem from="1586300059555" duration="3578000" />
     </task>
     <servers />
   </component>
@@ -2269,10 +2271,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="576" y="289" width="824" height="526" key="IDE.errors.dialog/67.27.1853.1053@67.27.1853.1053" timestamp="1586005966011" />
-    <state x="482" y="187" key="SettingsEditor" timestamp="1583936103574">
+    <state x="482" y="187" key="SettingsEditor" timestamp="1586303559316">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1583936103574" />
+    <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1586303559316" />
     <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1586300079011">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
