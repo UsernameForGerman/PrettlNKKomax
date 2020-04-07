@@ -25,6 +25,7 @@ pandas==0.25.3
 psycopg2==2.8.3
 pytest==3.3.2
 pytz==2019.2
+pillow==5.1.0
 redis==3.3.11
 redis-cache==0.1.5
 requests==2.22.0
