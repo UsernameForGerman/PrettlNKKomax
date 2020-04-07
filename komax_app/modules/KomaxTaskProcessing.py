@@ -550,14 +550,15 @@ class KomaxTaskProcessing():
         return
 
     def create_task_personal_from_dataframe_dict(self, dataframe_dict):
-        dataframe = pd.DataFrame.from_dict(dataframe_dict)
-        dataframe.index = pd.Index(range(dataframe.shape[0]))
-        komax_number = dataframe.loc[0, 'komax']
-        harnesses_number = dataframe['harness'].unique()
-        komax = Komax.objects.filter(number=komax_number)[0]
-        komax_order = KomaxOrder.objects.filter(komax=komax)[0]
-        komax_task_obj = komax_order.komax_task
-        self.__create_task_personal_from_dataframe(dataframe, komax_task_obj, harnesses_number)
+        if len(dataframe_dict):
+            dataframe = pd.DataFrame.from_dict(dataframe_dict)
+            dataframe.index = pd.Index(range(dataframe.shape[0]))
+            komax_number = dataframe.loc[0, 'komax']
+            harnesses_number = dataframe['harness'].unique()
+            komax = Komax.objects.filter(number=komax_number)[0]
+            komax_order = KomaxOrder.objects.filter(komax=komax)[0]
+            komax_task_obj = komax_order.komax_task
+            self.__create_task_personal_from_dataframe(dataframe, komax_task_obj, harnesses_number)
 
     # TODO: add comparison with base allocation
     def create_allocation(self, task_name):

@@ -50,7 +50,9 @@ def to_normal(value):
 #print(komax_df[komax_df.isin(d).all(), :])
 
 #komax_df[[komax_df[] == d[key]] and ]
-komax_df = None
+# komax_df = None
+
+komax_df = pd.read_excel('komax_df_{}.xlsx'.format(KOMAX_NUMBER))
 
 def on_message(ws, message):
     global komax_df
@@ -99,21 +101,23 @@ def on_close(ws):
 def on_open(ws):
     def run(*args):
         global komax_df
-        while True:
+        idx_to_send = 0
+        while idx_to_send < komax_df.shape[0]:
+            """
             if komax_df is None:
                 try:
                     komax_df = pd.read_excel('komax_df_{}.xlsx'.format(KOMAX_NUMBER))
                 except:
                     pass
+            """
             status = 1
             if komax_df is not None:
-                to_send = komax_df.iloc[140, :].to_dict()
+                to_send = komax_df.iloc[idx_to_send, :].to_dict()
                 for key, value in to_send.items():
                     to_send[key] = to_normal(value)
             else:
                 to_send = 1
 
-            print(to_send)
             data_to_send = {
                 'status': status,
                 'komax_number': KOMAX_NUMBER,
@@ -122,7 +126,11 @@ def on_open(ws):
             print(data_to_send)
             json_data = json.dumps(data_to_send)
             ws.send(json_data)
-            time.sleep(5)
+            time.sleep(0.05)
+            idx_to_send += 1
+        else:
+            while True:
+                time.sleep(5)
 
 
         ws.close()

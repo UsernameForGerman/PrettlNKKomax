@@ -279,6 +279,7 @@ class KomaxOrder(models.Model):
 
 class TaskPersonal(models.Model):
     komax_task = models.ForeignKey(KomaxTask, on_delete=models.CASCADE)
+    worker = models.ForeignKey(Worker, on_delete=models.CASCADE, null=True)
     amount = models.PositiveSmallIntegerField()
     harness = models.ForeignKey(Harness, on_delete=models.CASCADE)
     komax = models.ForeignKey(Komax, on_delete=models.CASCADE, null=True)
@@ -311,6 +312,13 @@ class TaskPersonal(models.Model):
 
     def __str__(self):
         return self.komax_task.task_name
+
+class KomaxStatus(models.Model):
+    komax = models.ForeignKey(Komax, on_delete=models.CASCADE)
+    task_personal = models.ForeignKey(TaskPersonal, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return str(self.komax.number)
 
 def komax_number_harness_number_path(instance, komax_number, harness_number):
     return '{}-{}'.format(komax_number, harness_number)

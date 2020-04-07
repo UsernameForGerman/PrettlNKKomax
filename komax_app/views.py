@@ -9,7 +9,7 @@ from .modules.ioputter import FileReader
 from django_pandas.io import read_frame
 import pandas as pd
 from .modules.HarnessChartProcessing import ProcessDataframe, get_komaxes_from, get_time_from, get_amount_from
-from .modules.KomaxTaskProcessing import get_task_personal, get_komax_task, KomaxTaskProcessing
+from .modules.KomaxTaskProcessing import get_task_personal, get_komax_task, KomaxTaskProcessing, get_task_to_load, delete_komax_order
 import datetime
 import openpyxl as xl
 from openpyxl.utils.dataframe import dataframe_to_rows
@@ -39,7 +39,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.utils import translation
 from django.contrib.auth import authenticate
 from komax_app.backends import WorkerAuthBackend
-
+from .modules.KomaxCore import create_update_komax_status, get_komax_order, save_komax_task_personal, delete_komax_status
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 browser_useragents = ["ABrowse", "Acoo Browser", "America Online Browser", "AmigaVoyager", "AOL", "Arora",
                       "Avant Browser", "Beonex", "BonEcho", "Browzar", "Camino", "Charon", "Cheshire",
@@ -567,6 +568,59 @@ def seconds_to_str_hours(seconds):
 
     return str(hours) + ':' + str(mins)
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class KomaxClientView(View):
+
+
+    def get(self, request, *args, **kwargs):
+        komax_number = int(request.GET['komax-number']) if 'komax-number' in request.GET else None
+        if komax_number is not None:
+            request.session['komax-number'] = komax_number
+        return JsonResponse(dict())
+
+    def post(self, request, *args, **kwargs):
+        params = dict()
+        status = int(request.POST['status']) if 'status' in request.POST else None
+        komax_number = request.session['komax-number']
+        if komax_number is not None and status is not None:
+            if status == 1:
+                position_info = request.POST['position'] if 'position' in request.POST else None
+                if position_info is not None:
+                    create_update_komax_status(komax_number, position_info)
+
+                komax_order = get_komax_order(komax_number) if komax_number is not None else None
+                # self.async_create_update_komax_status(msg['komax_number'], msg['position'])
+                #self.async_get_komax_order(msg['komax_number'])
+                if komax_order is not None:
+                    if komax_order.status == 'Requested':
+                        params = {
+                            'status': 2,
+                            'text': komax_order.status,
+                        }
+                    elif komax_order.status == 'Received':
+                        new_komax_task_df = get_task_to_load(komax_number)
+                        # self.async_get_new_komax_task_to_load(komax_number)
+                        if new_komax_task_df is not None:
+                            # self.async_set_komax_task_df()
+                            params = {
+                                'status': 2,
+                                'task': new_komax_task_df.to_dict()
+                            }
+            elif status == 2:
+                text = request.POST['text'] if 'text' in request.POST else None
+                task = request.POST['task'] if 'task' in request.POST else None
+                if text is not None and text == 'Requested' and task is not None:
+                    save_komax_task_personal(komax_number, task)
+                    # self.async_save_komax_task_personal(komax_number, task)
+            elif status == 3:
+                delete_komax_status(komax_number)
+                delete_komax_order()
+                # self.async_delete_komax_status(self.komax_number)
+                # self.async_delete_komax_orders()
+
+        return JsonResponse(params)
+
+
 @method_decorator(user_passes_test(must_be_master), name='dispatch')
 class KomaxTaskView(LoginRequiredMixin, View):
     model = KomaxTask
@@ -653,6 +707,7 @@ def get_personal_task_view_komax(request, task_name, komax):
         inplace=True,
     )
 
+    task_pers_df.drop(labels='worker', axis='columns', inplace=True)
     task_pers_df.index = pd.Index(range(task_pers_df.shape[0]))
 
     task_pers_df['done'] = ''
@@ -682,6 +737,7 @@ def get_general_tech_task_view(request, task_name):
         inplace=True,
     )
 
+    task_pers_df.drop(labels='worker', axis='columns', inplace=True)
     task_pers_df.index = pd.Index(range(task_pers_df.shape[0]))
 
     task_pers_df['done'] = ''
@@ -714,6 +770,7 @@ def get_general_task_view(request, task_name):
         inplace=True,
     )
 
+    task_pers_df.drop(labels='worker', axis='columns', inplace=True)
     task_pers_df.index = pd.Index(range(task_pers_df.shape[0]))
 
     task_pers_df['done'] = ''
@@ -727,6 +784,7 @@ def get_general_task_view(request, task_name):
 
     out_file = OutProcess(task_pers_df)
     workbook = out_file.get_task_xl()
+    ws = workbook.active
     workbook.save(response)
 
     return response
@@ -743,7 +801,7 @@ def get_personal_task_view_kappa(request, task_name, kappa):
         ascending=True,
         inplace=True,
     )
-
+    kappa_task_pers_df.drop(labels='worker', axis='columns', inplace=True)
     kappa_task_pers_df.index = pd.Index(range(kappa_task_pers_df.shape[0]))
 
     kappa_task_pers_df['done'] = ''

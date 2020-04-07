@@ -22,8 +22,16 @@
         </div>
     -->
         <!-- Komax status info(imgs or text) -->
+        <div id="komax-status" class="row justify-content-around">
+            {% for komax in komaxes %}
+                <div id="komax-{{ komax.0 }}">
+                    <img id="komax-{{ komax.0 }}-img" src="{% static 'images/komax.png' %}" class='komax-img' style="background-color: white">
+                    <p id="komax-{{ komax.0 }}-p" class="text-center">{{ komax.0 }}</p>
+                </div>
+            {% endfor %}
+        </div>
 
-        <div id="komax-status" class="row justify-content-around"></div>
+
         <button type="button" class="btn btn-success mb-3 col-lg-1 add-button" data-toggle="modal" data-target="#komax-create-modal">
             <i class="fa fa-plus"> {% trans 'Add' %}</i>
         </button>
@@ -279,53 +287,17 @@
     };
     socket.onmessage = function(e) {
         console.log(e.data);
-        var komax_status_dict = JSON.parse(e.data).komax_status_dict;
+        var komax_status = JSON.parse(e.data);
+        var komax_img = document.getElementById('komax-' + komax_status['komax'] + '-img');
 
-        var komax_status = document.getElementById('komax-status');
-        var number;
-
-        if (komax_status.childNodes.length) {
-            for (number in komax_status_dict){
-                if (komax_status_dict[number] === 0) {
-                    document.getElementById('komax-' + number + '-img').style.backgroundColor = "white";
-                } else if (komax_status_dict[number] === 1) {
-                    document.getElementById('komax-' + number + '-img').style.backgroundColor = "red";
-                } else {
-                    document.getElementById('komax-' + number + '-img').style.backgroundColor = "green";
-                    // document.getElementById('komax-' + number + '-p').innerHTML = komax_status_dict[number];
-
-                }
-                // var komax_div = document.getElementById('komax-${number}');
-                // komax_div.textContent = komax_status_dict[number];
-            }
+        if (komax_status['status'] === 2) {
+            komax_img.style.backgroundColor = 'green';
+        }
+        else if (komax_status['status'] === 1) {
+            komax_img.style.backgroundColor = 'red';
         }
         else {
-
-            for (number in komax_status_dict) {
-                var komax_div = document.createElement('div');
-                komax_div.setAttribute('id', 'komax-' + number);
-                var komax_img = document.createElement('img');
-                komax_img.setAttribute('id', 'komax-' + number + '-img');
-                komax_img.setAttribute('src', '{% static 'images/komax.png' %}');
-                var komax_p = document.createElement('p');
-                komax_p.setAttribute('id', 'komax-' + number + '-p');
-                komax_p.setAttribute('class', 'text-center');
-                /*
-                if (komax_status_dict[number] != 0 && komax_status_dict[number] != 1){
-                    var text = komax_status_dict[number].harness
-                }
-                else {
-                    var text = ''
-                }
-
-                 */
-                komax_p.innerHTML = number;
-                //var komax_node = document.createTextNode(komax_status_dict[number].time);
-                komax_div.appendChild(komax_img);
-                komax_div.appendChild(komax_p);
-
-                komax_status.appendChild(komax_div);
-            }
+            komax_img.style.backgroundColor = 'white';
         }
 
         socket.send(JSON.stringify({
@@ -334,10 +306,20 @@
     };
 
     socket.onerror = function(e) {
-        console.log(e)
+        // console.log(e);
+        var komax_status = document.getElementById('komax-status');
+        var komax_imgs = komax_status.getElementsByClassName('komax-img');
+        for (var i = 1; i <= komax_imgs.length; i++) {
+            document.getElementById('komax-' + i + '-img').style.backgroundColor = 'white';
+        }
     };
     socket.onclose = function(e) {
-        console.log(e)
+        // console.log(e);
+        var komax_status = document.getElementById('komax-status');
+        var komax_imgs = komax_status.getElementsByClassName('komax-img');
+        for (var i = 1; i <= komax_imgs.length; i++) {
+            document.getElementById('komax-' + i + '-img').style.backgroundColor = 'white';
+        }
     };
 
 
