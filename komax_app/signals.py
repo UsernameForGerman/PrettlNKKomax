@@ -1,5 +1,4 @@
 import json
-import logging
 
 import channels.layers
 from asgiref.sync import async_to_sync

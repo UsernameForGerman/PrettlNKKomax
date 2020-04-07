@@ -1,43 +1,28 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
 from django.http import HttpResponseRedirect, Http404, HttpResponse
-from django.views import generic
-from django.urls import reverse_lazy
 from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask, HarnessAmount, TaskPersonal, \
     Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker
-from .forms import KomaxEditForm, KomaxCreateForm
+from .forms import KomaxEditForm
 from .modules.ioputter import FileReader
 from django_pandas.io import read_frame
 import pandas as pd
 from .modules.HarnessChartProcessing import ProcessDataframe, get_komaxes_from, get_time_from, get_amount_from
 from .modules.KomaxTaskProcessing import get_task_personal, get_komax_task, KomaxTaskProcessing, get_task_to_load, delete_komax_order
-import datetime
+
 import openpyxl as xl
 from openpyxl.utils.dataframe import dataframe_to_rows
-from time import time
 from django.db.models import Sum
 from .modules.outer import OutProcess
 from django.http import JsonResponse
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, requires_csrf_token
-import time
-from .task import get_wb_labels, save_tickets
 
-from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404, reverse
-# from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask
-from django.views import View, generic
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
+from django.views import View,
 from .modules.HarnessChartProcessing import HarnessChartReader
-# from .forms import KomaxTaskSetupForm, KomaxEditForm, KomaxCreateForm
 from django.views import generic
-from .task import create_allocation, sort_allocated_task
-import time
-from django.utils.timezone import now
 from django.db import close_old_connections
-from channels.db import database_sync_to_async
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.utils import translation
-from django.contrib.auth import authenticate
-from komax_app.backends import WorkerAuthBackend
 from .modules.KomaxCore import create_update_komax_status, get_komax_order, save_komax_task_personal, delete_komax_status
 from django.views.decorators.csrf import ensure_csrf_cookie
 
