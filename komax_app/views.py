@@ -15,7 +15,7 @@ from .modules.outer import OutProcess
 from django.http import JsonResponse
 
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
-from django.views import View,
+from django.views import View
 from .modules.HarnessChartProcessing import HarnessChartReader
 from django.views import generic
 from django.db import close_old_connections
