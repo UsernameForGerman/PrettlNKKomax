@@ -15,7 +15,6 @@ import openpyxl as xl
 from openpyxl.utils.dataframe import dataframe_to_rows
 from time import time
 from django.db.models import Sum
-from chartjs.views.lines import BaseLineChartView
 from .modules.outer import OutProcess
 from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, requires_csrf_token
