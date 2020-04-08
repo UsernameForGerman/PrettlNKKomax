@@ -167,6 +167,13 @@ class KomaxAppTaskConsumer(AsyncConsumer):
             loading_type,
         )
 
+    def check_field(self, value):
+        checker = FieldChecker()
+        return checker.field_check_task_name(value)
+
+    async def async_check_field(self, value):
+        return await database_sync_to_async(self.check_field)(value)
+
     async def websocket_receive(self, event):
         # print("receive", event)
 
@@ -176,12 +183,11 @@ class KomaxAppTaskConsumer(AsyncConsumer):
 
             if loaded_dict_data['info_type'] == 'checker_info':
                 task_name = loaded_dict_data['task_name']
-                checker = FieldChecker()
                 data_to_send = {
                     'info_type': 'checker_info'
                 }
 
-                if await checker.field_check_task_name(task_name):
+                if await self.async_check_field(task_name):
                     data_to_send['checker'] = 1
                 else:
                     data_to_send['checker'] = 0
