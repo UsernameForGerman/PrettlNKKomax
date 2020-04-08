@@ -4,7 +4,9 @@
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/backup/komaxsite/test1.xlsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/komaxsite/test1.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/media/worker_images/Natural_LONQuHk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/media/worker_images/Screenshot_from_2019-04-26_19-49-52_SJMgW4o.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/backup/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/LICENSE" beforeDir="false" />
@@ -999,6 +1001,8 @@
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/static/main_app/welcome.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/base.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/LICENSE" beforeDir="false" />
@@ -2233,7 +2237,7 @@
       <workItem from="1585998305718" duration="19042000" />
       <workItem from="1586086385292" duration="10265000" />
       <workItem from="1586209397982" duration="44217000" />
-      <workItem from="1586300059555" duration="4179000" />
+      <workItem from="1586300059555" duration="5897000" />
     </task>
     <servers />
   </component>
