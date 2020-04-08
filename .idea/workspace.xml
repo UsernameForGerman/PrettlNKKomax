@@ -999,19 +999,9 @@
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/static/main_app/welcome.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/base.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/main.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/description/templates/description/description.html" beforeDir="false" afterPath="$PROJECT_DIR$/description/templates/description/description.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/dashboard_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/dashboard_main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/equipment.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/equipment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/harnesses.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/harnesses.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_setup.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_setup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_task.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_task.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_view.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_view.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_tasks.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_tasks.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_terminals.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_terminals.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/laboriousness.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/laboriousness.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/task_setup.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/task_setup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/task_status.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/task_status.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/task_view.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/task_view.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/consumers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/chart_view.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/chart_view.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/komax_app_main.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite" beforeDir="false" afterPath="$PROJECT_DIR$/komaxsite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/LICENSE" beforeDir="false" />
@@ -2006,9 +1996,6 @@
       <change beforePath="$PROJECT_DIR$/komaxsite/static/main_app/welcome.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/templates/base.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/templates/main.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/email_template.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/email_template.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main_new.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main_new.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -2249,7 +2236,7 @@
       <workItem from="1585998305718" duration="19042000" />
       <workItem from="1586086385292" duration="10265000" />
       <workItem from="1586209397982" duration="44217000" />
-      <workItem from="1586300059555" duration="6595000" />
+      <workItem from="1586300059555" duration="7659000" />
     </task>
     <servers />
   </component>

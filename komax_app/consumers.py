@@ -268,15 +268,21 @@ class HarnessConsumer(AsyncConsumer):
             "type": "websocket.accept"
         })
 
+    def check_harness_field(self, harness_number):
+        checker = FieldChecker()
+        return checker.field_check_harness_number(harness_number)
+
+    async def async_check_harness_field(self, harness_number):
+        return await database_sync_to_async(self.check_harness_field)(harness_number)
+
     async def websocket_receive(self, event):
         front_text = event.get('text', None)
         if front_text is not None:
             received_data = json.loads(front_text)
             harness_number = received_data.get('harness_number', None)
             if harness_number is not None:
-                checker = FieldChecker()
                 data_to_send = {}
-                if await checker.field_check_harness_number(harness_number):
+                if await self.async_check_harness_field(harness_number):
                     data_to_send['checker'] = 1
                 else:
                     data_to_send['checker'] = 0
