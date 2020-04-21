@@ -1,13 +1,9 @@
-import websocket
-import _thread
+
 import time
 import json
 import numpy as np
 import pandas as pd
 import requests
-import sys
-import openpyxl as xl
-from openpyxl import load_workbook
 
 
 import highest_pos as conn
@@ -108,7 +104,7 @@ while True:
                     'status': status,
                     'text': text,
                     'task': komax_df.to_dict(),
-                    'csrfmiddlewaretoken': csrftoken,
+                    'csrfmiddlewaretoken': CSRF_TOKEN,
                 })
 
             elif task is not None:

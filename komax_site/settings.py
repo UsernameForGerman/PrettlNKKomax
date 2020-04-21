@@ -113,14 +113,27 @@ ASGI_APPLICATION = 'komax_site.routing.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
+if not INPROD:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'db.sqlite3',
+        }
     }
-}
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'dek5k1l23b5g3i',
+            'USER': 'wqfpkzvudnfvxl',
+            'PASSWORD': '3ca96e36a784186d46e88a867276796bf649d084d820f266f04ce7ab5e7d6eb9',
+            'HOST': 'ec2-107-22-216-53.compute-1.amazonaws.com',
+            'PORT': '5432',
+        }
+    }
+
+# db_from_env = dj_database_url.config()
+# DATABASES['default'].update(db_from_env)
 
 
 AUTHENTICATION_BACKENS = [
