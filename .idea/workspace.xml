@@ -5,7 +5,6 @@
       <change afterPath="$PROJECT_DIR$/backup/komaxsite/test1.xlsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/komaxsite/test1.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB_connection/client_alpha_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB_connection/client_alpha_1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/LICENSE" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/Procfile" beforeDir="false" />
@@ -999,6 +998,7 @@
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/static/main_app/welcome.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/base.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backup/komaxsite/templates/main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_site/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_site/asgi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_site/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_site/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/komaxsite/LICENSE" beforeDir="false" />
@@ -2215,7 +2215,7 @@
       <workItem from="1586209397982" duration="44217000" />
       <workItem from="1586300059555" duration="10509000" />
       <workItem from="1586890623351" duration="2045000" />
-      <workItem from="1587451276962" duration="839000" />
+      <workItem from="1587451276962" duration="3829000" />
     </task>
     <servers />
   </component>

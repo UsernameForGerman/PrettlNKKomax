@@ -30,13 +30,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'l2gugz_=3y)eq5jz2&+qu*f%5t_i=kgx0dcn=1v&8^1*2%mkw5'
+SECRET_KEY = os.environ.get('SECRET_KEY', None)
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', True)
-INPROD = True
+INPROD = os.environ.get('INPROD', False)
 
 ALLOWED_HOSTS = ['*']
 
@@ -112,7 +112,7 @@ ASGI_APPLICATION = 'komax_site.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
+"""
 if not INPROD:
     DATABASES = {
         'default': {
@@ -131,12 +131,18 @@ else:
             'PORT': '5432',
         }
     }
+"""
+DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'db.sqlite3',
+        }
+    }
+db_from_env = dj_database_url.config(os.environ.get('DATABASE_URL', None))
+DATABASES['default'].update(db_from_env)
 
-# db_from_env = dj_database_url.config()
-# DATABASES['default'].update(db_from_env)
 
-
-AUTHENTICATION_BACKENS = [
+AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'komax_app.backends.WorkerAuthBackend'
 ]
