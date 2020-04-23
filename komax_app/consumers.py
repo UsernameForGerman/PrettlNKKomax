@@ -611,9 +611,15 @@ class WorkerConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
 
+    def get_task_personal(self, status):
+        return read_frame(TaskPersonal.objects.filter(komax_task__status__exact=status))
+
+    async def async_get_task_personal(self, status):
+        return await database_sync_to_async(self.get_task_personal)(status)
+
     async def send_new_harness_completion_status(self):
 
-        komax_task_df = read_frame(TaskPersonal.objects.filter(komax_task__status__exact=3))
+        komax_task_df = await self.async_get_task_personal(3)
         komax_idx_dict = dict()
         for komax in Komax.objects.all():
             komax_status_obj = KomaxStatus.objects.filter(komax=komax)

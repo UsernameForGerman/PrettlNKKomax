@@ -35,8 +35,10 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', True)
+#DEBUG = os.environ.get('DEBUG', True)
+# INPROD = os.environ.get('INPROD', False)
 INPROD = os.environ.get('INPROD', False)
+DEBUG = os.environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = ['*']
 
@@ -132,19 +134,32 @@ else:
         }
     }
 """
+"""
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': 'db.sqlite3',
         }
     }
-db_from_env = dj_database_url.config(os.environ.get('DATABASE_URL', None))
+    
+db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
+"""
 
+DATABASES = {
+    'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ.get('DB_NAME'),
+            'USER': os.environ.get('DB_USER'),
+            'PASSWORD': os.environ.get('DB_PASSWORD'),
+            'HOST': os.environ.get('DB_HOST'),
+            'PORT': os.environ.get('DB_PORT'),
+        }
+}
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'komax_app.backends.WorkerAuthBackend'
+    # 'komax_app.backends.WorkerAuthBackend'
 ]
 
 # Password validation

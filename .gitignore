@@ -1,11 +1,12 @@
-.env
+env/
 *.log
 *.pot
 *.pyc
 __pycache__/
 local_settings.py
-../db.sqlite3
+db.sqlite3
 venv/
+.idea
 komaxsite/.idea
 .ipynb_checkpoints
 __pycache__
