@@ -17,7 +17,7 @@
       <sourceFolder url="file://$MODULE_DIR$/komax_app/modules" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DB_connection" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.7 (komax_site)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.6 (komax_site) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="bootstrap-select" level="application" />
   </component>

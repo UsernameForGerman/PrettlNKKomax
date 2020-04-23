@@ -30,19 +30,22 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'l2gugz_=3y)eq5jz2&+qu*f%5t_i=kgx0dcn=1v&8^1*2%mkw5'
+SECRET_KEY = os.environ.get('SECRET_KEY', None)
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+#DEBUG = os.environ.get('DEBUG', True)
+# INPROD = os.environ.get('INPROD', False)
+INPROD = os.environ.get('INPROD', False)
 DEBUG = os.environ.get('DEBUG', True)
-INPROD = True
 
 ALLOWED_HOSTS = ['*']
 
 
-# Application definition
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
+# Application definition
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'description.apps.DescriptionConfig',
@@ -111,16 +114,53 @@ ASGI_APPLICATION = 'komax_site.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+"""
+if not INPROD:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'dek5k1l23b5g3i',
+            'USER': 'wqfpkzvudnfvxl',
+            'PASSWORD': '3ca96e36a784186d46e88a867276796bf649d084d820f266f04ce7ab5e7d6eb9',
+            'HOST': 'ec2-107-22-216-53.compute-1.amazonaws.com',
+            'PORT': '5432',
+        }
+    }
+"""
+"""
+DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'db.sqlite3',
+        }
+    }
+    
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+"""
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
-    }
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ.get('DB_NAME'),
+            'USER': os.environ.get('DB_USER'),
+            'PASSWORD': os.environ.get('DB_PASSWORD'),
+            'HOST': os.environ.get('DB_HOST'),
+            'PORT': os.environ.get('DB_PORT'),
+        }
 }
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    # 'komax_app.backends.WorkerAuthBackend'
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -184,9 +224,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'temp_storage')
+MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
 
-MEDIA_URL = '/uploaded/'
+MEDIA_URL = '/media/'
 
 
 CHANNEL_LAYERS = {
@@ -249,51 +289,9 @@ elif not INPROD:
     BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
     CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 
-"""
-CACHES = {
-    "default": {
-        "BACKEND": "redis_cache.RedisCache",
-        "LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
-        "OPTIONS": {
-            "PASSWORD": redis_url.password,
-            "DB": 0,
-        }
-    }
-}
-"""
-
-# REDIS related settings
-"""
-REDIS_HOST = 'ec2-3-215-69-57.compute-1.amazonaws.com'
-REDIS_PORT = '24709'
-REDIS_PASSWORD = "p12ca82f105d543e0d9248e8f33b1b459c1c4b3c14db4c362a28c9dadda1680e1"
-REDIS_USER = 'h'
-BROKER_URL = 'redis://' + REDIS_USER + REDIS_PASSWORD + REDIS_HOST + ':' + REDIS_PORT + '/0'
-BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
-CELERY_RESULT_BACKEND = 'redis://' + REDIS_USER + REDIS_PASSWORD + REDIS_HOST + ':' + REDIS_PORT + '/0'
-"""
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/account/'
+LOGOUT_REDIRECT_URL = '/'
 
 
-"""
-# celery
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-INVENIO_CELERY_BROKER_URL = 'amqp://guest:guest@mq:5672//'
-"""
-
-# REDIS related settings
-"""
-REDIS_HOST = 'localhost'
-REDIS_PORT = '6379'
-CELERY_BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
-BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
-CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-
-"""
 

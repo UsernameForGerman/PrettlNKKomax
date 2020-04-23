@@ -1,6 +1,5 @@
-{% extends 'komax_app/komax_app_main.html' %}
+{% extends 'komax_app/dashboard_main.html' %}
 {% load static %}
-{% load staticfiles %}
 {% load i18n %}
 
 
@@ -10,13 +9,16 @@
     </title>
 {% endblock %}
 
-{% block main_content %}
+{% block main %}
+    <!--
     <link type="text/css" rel="stylesheet" href="{% static 'komax_app/komax_terminals.css' %}">
+    -->
     <div class="container main_content">
         <h2 class="text-center">
         {% trans 'Komax terminals' %}
         </h2>
 
+    {% if perms.komax_app.add_komaxterminal %}
         <button type="button" class="btn btn-success mb-3 col-lg-2 add-button" data-toggle="modal" data-target="#terminal-create-modal">
             <i class="fa fa-plus"> {% trans 'Add' %}</i>
         </button>
@@ -67,6 +69,7 @@
                 </div>
             </div>
         </div>
+    {% endif %}
 
 
         <!--
@@ -111,14 +114,28 @@
                 <th class="text-center" scope="col">
                     {% trans 'Seal available' %}
                 </th>
+                {% if perms.komax_app.change_komaxterminal %}
                 <th scope="col"></th>
+                {% endif %}
+                {% if perms.komax_app.delete_komaxterminal %}
                 <th scope="col"></th>
+                {% endif %}
             </tr>
         </thred>
         <tbody>
 
         {% for terminal in terminals %}
-            <div class="modal fade" id="terminal-update-modal-{{ terminal.terminal_name }}" tabindex="-1" role="dialog" aria-labelledby="terminalUpdateModal" aria-hidden="true">
+
+
+            <tr>
+
+                <td class="text-center">{{ terminal.terminal_name }}</td>
+                <td class="text-center">{{ terminal.terminal_available }}</td>
+                <td class="text-center">{{ terminal.seal_available }}</td>
+
+                {% if perms.komax_app.change_komaxterminal %}
+                <td class="text-center">
+                    <div class="modal fade" id="terminal-update-modal-{{ terminal.terminal_name }}" tabindex="-1" role="dialog" aria-labelledby="terminalUpdateModal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <form method="post">
@@ -180,18 +197,11 @@
                 </div>
             </div>
 
-
-            <tr>
-
-                <td class="text-center">{{ terminal.terminal_name }}</td>
-                <td class="text-center">{{ terminal.terminal_available }}</td>
-                <td class="text-center">{{ terminal.seal_available }}</td>
-
-                <td class="text-center">
                     <button type="button" class="btn btn-primary change-button" data-toggle="modal" data-target="#terminal-update-modal-{{ terminal.terminal_name }}" data-whatever="{{ terminal.terminal_name }}">
                         <i class="fa fa-pencil"></i>
                     </button>
                 </td>
+                {% endif %}
 
 
 
@@ -203,6 +213,7 @@
                     <input type="hidden" name="terminal_name" value="{{ terminal.terminal_name }}">
                 </td>
                 -->
+                {% if perms.komax_app.delete_komaxterminal %}
                 <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <td>
@@ -212,6 +223,7 @@
                     </i>
                 </td>
                 </form>
+                {% endif %}
             </tr>
 
         {% endfor %}

@@ -15,22 +15,29 @@ Including another URLconf
 """
 
 from django.contrib import admin
+from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path, include, re_path
 from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
+from komax_app import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^', include('main_app.urls')),
-    re_path(r'^komax_app/', include('komax_app.urls')),
+    path('login/', LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', LogoutView.as_view(template_name='logout.html'), name='logout'),
+    # re_path(r'^', include('main_app.urls')),
+    path('', include('komax_app.urls')),
     re_path(r'^description/', include('description.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 """
 urlpatterns += i18n_patterns(
@@ -40,6 +47,3 @@ urlpatterns += i18n_patterns(
 )
 """
 
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

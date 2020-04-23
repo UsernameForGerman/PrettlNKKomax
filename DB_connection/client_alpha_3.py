@@ -58,23 +58,27 @@ def on_error(ws, error):
     print(error)
 
 def on_close(ws):
-    print("Closed")
+    print('closed')
 
 def on_open(ws):
     def run(*args):
+        cnt = 0
         while True:
+            cnt += 1
             status = 1
             data_to_send = {
                 'status': status,
                 'komax_number': KOMAX_NUMBER,
+                'position': komax_df.iloc[2, :].to_dict()
             }
             json_data = json.dumps(data_to_send)
             ws.send(json_data)
             time.sleep(5)
 
+            if cnt == 3:
 
-        ws.close()
-        print("thread_terminating")
+                ws.close()
+                print("thread_terminating")
 
     _thread.start_new_thread(run, ())
 

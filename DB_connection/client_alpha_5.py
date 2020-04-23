@@ -15,16 +15,47 @@ KOMAX_ID = 'AAAAA'
 KOMAX_NUMBER = 5
 
 # db_connection = conn.Position(DB_PATH)
-komax_wb = load_workbook('1821.xlsx')
+"""
+komax_wb = load_workbook('New_excel.xlsx')
 ws = komax_wb.active
 komax_df = pd.DataFrame(ws.values)
 komax_df.columns = komax_df.loc[0, :]
 komax_df = komax_df.iloc[2:, 2:24]
 komax_df.index = pd.Index(range(komax_df.shape[0]))
 komax_df = komax_df[komax_df['komax'] == str(KOMAX_NUMBER)]
+"""
 
-print(komax_df[:5])
+
+#print(komax_df.columns)
+
+
+def to_normal_int(number):
+    type_number = type(number)
+    if type_number is np.int64 or type_number is np.int32 or type_number is np.int16 or type_number is np.int8 or type_number is np.int_:
+        return int(number)
+
+def to_normal(value):
+    type_value = type(value)
+    if type_value is str or type_value is int or type_value is float or type_value is bool:
+        return value
+    elif type_value is np.bool_:
+        return bool(value)
+    else:
+        return to_normal_int(value)
+
+#print(sum(komax_df.loc[148:, :][komax_df['harness'] == '43118-3724544-45']['time']))
+
+# d = {key: [to_normal_int(value)] for key, value in d.items()}
+
+#print(komax_df[komax_df.isin(d).all(), :])
+
+#komax_df[[komax_df[] == d[key]] and ]
+# komax_df = None
+
+komax_df = pd.read_excel('komax_df_{}.xlsx'.format(KOMAX_NUMBER))
+
 def on_message(ws, message):
+    global komax_df
 
     """
     if 'status' in message and message['status'] == 2:
@@ -53,24 +84,53 @@ def on_message(ws, message):
         ws.send(json.dumps(data_to_send))
         # ws.send('hello')
 
+    elif received_data['status'] == 2 and 'task' in received_data:
+        komax_df = pd.DataFrame(received_data['task'])
+        komax_df.index = pd.Index(komax_df['id'])
+        # save komax_df to excel
+        komax_df.to_excel('komax_df_{}.xlsx'.format(KOMAX_NUMBER))
+        print(komax_df)
+
 
 def on_error(ws, error):
     print(error)
 
 def on_close(ws):
-    print("Closed")
+    print('closed')
 
 def on_open(ws):
     def run(*args):
-        while True:
+        global komax_df
+        idx_to_send = 0
+        while idx_to_send < komax_df.shape[0]:
+            """
+            if komax_df is None:
+                try:
+                    komax_df = pd.read_excel('komax_df_{}.xlsx'.format(KOMAX_NUMBER))
+                except:
+                    pass
+            """
             status = 1
+            if komax_df is not None:
+                to_send = komax_df.iloc[idx_to_send, :].to_dict()
+                for key, value in to_send.items():
+                    to_send[key] = to_normal(value)
+            else:
+                to_send = 1
+
             data_to_send = {
                 'status': status,
                 'komax_number': KOMAX_NUMBER,
+                'position': to_send,
             }
+            print(data_to_send)
             json_data = json.dumps(data_to_send)
             ws.send(json_data)
-            time.sleep(5)
+            time.sleep(0.05)
+            idx_to_send += 1
+        else:
+            while True:
+                time.sleep(5)
 
 
         ws.close()

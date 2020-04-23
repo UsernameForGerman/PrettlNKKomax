@@ -1,0 +1,32 @@
+{% extends 'komax_app/komax_app_main.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}
+    <title>{% trans 'Laboriousness' %}</title>
+{% endblock %}
+
+{% block header_body %}
+    <h2 class="text-center">{% trans 'Laboriousness' %}</h2>
+{% endblock %}
+
+{% block main_content %}
+    <table class="table table-stripped">
+    <thred>
+        <tr>
+            <th class='text-center' scope="col">#</th>
+            <th class='text-center' scope="col">{% trans 'Action' %}</th>
+            <th class='text-center' scope="col">{% trans 'Time' %} ({% trans 'sec' %})</th>
+        </tr>
+    </thred>
+    <tbody>
+        {% for action in actions %}
+            <tr>
+                <th class='text-center' scope="row">{{ forloop.counter }}</th>
+                <td class="text-center">{{ action.action }}</td>
+                <td class="text-center">{{ action.time }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}

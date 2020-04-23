@@ -1,5 +1,5 @@
-{% extends 'komax_app/komax_app_main.html' %}
-{% load staticfiles %}
+{% extends 'komax_app/dashboard_main.html' %}
+{% load static %}
 {% load i18n %}
 
 {% block title %}
@@ -10,7 +10,7 @@
     <h2 class="text-center">{% trans 'Laboriousness' %}</h2>
 {% endblock %}
 
-{% block main_content %}
+{% block main %}
     <table class="table table-stripped">
     <thred>
         <tr>

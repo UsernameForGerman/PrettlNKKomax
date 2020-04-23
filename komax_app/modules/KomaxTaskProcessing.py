@@ -1,5 +1,5 @@
 from komax_app.models import Harness, HarnessChart, HarnessAmount, KomaxTime, KomaxTask, Komax, TaskPersonal,\
-    Laboriousness, KomaxTerminal, Kappa, KomaxOrder, KomaxTaskPersonal
+    Laboriousness, KomaxTerminal, Kappa, KomaxOrder
 import pandas as pd
 from django_pandas.io import read_frame
 from .HarnessChartProcessing import ProcessDataframe, get_time_from
@@ -134,10 +134,6 @@ class KomaxTaskProcessing():
         komax_task_query = get_komax_task(komax_task_name)
         if len(komax_task_query):
             komax_task_obj = komax_task_query[0]
-            task_pers_loaded_objs = TaskPersonal.objects.filter(loaded=True)
-            for task_pers_loaded_obj in task_pers_loaded_objs:
-                task_pers_loaded_obj.loaded = False
-            TaskPersonal.objects.bulk_update(task_pers_loaded_objs, ['loaded'])
             task_pers_objs = TaskPersonal.objects.filter(komax_task=komax_task_obj)
             for task_pers_obj in task_pers_objs:
                 task_pers_obj.loaded = True
@@ -399,24 +395,24 @@ class KomaxTaskProcessing():
             harness=harness_obj,
             komax=komax_obj,
             kappa=kappa_obj,
-            amount=row_dict["amount"],
-            notes=row_dict["notes"],
-            marking=row_dict["marking"],
-            wire_type=row_dict["wire_type"],
-            wire_number=row_dict["wire_number"],
+            amount=int(row_dict["amount"]),
+            notes=str(row_dict["notes"]),
+            marking=str(row_dict["marking"]),
+            wire_type=str(row_dict["wire_type"]),
+            wire_number=str(row_dict["wire_number"]),
             wire_square=float(row_dict["wire_square"]),
-            wire_color=row_dict["wire_color"],
+            wire_color=str(row_dict["wire_color"]),
             wire_length=int(row_dict["wire_length"]),
-            tube_len_1=row_dict['tube_len_1'],
-            wire_seal_1=row_dict["wire_seal_1"],
+            tube_len_1=str(row_dict["tube_len_1"]),
+            wire_seal_1=str(row_dict["wire_seal_1"]),
             wire_cut_length_1=float(row_dict["wire_cut_length_1"]),
-            wire_terminal_1=row_dict["wire_terminal_1"],
-            aplicator_1=row_dict["aplicator_1"],
-            tube_len_2=row_dict['tube_len_2'],
-            wire_seal_2=row_dict["wire_seal_2"],
+            wire_terminal_1=str(row_dict["wire_terminal_1"]),
+            aplicator_1=str(row_dict["aplicator_1"]),
+            tube_len_2=str(row_dict["tube_len_2"]),
+            wire_seal_2=str(row_dict["wire_seal_2"]),
             wire_cut_length_2=float(row_dict["wire_cut_length_2"]),
-            wire_terminal_2=row_dict["wire_terminal_2"],
-            aplicator_2=row_dict["aplicator_2"],
+            wire_terminal_2=str(row_dict["wire_terminal_2"]),
+            aplicator_2=str(row_dict["aplicator_2"]),
             # time=row_dict['time']
         )
         task_pers_obj.save()
@@ -500,7 +496,8 @@ class KomaxTaskProcessing():
 
             task_pers.komax = komaxes[komax_number] if komax_number is not None else None
             task_pers.kappa = kappas[kappa_number] if kappa_number is not None else None
-        TaskPersonal.objects.bulk_update(task_pers_objs, ['komax', 'kappa'])
+            task_pers.time = dataframe_position['time'].iloc[0]
+        TaskPersonal.objects.bulk_update(task_pers_objs, ['komax', 'kappa', 'time'])
 
     #TODO: if harness obj not excisted, but it is in df, return smthg
     def __create_task_personal_from_dataframe(self, dataframe, komax_task_obj, harnesses_number=None):
@@ -524,24 +521,24 @@ class KomaxTaskProcessing():
                     harness=harnesses[row_dict['harness']],
                     komax=None,
                     kappa=None,
-                    amount=row_dict["amount"],
-                    notes=row_dict["notes"],
-                    marking=row_dict["marking"],
-                    wire_type=row_dict["wire_type"],
-                    wire_number=row_dict["wire_number"],
+                    amount=int(row_dict["amount"]),
+                    notes=str(row_dict["notes"]),
+                    marking=str(row_dict["marking"]),
+                    wire_type=str(row_dict["wire_type"]),
+                    wire_number=str(row_dict["wire_number"]),
                     wire_square=float(row_dict["wire_square"]),
-                    wire_color=row_dict["wire_color"],
+                    wire_color=str(row_dict["wire_color"]),
                     wire_length=int(row_dict["wire_length"]),
-                    tube_len_1=float(row_dict["tube_len_1"]),
-                    wire_seal_1=row_dict["wire_seal_1"],
+                    tube_len_1=str(row_dict["tube_len_1"]),
+                    wire_seal_1=str(row_dict["wire_seal_1"]),
                     wire_cut_length_1=float(row_dict["wire_cut_length_1"]),
-                    wire_terminal_1=row_dict["wire_terminal_1"],
-                    aplicator_1=row_dict["aplicator_1"],
-                    tube_len_2=float(row_dict["tube_len_2"]),
-                    wire_seal_2=row_dict["wire_seal_2"],
+                    wire_terminal_1=str(row_dict["wire_terminal_1"]),
+                    aplicator_1=str(row_dict["aplicator_1"]),
+                    tube_len_2=str(row_dict["tube_len_2"]),
+                    wire_seal_2=str(row_dict["wire_seal_2"]),
                     wire_cut_length_2=float(row_dict["wire_cut_length_2"]),
-                    wire_terminal_2=row_dict["wire_terminal_2"],
-                    aplicator_2=row_dict["aplicator_2"],
+                    wire_terminal_2=str(row_dict["wire_terminal_2"]),
+                    aplicator_2=str(row_dict["aplicator_2"]),
                     # time=row_dict['time']
                 )
             )
@@ -553,14 +550,15 @@ class KomaxTaskProcessing():
         return
 
     def create_task_personal_from_dataframe_dict(self, dataframe_dict):
-        dataframe = pd.DataFrame.from_dict(dataframe_dict)
-        dataframe.index = pd.Index(range(dataframe.shape[0]))
-        komax_number = dataframe.loc[0, 'komax']
-        harnesses_number = dataframe['harness'].unique()
-        komax = Komax.objects.filter(number=komax_number)[0]
-        komax_order = KomaxOrder.objects.filter(komax=komax)[0]
-        komax_task_obj = komax_order.komax_task
-        self.__create_task_personal_from_dataframe(dataframe, komax_task_obj, harnesses_number)
+        if len(dataframe_dict):
+            dataframe = pd.DataFrame.from_dict(dataframe_dict)
+            dataframe.index = pd.Index(range(dataframe.shape[0]))
+            komax_number = dataframe.loc[0, 'komax']
+            harnesses_number = dataframe['harness'].unique()
+            komax = Komax.objects.filter(number=komax_number)[0]
+            komax_order = KomaxOrder.objects.filter(komax=komax)[0]
+            komax_task_obj = komax_order.komax_task
+            self.__create_task_personal_from_dataframe(dataframe, komax_task_obj, harnesses_number)
 
     # TODO: add comparison with base allocation
     def create_allocation(self, task_name):

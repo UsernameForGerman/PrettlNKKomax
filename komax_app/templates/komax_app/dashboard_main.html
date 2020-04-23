@@ -1,0 +1,229 @@
+{% extends 'main_new.html' %}
+{% load static %}
+{% load i18n %}
+{% block head %}
+
+    {% block title %}
+    {% endblock %}
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'komax_app/dashboard.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">PRETTL-NK</a>
+        <input class="form-control form-control-dark w-100" disabled type="text" placeholder="Search" aria-label="Search">
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="{% url 'logout' %}">{% trans 'Sign out' %}</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-divider">
+                            <p>Main</p>
+                        </li>
+
+                        <li class="nav-item">
+                            {% if request.resolver_match.view_name == 'komax_app:user_account' %}
+                                <a class="nav-link active" href="{% url 'komax_app:user_account' %}">
+                                    <span data-feather="home"></span>
+                                    {% trans 'Home' %}
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            {% else %}
+                                <a class="nav-link" href="{% url 'komax_app:user_account' %}">
+                                    <span data-feather="home"></span>
+                                    {% trans 'Home' %}
+                                </a>
+                            {% endif %}
+                        </li>
+                        {% if user.groups.all.0.name == 'Master' %}
+                        <li class="nav-item">
+                            {% if request.resolver_match.view_name == 'komax_app:tasks_view' %}
+                                <a class="nav-link active" href="{% url 'komax_app:tasks_view' %}">
+                                    <span data-feather="briefcase"></span>
+                                    {% trans 'Tasks' %}
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            {% else %}
+                                <a class="nav-link" href="{% url 'komax_app:tasks_view' %}">
+                                    <span data-feather="briefcase"></span>
+                                    {% trans 'Tasks' %}
+                                </a>
+                            {% endif %}
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            {% if request.resolver_match.view_name == 'komax_app:harnesses' %}
+                                <a class="nav-link active" href="{% url 'komax_app:harnesses' %}">
+                                    <span data-feather="folder"></span>
+                                    {% trans 'Harnesses' %}
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            {% else %}
+                                <a class="nav-link" href="{% url 'komax_app:harnesses' %}">
+                                    <span data-feather="folder"></span>
+                                    {% trans 'Harnesses' %}
+                                </a>
+                            {% endif %}
+                        </li>
+                        <li class="nav-item">
+                            {% if request.resolver_match.view_name == 'komax_app:komax_terminals_list' %}
+                                <a class="nav-link active" href="{% url 'komax_app:komax_terminals_list' %}">
+                                    <span data-feather="git-commit"></span>
+                                    {% trans 'Komax terminals' %}
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            {% else %}
+                                <a class="nav-link" href="{% url 'komax_app:komax_terminals_list' %}">
+                                    <span data-feather="git-commit"></span>
+                                    {% trans 'Komax terminals' %}
+                                </a>
+                            {% endif %}
+                        </li>
+                        <li class="nav-item">
+                            {% if request.resolver_match.view_name == 'komax_app:laboriousness' %}
+                                <a class="nav-link active" href="{% url 'komax_app:laboriousness' %}">
+                                    <span data-feather="clock"></span>
+                                    {% trans 'Laboriousness' %}
+                                </a>
+                            {% else %}
+                                <a class="nav-link" href="{% url 'komax_app:laboriousness' %}">
+                                    <span data-feather="clock"></span>
+                                    {% trans 'Laboriousness' %}
+                                </a>
+                            {% endif %}
+                        </li>
+                        {% if user.groups.all.0.name == 'Master' %}
+                        <li class="nav-item">
+                            {% if request.resolver_match.view_name == 'komax_app:komaxes' %}
+                                <a class="nav-link active" href="{% url 'komax_app:komaxes' %}">
+                                    <span data-feather="settings"></span>
+                                    {% trans 'Komaxes' %}
+                                </a>
+                            {% else %}
+                                <a class="nav-link" href="{% url 'komax_app:komaxes' %}">
+                                    <span data-feather="settings"></span>
+                                    {% trans 'Komaxes' %}
+                                </a>
+                            {% endif %}
+                        </li>
+                        {% endif %}
+
+                        <!-- Disabled -->
+                        <!--
+                        <li class="nav-item">
+                            <a class="nav-link" disabled href="#">
+                                <span data-feather="bar-chart-2"></span>
+                                Reports
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" disabled href="#">
+                                <span data-feather="layers"></span>
+                                Integrations
+                            </a>
+                        </li>
+
+                        -->
+
+                    </ul>
+
+                    <!--
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Saved reports</span>
+                        <a class="d-flex align-items-center text-muted" href="#">
+                            <span data-feather="plus-circle"></span>
+                        </a>
+                    </h6>
+
+                    <ul class="nav flex-column mb-2">
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">
+                          <span data-feather="file-text"></span>
+                          Current month
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">
+                          <span data-feather="file-text"></span>
+                          Last quarter
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">
+                          <span data-feather="file-text"></span>
+                          Social engagement
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">
+                          <span data-feather="file-text"></span>
+                          Year-end sale
+                        </a>
+                      </li>
+                    </ul>
+                    -->
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                {% block main %}
+                {% endblock %}
+
+
+
+
+            </main>
+        </div>
+    </div>
+
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+
+
+    <!-- Graphs -->
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script>
+      var ctx = document.getElementById("myChart");
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          datasets: [{
+            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+            lineTension: 0,
+            backgroundColor: 'transparent',
+            borderColor: '#007bff',
+            borderWidth: 4,
+            pointBackgroundColor: '#007bff'
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: false
+              }
+            }]
+          },
+          legend: {
+            display: false,
+          }
+        }
+      });
+    </script>
+    -->
+{% endblock %}

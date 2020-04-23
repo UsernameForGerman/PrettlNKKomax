@@ -1,4 +1,4 @@
-{% extends 'komax_app/komax_app_main.html' %}
+{% extends 'komax_app/dashboard_main.html' %}
 {% load static %}
 {% load i18n %}
 
@@ -6,7 +6,7 @@
 <title>{{ harness_number }}</title>
 {% endblock %}
 
-{% block main_content %}
+{% block main %}
     <link rel="stylesheet" type="text/css" href="{% static 'komax_app/chart_view.css' %}">
     <div class="container-fluid">
         <h2 class="text-center">{% blocktrans %}Harness chart of {{ harness_number }}{% endblocktrans %}</h2>

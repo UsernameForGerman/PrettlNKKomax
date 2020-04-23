@@ -1,4 +1,3 @@
-
 import openpyxl
 import pandas as pd
 import datetime
@@ -329,5 +328,3 @@ class OutProcess:
         self.worksheet.page_setup.scale = 160
 
         return self.workbook
-
-
