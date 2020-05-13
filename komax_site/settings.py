@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import dj_database_url
 # import dotenv
-import django_heroku
+# import django_heroku
 import redis
 from django.utils.translation import gettext_lazy as _
 import urllib.parse
@@ -30,7 +30,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', None)
+SECRET_KEY = "l2gugz_=3y)eq5jz2&+qu*f%5t_i=kgx0dcn=1v&8^1*2%mkw5"
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
@@ -146,6 +146,7 @@ db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 """
 
+"""
 DATABASES = {
     'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -154,6 +155,17 @@ DATABASES = {
             'PASSWORD': os.environ.get('DB_PASSWORD'),
             'HOST': os.environ.get('DB_HOST'),
             'PORT': os.environ.get('DB_PORT'),
+        }
+}
+"""
+DATABASES = {
+    'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'komaxdb',
+            'USER': 'server',
+            'PASSWORD': "zMv-a5QZ7+Jm5!*@",
+            'HOST': "127.0.0.1",
+            'PORT': 5432,
         }
 }
 
@@ -215,7 +227,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'main_app/static/'),
     os.path.join(BASE_DIR, 'komax_app/static/'),
-    os.path.join(BASE_DIR, 'static/'),
+    # os.path.join(BASE_DIR, 'static/'),
     # os.path.join(BASE_DIR, 'description/static'),
 ]
 
@@ -233,14 +245,14 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+            "hosts": [('127.0.0.1', '6379')],
         },
     },
 }
 
-IS_CI = os.environ.get('IS_CI', False)
-if not IS_CI:
-    django_heroku.settings(locals())
+# IS_CI = os.environ.get('IS_CI', False)
+# if not IS_CI:
+#     django_heroku.settings(locals())
 
 # Email send
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -252,7 +264,7 @@ EMAIL_USE_SSL = True
 SITE_URL = 'komaxsite.herokuapp.com'
 
 
-if INPROD:
+if False:
     # Prod settings related REDIS and CELERY
 
     r = redis.from_url(os.environ.get("REDIS_URL"))

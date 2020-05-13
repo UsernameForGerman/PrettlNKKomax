@@ -226,6 +226,7 @@
         wsStart = 'ws://'
     }
     var endPoint = wsStart + loc.host + loc.pathname;
+    console.log(endPoint);
     var socket = new WebSocket(endPoint);
 
 

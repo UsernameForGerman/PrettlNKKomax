@@ -29,9 +29,9 @@ urlpatterns = [
 
     # harnesses
     path('harnesses/', views.HarnessesListView.as_view(), name='harnesses'),
-    path('harnesses/<harness_number>', views.harness_chart_view, name='harness_chart'),
-    path('harnesses/<harness_number>/delete/', views.harness_delete, name='delete_harness'),
-    path('harnesses/<harness_number>/download/', views.get_harness_chart_view, name='download_harness'),
+    path('harnesses/<str:harness_number>', views.harness_chart_view, name='harness_chart'),
+    path('harnesses/<str:harness_number>/delete/', views.harness_delete, name='delete_harness'),
+    path('harnesses/<str:harness_number>/download/', views.get_harness_chart_view, name='download_harness'),
 
     # others
     # re_path(r'^harnesses/upload/$', views.upload_temp_chart, name='temp_chart_upload'),
