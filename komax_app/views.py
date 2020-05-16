@@ -1,13 +1,14 @@
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask, HarnessAmount, TaskPersonal, \
     Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker
-from .forms import KomaxEditForm
+from .forms import KomaxEditForm, LaboriousnessForm
 from .modules.ioputter import FileReader
 from django_pandas.io import read_frame
 import pandas as pd
 from .modules.HarnessChartProcessing import ProcessDataframe, get_komaxes_from, get_time_from, get_amount_from
 from .modules.KomaxTaskProcessing import get_task_personal, get_komax_task, KomaxTaskProcessing, get_task_to_load, delete_komax_order
 
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 import openpyxl as xl
 from openpyxl.utils.dataframe import dataframe_to_rows
 from django.db.models import Sum
@@ -431,7 +432,19 @@ class LaboriousnessListView(LoginRequiredMixin, View):
         :param args:
         :param kwargs:
         :return:
-        """
+       """
+
+class LaboriousnessEditView(UpdateView, LoginRequiredMixin):
+    model = Laboriousness
+    fields = ['action', 'time']
+    template_name = 'komax_app/laboriousness_create_form.html'
+
+
+
+class LaboriousnessCreateView(LoginRequiredMixin, CreateView):
+    model = Laboriousness
+    fields = ['action', 'time']
+    template_name = 'komax_app/laboriousness_create_form.html'
 
 @method_decorator(user_passes_test(must_be_master), name='dispatch')
 class KomaxTaskSetupView(LoginRequiredMixin, View):
