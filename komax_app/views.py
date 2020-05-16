@@ -147,7 +147,8 @@ class WorkerAccountView(LoginRequiredMixin, View):
 
                 return render(request, self.template_name, context=context)
             else:
-                ordered_komax_tasks = KomaxTask.objects.filter(komaxes__komax__number__exact=komax_num).exclude(status=1).order_by('-created')  #Задания Komax у которых статус не ordered
+                ordered_komax_tasks = KomaxTask.objects.filter(komaxes__komax__number__exact=komax_num)\
+                    .exclude(status=1).order_by('-created')                     #Задания Komax у которых статус не ordered
                 komax_tasks_dict = dict()
                 for komax_task in ordered_komax_tasks:
                     komax_tasks_dict[komax_task] = komax_task.komaxes.filter(komax__number__exact=komax_num).first()
