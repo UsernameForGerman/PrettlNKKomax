@@ -55,11 +55,11 @@ class KomaxTaskProcessing():
         return KomaxTerminal.objects.all()
 
     def load_task_personal(self, komax_task_name):
-        komax_task_query = self.get_komax_task(komax_task_name)
-        task_personal_loaded_query = TaskPersonal.objects.filter(loaded=True)
-        if len(komax_task_query):
+        komax_task_query = self.get_komax_task(komax_task_name) #Все задания с заданым именем
+        task_personal_loaded_query = TaskPersonal.objects.filter(loaded=True) #Все TaskPersonal с loaded=true
+        if len(komax_task_query):#если есть задание с нужным именем
             for task_personal in task_personal_loaded_query:
-                task_personal.loaded = False
+                task_personal.loaded = False#Все TaskPersonal с loaded=true становятся False
             TaskPersonal.objects.bulk_update(task_personal_loaded_query, ['loaded'])
         if len(komax_task_query):
             komax_task_obj = komax_task_query[0]
