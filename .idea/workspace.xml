@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/laboriousness_create_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/Laboriousness_delete.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/laboriousness_confirm_delete.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/laboriousness.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/laboriousness.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/views.py" afterDir="false" />
     </list>
@@ -240,6 +238,8 @@
       <workItem from="1589623297844" duration="4420000" />
       <workItem from="1589633484735" duration="213000" />
       <workItem from="1589643072551" duration="6723000" />
+      <workItem from="1589652282112" duration="2520000" />
+      <workItem from="1589717784493" duration="1473000" />
     </task>
     <servers />
   </component>
@@ -270,6 +270,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="588" y="214" width="800" height="729" key="#Intentions/67.27.1853.1053@67.27.1853.1053" timestamp="1583078854756" />
+    <state x="993" y="323" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1589718154572">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="993" y="323" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1040/-1440.0.1440.860@0.0.2560.1040" timestamp="1589718154572" />
     <state x="1109" y="410" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog" timestamp="1589649115291">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>

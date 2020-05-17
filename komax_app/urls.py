@@ -39,6 +39,7 @@ urlpatterns = [
 
 
     # re_path(r'^komaxes/edit/(?P<pk>\d+)/$', views.KomaxEditView.as_view(), name='komaxes_edit'),
+    path('laboriousness/edit/<int:pk>/delete/', views.LaboriousnessDeleteView.as_view(), name='laboriousness-delete'),
     path('laboriousness/create/', views.LaboriousnessCreateView.as_view(), name='laboriousness-create'),
     path('laboriousness/edit/<int:pk>', views.LaboriousnessEditView.as_view(), name='laboriousness-edit'),
     path('laboriousness/', views.LaboriousnessListView.as_view(), name='laboriousness'),

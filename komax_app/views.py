@@ -110,7 +110,7 @@ def send_task_to_worker(request, task_name, *args, **kwargs):                   
     task_obj.status = 2                                                         #Меняет статус задания на "ordered"
     task_obj.save(update_fields=['status'])                                     #Сохраняет эти изменения
 
-    return redirect('komax_app:tasks_view')                                     #Перенаправляет на страницу task_view.html
+    return redirect('komax_app:task_view')                                    #Перенаправляет на страницу task_view.html
 
 @login_required
 @permission_required('komax_app.delete_komaxtask')
@@ -118,7 +118,7 @@ def delete_task(request, task_name, *args, **kwargs):                           
     task_obj = get_object_or_404(KomaxTask, task_name=task_name)
     task_obj.delete()
 
-    return redirect('komax_app:tasks_view')
+    return redirect('komax_app:task_view')
 
 @login_required
 @permission_required('komax_app.change_taskpersonal')
@@ -188,7 +188,7 @@ class WorkerAccountView(LoginRequiredMixin, View):
         # redirect to GET user private acc
         return redirect('komax_app:user_account')
 
-@method_decorator(user_passes_test(must_be_master), name='dispatch')
+#@method_decorator(user_passes_test(must_be_master), name='dispatch')
 class TasksView(LoginRequiredMixin, View):
     template_name = 'komax_app/tasks.html'
 
@@ -437,8 +437,11 @@ class LaboriousnessListView(LoginRequiredMixin, View):
 class LaboriousnessEditView(UpdateView, LoginRequiredMixin):
     model = Laboriousness
     fields = ['action', 'time']
-    template_name = 'komax_app/laboriousness_create_form.html'
+    template_name = 'komax_app/laboriousness_delete.html'
 
+class LaboriousnessDeleteView(LoginRequiredMixin,DeleteView):
+    model = Laboriousness
+    success_url = '/laboriousness/'
 
 
 class LaboriousnessCreateView(LoginRequiredMixin, CreateView):
