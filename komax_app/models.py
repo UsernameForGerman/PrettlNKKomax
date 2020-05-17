@@ -286,7 +286,7 @@ class KomaxOrder(models.Model):
 
 class TaskPersonal(models.Model):
     komax_task = models.ForeignKey(KomaxTask, on_delete=models.CASCADE)
-    worker = models.ForeignKey(Worker, on_delete=models.CASCADE, null=True)
+    worker = models.ForeignKey(Worker, on_delete=models.CASCADE, null=True, related_name='task_personal')
     amount = models.PositiveSmallIntegerField()
     harness = models.ForeignKey(Harness, on_delete=models.CASCADE)
     komax = models.ForeignKey(Komax, on_delete=models.CASCADE, null=True)

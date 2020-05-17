@@ -129,11 +129,13 @@ def load_task_to_komax(request, task_name, *args, **kwargs):
     processor = KomaxTaskProcessing()
     processor.load_task_personal(task_name)
 
-    return redirect('komax_app:user_account')
+    return redirect('komax_app:task_view', task_name)
 
 class WorkerAccountView(LoginRequiredMixin, View):
     template_name = 'komax_app/user_account.html'
-
+    def komax_number(self, request):
+        komax_num = request.session.get('komax', None)
+        return  komax_num
     def get(self, request, *args, **kwargs):
         available_komaxes = Komax.objects.filter(status=1)                      # Все работающий komax
         worker = get_object_or_404(Worker, user=request.user)                   # Находим нужного работника
@@ -160,7 +162,6 @@ class WorkerAccountView(LoginRequiredMixin, View):
                     'komax_tasks': komax_tasks_dict,
                     'komax_num': komax_num,                                       #Номер выбранного комакса
                 }
-
                 return render(request, self.template_name, context=context)
 
         elif worker.user.groups.filter(name='Master').exists():
@@ -625,12 +626,12 @@ class KomaxClientView(View):
         return JsonResponse(params)
 
 
-@method_decorator(user_passes_test(must_be_master), name='dispatch')
+
 class KomaxTaskView(LoginRequiredMixin, View):
     model = KomaxTask
     template_name = 'komax_app/task_view.html'
-
     def get(self, request, task_name, *args, **kwargs):
+        worker = get_object_or_404(Worker, user=request.user)
         task = get_object_or_404(self.model, task_name=task_name)
         harnesses = task.harnesses.all()
         status = 'success'
@@ -650,17 +651,31 @@ class KomaxTaskView(LoginRequiredMixin, View):
                 exceeds_shift = True
             final_alloc[key] = seconds_to_str_hours(final_alloc[key])
 
+        if worker.user.groups.filter(name='Master').exists():
+            context = {
+                'task': task,
+                'harnesses': harnesses,
+                'alloc': final_alloc,
+                'harness_amount': 12 // len(harnesses),
+                'komaxes_amount': 12 // len(final_alloc),
+                'exceeds_shift': exceeds_shift,
+                'status': status,
+                'kappas': kappas,
+            }
+        else:
 
-        context = {
-            'task': task,
-            'harnesses': harnesses,
-            'alloc': final_alloc,
-            'harness_amount': 12 // len(harnesses),
-            'komaxes_amount': 12 // len(final_alloc),
-            'exceeds_shift': exceeds_shift,
-            'status': status,
-            'kappas': kappas,
-        }
+            final_alloc_op=dict()
+            final_alloc_op[int(WorkerAccountView().komax_number(request))]=final_alloc[int(WorkerAccountView().komax_number(request))]
+            context = {
+                'task': task,
+                'harnesses': harnesses,
+                'alloc': final_alloc_op,
+                'harness_amount': 12 // len(harnesses),
+                'komaxes_amount': 12 // len(final_alloc),
+                'exceeds_shift': exceeds_shift,
+                'status': status,
+                'kappas': kappas,
+            }
 
         return render(request, self.template_name, context=context)
 

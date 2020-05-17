@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/Laboriousness_delete.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/laboriousness_confirm_delete.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -240,6 +238,8 @@
       <workItem from="1589643072551" duration="6723000" />
       <workItem from="1589652282112" duration="2520000" />
       <workItem from="1589717784493" duration="1473000" />
+      <workItem from="1589719434271" duration="5668000" />
+      <workItem from="1589725565428" duration="57000" />
     </task>
     <servers />
   </component>
