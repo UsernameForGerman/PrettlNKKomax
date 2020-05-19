@@ -26,7 +26,7 @@
                 <th class='text-center' scope="row">{{ forloop.counter }}</th>
                 <td class="text-center">{{ action.action }}</td>
                 <td class="text-center">{{ action.time }}</td>
-                <th class='text-center' scope="row"><a class="btn btn-sm btn-outline-secondary" href="{% url 'komax_app:laboriousness-edit' pk=action.pk%}">Edit</a></th>
+                <th class='text-center' scope="row"><a class="btn btn-sm btn-outline-secondary" href="{% url 'komax_app:laboriousness-edit' action.action%}">Edit</a></th>
             </tr>
         {% endfor %}
     </tbody>

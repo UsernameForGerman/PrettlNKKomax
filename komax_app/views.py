@@ -133,9 +133,6 @@ def load_task_to_komax(request, task_name, *args, **kwargs):
 
 class WorkerAccountView(LoginRequiredMixin, View):
     template_name = 'komax_app/user_account.html'
-    def komax_number(self, request):
-        komax_num = request.session.get('komax', None)
-        return  komax_num
     def get(self, request, *args, **kwargs):
         available_komaxes = Komax.objects.filter(status=1)                      # Все работающий komax
         worker = get_object_or_404(Worker, user=request.user)                   # Находим нужного работника
@@ -189,7 +186,7 @@ class WorkerAccountView(LoginRequiredMixin, View):
         # redirect to GET user private acc
         return redirect('komax_app:user_account')
 
-#@method_decorator(user_passes_test(must_be_master), name='dispatch')
+@method_decorator(user_passes_test(must_be_master), name='dispatch')
 class TasksView(LoginRequiredMixin, View):
     template_name = 'komax_app/tasks.html'
 
@@ -434,16 +431,21 @@ class LaboriousnessListView(LoginRequiredMixin, View):
         :param kwargs:
         :return:
        """
-
 class LaboriousnessEditView(UpdateView, LoginRequiredMixin):
     model = Laboriousness
     fields = ['action', 'time']
     template_name = 'komax_app/laboriousness_delete.html'
 
+    def get_object(self, queryset=None):
+        obj = self.model.objects.get(action=self.kwargs['action'])
+        return obj
+
 class LaboriousnessDeleteView(LoginRequiredMixin,DeleteView):
     model = Laboriousness
     success_url = '/laboriousness/'
-
+    def get_object(self, queryset=None):
+        obj = self.model.objects.get(action=self.kwargs['action'])
+        return obj
 
 class LaboriousnessCreateView(LoginRequiredMixin, CreateView):
     model = Laboriousness
@@ -650,8 +652,8 @@ class KomaxTaskView(LoginRequiredMixin, View):
             if final_alloc[key] / 3600 > task.shift:
                 exceeds_shift = True
             final_alloc[key] = seconds_to_str_hours(final_alloc[key])
-
-        if worker.user.groups.filter(name='Master').exists():
+        komax_num = request.session.get('komax', None)
+        if komax_num == None:
             context = {
                 'task': task,
                 'harnesses': harnesses,
@@ -663,9 +665,9 @@ class KomaxTaskView(LoginRequiredMixin, View):
                 'kappas': kappas,
             }
         else:
-
+            komax_num = request.session.get('komax', None)
             final_alloc_op=dict()
-            final_alloc_op[int(WorkerAccountView().komax_number(request))]=final_alloc[int(WorkerAccountView().komax_number(request))]
+            final_alloc_op[int(komax_num)]=final_alloc[int(komax_num)]
             context = {
                 'task': task,
                 'harnesses': harnesses,

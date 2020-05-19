@@ -9,7 +9,7 @@
             {% csrf_token %}
                 {{ form }}
                 <button class="btn btn-outline-info" type="submit">Submit</button>
-            <a class="btn btn-outline-info" href="{% url 'komax_app:laboriousness-delete' object.id%}">Delete</a>
+            <a class="btn btn-outline-info" href="{% url 'komax_app:laboriousness-delete' object.action%}">Delete</a>
         </form>
 </body>
 </html>
