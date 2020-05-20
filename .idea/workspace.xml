@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/Laboriousness_delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/Laboriousness_delete.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/laboriousness.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/laboriousness.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -246,6 +243,7 @@
       <workItem from="1589905540559" duration="2771000" />
       <workItem from="1589908522598" duration="895000" />
       <workItem from="1589909625309" duration="867000" />
+      <workItem from="1590014006115" duration="285000" />
     </task>
     <servers />
   </component>
@@ -296,10 +294,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1587538864021" />
-    <state x="804" y="349" key="com.intellij.ide.util.TipDialog" timestamp="1589909646169">
+    <state x="804" y="349" key="com.intellij.ide.util.TipDialog" timestamp="1590014012886">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="804" y="349" key="com.intellij.ide.util.TipDialog/0.0.2560.1040/-1440.0.1440.860@0.0.2560.1040" timestamp="1589909646169" />
+    <state x="804" y="349" key="com.intellij.ide.util.TipDialog/0.0.2560.1040/-1440.0.1440.860@0.0.2560.1040" timestamp="1590014012886" />
     <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1586300079011" />
     <state x="814" y="227" width="929" height="670" key="search.everywhere.popup" timestamp="1589536715505">
       <screen x="0" y="0" width="2560" height="1040" />

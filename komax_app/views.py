@@ -665,7 +665,6 @@ class KomaxTaskView(LoginRequiredMixin, View):
                 'kappas': kappas,
             }
         else:
-            komax_num = request.session.get('komax', None)
             final_alloc_op=dict()
             final_alloc_op[int(komax_num)]=final_alloc[int(komax_num)]
             context = {
