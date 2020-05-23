@@ -3,12 +3,30 @@
   <component name="ChangeListManager">
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/modules/HarnessChartProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/modules/HarnessChartProcessing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/modules/KomaxCore.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/modules/KomaxCore.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/modules/KomaxTaskProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/modules/KomaxTaskProcessing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/templates/komax_app/user_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/user_account.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
@@ -46,7 +64,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.buildTools.grunt.grunt-cli.package" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="C:/sorting_byroom/Beta_Site_RPK_version_4.0" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -244,6 +262,11 @@
       <workItem from="1589908522598" duration="895000" />
       <workItem from="1589909625309" duration="867000" />
       <workItem from="1590014006115" duration="285000" />
+      <workItem from="1590046200022" duration="14737000" />
+      <workItem from="1590081081178" duration="13008000" />
+      <workItem from="1590137862207" duration="1417000" />
+      <workItem from="1590142264914" duration="7162000" />
+      <workItem from="1590232496926" duration="2069000" />
     </task>
     <servers />
   </component>
@@ -282,9 +305,10 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1109" y="410" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog/0.0.2560.1040/-1440.0.1440.860@0.0.2560.1040" timestamp="1589649115291" />
-    <state x="771" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1583936095745">
-      <screen x="67" y="27" width="1853" height="1053" />
+    <state x="973" y="280" width="424" height="484" key="FileChooserDialogImpl" timestamp="1590139146338">
+      <screen x="0" y="0" width="2560" height="1040" />
     </state>
+    <state x="973" y="280" key="FileChooserDialogImpl/0.0.2560.1040/-1440.0.1440.860@0.0.2560.1040" timestamp="1590139146338" />
     <state x="771" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1583936095745" />
     <state x="576" y="289" width="824" height="526" key="IDE.errors.dialog" timestamp="1586005966011">
       <screen x="67" y="27" width="1853" height="1053" />
@@ -294,10 +318,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1587538864021" />
-    <state x="804" y="349" key="com.intellij.ide.util.TipDialog" timestamp="1590014012886">
+    <state x="804" y="349" key="com.intellij.ide.util.TipDialog" timestamp="1590232585180">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="804" y="349" key="com.intellij.ide.util.TipDialog/0.0.2560.1040/-1440.0.1440.860@0.0.2560.1040" timestamp="1590014012886" />
+    <state x="804" y="349" key="com.intellij.ide.util.TipDialog/0.0.2560.1040/-1440.0.1440.860@0.0.2560.1040" timestamp="1590232585180" />
     <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1586300079011" />
     <state x="814" y="227" width="929" height="670" key="search.everywhere.popup" timestamp="1589536715505">
       <screen x="0" y="0" width="2560" height="1040" />
