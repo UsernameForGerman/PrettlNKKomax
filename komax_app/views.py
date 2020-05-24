@@ -27,6 +27,13 @@ from django.utils import translation
 from .modules.KomaxCore import create_update_komax_status, get_komax_order, save_komax_task_personal, delete_komax_status
 from django.views.decorators.csrf import ensure_csrf_cookie
 
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
+
+from .models import Komax
+from .serializers import *
+
 browser_useragents = ["ABrowse", "Acoo Browser", "America Online Browser", "AmigaVoyager", "AOL", "Arora",
                       "Avant Browser", "Beonex", "BonEcho", "Browzar", "Camino", "Charon", "Cheshire",
                       "Chimera", "Chrome", "ChromePlus", "Classilla", "CometBird", "Comodo_Dragon", "Conkeror",
@@ -1456,3 +1463,43 @@ class LabourisnessView(generic.ListView):
     template_name = 'komax_app/laboriousness.html'
     context_object_name = 'actions'
 """
+
+def index(request):
+    return render(request, 'komax_app/index.html', context={"name" : "a"})
+
+
+@api_view(['GET', 'POST'])
+def komax_list(request):
+    if request.method == 'GET':
+        data = Komax.objects.all()
+
+        serializer = KomaxSerializer(data, context={'request': request}, many=True)
+
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = KomaxSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT', 'DELETE'])
+def komax_detail(request, pk):
+    try:
+        student = Komax.objects.get(pk=pk)
+    except Komax.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = KomaxSerializer(student, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        student.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

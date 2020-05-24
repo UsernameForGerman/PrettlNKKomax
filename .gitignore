@@ -7,6 +7,7 @@ local_settings.py
 db.sqlite3
 venv/
 .idea
+node_modules
 komaxsite/.idea
 .ipynb_checkpoints
 __pycache__

@@ -1,9 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/komax_app/.babelrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/public/robots.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/serializers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/App.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/DAL/api/api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/DAL/komax/komax-api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/DAL/models/komax.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/Global.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/assets/images/background1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/assets/images/komax.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/assets/images/logo-prettl.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/assets/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/assets/images/logo2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/assets/images/user_imgs/LogoMealDeal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Header/Header.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Header/Header.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Komaxes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Komaxes.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/KomaxesContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Modal/ModalForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Modal/ModalForm.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Table/Table.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Table/Table.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Table/TableItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/reducers/komaxReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/selectors/komaxSelector.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/serviceWorker.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/store.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/static/komax_app/5f81e66c9b09722b407e4a96bf53d570.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/static/komax_app/b42311c31c32bc1dabf69c3bb031a354.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/static/komax_app/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/static/komax_app/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/templates/komax_app/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/komax_site.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/komax_site.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_site/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_site/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/redis-stable/deps/jemalloc/doc/jemalloc.xml.in" beforeDir="false" afterPath="$PROJECT_DIR$/redis-stable/deps/jemalloc/doc/jemalloc.xml.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/admin/js/vendor/jquery/jquery.6fb03f669462.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin/js/vendor/jquery/jquery.6fb03f669462.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/admin/js/vendor/jquery/jquery.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin/js/vendor/jquery/jquery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.11c05eb286ed.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.11c05eb286ed.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.6fb03f669462.6fb03f669462.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.6fb03f669462.6fb03f669462.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.6fb03f669462.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.6fb03f669462.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,10 +90,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
+        <option value="HTML File" />
         <option value="CSS File" />
         <option value="Python Script" />
-        <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -43,10 +117,12 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.buildTools.grunt.grunt-cli.package" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/komax_app/src/DAL" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -57,23 +133,30 @@
     <property name="nodejs.jest.jest_package" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/komax_app/templates/komax_app" />
-      <recent name="$PROJECT_DIR$/templates" />
-      <recent name="$PROJECT_DIR$/komaxsite/komax_app" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app" />
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\media\js" />
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\comp\Header" />
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\templates\komax_app" />
       <recent name="C:\Prettl\PrettlNKKomax\komax_app\templates\komax_app" />
-      <recent name="$PROJECT_DIR$/DB_connection" />
-      <recent name="$PROJECT_DIR$/static/images/user_imgs" />
-      <recent name="$PROJECT_DIR$/temp_storage/user_imgs" />
-      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\DAL" />
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\templates\komax_app" />
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\assets" />
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app" />
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JavaScript Debug.index.html">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/PrettlNKKomax/komax_app/templates/komax_app/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="komax_site" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -140,6 +223,55 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="deploy" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/komax_app/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="deploy" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/komax_app/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="prod (1)" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/media/js/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="prod" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="prod" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/komax_app/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="prod" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.index.html" />
+        <item itemvalue="npm.prod" />
+        <item itemvalue="npm.dev" />
+        <item itemvalue="npm.deploy" />
+        <item itemvalue="npm.prod (1)" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -244,11 +376,19 @@
       <workItem from="1589908522598" duration="895000" />
       <workItem from="1589909625309" duration="867000" />
       <workItem from="1590014006115" duration="285000" />
+      <workItem from="1590070488981" duration="637000" />
+      <workItem from="1590072175103" duration="46000" />
+      <workItem from="1590072367874" duration="3033000" />
+      <workItem from="1590075490545" duration="36000" />
+      <workItem from="1590177778478" duration="5728000" />
+      <workItem from="1590214635921" duration="4069000" />
+      <workItem from="1590248235138" duration="11622000" />
+      <workItem from="1590336550665" duration="5010000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="requirements.txt" />
@@ -258,13 +398,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -274,10 +413,19 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="588" y="214" width="800" height="729" key="#Intentions/67.27.1853.1053@67.27.1853.1053" timestamp="1583078854756" />
-    <state x="993" y="323" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1589718154572">
-      <screen x="0" y="0" width="2560" height="1040" />
+    <state x="391" y="103" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590248304364">
+      <screen x="0" y="0" width="1600" height="860" />
     </state>
+    <state x="391" y="103" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.860@0.0.1600.860" timestamp="1590248304364" />
+    <state x="621" y="267" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1590075639747">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="621" y="267" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1600.860@0.0.1600.860" timestamp="1590075639747" />
     <state x="993" y="323" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1040/-1440.0.1440.860@0.0.2560.1040" timestamp="1589718154572" />
+    <state x="610" y="171" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1590089718238">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="610" y="171" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1600.860@0.0.1600.860" timestamp="1590089718238" />
     <state x="1109" y="410" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog" timestamp="1589649115291">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
@@ -286,6 +434,22 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="771" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1583936095745" />
+    <state width="1479" height="207" key="GridCell.Tab.0.bottom" timestamp="1590258113813">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1479" height="207" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1590258113813" />
+    <state width="1479" height="207" key="GridCell.Tab.0.center" timestamp="1590258113813">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1479" height="207" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1590258113813" />
+    <state width="1479" height="207" key="GridCell.Tab.0.left" timestamp="1590258113812">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1479" height="207" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1590258113812" />
+    <state width="1479" height="207" key="GridCell.Tab.0.right" timestamp="1590258113813">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1479" height="207" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1590258113813" />
     <state x="576" y="289" width="824" height="526" key="IDE.errors.dialog" timestamp="1586005966011">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
