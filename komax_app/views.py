@@ -117,7 +117,7 @@ def send_task_to_worker(request, task_name, *args, **kwargs):                   
     task_obj.status = 2                                                         #Меняет статус задания на "ordered"
     task_obj.save(update_fields=['status'])                                     #Сохраняет эти изменения
 
-    return redirect('komax_app:task_view')                                    #Перенаправляет на страницу task_view.html
+    return redirect('komax_app:tasks_view')                                    #Перенаправляет на страницу task_view.html
 
 @login_required
 @permission_required('komax_app.delete_komaxtask')
@@ -125,18 +125,26 @@ def delete_task(request, task_name, *args, **kwargs):                           
     task_obj = get_object_or_404(KomaxTask, task_name=task_name)
     task_obj.delete()
 
-    return redirect('komax_app:task_view')
+    return redirect('komax_app:tasks_view')
 
 @login_required
 @permission_required('komax_app.change_taskpersonal')
 def load_task_to_komax(request, task_name, *args, **kwargs):
-    TaskPersonal.objects.filter(loaded=True).update(loaded=False)               #Все TaskPersonal с loaded=True становятся False(номер komax)\выгружает
-                                                                                #signals(Проверить все taskpersonal где есть нужный таск нейм и лоадед равно фолс)
-    KomaxTask.objects.filter(task_name=task_name).update(status=3)              #Все KomaxTask с нужным именем становятся loaded(проверить подключены все ли комаксы)
+    komax_num = request.session.get('komax', None)
+
+    TaskPersonal.objects.filter(loaded=True, komax=Komax.objects.get(number__iexact=komax_num))\
+        .update(loaded=False)                                                                        #Все Task_Personal c True, становятся False
     processor = KomaxTaskProcessing()
-    processor.load_task_personal(task_name)
+    processor.load_task_personal(task_name, komax_num)
+    if not TaskPersonal.objects.filter(komax_task=KomaxTask.objects.get(task_name__iexact=task_name), loaded=False).count():
+        KomaxTask.objects.filter(task_name=task_name).update(status=3) #KomaxTask с именем task_name устанавливает статус loaded
 
     return redirect('komax_app:task_view', task_name)
+
+
+
+
+
 
 class WorkerAccountView(LoginRequiredMixin, View):
     template_name = 'komax_app/user_account.html'
@@ -155,22 +163,23 @@ class WorkerAccountView(LoginRequiredMixin, View):
                 return render(request, self.template_name, context=context)
             else:
                 ordered_komax_tasks = KomaxTask.objects.filter(komaxes__komax__number__exact=komax_num)\
-                    .exclude(status=1).order_by('-created')                     #Задания Komax у которых статус не ordered
+                    .exclude(status=1).order_by('-created')                                                 #Задания Komax у которых статус не ordered
                 komax_tasks_dict = dict()
                 for komax_task in ordered_komax_tasks:
                     komax_tasks_dict[komax_task] = komax_task.komaxes.filter(komax__number__exact=komax_num).first()
                     komax_tasks_dict[komax_task].time = seconds_to_str_hours(komax_tasks_dict[komax_task].time)
+                loaded = (TaskPersonal.objects.filter(komax_task=komax_task, komax=Komax.objects.get(number__iexact=komax_num), loaded=False).count() == 0)
 
                 context = {
                     'worker': worker,
                     'komax_tasks': komax_tasks_dict,
-                    'komax_num': komax_num,                                       #Номер выбранного комакса
+                    'komax_num': komax_num,
+                    'loaded':loaded,
                 }
                 return render(request, self.template_name, context=context)
 
         elif worker.user.groups.filter(name='Master').exists():
             komax_task_obj = KomaxTask.objects.filter(status=3).first()
-
             context = {
                 'komax_task': komax_task_obj,
                 'worker': worker,
@@ -594,15 +603,15 @@ class KomaxClientView(View):
 
     def post(self, request, *args, **kwargs):
         params = dict()
-        status = int(request.POST['status']) if 'status' in request.POST else None
+        status = int(request.POST['status']) if 'status' in request.POST else None #Статус сообщения комакса
         komax_number = request.session['komax-number']
         if komax_number is not None and status is not None:
             if status == 1:
                 position_info = request.POST['position'] if 'position' in request.POST else None
                 if position_info is not None:
-                    create_update_komax_status(komax_number, position_info)
+                    create_update_komax_status(komax_number, position_info) #KomaxStatus update
 
-                komax_order = get_komax_order(komax_number) if komax_number is not None else None
+                komax_order = get_komax_order(komax_number)
                 # self.async_create_update_komax_status(msg['komax_number'], msg['position'])
                 #self.async_get_komax_order(msg['komax_number'])
                 if komax_order is not None:
@@ -612,13 +621,14 @@ class KomaxClientView(View):
                             'text': komax_order.status,
                         }
                     elif komax_order.status == 'Received':
-                        new_komax_task_df = get_task_to_load(komax_number)
+                        new_komax_task_df = get_task_to_load(komax_number) #Получаем TaskPersonal с loaded = true  и номер равен выбранному комаксу
                         # self.async_get_new_komax_task_to_load(komax_number)
                         if new_komax_task_df is not None:
                             # self.async_set_komax_task_df()
                             params = {
                                 'status': 2,
-                                'task': new_komax_task_df.to_dict()
+                                'task': new_komax_task_df.to_dict(),
+                                'text': komax_order.status
                             }
             elif status == 2:
                 text = request.POST['text'] if 'text' in request.POST else None

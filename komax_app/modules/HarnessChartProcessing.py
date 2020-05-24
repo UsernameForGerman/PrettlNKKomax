@@ -607,6 +607,12 @@ class ProcessDataframe:
 
 
     def filter_availability_komax_terminal(self, terminals_df):
+        """
+        Удаляет все таски, которые невозможно сделать
+        :param terminals_df:
+        :return:
+        """
+
         for idx, row in self.chart.iterrows():
             armirovka_1 = self.chart.loc[idx, self.ARMIROVKA_1_COL]
             armirovka_2 = self.chart.loc[idx, self.ARMIROVKA_2_COL]

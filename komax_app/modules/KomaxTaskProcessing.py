@@ -130,17 +130,17 @@ class KomaxTaskProcessing():
 
         return (harnesses, komax_dict, kappas, shift, type_of_allocation)
 
-    def load_task_personal(self, komax_task_name):
-        komax_task_query = get_komax_task(komax_task_name)
+    def load_task_personal(self, komax_task_name, komax_num):
+        komax_task_query = get_komax_task(komax_task_name) #Все комаксы_таск с нужным именем
         if len(komax_task_query):
-            komax_task_obj = komax_task_query[0]
-            task_pers_objs = TaskPersonal.objects.filter(komax_task=komax_task_obj)
+            komax_task_obj = komax_task_query[0] #комакс_таск с нужным именем
+            task_pers_objs = TaskPersonal.objects\
+                .filter(komax_task=komax_task_obj, komax=Komax.objects.get(number__iexact=komax_num)) #таск персонал с нужным комакс таском
             for task_pers_obj in task_pers_objs:
-                task_pers_obj.loaded = True
+                task_pers_obj.loaded = True        #ТаскПерсонал ставится loaded=True
             TaskPersonal.objects.bulk_update(task_pers_objs, ['loaded'])
         else:
             return
-
     # TODO: increase speed of func
     def __create_harness_amount(self, harnesses, amount=-1):
         harness_amount_objs = list()
@@ -500,7 +500,7 @@ class KomaxTaskProcessing():
         TaskPersonal.objects.bulk_update(task_pers_objs, ['komax', 'kappa', 'time'])
 
     #TODO: if harness obj not excisted, but it is in df, return smthg
-    def __create_task_personal_from_dataframe(self, dataframe, komax_task_obj, harnesses_number=None):
+    def __create_task_personal_from_dataframe(self, dataframe, komax_task_obj, harnesses_number=None):#!!!Менять здесь!!!/ если есть создаем, если нет обновляем
         if harnesses_number is None:
             harnesses_numbers = dataframe['harness'].unique()
             harnesses = dict()
@@ -639,11 +639,10 @@ class KomaxTaskProcessing():
 
         return alloc
 
-    def change_komax_order_status(self, status, komax_number):
+    def delete_komax_order(self, komax_number):
         komax_obj = Komax.objects.filter(number=komax_number)[0]
         komax_order_obj = KomaxOrder.objects.filter(komax=komax_obj)[0]
-        komax_order_obj.status = status
-        komax_order_obj.save(update_fields=['status'])
+        komax_order_obj.delete()
 
 
 

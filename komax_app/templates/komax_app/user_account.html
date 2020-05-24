@@ -125,11 +125,11 @@
 
                             <p>Time: {{ komax_time.time }}</p>
 
-                            {% if komax_task.status == 2 %}
+                            {% if loaded == False %}
                                 <a class="btn btn-warning" href="{% url 'komax_app:load_komax_task' task_name=komax_task.task_name %}">
                                     {% trans 'Load task' %}
                                 </a>
-                            {% elif komax_task.status == 3 %}
+                            {% elif loaded == True %}
                                 <button class="btn btn-outline-info" disabled>
                                     {% trans 'Task loaded' %}
                                 </button>
