@@ -1,0 +1,67 @@
+body{
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    font-family: Arial;
+}
+
+.Komaxes{
+    min-height: 90vh;
+}
+
+.container{
+    height: 80vh;
+    width: 80vw;
+    padding: 5vh 0vh;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.komaxImg{
+    height: 10vh;
+}
+
+.succBtn{
+    color: #12cb10;
+    border: #12cb10 1px solid;
+    background-color: transparent;
+    font-size: 16px;
+    padding: 10px 10px;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.succBtn:hover{
+    color: #12e010;
+    border-color: #12e010;
+}
+
+.komaxesColumn{
+    background-color: white;
+    padding: 10px 10px;
+    margin-right: 5vw;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 97%;
+}
+
+.komaxItem{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.komaxItemId{
+
+}
+
+.table{
+    background-color: white;
+    border-radius: 5px;
+    height: 100%;
+}

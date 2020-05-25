@@ -36,7 +36,10 @@ urlpatterns = [
 
     # others
     # re_path(r'^harnesses/upload/$', views.upload_temp_chart, name='temp_chart_upload'),
+
+    path('api/', views.komax_list),
     path('komaxes/', views.EquipmentListView.as_view(), name='komaxes'),
+    path('komaxes_test/', views.index, name='index'),
 
 
     # re_path(r'^komaxes/edit/(?P<pk>\d+)/$', views.KomaxEditView.as_view(), name='komaxes_edit'),
