@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask, HarnessAmount, TaskPersonal, \
-    Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker
+    Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker, KomaxOrder
 from .forms import KomaxEditForm, LaboriousnessForm
 from .modules.ioputter import FileReader
 from django_pandas.io import read_frame
@@ -141,6 +141,21 @@ def load_task_to_komax(request, task_name, *args, **kwargs):
 
 class WorkerAccountView(LoginRequiredMixin, View):
     template_name = 'komax_app/user_account.html'
+
+
+
+    def __get_status(self, komax_task, komax_number):
+        if TaskPersonal.objects.filter(komax__number=komax_number, worker=None, komax_task=komax_task, loaded=False):
+            return 0# не загружено
+        elif TaskPersonal.objects.filter(komax__number=komax_number, worker=None, komax_task=komax_task, loaded=True):
+            return 1# загружено
+        else:
+            return 2# сделано
+
+
+
+
+
     def get(self, request, *args, **kwargs):
         available_komaxes = Komax.objects.filter(status=1)                      # Все работающий komax
         worker = get_object_or_404(Worker, user=request.user)                   # Находим нужного работника
@@ -156,18 +171,26 @@ class WorkerAccountView(LoginRequiredMixin, View):
                 return render(request, self.template_name, context=context)
             else:
                 ordered_komax_tasks = KomaxTask.objects.filter(komaxes__komax__number__exact=komax_num)\
-                    .exclude(status=1).order_by('-created')                                                 #Задания Komax у которых статус не ordered
+                    .exclude(status=1).order_by('-created')
+
                 komax_tasks_dict = dict()
+                status_tasks = dict()
+                #TODO оптимизировать запросы
                 for komax_task in ordered_komax_tasks:
-                    komax_tasks_dict[komax_task] = komax_task.komaxes.filter(komax__number__exact=komax_num).first()
-                    komax_tasks_dict[komax_task].time = seconds_to_str_hours(komax_tasks_dict[komax_task].time)
-                loaded = (TaskPersonal.objects.filter(komax_task=komax_task, komax=Komax.objects.get(number__iexact=komax_num), loaded=False).count() == 0)
+                    komax_tasks_dict[komax_task] = [
+                        komax_task.komaxes.filter(komax__number__exact=komax_num).first(),
+                        self.__get_status(komax_task, komax_num)
+                    ]
+                    komax_tasks_dict[komax_task][0].time = seconds_to_str_hours(komax_tasks_dict[komax_task][0].time)
+
+
+
+
 
                 context = {
                     'worker': worker,
                     'komax_tasks': komax_tasks_dict,
                     'komax_num': komax_num,
-                    'loaded':loaded,
                 }
                 return render(request, self.template_name, context=context)
 
@@ -583,7 +606,12 @@ def seconds_to_str_hours(seconds):
         hours += 1
 
     return str(hours) + ':' + str(mins)
-
+def stop_task(request, task_name,*args, **kwargs):
+    komax_task = KomaxTask.objects.get(task_name__iexact=task_name)
+    komax_num = Komax.objects.get(number__iexact=request.session.get('komax', None))
+    komax = Komax.objects.get(number__iexact=komax_num)
+    KomaxOrder.objects.create(komax_task=komax_task, komax=komax, status="Requested")
+    return redirect('komax_app:user_account')
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class KomaxClientView(View):
 
@@ -596,6 +624,7 @@ class KomaxClientView(View):
 
     def post(self, request, *args, **kwargs):
         params = dict()
+        worker = get_object_or_404(Worker, user=request.user)
         status = int(request.POST['status']) if 'status' in request.POST else None #Статус сообщения комакса
         komax_number = request.session['komax-number']
         if komax_number is not None and status is not None:
@@ -627,7 +656,7 @@ class KomaxClientView(View):
                 text = request.POST['text'] if 'text' in request.POST else None
                 task = request.POST['task'] if 'task' in request.POST else None
                 if text is not None and text == 'Requested' and task is not None:
-                    save_komax_task_personal(komax_number, task)
+                    save_komax_task_personal(komax_number, task, worker)
                     # self.async_save_komax_task_personal(komax_number, task)
             elif status == 3:
                 delete_komax_status(komax_number)

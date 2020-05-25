@@ -13,6 +13,7 @@ urlpatterns = [
     path('tasks/setup/', views.KomaxTaskSetupView.as_view(), name='task_setup'),
     path('tasks/<str:task_name>/', views.KomaxTaskView.as_view(), name='task_view'),
     path('tasks/<str:task_name>/delete/', views.delete_task, name='delete_task'),
+    path('tasks/<str:task_name>/stop', views.stop_task, name='stop_task'),
     path('tasks/<str:task_name>/get_task/', views.get_general_task_view, name='get_task'),
     path('tasks/<str:task_name>/get_tech_task/', views.get_general_tech_task_view, name='get_tech_task'),
     path('tasks/<str:task_name>/get_task_komax/<str:komax>/',

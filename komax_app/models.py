@@ -282,7 +282,7 @@ class KomaxOrder(models.Model):
 
 
     def __str__(self):
-        return self.komax_task.task_name + ' ' + self.status
+        return self.komax_task.task_name + ' '
 
 class TaskPersonal(models.Model):
     komax_task = models.ForeignKey(KomaxTask, on_delete=models.CASCADE)
