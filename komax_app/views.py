@@ -27,13 +27,6 @@ from django.utils import translation
 from .modules.KomaxCore import create_update_komax_status, get_komax_order, save_komax_task_personal, delete_komax_status
 from django.views.decorators.csrf import ensure_csrf_cookie
 
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import status
-
-from .models import Komax
-from .serializers import *
-
 browser_useragents = ["ABrowse", "Acoo Browser", "America Online Browser", "AmigaVoyager", "AOL", "Arora",
                       "Avant Browser", "Beonex", "BonEcho", "Browzar", "Camino", "Charon", "Cheshire",
                       "Chimera", "Chrome", "ChromePlus", "Classilla", "CometBird", "Comodo_Dragon", "Conkeror",
@@ -329,7 +322,7 @@ class HarnessesListView(LoginRequiredMixin, View):
             harness_dataframe=reader.get_dataframe(),
             harness_number=harness_number
         )
-        close_old_connections()
+        
 
         return redirect('komax_app:harnesses')
 
@@ -453,7 +446,7 @@ class LaboriousnessListView(LoginRequiredMixin, View):
         if len(laboriousness) == 0:
             fulfill_time()
 
-        close_old_connections()
+        
         context = {
             'actions': laboriousness,
         }
@@ -947,7 +940,7 @@ def harness_delete(request, harness_number):
     harness_to_delete = Harness.objects.filter(harness_number=harness_number)
     if len(harness_to_delete) > 0:
         harness_to_delete.delete()
-    close_old_connections()
+    
     return redirect('komax_app:harnesses')
 
 def fulfill_time():
@@ -978,10 +971,10 @@ def handle_json_get(request, harness_number):
         harness_obj = Harness.objects.filter(harness_number=harness_number)[0]
         data = read_frame(HarnessChart.objects.filter(harness=harness_obj)).to_dict()
         any(browser_useragent in request.META['HTTP_USER_AGENT'] for browser_useragent in browser_useragents)
-        close_old_connections()
+        
         return JsonResponse(data)
     else:
-        close_old_connections()
+        
         return redirect('komax_app:task_setup')
 
 def handle_temp_chart(temp_chart):
@@ -1067,7 +1060,7 @@ def harness_chart_view(request, harness_number):
         'harness_number': harness_number,
         'positions': obj
     }
-    close_old_connections()
+    
     return render(request, 'komax_app/chart_view.html', context)
 
 def set_amount_task_view(request, pk):
@@ -1184,7 +1177,7 @@ def get_spec_task_view(request, pk, komax):
     out_file = OutProcess(task_pers_df)
     workbook = out_file.get_task_xl()
     workbook.save(response)
-    close_old_connections()
+    
     return response
 
 def fulfill_time():
@@ -1502,43 +1495,3 @@ class LabourisnessView(generic.ListView):
     template_name = 'komax_app/laboriousness.html'
     context_object_name = 'actions'
 """
-
-def index(request):
-    return render(request, 'komax_app/index.html', context={"name" : "a"})
-
-
-@api_view(['GET', 'POST'])
-def komax_list(request):
-    if request.method == 'GET':
-        data = Komax.objects.all()
-
-        serializer = KomaxSerializer(data, context={'request': request}, many=True)
-
-        return Response(serializer.data)
-
-    elif request.method == 'POST':
-        serializer = KomaxSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['PUT', 'DELETE'])
-def komax_detail(request, pk):
-    try:
-        student = Komax.objects.get(pk=pk)
-    except Komax.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'PUT':
-        serializer = KomaxSerializer(student, data=request.data, context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        student.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
