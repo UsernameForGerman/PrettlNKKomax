@@ -26,7 +26,7 @@ class KomaxListView(APIView):
     * All are able to access this view.
     """
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         komaxes = Komax.objects.all()
@@ -52,7 +52,7 @@ class KomaxDetailView(APIView):
     * All are able to access this view.
     """
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, number):
         try:
@@ -95,7 +95,7 @@ class KappaListView(ListCreateAPIView):
     * All are able to access this view.
     """
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Kappa.objects.all()
     serializer_class = KappaSerializer
 
@@ -109,14 +109,14 @@ class KappaDetailView(RetrieveUpdateDestroyAPIView):
     * All are able to access this view.
     """
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     lookup_field = 'number'
     queryset = Kappa.objects.all()
     serializer_class = KappaSerializer
 
 class HarnessListView(APIView):
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     parser_classes = [MultiPartParser]
 
     def get(self, request, *args, **kwargs):
@@ -147,7 +147,7 @@ class HarnessListView(APIView):
 
 class HarnessDetailView(APIView):
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     parser_classes = [MultiPartParser,]
 
     def get_object(self, harness_number):
@@ -171,7 +171,7 @@ class HarnessDetailView(APIView):
 
 class HarnessChartListView(APIView):
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_objects(self, harness_number):
         harness_charts = HarnessChart.objects.filter(harness__harness_number__iexact=harness_number)
