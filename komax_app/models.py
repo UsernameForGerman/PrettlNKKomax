@@ -11,6 +11,7 @@ import os
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import datetime
+from django.urls import reverse
 
 
 User = get_user_model()
@@ -202,6 +203,8 @@ class Laboriousness(models.Model):
 
     def __str__(self):
         return self.action
+    def get_absolute_url(self):
+        return reverse('komax_app:laboriousness')
 
 class HarnessAmount(models.Model):
     harness = models.ForeignKey(Harness, on_delete=models.CASCADE)
@@ -245,6 +248,7 @@ class KomaxTask(models.Model):
     type_of_allocation = models.CharField(default='Parallel', max_length=128, choices=ALLOCATION_TYPES)
     loading_type = models.CharField(default='New', max_length=64, choices=LOADING_TYPES)
     status = models.SmallIntegerField(choices=STATUS_TYPES, default=1)
+    #worker = models.ForeignKey(Worker,on_delete=models.CASCADE, null=True)
     # ordered = models.BooleanField(default=False)
     # loaded = models.BooleanField(default=False)
 
@@ -278,11 +282,11 @@ class KomaxOrder(models.Model):
 
 
     def __str__(self):
-        return self.komax_task.task_name + ' ' + self.status
+        return self.komax_task.task_name + ' '
 
 class TaskPersonal(models.Model):
     komax_task = models.ForeignKey(KomaxTask, on_delete=models.CASCADE)
-    worker = models.ForeignKey(Worker, on_delete=models.CASCADE, null=True)
+    worker = models.ForeignKey(Worker, on_delete=models.CASCADE, null=True, related_name='task_personal')
     amount = models.PositiveSmallIntegerField()
     harness = models.ForeignKey(Harness, on_delete=models.CASCADE)
     komax = models.ForeignKey(Komax, on_delete=models.CASCADE, null=True)

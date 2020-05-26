@@ -130,17 +130,17 @@ class KomaxTaskProcessing():
 
         return (harnesses, komax_dict, kappas, shift, type_of_allocation)
 
-    def load_task_personal(self, komax_task_name):
-        komax_task_query = get_komax_task(komax_task_name)
+    def load_task_personal(self, komax_task_name, komax_num):
+        komax_task_query = get_komax_task(komax_task_name) #Все комаксы_таск с нужным именем
         if len(komax_task_query):
-            komax_task_obj = komax_task_query[0]
-            task_pers_objs = TaskPersonal.objects.filter(komax_task=komax_task_obj)
+            komax_task_obj = komax_task_query[0] #комакс_таск с нужным именем
+            task_pers_objs = TaskPersonal.objects\
+                .filter(komax_task=komax_task_obj, komax=Komax.objects.get(number__iexact=komax_num)) #таск персонал с нужным комакс таском
             for task_pers_obj in task_pers_objs:
-                task_pers_obj.loaded = True
+                task_pers_obj.loaded = True        #ТаскПерсонал ставится loaded=True
             TaskPersonal.objects.bulk_update(task_pers_objs, ['loaded'])
         else:
             return
-
     # TODO: increase speed of func
     def __create_harness_amount(self, harnesses, amount=-1):
         harness_amount_objs = list()
@@ -500,7 +500,8 @@ class KomaxTaskProcessing():
         TaskPersonal.objects.bulk_update(task_pers_objs, ['komax', 'kappa', 'time'])
 
     #TODO: if harness obj not excisted, but it is in df, return smthg
-    def __create_task_personal_from_dataframe(self, dataframe, komax_task_obj, harnesses_number=None):
+    def __create_task_personal_from_dataframe(self, dataframe, komax_task_obj, worker=None, komax_number=None, harnesses_number=None):#!!!Менять здесь!!!/ если есть создаем, если нет обновляем
+        not_finished_tasks=[]
         if harnesses_number is None:
             harnesses_numbers = dataframe['harness'].unique()
             harnesses = dict()
@@ -542,14 +543,59 @@ class KomaxTaskProcessing():
                     # time=row_dict['time']
                 )
             )
-        TaskPersonal.objects.bulk_create(task_pers_objs)
+        tasks_pers = TaskPersonal.objects.filter(komax_task=komax_task_obj, komax__number=komax_number, loaded=True)
+        if task_pers_objs[0] in tasks_pers:
+
+            for i in task_pers:
+                if i not in task_pers_objs:
+                    i.worker = worker
+                i.loaded = False
+            TaskPersonal.objects.bulk_update(task_pers_objs, ['worker', 'loaded'])
+        else:
+            TaskPersonal.objects.bulk_create(task_pers_objs)
+
+        # task_to_create = []
+        # tasks_to_update = []
+        # in_bd = TaskPersonal.objects.filter(komax__number__iexact=komax_number)
+        # for i in task_pers_objs:
+        #     if i in in_bd:
+        #         not_finished_tasks.append(i)
+        #     else:
+        #         task_to_create.append(i)
+        # if task_to_create:
+        #     TaskPersonal.objects.bulk_create(task_to_create)
+        # for i in in_bd:
+        #     print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        #     if not i in not_finished_tasks:
+        #         tasks_to_update.append(i)
+        # for i in tasks_to_update:
+        #     i.loaded = False
+        #     i.worker = worker
+        # TaskPersonal.objects.bulk_update(tasks_to_update, ['worker', 'loaded'])
+
+
+
+        """
+        for i in task_pers_objs:
+            if TaskPersonal.objects.filter(komax_task=i.komax_task):
+                #TaskPersonal.objects.bulk_create(i)
+                i.save()
+            else:
+               not_finished_tasks.append(i)
+        if not_finished_tasks:
+            for i in TaskPersonal.objects.all():
+                if not i in not_finished_tasks:
+                    i.worker = worker
+                    i.loaded = False
+                    i.save()
+        """
 
     def __create_harness_amount_from_dataframe(self, komax_task, dataframe):
         komax_task_harnesses = komax_task.harnesses.all()
         harnesses_number_add = dataframe['harness'].unique()
         return
 
-    def create_task_personal_from_dataframe_dict(self, dataframe_dict):
+    def create_task_personal_from_dataframe_dict(self, dataframe_dict, worker=None, komax_number=None):
         if len(dataframe_dict):
             dataframe = pd.DataFrame.from_dict(dataframe_dict)
             dataframe.index = pd.Index(range(dataframe.shape[0]))
@@ -558,7 +604,7 @@ class KomaxTaskProcessing():
             komax = Komax.objects.filter(number=komax_number)[0]
             komax_order = KomaxOrder.objects.filter(komax=komax)[0]
             komax_task_obj = komax_order.komax_task
-            self.__create_task_personal_from_dataframe(dataframe, komax_task_obj, harnesses_number)
+            self.__create_task_personal_from_dataframe(dataframe, komax_task_obj,worker,komax_number,arnesses_number)
 
     # TODO: add comparison with base allocation
     def create_allocation(self, task_name):
@@ -639,11 +685,10 @@ class KomaxTaskProcessing():
 
         return alloc
 
-    def change_komax_order_status(self, status, komax_number):
+    def delete_komax_order(self, komax_number):
         komax_obj = Komax.objects.filter(number=komax_number)[0]
         komax_order_obj = KomaxOrder.objects.filter(komax=komax_obj)[0]
-        komax_order_obj.status = status
-        komax_order_obj.save(update_fields=['status'])
+        komax_order_obj.delete()
 
 
 

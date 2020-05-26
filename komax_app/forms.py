@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Temp_chart, Komax, KomaxTask, Harness, HarnessAmount
+from .models import Temp_chart, Komax, KomaxTask, Harness, HarnessAmount,Laboriousness
 from django_select2.forms import Select2MultipleWidget, Select2Widget
 from django.utils.translation import gettext_lazy as _
 
@@ -58,7 +58,13 @@ class Amount_tasks_form(forms.ModelForm):
             'harness',
             'amount',
         )
-
+class LaboriousnessForm(forms.ModelForm):
+    class Meta:
+        model = Laboriousness
+        fields = (
+            'action',
+            'time',
+        )
 class KomaxTaskSetupForm(forms.ModelForm):
     task_name = forms.IntegerField(
         label=_('Task name')

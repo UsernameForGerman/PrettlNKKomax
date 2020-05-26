@@ -6,7 +6,12 @@ __pycache__/
 local_settings.py
 db.sqlite3
 venv/
+<<<<<<< HEAD
 .idea
+node_modules
+=======
+.idea/
+>>>>>>> bb64ecdeb7470d11cbbf137ff2a0b40cd27bc8cd
 komaxsite/.idea
 .ipynb_checkpoints
 __pycache__

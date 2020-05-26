@@ -1,13 +1,14 @@
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask, HarnessAmount, TaskPersonal, \
-    Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker
-from .forms import KomaxEditForm
+    Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker, KomaxOrder
+from .forms import KomaxEditForm, LaboriousnessForm
 from .modules.ioputter import FileReader
 from django_pandas.io import read_frame
 import pandas as pd
 from .modules.HarnessChartProcessing import ProcessDataframe, get_komaxes_from, get_time_from, get_amount_from
 from .modules.KomaxTaskProcessing import get_task_personal, get_komax_task, KomaxTaskProcessing, get_task_to_load, delete_komax_order
 
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 import openpyxl as xl
 from openpyxl.utils.dataframe import dataframe_to_rows
 from django.db.models import Sum
@@ -25,6 +26,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.utils import translation
 from .modules.KomaxCore import create_update_komax_status, get_komax_order, save_komax_task_personal, delete_komax_status
 from django.views.decorators.csrf import ensure_csrf_cookie
+
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
+
+from .models import Komax
+from .serializers import *
 
 browser_useragents = ["ABrowse", "Acoo Browser", "America Online Browser", "AmigaVoyager", "AOL", "Arora",
                       "Avant Browser", "Beonex", "BonEcho", "Browzar", "Camino", "Charon", "Cheshire",
@@ -96,24 +104,24 @@ def upload(request):
     return render(request, 'komax_app/upload_harness_chart.html', context)
 """
 
-def must_be_operator(user):
+def must_be_operator(user):                                                     #Считает кол-во операторов
     return user.groups.filter(name='Operator').count()
 
-def must_be_master(user):
+def must_be_master(user):                                                       #Считает кол-во мастеров
     return user.groups.filter(name='Master').count()
 
-@login_required
-@permission_required('komax_app.add_orderedkomaxtask', raise_exception=True)
-def send_task_to_worker(request, task_name, *args, **kwargs):
-    task_obj = get_object_or_404(KomaxTask, task_name=task_name)
-    task_obj.status = 2
-    task_obj.save(update_fields=['status'])
+@login_required                                                                 # Нужно быть залогиненым
+@permission_required('komax_app.add_orderedkomaxtask', raise_exception=True)    #Нужно иметь определенное разрешение(мастер)
+def send_task_to_worker(request, task_name, *args, **kwargs):                   # Меняет status задания с именем task_name на ordered
+    task_obj = get_object_or_404(KomaxTask, task_name=task_name)                #Получает задание с именем из get запроса
+    task_obj.status = 2                                                         #Меняет статус задания на "ordered"
+    task_obj.save(update_fields=['status'])                                     #Сохраняет эти изменения
 
-    return redirect('komax_app:tasks_view')
+    return redirect('komax_app:tasks_view')                                    #Перенаправляет на страницу task_view.html
 
 @login_required
 @permission_required('komax_app.delete_komaxtask')
-def delete_task(request, task_name, *args, **kwargs):
+def delete_task(request, task_name, *args, **kwargs):                           # удаляет задание
     task_obj = get_object_or_404(KomaxTask, task_name=task_name)
     task_obj.delete()
 
@@ -122,45 +130,79 @@ def delete_task(request, task_name, *args, **kwargs):
 @login_required
 @permission_required('komax_app.change_taskpersonal')
 def load_task_to_komax(request, task_name, *args, **kwargs):
-    TaskPersonal.objects.filter(loaded=True).update(loaded=False)
-    KomaxTask.objects.filter(task_name=task_name).update(status=3)
-    processor = KomaxTaskProcessing()
-    processor.load_task_personal(task_name)
+    komax_num = request.session.get('komax', None)
 
-    return redirect('komax_app:user_account')
+    TaskPersonal.objects.filter(loaded=True, komax=Komax.objects.get(number__iexact=komax_num))\
+        .update(loaded=False)                                                                        #Все Task_Personal c True, становятся False
+    processor = KomaxTaskProcessing()
+    processor.load_task_personal(task_name, komax_num)
+    if not TaskPersonal.objects.filter(komax_task=KomaxTask.objects.get(task_name__iexact=task_name), loaded=False).count():
+        KomaxTask.objects.filter(task_name=task_name).update(status=3) #KomaxTask с именем task_name устанавливает статус loaded
+
+    return redirect('komax_app:task_view', task_name)
+
+
+
+
+
 
 class WorkerAccountView(LoginRequiredMixin, View):
     template_name = 'komax_app/user_account.html'
 
+
+
+    def __get_status(self, komax_task, komax_number):
+        if TaskPersonal.objects.filter(komax__number=komax_number, worker=None, komax_task=komax_task, loaded=False):
+            return 0# не загружено
+        elif TaskPersonal.objects.filter(komax__number=komax_number, worker=None, komax_task=komax_task, loaded=True):
+            return 1# загружено
+        else:
+            return 2# сделано
+
+
+
+
+
     def get(self, request, *args, **kwargs):
-        worker = get_object_or_404(Worker, user=request.user)
-        if worker.user.groups.filter(name='Operator').exists():
-            komax_num = request.session.get('komax', None)
+        available_komaxes = Komax.objects.filter(status=1)                      # Все работающий komax
+        worker = get_object_or_404(Worker, user=request.user)                   # Находим нужного работника
+        if worker.user.groups.filter(name='Operator').exists():                 #Если работник - оператор
+            komax_num = request.session.get('komax', None)                      #Какой komax выбрал работник
             if komax_num is None:
                 context = {
                     'worker': worker,
                     'request_komax_num': True,
+                    'available_komaxes': available_komaxes,                     #Доступные komax
                 }
 
                 return render(request, self.template_name, context=context)
             else:
-                ordered_komax_tasks = KomaxTask.objects.filter(komaxes__komax__number__exact=komax_num).exclude(
-                    status=1).order_by('-created')
+                ordered_komax_tasks = KomaxTask.objects.filter(komaxes__komax__number__exact=komax_num)\
+                    .exclude(status=1).order_by('-created')
+
                 komax_tasks_dict = dict()
+                status_tasks = dict()
+                #TODO оптимизировать запросы
                 for komax_task in ordered_komax_tasks:
-                    komax_tasks_dict[komax_task] = komax_task.komaxes.filter(komax__number__exact=komax_num).first()
-                    komax_tasks_dict[komax_task].time = seconds_to_str_hours(komax_tasks_dict[komax_task].time)
+                    komax_tasks_dict[komax_task] = [
+                        komax_task.komaxes.filter(komax__number__exact=komax_num).first(),
+                        self.__get_status(komax_task, komax_num)
+                    ]
+                    komax_tasks_dict[komax_task][0].time = seconds_to_str_hours(komax_tasks_dict[komax_task][0].time)
+
+
+
+
 
                 context = {
                     'worker': worker,
                     'komax_tasks': komax_tasks_dict,
+                    'komax_num': komax_num,
                 }
-
                 return render(request, self.template_name, context=context)
 
         elif worker.user.groups.filter(name='Master').exists():
             komax_task_obj = KomaxTask.objects.filter(status=3).first()
-
             context = {
                 'komax_task': komax_task_obj,
                 'worker': worker,
@@ -427,7 +469,27 @@ class LaboriousnessListView(LoginRequiredMixin, View):
         :param args:
         :param kwargs:
         :return:
-        """
+       """
+class LaboriousnessEditView(UpdateView, LoginRequiredMixin):
+    model = Laboriousness
+    fields = ['action', 'time']
+    template_name = 'komax_app/laboriousness_delete.html'
+
+    def get_object(self, queryset=None):
+        obj = self.model.objects.get(action=self.kwargs['action'])
+        return obj
+
+class LaboriousnessDeleteView(LoginRequiredMixin,DeleteView):
+    model = Laboriousness
+    success_url = '/laboriousness/'
+    def get_object(self, queryset=None):
+        obj = self.model.objects.get(action=self.kwargs['action'])
+        return obj
+
+class LaboriousnessCreateView(LoginRequiredMixin, CreateView):
+    model = Laboriousness
+    fields = ['action', 'time']
+    template_name = 'komax_app/laboriousness_create_form.html'
 
 @method_decorator(user_passes_test(must_be_master), name='dispatch')
 class KomaxTaskSetupView(LoginRequiredMixin, View):
@@ -551,7 +613,12 @@ def seconds_to_str_hours(seconds):
         hours += 1
 
     return str(hours) + ':' + str(mins)
-
+def stop_task(request, task_name,*args, **kwargs):
+    komax_task = KomaxTask.objects.get(task_name__iexact=task_name)
+    komax_num = Komax.objects.get(number__iexact=request.session.get('komax', None))
+    komax = Komax.objects.get(number__iexact=komax_num)
+    KomaxOrder.objects.create(komax_task=komax_task, komax=komax, status="Requested")
+    return redirect('komax_app:user_account')
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class KomaxClientView(View):
 
@@ -564,15 +631,16 @@ class KomaxClientView(View):
 
     def post(self, request, *args, **kwargs):
         params = dict()
-        status = int(request.POST['status']) if 'status' in request.POST else None
+        worker = get_object_or_404(Worker, user=request.user)
+        status = int(request.POST['status']) if 'status' in request.POST else None #Статус сообщения комакса
         komax_number = request.session['komax-number']
         if komax_number is not None and status is not None:
             if status == 1:
                 position_info = request.POST['position'] if 'position' in request.POST else None
                 if position_info is not None:
-                    create_update_komax_status(komax_number, position_info)
+                    create_update_komax_status(komax_number, position_info) #KomaxStatus update
 
-                komax_order = get_komax_order(komax_number) if komax_number is not None else None
+                komax_order = get_komax_order(komax_number)
                 # self.async_create_update_komax_status(msg['komax_number'], msg['position'])
                 #self.async_get_komax_order(msg['komax_number'])
                 if komax_order is not None:
@@ -582,19 +650,20 @@ class KomaxClientView(View):
                             'text': komax_order.status,
                         }
                     elif komax_order.status == 'Received':
-                        new_komax_task_df = get_task_to_load(komax_number)
+                        new_komax_task_df = get_task_to_load(komax_number) #Получаем TaskPersonal с loaded = true  и номер равен выбранному комаксу
                         # self.async_get_new_komax_task_to_load(komax_number)
                         if new_komax_task_df is not None:
                             # self.async_set_komax_task_df()
                             params = {
                                 'status': 2,
-                                'task': new_komax_task_df.to_dict()
+                                'task': new_komax_task_df.to_dict(),
+                                'text': komax_order.status
                             }
             elif status == 2:
                 text = request.POST['text'] if 'text' in request.POST else None
                 task = request.POST['task'] if 'task' in request.POST else None
                 if text is not None and text == 'Requested' and task is not None:
-                    save_komax_task_personal(komax_number, task)
+                    save_komax_task_personal(komax_number, task, worker)
                     # self.async_save_komax_task_personal(komax_number, task)
             elif status == 3:
                 delete_komax_status(komax_number)
@@ -605,12 +674,12 @@ class KomaxClientView(View):
         return JsonResponse(params)
 
 
-@method_decorator(user_passes_test(must_be_master), name='dispatch')
+
 class KomaxTaskView(LoginRequiredMixin, View):
     model = KomaxTask
     template_name = 'komax_app/task_view.html'
-
     def get(self, request, task_name, *args, **kwargs):
+        worker = get_object_or_404(Worker, user=request.user)
         task = get_object_or_404(self.model, task_name=task_name)
         harnesses = task.harnesses.all()
         status = 'success'
@@ -629,18 +698,31 @@ class KomaxTaskView(LoginRequiredMixin, View):
             if final_alloc[key] / 3600 > task.shift:
                 exceeds_shift = True
             final_alloc[key] = seconds_to_str_hours(final_alloc[key])
-
-
-        context = {
-            'task': task,
-            'harnesses': harnesses,
-            'alloc': final_alloc,
-            'harness_amount': 12 // len(harnesses),
-            'komaxes_amount': 12 // len(final_alloc),
-            'exceeds_shift': exceeds_shift,
-            'status': status,
-            'kappas': kappas,
-        }
+        komax_num = request.session.get('komax', None)
+        if komax_num == None:
+            context = {
+                'task': task,
+                'harnesses': harnesses,
+                'alloc': final_alloc,
+                'harness_amount': 12 // len(harnesses),
+                'komaxes_amount': 12 // len(final_alloc),
+                'exceeds_shift': exceeds_shift,
+                'status': status,
+                'kappas': kappas,
+            }
+        else:
+            final_alloc_op=dict()
+            final_alloc_op[int(komax_num)]=final_alloc[int(komax_num)]
+            context = {
+                'task': task,
+                'harnesses': harnesses,
+                'alloc': final_alloc_op,
+                'harness_amount': 12 // len(harnesses),
+                'komaxes_amount': 12 // len(final_alloc),
+                'exceeds_shift': exceeds_shift,
+                'status': status,
+                'kappas': kappas,
+            }
 
         return render(request, self.template_name, context=context)
 
@@ -1420,3 +1502,43 @@ class LabourisnessView(generic.ListView):
     template_name = 'komax_app/laboriousness.html'
     context_object_name = 'actions'
 """
+
+def index(request):
+    return render(request, 'komax_app/index.html', context={"name" : "a"})
+
+
+@api_view(['GET', 'POST'])
+def komax_list(request):
+    if request.method == 'GET':
+        data = Komax.objects.all()
+
+        serializer = KomaxSerializer(data, context={'request': request}, many=True)
+
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = KomaxSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT', 'DELETE'])
+def komax_detail(request, pk):
+    try:
+        student = Komax.objects.get(pk=pk)
+    except Komax.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = KomaxSerializer(student, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        student.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

@@ -13,9 +13,9 @@ django-redis==4.11.0
 django-redis-cache==2.1.0
 django-select-multiple-field==0.4.2
 django-select2==7.1.1
-numpy
-openpyxl
-pandas
+numpy~=1.18.4
+openpyxl~=3.0.3
+pandas~=1.0.3
 pillow==5.1.0
 pytest
 redis==3.3.11
@@ -24,3 +24,6 @@ requests
 xlrd
 xlutils
 xlwt
+
+asgiref~=3.2.7
+djangorestframework~=3.11.0

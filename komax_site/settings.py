@@ -58,9 +58,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
+    'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -71,6 +74,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'komax_site.urls'
 
@@ -114,26 +119,25 @@ ASGI_APPLICATION = 'komax_site.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-"""
+
 if not INPROD:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'db.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
 else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'dek5k1l23b5g3i',
-            'USER': 'wqfpkzvudnfvxl',
-            'PASSWORD': '3ca96e36a784186d46e88a867276796bf649d084d820f266f04ce7ab5e7d6eb9',
-            'HOST': 'ec2-107-22-216-53.compute-1.amazonaws.com',
-            'PORT': '5432',
+            'NAME': 'komaxdb',
+            'USER': 'server',
+            'PASSWORD': "zMv-a5QZ7+Jm5!*@",
+            'HOST': "127.0.0.1",
+            'PORT': 5432,
         }
     }
-"""
 """
 DATABASES = {
         'default': {
@@ -158,6 +162,7 @@ DATABASES = {
         }
 }
 """
+"""
 DATABASES = {
     'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -168,6 +173,8 @@ DATABASES = {
             'PORT': 5432,
         }
 }
+"""
+
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

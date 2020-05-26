@@ -17,6 +17,7 @@
             <th class='text-center' scope="col">#</th>
             <th class='text-center' scope="col">{% trans 'Action' %}</th>
             <th class='text-center' scope="col">{% trans 'Time' %} ({% trans 'sec' %})</th>
+            <th class='text-center' scope="row"><a class="btn btn-outline-info" href="{% url 'komax_app:laboriousness-create' %}">Create</a></th>
         </tr>
     </thred>
     <tbody>
@@ -25,6 +26,7 @@
                 <th class='text-center' scope="row">{{ forloop.counter }}</th>
                 <td class="text-center">{{ action.action }}</td>
                 <td class="text-center">{{ action.time }}</td>
+                <th class='text-center' scope="row"><a class="btn btn-sm btn-outline-secondary" href="{% url 'komax_app:laboriousness-edit' action.action%}">Edit</a></th>
             </tr>
         {% endfor %}
     </tbody>

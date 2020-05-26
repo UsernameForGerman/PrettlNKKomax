@@ -33,10 +33,10 @@ def get_komax_order(komax_number):
 
     return None
 
-def save_komax_task_personal(komax_number, komax_task_personal_df_dict):
+def save_komax_task_personal(komax_number, komax_task_personal_df_dict, worker):
     komax_task_processor = KomaxTaskProcessing()
-    komax_task_processor.create_task_personal_from_dataframe_dict(komax_task_personal_df_dict)
-    komax_task_processor.change_komax_order_status('Received', komax_number)
+    komax_task_processor.create_task_personal_from_dataframe_dict(komax_task_personal_df_dict, worker, komax_number)
+    komax_task_processor.delete_komax_order(komax_number)
 
 def delete_komax_status(komax_number):
     KomaxStatus.objects.filter(komax__number__exact=komax_number).delete()
