@@ -20,8 +20,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/komax_app/src/DAL/models/harnessChoose.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/DAL/models/harnessMapItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/Harnesses.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/Harnesses.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/HarnessesContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/HarnessesTables/HarnessesChooseTable/HCT.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/HarnessesTables/HarnessesChooseTable/HarnessesChooseTable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/HarnessesTables/HarnessesChooseTable/Item/HCTItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/HarnessesTables/HarnessesChooseTable/Item/HCTItem.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/reducers/harnessReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/komax_app/src/selectors/harnessSelector.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/Global.css" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/Global.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Header/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Header/Header.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Header/Header.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Komaxes.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Komaxes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/KomaxesContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/KomaxesContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Modal/ModalForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Modal/ModalForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Modal/ModalForm.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Modal/ModalForm.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Table/Table.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/KomaxTable/KomaxTable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Table/Table.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/KomaxTable/KomaxTable.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Table/TableItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/KomaxTable/KomaxTableItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/static/komax_app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/static/komax_app/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/static/komax_app/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/static/komax_app/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/redis-stable/deps/jemalloc/doc/jemalloc.xml.in" beforeDir="false" afterPath="$PROJECT_DIR$/redis-stable/deps/jemalloc/doc/jemalloc.xml.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/admin/js/vendor/jquery/jquery.6fb03f669462.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin/js/vendor/jquery/jquery.6fb03f669462.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/admin/js/vendor/jquery/jquery.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin/js/vendor/jquery/jquery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.11c05eb286ed.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.11c05eb286ed.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.6fb03f669462.6fb03f669462.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.6fb03f669462.6fb03f669462.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.6fb03f669462.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.6fb03f669462.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,8 +73,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="CSS File" />
         <option value="Python Script" />
+        <option value="CSS File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -66,7 +104,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.buildTools.grunt.grunt-cli.package" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/komax_app/src/DAL" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/komax_app/src/comp/Harnesses/HarnessesTables/HarnessesMap" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -83,21 +121,24 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\comp\Harnesses\HarnessesTables\HarnessesChooseTable\Item" />
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\comp\Komaxes" />
       <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app" />
       <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\media\js" />
       <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\comp\Header" />
-      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\templates\komax_app" />
-      <recent name="C:\Prettl\PrettlNKKomax\komax_app\templates\komax_app" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\comp\Harnesses\HarnessesTables\HarnessesMap" />
       <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\DAL" />
       <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\templates\komax_app" />
       <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\assets" />
       <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app" />
-      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.index.html">
+  <component name="RunManager" selected="JavaScript Debug.index.html (1)">
+    <configuration name="index.html (1)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/PrettlNKKomax/komax_app/static/komax_app/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/PrettlNKKomax/komax_app/templates/komax_app/index.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -139,6 +180,29 @@
       <option name="additionalOptions" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="PrettlNKKomax" type="Python.DjangoServer" factoryName="Django server">
+      <module name="PrettlNKKomax" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="js.build_tools.grunt">
       <node-interpreter value="project" />
       <envs />
@@ -164,16 +228,6 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="prod (1)" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/media/js/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="prod" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
     <configuration name="prod" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/komax_app/package.json" />
       <command value="run" />
@@ -186,11 +240,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.index.html (1)" />
         <item itemvalue="JavaScript Debug.index.html" />
         <item itemvalue="npm.prod" />
         <item itemvalue="npm.dev" />
         <item itemvalue="npm.deploy" />
-        <item itemvalue="npm.prod (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -304,7 +358,12 @@
       <workItem from="1590177778478" duration="5728000" />
       <workItem from="1590214635921" duration="4069000" />
       <workItem from="1590248235138" duration="11622000" />
-      <workItem from="1590336550665" duration="6659000" />
+      <workItem from="1590336550665" duration="6914000" />
+      <workItem from="1590345766576" duration="25062000" />
+      <workItem from="1590426441804" duration="3688000" />
+      <workItem from="1590437285005" duration="3869000" />
+      <workItem from="1590492280595" duration="6764000" />
+      <workItem from="1590509383557" duration="379000" />
     </task>
     <servers />
   </component>
@@ -375,9 +434,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="576" y="289" width="824" height="526" key="IDE.errors.dialog/67.27.1853.1053@67.27.1853.1053" timestamp="1586005966011" />
-    <state x="482" y="187" key="SettingsEditor" timestamp="1587538864021">
-      <screen x="67" y="27" width="1853" height="1053" />
+    <state x="537" y="59" width="1017" height="710" key="SettingsEditor" timestamp="1590497047796">
+      <screen x="0" y="0" width="1600" height="860" />
     </state>
+    <state x="537" y="59" width="1017" height="710" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1590497047796" />
     <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1587538864021" />
     <state x="804" y="349" key="com.intellij.ide.util.TipDialog" timestamp="1590014012886">
       <screen x="0" y="0" width="2560" height="1040" />

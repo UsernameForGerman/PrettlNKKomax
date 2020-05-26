@@ -1,7 +1,7 @@
-import classes from "./Table.module.css"
+import classes from "./KomaxTable.module.css"
 import React from "react";
-import TableItem from "./TableItem";
-let Table = (props) => {
+import KomaxTableItem from "./KomaxTableItem";
+let KomaxTable = (props) => {
     let headings = {
         number : "Номер оборудования",
         type : "Тип",
@@ -12,17 +12,17 @@ let Table = (props) => {
         id : "Идентификатор"
     };
     let renderedItems = props.items.map((elem) => {
-        return (<TableItem {...elem} click={() => {
+        return (<KomaxTableItem {...elem} key={elem.number} click={() => {
             props.setSelected(elem);
             props.open();
         }}/>);
     });
     return(
         <div className={classes.Table}>
-            <TableItem {...headings} columnType={"Heading"}/>
+            <KomaxTableItem {...headings} columnType={"Heading"}/>
             {renderedItems}
         </div>
     );
 }
 
-export default Table;
+export default KomaxTable;

@@ -1,9 +1,9 @@
-import classes from "./Table.module.css"
+import classes from "./KomaxTable.module.css"
 import React from "react";
 
-let TableItem = (props) => {
+let KomaxTableItem = (props) => {
     let separing = props.sepairing.split(' ').map((elem) => {
-        return <div>{elem}</div>
+        return <div key={elem}>{elem}</div>
     });
     let dataClasses = props.columnType ? classes.bold : classes.data;
     let tableItem = props.columnType ? classes.heading : classes.tableItem;
@@ -34,4 +34,4 @@ let TableItem = (props) => {
     );
 }
 
-export default TableItem;
+export default KomaxTableItem;

@@ -6,7 +6,9 @@ import Komaxes from "./Komaxes";
 
 let KomaxesContainer = (props) => {
     useEffect(() => {
-        props.fetchKomaxes();
+        if(props.komaxList.length === 0){
+             props.fetchKomaxes();
+        }
     }, props.komaxList);
 
     return(

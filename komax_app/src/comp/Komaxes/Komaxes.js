@@ -2,16 +2,16 @@ import classes from "./Komaxes.module.css"
 import React, {useState} from "react";
 
 import komax from "../../assets/images/komax.png"
-import Table from "../Table/Table";
+import KomaxTable from "./KomaxTable/KomaxTable";
 import Modal from 'react-modal';
 import ModalForm from "./Modal/ModalForm";
 
 let Komaxes = (props) => {
     const customStyles = {
       content : {
-        top                   : '10%',
-        left                  : '30%',
-        transform             : 'translate(-10%, -5%)'
+        top                   : '25%',
+        left                  : '60%',
+        transform             : 'translate(-70%, -20%)'
       }
     };
 
@@ -71,7 +71,7 @@ let Komaxes = (props) => {
                 </div>
             </div>
             <div className={classes.table}>
-                <Table items={props.komaxList} setSelected={setSelectedKomax} open={openModal2}/>
+                <KomaxTable items={props.komaxList} setSelected={setSelectedKomax} open={openModal2}/>
             </div>
             <Modal
               isOpen={isModalOpen}
