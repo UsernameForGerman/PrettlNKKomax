@@ -108,6 +108,7 @@ class HarnessChart(models.Model):
     def __str__(self):
         return self.harness.harness_number
 
+    @classmethod
     def save_from_dataframe(self, harness_dataframe, harness_number):
         for row in harness_dataframe.iterrows():
             row_dict = row[1]
