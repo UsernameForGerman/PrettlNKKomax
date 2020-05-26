@@ -39,36 +39,7 @@ let Komaxes = (props) => {
                 <button className={classes.succBtn} onClick={openModal}>
                     Добавить
                 </button>
-                <div className={classes.komaxItem}>
-                    <div className={classes.komaxItemId}>
-                        1
-                    </div>
-                    <img src={komax} alt={"komax"} className={classes.komaxImg}/>
-                </div>
-                <div className={classes.komaxItem}>
-                    <div className={classes.komaxItemId}>
-                        2
-                    </div>
-                    <img src={komax} alt={"komax"} className={classes.komaxImg}/>
-                </div>
-                <div className={classes.komaxItem}>
-                    <div className={classes.komaxItemId}>
-                        3
-                    </div>
-                    <img src={komax} alt={"komax"} className={classes.komaxImg}/>
-                </div>
-                <div className={classes.komaxItem}>
-                    <div className={classes.komaxItemId}>
-                        4
-                    </div>
-                    <img src={komax} alt={"komax"} className={classes.komaxImg}/>
-                </div>
-                <div className={classes.komaxItem}>
-                    <div className={classes.komaxItemId}>
-                        5
-                    </div>
-                    <img src={komax} alt={"komax"} className={classes.komaxImg}/>
-                </div>
+                {props.items}
             </div>
             <div className={classes.table}>
                 <KomaxTable items={props.komaxList} setSelected={setSelectedKomax} open={openModal2}/>

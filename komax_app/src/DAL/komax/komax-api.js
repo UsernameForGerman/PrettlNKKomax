@@ -1,7 +1,7 @@
 import api from "../api/api";
 import createKomax from "../models/komax";
 
-const BASE_URL = "api/"
+const BASE_URL = "komaxes/"
 
 class komaxApi {
     static getKomaxList = () => {

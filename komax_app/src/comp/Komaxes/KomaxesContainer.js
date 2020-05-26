@@ -3,6 +3,8 @@ import KomaxSelector from "../../selectors/komaxSelector";
 import {getListThunk} from "../../reducers/komaxReducer";
 import React, {useEffect} from "react";
 import Komaxes from "./Komaxes";
+import classes from "./Komaxes.module.css";
+import komax from "../../assets/images/komax.png";
 
 let KomaxesContainer = (props) => {
     useEffect(() => {
@@ -11,11 +13,22 @@ let KomaxesContainer = (props) => {
         }
     }, props.komaxList);
 
+    let renderedKomaxItems = props.komaxList.map((elem) => {
+        return (
+            <div className={classes.komaxItem}>
+                <div className={classes.komaxItemId}>
+                    {elem.number}
+                </div>
+                <img src={komax} alt={"komax"} className={classes.komaxImg}/>
+            </div>
+        );
+    })
+
     return(
         <>
             {props.isFetching
                 ? <></>
-                : <Komaxes {...props}/>
+                : <Komaxes {...props} items={renderedKomaxItems}/>
             }
         </>
     )

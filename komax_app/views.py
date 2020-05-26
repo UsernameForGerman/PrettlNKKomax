@@ -1,4 +1,9 @@
 from django.http import HttpResponseRedirect, Http404, HttpResponse
+from requests import Response
+from rest_framework import status
+from rest_framework.decorators import api_view
+
+from api_komax_app.serializers import HarnessSerializer, KomaxSerializer
 from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask, HarnessAmount, TaskPersonal, \
     Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker, KomaxOrder
 from .forms import KomaxEditForm, LaboriousnessForm
@@ -1495,7 +1500,6 @@ class LabourisnessView(generic.ListView):
     template_name = 'komax_app/laboriousness.html'
     context_object_name = 'actions'
 """
-<<<<<<< HEAD
 
 def index(request):
     return render(request, 'komax_app/index.html', context={"name" : "a"})
@@ -1572,5 +1576,3 @@ def harness_list(request, pk):
     elif request.method == 'DELETE':
         harness.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-=======
->>>>>>> 13c005265a2778e40c9b66d0712ceaf7f3bd107b
