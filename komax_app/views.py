@@ -318,7 +318,7 @@ class HarnessesListView(LoginRequiredMixin, View):
 
         harness = Harness(harness_number=harness_number)
         harness.save()
-        HarnessChart().save_from_dataframe(
+        HarnessChart.save_from_dataframe(
             harness_dataframe=reader.get_dataframe(),
             harness_number=harness_number
         )
