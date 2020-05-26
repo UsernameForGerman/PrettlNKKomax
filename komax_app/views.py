@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask, HarnessAmount, TaskPersonal, \
-    Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker
+    Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker, KomaxOrder
 from .forms import KomaxEditForm, LaboriousnessForm
 from .modules.ioputter import FileReader
 from django_pandas.io import read_frame
@@ -26,13 +26,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.utils import translation
 from .modules.KomaxCore import create_update_komax_status, get_komax_order, save_komax_task_personal, delete_komax_status
 from django.views.decorators.csrf import ensure_csrf_cookie
-
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import status
-
-from .models import Komax
-from .serializers import *
 
 browser_useragents = ["ABrowse", "Acoo Browser", "America Online Browser", "AmigaVoyager", "AOL", "Arora",
                       "Avant Browser", "Beonex", "BonEcho", "Browzar", "Camino", "Charon", "Cheshire",
@@ -148,6 +141,21 @@ def load_task_to_komax(request, task_name, *args, **kwargs):
 
 class WorkerAccountView(LoginRequiredMixin, View):
     template_name = 'komax_app/user_account.html'
+
+
+
+    def __get_status(self, komax_task, komax_number):
+        if TaskPersonal.objects.filter(komax__number=komax_number, worker=None, komax_task=komax_task, loaded=False):
+            return 0# не загружено
+        elif TaskPersonal.objects.filter(komax__number=komax_number, worker=None, komax_task=komax_task, loaded=True):
+            return 1# загружено
+        else:
+            return 2# сделано
+
+
+
+
+
     def get(self, request, *args, **kwargs):
         available_komaxes = Komax.objects.filter(status=1)                      # Все работающий komax
         worker = get_object_or_404(Worker, user=request.user)                   # Находим нужного работника
@@ -163,18 +171,26 @@ class WorkerAccountView(LoginRequiredMixin, View):
                 return render(request, self.template_name, context=context)
             else:
                 ordered_komax_tasks = KomaxTask.objects.filter(komaxes__komax__number__exact=komax_num)\
-                    .exclude(status=1).order_by('-created')                                                 #Задания Komax у которых статус не ordered
+                    .exclude(status=1).order_by('-created')
+
                 komax_tasks_dict = dict()
+                status_tasks = dict()
+                #TODO оптимизировать запросы
                 for komax_task in ordered_komax_tasks:
-                    komax_tasks_dict[komax_task] = komax_task.komaxes.filter(komax__number__exact=komax_num).first()
-                    komax_tasks_dict[komax_task].time = seconds_to_str_hours(komax_tasks_dict[komax_task].time)
-                loaded = (TaskPersonal.objects.filter(komax_task=komax_task, komax=Komax.objects.get(number__iexact=komax_num), loaded=False).count() == 0)
+                    komax_tasks_dict[komax_task] = [
+                        komax_task.komaxes.filter(komax__number__exact=komax_num).first(),
+                        self.__get_status(komax_task, komax_num)
+                    ]
+                    komax_tasks_dict[komax_task][0].time = seconds_to_str_hours(komax_tasks_dict[komax_task][0].time)
+
+
+
+
 
                 context = {
                     'worker': worker,
                     'komax_tasks': komax_tasks_dict,
                     'komax_num': komax_num,
-                    'loaded':loaded,
                 }
                 return render(request, self.template_name, context=context)
 
@@ -306,7 +322,7 @@ class HarnessesListView(LoginRequiredMixin, View):
             harness_dataframe=reader.get_dataframe(),
             harness_number=harness_number
         )
-        close_old_connections()
+        
 
         return redirect('komax_app:harnesses')
 
@@ -430,7 +446,7 @@ class LaboriousnessListView(LoginRequiredMixin, View):
         if len(laboriousness) == 0:
             fulfill_time()
 
-        close_old_connections()
+        
         context = {
             'actions': laboriousness,
         }
@@ -590,7 +606,12 @@ def seconds_to_str_hours(seconds):
         hours += 1
 
     return str(hours) + ':' + str(mins)
-
+def stop_task(request, task_name,*args, **kwargs):
+    komax_task = KomaxTask.objects.get(task_name__iexact=task_name)
+    komax_num = Komax.objects.get(number__iexact=request.session.get('komax', None))
+    komax = Komax.objects.get(number__iexact=komax_num)
+    KomaxOrder.objects.create(komax_task=komax_task, komax=komax, status="Requested")
+    return redirect('komax_app:user_account')
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class KomaxClientView(View):
 
@@ -603,6 +624,7 @@ class KomaxClientView(View):
 
     def post(self, request, *args, **kwargs):
         params = dict()
+        worker = get_object_or_404(Worker, user=request.user)
         status = int(request.POST['status']) if 'status' in request.POST else None #Статус сообщения комакса
         komax_number = request.session['komax-number']
         if komax_number is not None and status is not None:
@@ -634,7 +656,7 @@ class KomaxClientView(View):
                 text = request.POST['text'] if 'text' in request.POST else None
                 task = request.POST['task'] if 'task' in request.POST else None
                 if text is not None and text == 'Requested' and task is not None:
-                    save_komax_task_personal(komax_number, task)
+                    save_komax_task_personal(komax_number, task, worker)
                     # self.async_save_komax_task_personal(komax_number, task)
             elif status == 3:
                 delete_komax_status(komax_number)
@@ -918,7 +940,7 @@ def harness_delete(request, harness_number):
     harness_to_delete = Harness.objects.filter(harness_number=harness_number)
     if len(harness_to_delete) > 0:
         harness_to_delete.delete()
-    close_old_connections()
+    
     return redirect('komax_app:harnesses')
 
 def fulfill_time():
@@ -949,10 +971,10 @@ def handle_json_get(request, harness_number):
         harness_obj = Harness.objects.filter(harness_number=harness_number)[0]
         data = read_frame(HarnessChart.objects.filter(harness=harness_obj)).to_dict()
         any(browser_useragent in request.META['HTTP_USER_AGENT'] for browser_useragent in browser_useragents)
-        close_old_connections()
+        
         return JsonResponse(data)
     else:
-        close_old_connections()
+        
         return redirect('komax_app:task_setup')
 
 def handle_temp_chart(temp_chart):
@@ -1038,7 +1060,7 @@ def harness_chart_view(request, harness_number):
         'harness_number': harness_number,
         'positions': obj
     }
-    close_old_connections()
+    
     return render(request, 'komax_app/chart_view.html', context)
 
 def set_amount_task_view(request, pk):
@@ -1155,7 +1177,7 @@ def get_spec_task_view(request, pk, komax):
     out_file = OutProcess(task_pers_df)
     workbook = out_file.get_task_xl()
     workbook.save(response)
-    close_old_connections()
+    
     return response
 
 def fulfill_time():
@@ -1473,6 +1495,7 @@ class LabourisnessView(generic.ListView):
     template_name = 'komax_app/laboriousness.html'
     context_object_name = 'actions'
 """
+<<<<<<< HEAD
 
 def index(request):
     return render(request, 'komax_app/index.html', context={"name" : "a"})
@@ -1549,3 +1572,5 @@ def harness_list(request, pk):
     elif request.method == 'DELETE':
         harness.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+=======
+>>>>>>> 13c005265a2778e40c9b66d0712ceaf7f3bd107b

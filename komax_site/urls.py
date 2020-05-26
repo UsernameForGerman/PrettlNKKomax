@@ -30,6 +30,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(template_name='logout.html'), name='logout'),
     # re_path(r'^', include('main_app.urls')),
     path('', include('komax_app.urls')),
+    path('api/', include('api_komax_app.urls')),
     re_path(r'^description/', include('description.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

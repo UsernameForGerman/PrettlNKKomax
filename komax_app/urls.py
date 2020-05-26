@@ -13,6 +13,7 @@ urlpatterns = [
     path('tasks/setup/', views.KomaxTaskSetupView.as_view(), name='task_setup'),
     path('tasks/<str:task_name>/', views.KomaxTaskView.as_view(), name='task_view'),
     path('tasks/<str:task_name>/delete/', views.delete_task, name='delete_task'),
+    path('tasks/<str:task_name>/stop', views.stop_task, name='stop_task'),
     path('tasks/<str:task_name>/get_task/', views.get_general_task_view, name='get_task'),
     path('tasks/<str:task_name>/get_tech_task/', views.get_general_tech_task_view, name='get_tech_task'),
     path('tasks/<str:task_name>/get_task_komax/<str:komax>/',
@@ -36,10 +37,12 @@ urlpatterns = [
     # others
     # re_path(r'^harnesses/upload/$', views.upload_temp_chart, name='temp_chart_upload'),
 
+<<<<<<< HEAD
     path('api/', views.komax_list),
     path('api/harnesses', views.harness_list),
+=======
+>>>>>>> 13c005265a2778e40c9b66d0712ceaf7f3bd107b
     path('komaxes/', views.EquipmentListView.as_view(), name='komaxes'),
-    path('komaxes_test/', views.index, name='index'),
 
 
     # re_path(r'^komaxes/edit/(?P<pk>\d+)/$', views.KomaxEditView.as_view(), name='komaxes_edit'),
