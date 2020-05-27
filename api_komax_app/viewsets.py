@@ -1,7 +1,7 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from .serializers import HarnessSerializer, KomaxSerializer, KappaSerializer, KomaxTerminalSerializer, \
-    LaboriousnessSerializer
-from komax_app.models import Harness, HarnessChart, Komax, Kappa, Laboriousness, KomaxTerminal
+    LaboriousnessSerializer, KomaxStatusSerializer
+from komax_app.models import Harness, HarnessChart, Komax, Kappa, Laboriousness, KomaxTerminal, KomaxStatus
 from rest_framework.response import Response
 from komax_app.modules.HarnessChartProcessing import HarnessChartReader
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_202_ACCEPTED
@@ -75,6 +75,13 @@ class KomaxTerminalsViewSet(ModelViewSet):
     serializer_class = KomaxTerminalSerializer
     queryset = KomaxTerminal.objects.all()
     lookup_field = 'terminal_name'
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+class KomaxStatusViewSet(ReadOnlyModelViewSet):
+    serializer_class = KomaxStatusSerializer
+    queryset = KomaxStatus.objects.all()
+    lookup_field = 'komax'
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
 

@@ -319,10 +319,10 @@ class TaskPersonal(models.Model):
         return
 
     def __str__(self):
-        return self.komax_task.task_name
+        return "{} - {} - {}".format(self.komax_task.task_name, self.harness.harness_number, self.komax.number)
 
 class KomaxStatus(models.Model):
-    komax = models.ForeignKey(Komax, on_delete=models.CASCADE)
+    komax = models.ForeignKey(Komax, unique=True, on_delete=models.CASCADE)
     task_personal = models.ForeignKey(TaskPersonal, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
