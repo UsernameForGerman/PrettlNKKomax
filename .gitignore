@@ -9,6 +9,8 @@ venv/
 <<<<<<< HEAD
 .idea
 node_modules
+*.xlsx
+*.xls
 =======
 .idea/
 >>>>>>> bb64ecdeb7470d11cbbf137ff2a0b40cd27bc8cd

@@ -110,38 +110,38 @@ class HarnessChart(models.Model):
 
     @classmethod
     def save_from_dataframe(self, harness_dataframe, harness_number):
+        old_harness_charts = self.objects.filter(harness__harness_number__iexact=harness_number)
+        if len(old_harness_charts):
+            old_harness_charts.delete()
+
+        new_harness_charts = list()
         for row in harness_dataframe.iterrows():
             row_dict = row[1]
-            print(row_dict["№ провода"], ' ', row_dict["Длина, мм (± 3мм)"])
-            HarnessChart(
-                harness=get_object_or_404(Harness, harness_number=harness_number),
-                notes=row_dict["Примечание"],
-                marking=str(row_dict["Маркировка"]),
-                wire_type=str(row_dict["Вид провода"]),
-                wire_number=str(row_dict["№ провода"]),
-                wire_square=float(row_dict["Сечение"]),
-                wire_color=str(row_dict["Цвет"]),
-                wire_length=int(row_dict["Длина, мм (± 3мм)"]),
-                wire_seal_1=str(row_dict["Уплотнитель 1"]),
-                wire_cut_length_1=float(row_dict["Частичное снятие 1"]),
-                wire_terminal_1=str(row_dict["Наконечник 1"]),
-                aplicator_1=str(row_dict["Аппликатор 1"]),
-                tube_len_1=str(row_dict["Длина трубки, L (мм) 1"]),
-                armirovka_1=str(row_dict["Армировка 1 (Трубка ПВХ, Тр. Терм., изоляторы)"]),
-                wire_seal_2=str(row_dict["Уплотнитель 2"]),
-                wire_cut_length_2=float(row_dict["Частичное снятие 2"]),
-                wire_terminal_2=str(row_dict["Наконечник 2"]),
-                aplicator_2=str(row_dict["Аппликатор 2"]),
-                tube_len_2=str(row_dict["Длина трубки, L (мм) 2"]),
-                armirovka_2=str(row_dict["Армировка 2 (Трубка ПВХ, Тр. Терм., изоляторы)"])
-            ).save()
-
-            """except:
-                error_harnesses = get_object_or_404(Harness, harness_number=harness_number)
-                try:
-                    error_harnesses.delete()
-                except:
-                    pass"""
+            new_harness_charts.append(
+                self(
+                    harness=get_object_or_404(Harness, harness_number=harness_number),
+                    notes=row_dict["Примечание"],
+                    marking=str(row_dict["Маркировка"]),
+                    wire_type=str(row_dict["Вид провода"]),
+                    wire_number=str(row_dict["№ провода"]),
+                    wire_square=float(row_dict["Сечение"]),
+                    wire_color=str(row_dict["Цвет"]),
+                    wire_length=int(row_dict["Длина, мм (± 3мм)"]),
+                    wire_seal_1=str(row_dict["Уплотнитель 1"]),
+                    wire_cut_length_1=float(row_dict["Частичное снятие 1"]),
+                    wire_terminal_1=str(row_dict["Наконечник 1"]),
+                    aplicator_1=str(row_dict["Аппликатор 1"]),
+                    tube_len_1=str(row_dict["Длина трубки, L (мм) 1"]),
+                    armirovka_1=str(row_dict["Армировка 1 (Трубка ПВХ, Тр. Терм., изоляторы)"]),
+                    wire_seal_2=str(row_dict["Уплотнитель 2"]),
+                    wire_cut_length_2=float(row_dict["Частичное снятие 2"]),
+                    wire_terminal_2=str(row_dict["Наконечник 2"]),
+                    aplicator_2=str(row_dict["Аппликатор 2"]),
+                    tube_len_2=str(row_dict["Длина трубки, L (мм) 2"]),
+                    armirovka_2=str(row_dict["Армировка 2 (Трубка ПВХ, Тр. Терм., изоляторы)"])
+                )
+            )
+            self.objects.bulk_create(new_harness_charts)
 
 class Temp_chart(models.Model):
     harness = models.CharField(max_length=128)
@@ -319,10 +319,10 @@ class TaskPersonal(models.Model):
         return
 
     def __str__(self):
-        return self.komax_task.task_name
+        return "{} - {} - {}".format(self.komax_task.task_name, self.harness.harness_number, self.komax.number)
 
 class KomaxStatus(models.Model):
-    komax = models.ForeignKey(Komax, on_delete=models.CASCADE)
+    komax = models.ForeignKey(Komax, unique=True, on_delete=models.CASCADE)
     task_personal = models.ForeignKey(TaskPersonal, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
