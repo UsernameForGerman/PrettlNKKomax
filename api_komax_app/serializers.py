@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, Serializer, FileField, CharField
 from komax_app.models import Komax, Kappa, KomaxTask, TaskPersonal, Laboriousness, KomaxTerminal, Harness, \
     HarnessChart
 
@@ -23,9 +23,24 @@ class HarnessChartSerializer(ModelSerializer):
         model = HarnessChart
         fields = '__all__'
 
+class HarnessChartXlsxSerializer(Serializer):
+    file = FileField()
+    harness_number = CharField()
+
+
 class EquipmentSerializer(ModelSerializer):
     komaxes = KomaxSerializer()
     kappas = KappaSerializer()
+
+class LaboriousnessSerializer(ModelSerializer):
+    class Meta:
+        model = Laboriousness
+        fields = '__all__'
+
+class KomaxTerminalSerializer(ModelSerializer):
+    class Meta:
+        model = KomaxTerminal
+        fields = '__all__'
 
 
 

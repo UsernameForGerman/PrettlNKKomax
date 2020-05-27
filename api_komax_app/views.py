@@ -72,7 +72,7 @@ class KomaxDetailView(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         komax_serializer = KomaxSerializer(komax, data=request.data, context={'request': request})
-        if komax.is_valid():
+        if komax_serializer.is_valid():
             komax.save()
             return Response(status=status.HTTP_202_ACCEPTED)
 
@@ -116,7 +116,7 @@ class KappaDetailView(RetrieveUpdateDestroyAPIView):
 
 class HarnessListView(APIView):
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     parser_classes = [MultiPartParser]
 
     def get(self, request, *args, **kwargs):
@@ -126,6 +126,26 @@ class HarnessListView(APIView):
         return Response(harness_serializer.data)
 
     def post(self, request, *args, **kwargs):
+        harness_chart_xlsx_serializer = HarnessChartXlsxSerializer(data=request.data)
+        harness_chart = request.data['file']
+        if harness_chart_xlsx_serializer.is_valid():
+
+            harness_number = harness_chart_xlsx_serializer.data['harness_number']
+            # harness_chart = harness_chart_xlsx_serializer.data['file']
+            # print(harness_chart)
+            Harness.objects.create(harness_number=harness_number)
+
+            reader = HarnessChartReader()
+            reader.load_file(harness_chart)
+            reader.read_file_chart()
+            HarnessChart.save_from_dataframe(
+                harness_dataframe=reader.get_dataframe(),
+                harness_number=harness_number
+            )
+
+
+
+            """
         harness_serializer = HarnessSerializer(data=request.data)
         if harness_serializer.is_valid():
             harness_serializer.save()
@@ -140,10 +160,11 @@ class HarnessListView(APIView):
                 harness_dataframe=reader.get_dataframe(),
                 harness_number=harness_number
             )
-
+        """
             return Response(status=status.HTTP_201_CREATED)
 
-        return Response(harness_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(harness_chart_xlsx_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class HarnessDetailView(APIView):
     authentication_classes = [authentication.TokenAuthentication]
@@ -171,7 +192,7 @@ class HarnessDetailView(APIView):
 
 class HarnessChartListView(APIView):
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get_objects(self, harness_number):
         harness_charts = HarnessChart.objects.filter(harness__harness_number__iexact=harness_number)
@@ -188,7 +209,6 @@ class HarnessChartListView(APIView):
 
         harness_chart_serializer = HarnessChartSerializer(harness_charts, context={'request': request}, many=True)
         return Response(harness_chart_serializer.data)
-
 
 """
 @api_view(['GET', 'POST'])
