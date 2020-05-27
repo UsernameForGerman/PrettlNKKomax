@@ -8,6 +8,7 @@
     flex-direction: row;
     margin-bottom: 2vh;
     cursor: pointer;
+    min-height: 63px;
 }
 
 .tableItem:hover{

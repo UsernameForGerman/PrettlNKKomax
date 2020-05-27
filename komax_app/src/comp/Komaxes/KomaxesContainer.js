@@ -1,13 +1,14 @@
 import {connect} from "react-redux";
 import KomaxSelector from "../../selectors/komaxSelector";
-import {getListThunk} from "../../reducers/komaxReducer";
-import React, {useEffect} from "react";
+import {createKomaxThunk, getListThunk, updateKomaxThunk} from "../../reducers/komaxReducer";
+import React, {useEffect, useState} from "react";
 import Komaxes from "./Komaxes";
 import classes from "./Komaxes.module.css";
 import komax from "../../assets/images/komax.png";
-import file from "../../assets/docs/КРП 6282-2124813-12 test.xlsx"
+import file from "../../assets/docs/6282-2124813-12.xlsx"
 import harnessApi from "../../DAL/harness/harness-api";
 import kappaApi from "../../DAL/kappa/kappa-api";
+import komaxApi from "../../DAL/komax/komax-api";
 
 let KomaxesContainer = (props) => {
     useEffect(() => {
@@ -16,11 +17,16 @@ let KomaxesContainer = (props) => {
         }
     }, props.komaxList);
 
-    var data = new FormData();
-    data.append('name', "name");
-    data.append('type', "xlsx");
-    data.append("xlsx", file);
-    harnessApi.createHarness("6282-2124813-12", data).then((r) => console.log(r));
+    let [selectedKomax, setSelectedKomax] = useState({});
+
+    let save = (komax) => {
+        props.createKomax(komax);
+    }
+
+    let update = (komax) => {
+        debugger;
+        props.updateKomax(komax);
+    }
 
     let renderedKomaxItems = props.komaxList.map((elem) => {
         return (
@@ -33,11 +39,20 @@ let KomaxesContainer = (props) => {
         );
     })
 
+    harnessApi.createHarness("4444-5555-66", file).then(console.log)
+
     return(
         <>
             {props.isFetching
                 ? <></>
-                : <Komaxes {...props} items={renderedKomaxItems}/>
+                : <Komaxes
+                    {...props}
+                    items={renderedKomaxItems}
+                    save={save}
+                    update={update}
+                    selectedKomax={selectedKomax}
+                    setSelected={setSelectedKomax}
+                />
             }
         </>
     )
@@ -54,6 +69,14 @@ let mapDispatchToProps = (dispatch) => {
     return {
         fetchKomaxes : () => {
             dispatch(getListThunk())
+        },
+
+        createKomax : (komax) => {
+            dispatch(createKomaxThunk(komax))
+        },
+
+        updateKomax : (komax) => {
+            dispatch(updateKomaxThunk(komax))
         }
     }
 }

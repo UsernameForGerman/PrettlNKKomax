@@ -43,8 +43,21 @@ DEBUG = os.environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = ['localhost', 'komax.prettl.ru']
 
-CORS_ALLOW_HEADERS = default_headers + (
-    'Cache-Control', 'If-Modified-Since', 'Accept'
+CORS_ALLOW_HEADERS = (
+    'Access-Control-Allow-Headers',
+    'Access-Control-Allow-Credentials',
+    'Cache-Control',
+    'If-Modified-Since',
+    'Accept',
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
 )
 
 

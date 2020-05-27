@@ -20,7 +20,6 @@ const komaxReducer = (state = initialState, action) => {
             stateCopy.komaxList = action.list;
             break;
         }
-
     }
     return stateCopy;
 }
@@ -48,4 +47,24 @@ const getListThunk = () => {
     }
 }
 
-export {toggleFetchAC, setListAC, komaxReducer, getListThunk};
+const createKomaxThunk = (komax) => {
+    return (dispatch) => {
+        dispatch(toggleFetchAC());
+        komaxApi.createKomax(komax).then((data) => {
+            dispatch(getListThunk());
+            dispatch(toggleFetchAC());
+        });
+    }
+}
+
+const updateKomaxThunk = (komax) => {
+    return (dispatch) => {
+        dispatch(toggleFetchAC());
+        komaxApi.updateKomax(komax).then((data) => {
+            dispatch(getListThunk());
+            dispatch(toggleFetchAC());
+        });
+    }
+}
+
+export {toggleFetchAC, setListAC, komaxReducer, getListThunk, createKomaxThunk, updateKomaxThunk};

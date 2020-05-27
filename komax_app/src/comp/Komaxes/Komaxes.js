@@ -15,8 +15,6 @@ let Komaxes = (props) => {
       }
     };
 
-    let [selectedKomax, setSelectedKomax] = useState({});
-
     let [isModalOpen, setIsOpen] = useState(false);
     let openModal = () => {
         setIsOpen(true);
@@ -42,7 +40,7 @@ let Komaxes = (props) => {
                 {props.items}
             </div>
             <div className={classes.table}>
-                <KomaxTable items={props.komaxList} setSelected={setSelectedKomax} open={openModal2}/>
+                <KomaxTable items={props.komaxList} setSelected={props.setSelected} open={openModal2}/>
             </div>
             <Modal
               isOpen={isModalOpen}
@@ -50,7 +48,7 @@ let Komaxes = (props) => {
               style={customStyles}
               contentLabel="Example Modal"
             >
-                <ModalForm close={closeModal} heading={"Cоздать новый аппарат"}/>
+                <ModalForm close={closeModal} send={props.save} heading={"Cоздать новый аппарат"}/>
             </Modal>
             <Modal
               isOpen={isModalOpen2}
@@ -58,7 +56,7 @@ let Komaxes = (props) => {
               style={customStyles}
               contentLabel="Example Modal"
             >
-                <ModalForm close={closeModal2} selected={selectedKomax} heading={"Изменить существующий аппарат"}/>
+                <ModalForm close={closeModal2} send={props.update} selected={props.selectedKomax} heading={"Изменить существующий аппарат"}/>
             </Modal>
           </div>
       </div>

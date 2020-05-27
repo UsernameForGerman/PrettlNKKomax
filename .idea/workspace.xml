@@ -20,24 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/komax_app/src/DAL/auth/auth-api.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/komax_app/src/DAL/harness/harness-api.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/komax_app/src/DAL/kappa/kappa-api.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/komax_app/src/assets/docs/КРП 6282-2124813-12 test.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Login/Login.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Login/LoginContainer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/komax_app/src/reducers/loginReducer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/komax_app/src/selectors/loginSelector.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api_komax_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_komax_app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/api/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/DAL/api/api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/komax/komax-api.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/DAL/komax/komax-api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/assets/docs/КРП 6282-2124813-12 test.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/assets/docs/6282-2124813-12.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/KomaxTable/KomaxTable.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/KomaxTable/KomaxTable.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Komaxes.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Komaxes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Komaxes.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Komaxes.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/KomaxesContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/KomaxesContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Modal/ModalForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Modal/ModalForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/reducers/komaxReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/reducers/komaxReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komax_site/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/komax_site/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -344,7 +336,9 @@
       <workItem from="1590492280595" duration="6764000" />
       <workItem from="1590509383557" duration="18927000" />
       <workItem from="1590557292025" duration="320000" />
-      <workItem from="1590557932118" duration="4308000" />
+      <workItem from="1590557932118" duration="14702000" />
+      <workItem from="1590580906514" duration="592000" />
+      <workItem from="1590602571223" duration="267000" />
     </task>
     <servers />
   </component>

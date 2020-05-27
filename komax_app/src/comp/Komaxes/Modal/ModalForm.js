@@ -17,6 +17,20 @@ let ModalForm = (props) => {
     let sepairingRef = React.createRef();
     let identifierRef = React.createRef();
 
+    let collectData = (e) => {
+        props.close();
+        let data = {
+            number : komaxNumberRef.current.value,
+            identifier : identifierRef.current.value,
+            group_of_square : sepairingRef.current.value,
+            pairing : pairingRef.current.value,
+            marking : markingRef.current.value,
+            status : statusRef.current.value
+        }
+
+        props.send(data);
+    }
+
     return(
         <div className={classes.ModalForm}>
             <div className={classes.heading}>
@@ -65,7 +79,7 @@ let ModalForm = (props) => {
                 </label>
             </div>
             <div className={classes.toolbar}>
-                <button className={classes.saveBtn} onClick={props.close}>
+                <button className={classes.saveBtn} onClick={collectData}>
                     Cохранить
                 </button>
             </div>

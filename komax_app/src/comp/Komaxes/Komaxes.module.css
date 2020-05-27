@@ -31,6 +31,7 @@ body{
     outline: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 20px;
 }
 
 .succBtn:hover{
@@ -45,8 +46,10 @@ body{
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    height: 97%;
+    justify-content: flex-start;
+    overflow-y: scroll;
+    min-width: 7vw;
+    min-height: 97%;
 }
 
 .komaxItem{
@@ -64,4 +67,5 @@ body{
     background-color: white;
     border-radius: 5px;
     height: 100%;
+    overflow-y: scroll;
 }

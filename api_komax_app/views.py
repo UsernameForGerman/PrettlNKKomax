@@ -72,7 +72,7 @@ class KomaxDetailView(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         komax_serializer = KomaxSerializer(komax, data=request.data, context={'request': request})
-        if komax.is_valid():
+        if komax_serializer.is_valid():
             komax.save()
             return Response(status=status.HTTP_202_ACCEPTED)
 
