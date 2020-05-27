@@ -9,6 +9,7 @@ import HarsessesContainer from "./comp/Harnesses/HarnessesContainer";
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import {library} from "@fortawesome/fontawesome-svg-core";
+import LoginContainer from "./comp/Login/LoginContainer";
 
 library.add(fas, fab);
 
@@ -19,7 +20,7 @@ let App = (props) => {
               <Provider store={store}>
                   <Header/>
                   <Route path={"/"} exact>
-                      Главная
+                      <LoginContainer/>
                   </Route>
                   <Route path={"/komaxes"}>
                       <KomaxesContainer/>

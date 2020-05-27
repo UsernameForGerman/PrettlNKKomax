@@ -15,6 +15,7 @@ import dj_database_url
 # import dotenv
 # import django_heroku
 import redis
+from corsheaders.defaults import default_headers
 from django.utils.translation import gettext_lazy as _
 import urllib.parse
 
@@ -41,6 +42,10 @@ INPROD = os.environ.get('INPROD', False)
 DEBUG = os.environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = ['localhost', 'komax.prettl.ru']
+
+CORS_ALLOW_HEADERS = default_headers + (
+    'Cache-Control', 'If-Modified-Since', 'Accept'
+)
 
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
@@ -72,12 +77,29 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+#CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = [
+    "https://example.com",
+    "https://sub.example.com",
+    "http://localhost:8000",
+    "http://localhost:3000",
+    "http://127.0.0.1:9000"
+]
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
 
 ROOT_URLCONF = 'komax_site.urls'
 

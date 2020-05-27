@@ -5,6 +5,9 @@ import React, {useEffect} from "react";
 import Komaxes from "./Komaxes";
 import classes from "./Komaxes.module.css";
 import komax from "../../assets/images/komax.png";
+import file from "../../assets/docs/КРП 6282-2124813-12 test.xlsx"
+import harnessApi from "../../DAL/harness/harness-api";
+import kappaApi from "../../DAL/kappa/kappa-api";
 
 let KomaxesContainer = (props) => {
     useEffect(() => {
@@ -12,6 +15,12 @@ let KomaxesContainer = (props) => {
              props.fetchKomaxes();
         }
     }, props.komaxList);
+
+    var data = new FormData();
+    data.append('name', "name");
+    data.append('type', "xlsx");
+    data.append("xlsx", file);
+    harnessApi.createHarness("6282-2124813-12", data).then((r) => console.log(r));
 
     let renderedKomaxItems = props.komaxList.map((elem) => {
         return (

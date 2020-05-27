@@ -79,7 +79,8 @@
     "webpack": "^4.43.0",
     "webpack-bundle-tracker": "^1.0.0-alpha.1",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "webpack-xlsx-loader": "^1.0.0"
   },
   "keywords": [],
   "author": "KFU-War",

@@ -46,6 +46,10 @@ module.exports = {
                         loader: 'file-loader?name=assets/[name].[ext]',
                     }
                 ]
+            },
+            {
+                test: /\.xlsx$/,
+                loader: "webpack-xlsx-loader"
             }
         ]
     },
