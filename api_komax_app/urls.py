@@ -17,7 +17,7 @@ router.register('laboriousness', LabourisnessViewSet)
 router.register('komax_terminals', KomaxTerminalsViewSet)
 router.register('komax_status', KomaxStatusViewSet)
 router.register('harness_chart', HarnessChartViewSet)
-router.register('komax_seal', KomaxSealViewSet)
+router.register('komax_seals', KomaxSealViewSet)
 
 urlpatterns = [
     path('v1/auth/', ObtainAuthToken.as_view(), name='get_token'),
