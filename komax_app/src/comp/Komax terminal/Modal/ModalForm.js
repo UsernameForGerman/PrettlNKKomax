@@ -4,6 +4,7 @@ import Select from 'react-select';
 import MultiSelect from "react-multi-select-component";
 import createKomax from "../../../DAL/models/komax";
 import createTerminal from "../../../DAL/models/terminal";
+import {FormattedMessage} from "react-intl";
 
 let ModalForm = (props) => {
     let terminalNumberRef = React.createRef();
@@ -32,12 +33,12 @@ let ModalForm = (props) => {
     return(
         <div className={classes.ModalForm}>
             <div className={classes.heading}>
-                <h2>Создать новый Komax Terminal</h2>
+                <h2><FormattedMessage id={"terminal.create_terminal_heading"}/></h2>
                 <button onClick={props.close} className={classes.closeBtn}>X</button>
             </div>
             <div className={classes.inputs}>
                 <label>
-                    Komax Terminal number
+                    <FormattedMessage id={"terminal.terminal_number_label"}/>
                     <input type={"text"} className={`${classes.input} ${!isNumberValid ? classes.invalidInput :""}`} ref={terminalNumberRef} onChange={check}/>
                     {isNumberValid
                         ? <></>
@@ -47,14 +48,14 @@ let ModalForm = (props) => {
                     }
                 </label>
                 <label>
-                    Terminal avaliable
+                    <FormattedMessage id={"terminal.terminal_avaliable_label"}/>
                     <select className={classes.select} ref={terminalAvalRef}>
                         <option value={"True"} selected className={classes.option}>True</option>
                         <option value={"False"} className={classes.option}>False</option>
                     </select>
                 </label>
                 <label>
-                    Material avaliable
+                    <FormattedMessage id={"terminal.material_avaliable_label"}/>
                     <select className={classes.select} ref={materialAvalRef}>
                         <option value={"True"} selected className={classes.option}>True</option>
                         <option value={"False"} className={classes.option}>False</option>
@@ -63,7 +64,7 @@ let ModalForm = (props) => {
             </div>
             <div className={classes.toolbar}>
                 <button className={classes.saveBtn} onClick={collectData} disabled={props.isFetching || !props.isValid}>
-                    Cохранить
+                    <FormattedMessage id={"save_button_label"}/>
                 </button>
             </div>
         </div>

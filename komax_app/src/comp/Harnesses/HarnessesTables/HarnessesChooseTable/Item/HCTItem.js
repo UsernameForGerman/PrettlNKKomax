@@ -1,6 +1,7 @@
 import classes from "./HCTItem.module.css"
 import React from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import IconButton from "../../../../common/IconButton/IconButton";
+import {FormattedMessage} from "react-intl";
 let HarnessesChooseTableItem = (props) => {
     return(
         <div className={!props.heading ? classes.TableItem : classes.TableItemWithoutHover} onClick={props.select}>
@@ -20,20 +21,16 @@ let HarnessesChooseTableItem = (props) => {
             </div>
             {!props.heading
                 ?<div className={classes.toolbar}>
-                    <button className={`${classes.iconButton} ${classes.downloadBtn}`}>
-                        <FontAwesomeIcon icon={['fas', 'download']}/>
-                    </button>
-                    <button className={`${classes.iconButton} ${classes.deleteBtn}`} onClick={props.delete}>
-                        <FontAwesomeIcon icon={['fas', 'trash-alt']}/>
-                    </button>
+                    <IconButton icon={['fas', 'download']}/>
+                    <IconButton icon={['fas', 'trash-alt']} click={props.delete}/>
                  </div>
                 :<>
                     <div className={`${classes.firstItem} ${classes.secondItem}`}>
                         <div className={classes.data}>
-                            <b>Download</b>
+                            <b><FormattedMessage id={"harnesses.table_download_label"}/></b>
                         </div>
                         <div className={classes.data}>
-                            <b>Delete</b>
+                            <b><FormattedMessage id={"harnesses.table_delete_label"}/></b>
                         </div>
                     </div>
                 </>

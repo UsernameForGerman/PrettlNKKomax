@@ -14,6 +14,7 @@ import {deleteHarnessByNumberThunk, getChartByNumberThunk, getHarnessesListThunk
 import {connect} from "react-redux";
 import Preloader from "../Preloader/Preloader";
 import harnessChartApi from "../../DAL/harness_chart/harness_chart_api";
+import {FormattedMessage} from "react-intl";
 
 let HarsessesContainer = (props) => {
     useEffect(() => {
@@ -40,7 +41,7 @@ let HarsessesContainer = (props) => {
     });
 
     let headings = [
-        "Harness number", "Провод", "Маркировка", "Номер", "Сечение", "Цвет", "Длина", "Армировка 1","Длина трубки 1", "Уплотнитель 1", "Частичное снятие 1", "Наконечник 1","Аппликатор 1", "Армировка 2","Длина трубки 2", "Уплотнитель 2", "Частичное снятие 2", "Наконечник 2","Аппликатор 2"
+        <FormattedMessage id={"harnesses.map_harnesses_number"}/>, <FormattedMessage id={"harnesses.map_harness"}/>, <FormattedMessage id={"harnesses.map_marking"}/>, <FormattedMessage id={"harnesses.map_wire_number"}/>, <FormattedMessage id={"harnesses.map_wire_square"}/>, <FormattedMessage id={"harnesses.map_wire_color"}/>, <FormattedMessage id={"harnesses.map_wire_length"}/>, <FormattedMessage id={"harnesses.map_armirovka"}/>, <FormattedMessage id={"harnesses.map_tube_len"}/>, <FormattedMessage id={"harnesses.map_wire_seal"}/>, <FormattedMessage id={"harnesses.map_wire_cut_length"}/>, <FormattedMessage id={"harnesses.map_wire_terminal"}/>, <FormattedMessage id={"harnesses.map_aplicator"}/>, <FormattedMessage id={"harnesses.map_armirovka_2"}/>, <FormattedMessage id={"harnesses.map_tube_len_2"}/>, <FormattedMessage id={"harnesses.map_wire_seal_2"}/>, <FormattedMessage id={"harnesses.map_wire_cut_length_2"}/>, <FormattedMessage id={"harnesses.map_wire_terminal_2"}/>, <FormattedMessage id={"harnesses.map_aplicator_2"}/>
     ].map((heading) => {
         return(<TableCell align="right"><b>{heading}</b></TableCell>)
     });
@@ -75,7 +76,7 @@ let HarsessesContainer = (props) => {
                 ? <div className={classes.mapWrapper}><Preloader/></div>
                 : selectedNumber.length > 0
                 ? <div>
-                    <h2>{"КРП " + selectedNumber}</h2>
+                    <h2><FormattedMessage id={"harnesses.map_name"}/>{" " + selectedNumber}</h2>
                       <TableContainer component={Paper} className={classes.table}>
                       <Table aria-label="simple table">
                         <TableHead>
@@ -92,7 +93,7 @@ let HarsessesContainer = (props) => {
                   </div>
                 : <div className={classes.mapWrapper}>
                     <h1>
-                        Выберите жгут для просмотра его КРП
+                        <FormattedMessage id={"harnesses.choose_terminal"}/>
                     </h1>
                   </div>
               }

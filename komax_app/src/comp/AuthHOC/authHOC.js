@@ -11,7 +11,7 @@ let auth = (Component) => {
             );
         } else {
             return (
-                <Redirect to={"/"}/>
+                <Redirect to={"/login"}/>
             )
         }
     }

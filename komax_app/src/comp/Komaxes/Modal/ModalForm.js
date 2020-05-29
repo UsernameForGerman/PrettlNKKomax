@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import classes from "./ModalForm.module.css";
-import Select from 'react-select';
-import MultiSelect from "react-multi-select-component";
 import createKomax from "../../../DAL/models/komax";
+import SaveButton from "../../common/SaveButton/SaveButton";
+import {FormattedMessage} from 'react-intl';
 
 let ModalForm = (props) => {
     let [multiselectOptions, setMultiselectOptions] = useState([]);
@@ -73,7 +73,7 @@ let ModalForm = (props) => {
             </div>
             <div className={classes.inputs}>
                 <label>
-                    Komax number
+                    <FormattedMessage id={"komax.number_label"}/>
                     <input type={"text"} className={`${classes.input} ${!isNumberValid ? classes.invalidInput :""}`} ref={komaxNumberRef} value={currKomax.number} onChange={check} disabled={isInEditMode}/>
                 </label>
                 {isNumberValid
@@ -83,15 +83,15 @@ let ModalForm = (props) => {
                       </div>
                 }
                 <label>
-                    Cтатус
+                    <FormattedMessage id={"komax.status_label"}/>
                     <select className={classes.select} ref={statusRef}>
-                        <option value={1} selected={currKomax.status === 1} className={classes.option}>Work</option>
+                        <option value={0} selected={currKomax.status === 0} className={classes.option}>Works</option>
                         <option value={0} selected={currKomax.status === 0} className={classes.option}>Repair</option>
                         <option value={2} selected={currKomax.status === 2} className={classes.option}>Not working</option>
                     </select>
                 </label>
                 <label>
-                    Маркировка
+                    <FormattedMessage id={"komax.marking_label"}/>
                     <select className={classes.select} ref={markingRef}>
                         <option value={3} selected={currKomax.marking === 3} className={classes.option}>Black</option>
                         <option value={2} selected={currKomax.marking === 2} className={classes.option}>White</option>
@@ -99,14 +99,14 @@ let ModalForm = (props) => {
                     </select>
                 </label>
                 <label>
-                    Спаривание
+                    <FormattedMessage id={"komax.pairing_label"}/>
                     <select className={classes.select} ref={pairingRef}>
                         <option value={1} selected={currKomax.pairing === 1} className={classes.option}>Yes</option>
                         <option value={0} selected={currKomax.pairing === 0} className={classes.option}>No</option>
                     </select>
                 </label>
                 <label>
-                    Сечение
+                    <FormattedMessage id={"komax.group_of_square_label"}/>
                     <select className={classes.select} multiple={true} ref={sepairingRef} onChange={handleMultiSelect}>
                         <option value={1} selected={currKomax.sepairing && currKomax.sepairing.indexOf("1") !== -1} className={classes.option}>0.5 - 1.0</option>
                         <option value={2} selected={currKomax.sepairing && currKomax.sepairing.indexOf("2") !== -1} className={classes.option}>1.5 - 2.5</option>
@@ -114,7 +114,7 @@ let ModalForm = (props) => {
                     </select>
                 </label>
                 <label>
-                    Идентификатор
+                    <FormattedMessage id={"komax.identifier_label"}/>
                     <input type={"text"} className={`${classes.input} ${!isIdValid ? classes.invalidInput :""}`} value={currKomax.id} ref={identifierRef} onChange={check} disabled={isInEditMode}/>
                 </label>
                 {isIdValid
@@ -125,9 +125,7 @@ let ModalForm = (props) => {
                 }
             </div>
             <div className={classes.toolbar}>
-                <button className={classes.saveBtn} onClick={collectData} disabled={props.isFetching || !props.isValid}>
-                    Cохранить
-                </button>
+                <SaveButton click={collectData} disable={props.isFetching || !props.isValid} value={<FormattedMessage id={"save_button_label"}/>}/>
             </div>
         </div>
     );

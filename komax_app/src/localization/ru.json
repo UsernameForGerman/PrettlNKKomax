@@ -1,0 +1,75 @@
+{
+  "komax.add_button_text" : "Добавить",
+
+  "komax.number_label" : "Номер оборудования",
+  "komax.type_label" : "Тип",
+  "komax.marking_label" : "Маркировка",
+  "komax.pairing_label" : "Спаривание",
+  "komax.group_of_square_label" : "Группа сечения",
+  "komax.status_label" : "Статус",
+  "komax.identifier_label" : "Идентификатор",
+
+  "komax.modal_form_heading_create" : "Создать новый комакс",
+  "komax.modal_form_heading_edit" : "Изменить существующий комакс",
+
+  "save_button_label" : "Сохранить",
+
+  "header.start_link" : "Главная",
+  "header.tasks_link" : "Задания",
+  "header.harnesses_link" : "Жгуты",
+  "header.komax_teminals_link" : "Терминалы",
+  "header.labour_inputs_link" : "Трудозатраты",
+  "header.komaxes_link" : "Комаксы",
+  "header.locale_label" : "RU",
+
+  "terminal.terminal_number_0_label" : "Номер",
+  "terminal.terminal_number_1_label" : "терминала",
+  "terminal.terminal_avaliable_0_label" : "Терминал",
+  "terminal.terminal_avaliable_1_label" : "доступен",
+  "terminal.material_avaliable_0_label" : "Материал",
+  "terminal.material_avaliable_1_label" : "доступен",
+
+  "terminal.delete_label" : "Удалить",
+
+  "terminal.heading" : "Терминалы",
+  "terminal.choose_terminal" : "Выберите терминал для редактирования",
+
+  "terminal.material_avaliable_label" : "Материал доступен",
+  "terminal.terminal_avaliable_label" : "Терминал доступен",
+
+  "terminal.terminal_number_label" : "Номер терминала",
+
+  "terminal.create_terminal_heading" : "Создать новый терминал",
+  "terminal.edit_terminal_heading" : "Редактировать терминал",
+
+  "harnesses.add_harness_number_placeholder" : "Номер жгута",
+  "harnesses.choose_terminal" : "Выберите жгут для просмотра КРП",
+  "harnesses.map_name" : "КРП",
+
+  "harnesses.map_harnesses_number" : "Номер жгута",
+  "harnesses.map_harness" : "Провод",
+  "harnesses.map_wire_type" : "Тип провода",
+  "harnesses.map_marking" : "Маркировка",
+  "harnesses.map_wire_number" : "Номер",
+  "harnesses.map_wire_square" : "Сечение",
+  "harnesses.map_wire_color" : "Цвет провода",
+  "harnesses.map_wire_length" : "Длина провода",
+
+  "harnesses.map_armirovka" : "Армировка 1",
+  "harnesses.map_tube_len" : "Длина трубки 1",
+  "harnesses.map_wire_seal" : "Уплотнитель 1",
+  "harnesses.map_wire_cut_length" : "Частичное снятие 1",
+  "harnesses.map_wire_terminal" : "Наконечник 1",
+  "harnesses.map_aplicator" : "Апликатор 1",
+
+  "harnesses.map_armirovka_2" : "Армировка 2",
+  "harnesses.map_tube_len_2" : "Длина трубки 2",
+  "harnesses.map_wire_seal_2" : "Уплотнитель 2",
+  "harnesses.map_wire_cut_length_2" : "Частичное снятие 2",
+  "harnesses.map_wire_terminal_2" : "Наконечник 2",
+  "harnesses.map_aplicator_2" : "Апликатор 2",
+
+  "harnesses.table_date_label" : "\nи дата",
+  "harnesses.table_download_label" : "Загрузить",
+  "harnesses.table_delete_label" : "Удалить"
+}

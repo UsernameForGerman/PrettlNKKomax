@@ -2,9 +2,12 @@ import classes from "./KomaxTable.module.css"
 import React from "react";
 
 let KomaxTableItem = (props) => {
-    let separing = props.sepairing.split(' ').map((elem) => {
-        return <div key={elem}>{elem}</div>
-    });
+    let sepairing = props.sepairing;
+    if (!props.columnType){
+        sepairing = props.sepairing.split(' ').map((elem) => {
+            return <div key={elem}>{elem}</div>
+        });
+    }
     let dataClasses = props.columnType ? classes.bold : classes.data;
     let tableItem = props.columnType ? classes.heading : classes.tableItem;
     return(
@@ -25,7 +28,7 @@ let KomaxTableItem = (props) => {
             {props.pairing}
         </div>
         <div className={`${dataClasses} ${classes.sepairing}`} name={"separing"}>
-            {separing}
+            {sepairing}
         </div>
         <div className={dataClasses} name={"id"}>
             {props.id}

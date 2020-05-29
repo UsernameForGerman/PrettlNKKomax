@@ -1,9 +1,11 @@
 import React, {useState} from "react";
 import classes from "./KomaxTerminal.module.css"
-import KomaxTerminalTable from "./KomaxTerminalTable/KomaxTerminalTable";
 import KomaxTerminalEditForm from "./KTEditForm/KomaxTerminalEditForm";
 import Modal from "react-modal";
 import ModalFormContainer from "./Modal/ModalFormContainer";
+import SuccessButton from "../common/SuccessButton/SuccessButton";
+import KomaxTerminalsTableContainer from "./KomaxTerminalTable/KomaxTerminalTableContainer";
+import {FormattedMessage} from "react-intl";
 
 let KomaxTerminal = (props) => {
     let [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,21 +29,19 @@ let KomaxTerminal = (props) => {
         <div className={classes.KomaxTerminal}>
             <div className={classes.cards}>
                 <div className={`${classes.card} ${classes.left_card}`}>
-                    <KomaxTerminalTable items={props.items}/>
+                    <KomaxTerminalsTableContainer items={props.items}/>
                 </div>
                 <div className={`${classes.card} ${classes.right_card}`}>
                     <div className={classes.heading}>
                         <div className={classes.title}>
-                            <b>Komax terminals</b>
+                            <b><FormattedMessage id={"terminal.heading"}/></b>
                         </div>
-                        <button className={classes.succBtn} onClick={openModal}>
-                            +
-                        </button>
+                        <SuccessButton class={classes.succBtn} click={openModal} value={"+"}/>
                     </div>
                     {props.selected
                         ? <KomaxTerminalEditForm {...props}/>
                         : <div className={classes.choose}>
-                            <b>Выберите терминал для редактирования</b>
+                            <b><FormattedMessage id={"terminal.choose_terminal"}/></b>
                           </div>
                     }
                 </div>

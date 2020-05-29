@@ -6,6 +6,8 @@ import KomaxTable from "./KomaxTable/KomaxTable";
 import Modal from 'react-modal';
 import ModalForm from "./Modal/ModalForm";
 import ModalFormContainer from "./Modal/ModalFormContainer";
+import SuccessButton from "../common/SuccessButton/SuccessButton";
+import {FormattedMessage} from "react-intl";
 
 let Komaxes = (props) => {
     const customStyles = {
@@ -35,9 +37,7 @@ let Komaxes = (props) => {
       <div className={classes.Komaxes}>
           <div className={classes.container}>
             <div className={classes.komaxesColumn}>
-                <button className={classes.succBtn} onClick={openModal}>
-                    Добавить
-                </button>
+                <SuccessButton click={openModal} value={<FormattedMessage id={"komax.add_button_text"}/>}/>
                 {props.items}
             </div>
             <div className={classes.table}>
@@ -49,7 +49,7 @@ let Komaxes = (props) => {
               style={customStyles}
               contentLabel="Example Modal"
             >
-                <ModalFormContainer close={closeModal} send={props.save} heading={"Cоздать новый аппарат"}/>
+                <ModalFormContainer close={closeModal} send={props.save} heading={<FormattedMessage id={"komax.modal_form_heading_create"}/>}/>
             </Modal>
             <Modal
               isOpen={isModalOpen2}
@@ -57,7 +57,7 @@ let Komaxes = (props) => {
               style={customStyles}
               contentLabel="Example Modal"
             >
-                <ModalFormContainer close={closeModal2} send={props.update} selected={props.selectedKomax} heading={"Изменить существующий аппарат"}/>
+                <ModalFormContainer close={closeModal2} send={props.update} selected={props.selectedKomax} heading={<FormattedMessage id={"komax.modal_form_heading_edit"}/>}/>
             </Modal>
           </div>
       </div>

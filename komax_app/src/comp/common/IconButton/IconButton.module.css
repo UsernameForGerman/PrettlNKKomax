@@ -1,0 +1,14 @@
+.iconButton{
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    color: black;
+    width: 40px;
+    height: 40px;
+}
+
+.iconButton:hover{
+    color: #c9cbc9;
+}

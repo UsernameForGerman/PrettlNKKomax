@@ -6,6 +6,8 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import {withStyles} from "@material-ui/styles";
+import SaveButton from "../../common/SaveButton/SaveButton";
+import {FormattedMessage} from "react-intl";
 
 let KomaxTerminalEditForm = (props) => {
 
@@ -44,7 +46,7 @@ let KomaxTerminalEditForm = (props) => {
     }
 
     let sealOptions = renderOptions(
-        "Seal",
+        <FormattedMessage id={"terminal.material_avaliable_label"}/>,
         props.materialValue,
         handleChangeMaterial,
         [
@@ -60,7 +62,7 @@ let KomaxTerminalEditForm = (props) => {
     );
 
     let terminalOptions = renderOptions(
-        "Terminal",
+        <FormattedMessage id={"terminal.terminal_avaliable_label"}/>,
         props.terminalAvaliable,
         handleChangeTerminal,
         [
@@ -84,9 +86,7 @@ let KomaxTerminalEditForm = (props) => {
                 {sealOptions}
                 {terminalOptions}
             </div>
-            <button className={classes.saveBtn}>
-                Сохранить
-            </button>
+            <SaveButton value={<FormattedMessage id={"save_button_label"}/>}/>
         </form>
     );
 }

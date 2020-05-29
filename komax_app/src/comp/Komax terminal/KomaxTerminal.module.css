@@ -51,21 +51,9 @@
 }
 
 .succBtn{
-    color: #12cb10;
-    border: #12cb10 2px solid;
     box-shadow: 1px 1px 10px;
-    background-color: transparent;
     font-size: 48px;
     padding: 1px 15px;
-    outline: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 20px;
-}
-
-.succBtn:hover{
-    color: #12e010;
-    border-color: #12e010;
 }
 
 .choose{

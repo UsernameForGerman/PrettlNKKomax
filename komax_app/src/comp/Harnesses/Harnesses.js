@@ -1,20 +1,23 @@
 import classes from "./Harnesses.module.css"
 import React from "react";
 import HarnessesChooseTable from "./HarnessesTables/HarnessesChooseTable/HarnessesChooseTable";
+import SuccessButton from "../common/SuccessButton/SuccessButton";
+import {FormattedMessage} from "react-intl";
 let Harnesses = (props) => {
     return(
         <main className={classes.container}>
             <div className={classes.card}>
                 <div className={classes.addHarness}>
                     <form className={classes.form}>
-                        <input type={"text"} className={classes.input} placeholder={"Harnesses number"}/>
+                        <label>
+                            <FormattedMessage id={"harnesses.add_harness_number_placeholder"}/>
+                            <input type={"text"} className={classes.input}/>
+                        </label>
                         <input type={"file"} className={classes.file}/>
                         <div className={classes.response}>
                             <strong>OK</strong>
                         </div>
-                        <button className={classes.succBtn}>
-                            Добавить
-                        </button>
+                        <SuccessButton value={<FormattedMessage id={"komax.add_button_text"}/>}/>
                     </form>
                 </div>
                 <HarnessesChooseTable items={props.harnesses}/>
@@ -23,7 +26,7 @@ let Harnesses = (props) => {
                 {props.selectedTable
                     ? <>{props.selectedTable}</>
                     : <>
-                        Выберите жгут из таблицы и здесь появится карта резки
+                        <FormattedMessage id={"harnesses.choose_terminal"}/>
                       </>
                 }
             </div>

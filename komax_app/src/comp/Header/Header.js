@@ -6,7 +6,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import MenuIcon from '@material-ui/icons/Menu';
-import InboxIcon from "@material-ui/icons/Inbox"
 
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -14,31 +13,32 @@ import IconButton from "@material-ui/core/IconButton";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 
 import {Briefcase, Clock, Folder, GitCommit, Home, Settings} from "react-feather";
+import {FormattedMessage} from "react-intl";
 
 let Header = (props) => {
     let buttonsState = [
         {
-          desc : "Start",
+          desc : <FormattedMessage id={"header.start_link"}/>,
           link : "/"
         },
         {
-          desc : "Tasks",
+          desc : <FormattedMessage id={"header.tasks_link"}/>,
           link : "/tasks"
         },
         {
-          desc : "Harnesses",
+          desc : <FormattedMessage id={"header.harnesses_link"}/>,
           link : "/harnesses"
         },
         {
-          desc : "Komax terminals",
+          desc : <FormattedMessage id={"header.komax_teminals_link"}/>,
           link : "/terminals"
         },
         {
-          desc : "Labor input",
+          desc : <FormattedMessage id={"header.labour_inputs_link"}/>,
           link : "/input"
         },
         {
-          desc : "Komaxes",
+          desc : <FormattedMessage id={"header.komaxes_link"}/>,
           link : "/komaxes"
         }
     ].map((elem) => {
@@ -112,6 +112,9 @@ let Header = (props) => {
                     <div className={classes.logoWrapper}>
                         <img src={logo} alt={"logo"} className={classes.logo}/>
                     </div>
+                    <button onClick={props.toggleLocale}>
+                        <FormattedMessage id={"header.locale_label"}/>
+                    </button>
                 </div>
             </div>
             <div className={classes.spacing}/>

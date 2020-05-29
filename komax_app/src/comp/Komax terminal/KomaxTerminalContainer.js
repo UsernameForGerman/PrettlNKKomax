@@ -40,6 +40,7 @@ let KomaxTerminalContainer = (props) => {
     })
 
     return(
+
         <KomaxTerminal items={items}
                        selected={selectedTerminal}
                        setMaterial={setMaterialValue}

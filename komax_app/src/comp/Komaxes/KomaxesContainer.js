@@ -24,7 +24,6 @@ let KomaxesContainer = (props) => {
     }
 
     let update = (komax) => {
-        debugger;
         props.updateKomax(komax);
     }
 
