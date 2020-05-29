@@ -1,13 +1,14 @@
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from .serializers import HarnessSerializer, KomaxSerializer, KappaSerializer, KomaxTerminalSerializer, \
-    LaboriousnessSerializer, KomaxStatusSerializer
-from komax_app.models import Harness, HarnessChart, Komax, Kappa, Laboriousness, KomaxTerminal, KomaxStatus
+    LaboriousnessSerializer, KomaxStatusSerializer, HarnessChartSerializer, KomaxSealSerializer
+from komax_app.models import Harness, HarnessChart, Komax, Kappa, Laboriousness, KomaxTerminal, KomaxStatus, KomaxSeal
 from rest_framework.response import Response
 from komax_app.modules.HarnessChartProcessing import HarnessChartReader
-from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_202_ACCEPTED
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_202_ACCEPTED, HTTP_200_OK, \
+    HTTP_204_NO_CONTENT
 
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class KomaxViewSet(ModelViewSet):
     serializer_class = KomaxSerializer
@@ -78,10 +79,36 @@ class KomaxTerminalsViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
 
+class KomaxSealViewSet(ModelViewSet):
+    serializer_class = KomaxSealSerializer
+    queryset = KomaxSeal.objects.all()
+    lookup_field = 'seal_name'
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
 class KomaxStatusViewSet(ReadOnlyModelViewSet):
     serializer_class = KomaxStatusSerializer
     queryset = KomaxStatus.objects.all()
     lookup_field = 'komax'
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
+
+class HarnessChartViewSet(ReadOnlyModelViewSet):
+    serializer_class = HarnessChartSerializer
+    queryset = HarnessChart.objects.all()
+    lookup_field = 'harness_number'
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+    def retrieve(self, request, *args, **kwargs):
+        harness_number = self.kwargs.get('harness_number', None)
+        if harness_number is not None:
+            harness_chart_objs = HarnessChart.objects.filter(harness__harness_number=harness_number)
+            if len(harness_chart_objs):
+                serializer = HarnessChartSerializer(harness_chart_objs, many=True)
+
+                return Response(serializer.data, status=HTTP_200_OK)
+            return Response(status=HTTP_204_NO_CONTENT)
+        return Response(status=HTTP_400_BAD_REQUEST)
+
 

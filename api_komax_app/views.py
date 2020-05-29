@@ -143,24 +143,6 @@ class HarnessListView(APIView):
                 harness_number=harness_number
             )
 
-
-
-            """
-        harness_serializer = HarnessSerializer(data=request.data)
-        if harness_serializer.is_valid():
-            harness_serializer.save()
-
-            reader = HarnessChartReader()
-            reader.load_file(request.data['file'])
-            reader.read_file_chart()
-
-            harness_number = harness_serializer.data.get('harness_number')
-
-            HarnessChart.save_from_dataframe(
-                harness_dataframe=reader.get_dataframe(),
-                harness_number=harness_number
-            )
-        """
             return Response(status=status.HTTP_201_CREATED)
 
 

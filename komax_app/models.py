@@ -16,51 +16,6 @@ from django.urls import reverse
 
 User = get_user_model()
 
-class Worker(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, db_index=True)
-    image = models.ImageField(
-        upload_to='worker_images/',
-        null=True,
-        blank=True,
-        editable=True,
-    )
-
-    def save(self, *args, **kwargs):
-        workers = Worker.objects.filter(id=self.id)
-        old_path = None
-        if len(workers):
-            image = workers.first().image
-            # image = Worker.objects.get(id=self.id).image
-
-            if bool(image):
-                old_path = image.url
-                print(os.path.exists(old_path))
-                if os.path.exists(old_path):
-                    os.remove(image.url)
-
-        if bool(self.image):
-            image = Image.open(self.image)
-            image_format = self.image.name.split('.')[-1]
-            image_name = self.image.name.split('.')[0]
-
-            output = BytesIO()
-
-            image = image.resize((200, 200))
-            if image_format == 'png':
-                image.save(output, format='PNG', quality=100)
-            else:
-                image.save(output, format='JPEG', quality=100)
-            output.seek(0)
-
-            self.image = InMemoryUploadedFile(output, 'ImageField', '{name}.{format}'.format(name=image_name, format=image_format), 'image/jpeg', sys.getsizeof(output), None)
-
-            if old_path is not None and os.path.exists(old_path):
-                os.remove(old_path)
-        super(Worker, self).save(*args, **kwargs)
-
-
-    def __str__(self):
-        return str(self.user)
 
 """
 @receiver(post_save, sender=User)
@@ -152,11 +107,17 @@ class Temp_chart(models.Model):
 
 class KomaxTerminal(models.Model):
     terminal_name = models.CharField(max_length=64, unique=True)
-    seal_available = models.BooleanField(default=True)
     terminal_available = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.terminal_name + str(self.seal_available) + str(self.terminal_available)
+        return self.terminal_name + str(self.terminal_available)
+
+class KomaxSeal(models.Model):
+    seal_name = models.CharField(max_length=64, unique=True)
+    seal_available = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.seal_name + str(self.seal_available)
 
 class Kappa(models.Model):
     STATUS_CHOICES = [
@@ -220,6 +181,60 @@ class KomaxTime(models.Model):
 
     def __str__(self):
         return  str(self.komax.number) + ' : ' + str(self.time)
+
+class Worker(models.Model):
+    LOCALE_CHOICES = [
+        (1, 'ru'),
+        (2, 'en')
+    ]
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, db_index=True)
+    image = models.ImageField(
+        upload_to='worker_images/',
+        null=True,
+        blank=True,
+        editable=True,
+    )
+    current_komax = models.ForeignKey(Komax, on_delete=models.SET_NULL, null=True)
+    locale = models.SmallIntegerField('language', choices=LOCALE_CHOICES, default=1)
+
+
+    def save(self, *args, **kwargs):
+        workers = Worker.objects.filter(id=self.id)
+        old_path = None
+        if len(workers):
+            image = workers.first().image
+            # image = Worker.objects.get(id=self.id).image
+
+            if bool(image):
+                old_path = image.url
+                print(os.path.exists(old_path))
+                if os.path.exists(old_path):
+                    os.remove(image.url)
+
+        if bool(self.image):
+            image = Image.open(self.image)
+            image_format = self.image.name.split('.')[-1]
+            image_name = self.image.name.split('.')[0]
+
+            output = BytesIO()
+
+            image = image.resize((200, 200))
+            if image_format == 'png':
+                image.save(output, format='PNG', quality=100)
+            else:
+                image.save(output, format='JPEG', quality=100)
+            output.seek(0)
+
+            self.image = InMemoryUploadedFile(output, 'ImageField', '{name}.{format}'.format(name=image_name, format=image_format), 'image/jpeg', sys.getsizeof(output), None)
+
+            if old_path is not None and os.path.exists(old_path):
+                os.remove(old_path)
+        super(Worker, self).save(*args, **kwargs)
+
+
+    def __str__(self):
+        return "{} - {}".format(self.user, self.current_komax)
 
 class KomaxTask(models.Model):
     LOADING_TYPES = [
