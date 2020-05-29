@@ -590,23 +590,26 @@ class ProcessDataframe:
     def __reset_index(self):
         self.chart.index = pd.Index(range(self.chart.shape[0]))
 
-    def __check_for_availability(self, idx, terminal_info, terminal_col, armirovka_col, seal_col, wire_cut_col):
-        if not terminal_info.empty and terminal_info['seal_available'].all():
-            pass
-        elif not terminal_info.empty and not terminal_info['seal_available'].all():
-            if self.chart.loc[idx, seal_col] != ' ' and self.chart.loc[idx, seal_col] is not None:
-                self.chart.loc[idx, [armirovka_col, terminal_col, seal_col]] = None, None, None
-            else:
+    def __delete_cols(self, idx, *cols):
+        list_cols = [col for col in cols]
+        list_empties = ['' for col in cols]
+        self.chart.loc[idx, list_cols] = list_empties
+
+    def __check_for_availability(self, idx, terminal_info, seal_info, terminal_col, seal_col):
+        if seal_info and seal_info.seal_available:
+            if terminal_info and terminal_info.terminal_available:
                 pass
+            elif terminal_info is None:
+                pass
+            else:
+                self.__delete_cols(idx, terminal_col)
+        elif seal_info is None:
+            pass
         else:
-            self.chart.loc[idx, [terminal_col, armirovka_col, seal_col]] = None, None, None
-
-        if not terminal_info.empty and not terminal_info['terminal_available'].all():
-            if self.chart.loc[idx, terminal_col] != ' ' and self.chart.loc[idx, terminal_col] is not None:
-                self.chart.loc[idx, terminal_col] = None
+            self.__delete_cols(idx, seal_col, terminal_col)
 
 
-    def filter_availability_komax_terminal(self, terminals_df):
+    def filter_availability_komax_terminal_seal(self, terminals, seals):
         """
         Удаляет все таски, которые невозможно сделать
         :param terminals_df:
@@ -614,40 +617,44 @@ class ProcessDataframe:
         """
 
         for idx, row in self.chart.iterrows():
-            armirovka_1 = self.chart.loc[idx, self.ARMIROVKA_1_COL]
-            armirovka_2 = self.chart.loc[idx, self.ARMIROVKA_2_COL]
-            terminal_1 = self.chart.loc[idx, self.TERMINAL_1_COL]
-            terminal_2 = self.chart.loc[idx, self.TERMINAL_2_COL]
+            armirovka_1, armirovka_2 = self.chart.loc[idx, [self.ARMIROVKA_1_COL, self.ARMIROVKA_2_COL]]
+            terminal_1, terminal_2 = self.chart.loc[idx, [self.TERMINAL_1_COL, self.TERMINAL_2_COL]]
+            seal_1, seal_2 = self.chart.loc[idx, [self.SEAL_1_COL, self.SEAL_2_COL]]
+
 
             if armirovka_1 is not None and armirovka_1 != ' ':
-                self.chart.loc[idx, [self.ARMIROVKA_1_COL, self.TERMINAL_1_COL, self.SEAL_1_COL]] = None, None, None
+                self.__delete_cols(idx, self.ARMIROVKA_1_COL, self.TERMINAL_1_COL, self.SEAL_1_COL)
             else:
+                terminal_1_info, seal_1_info = None, None
                 if terminal_1 is not None and terminal_1 != ' ':
-                    terminal_1_info = terminals_df.loc[terminals_df['terminal_name'] == terminal_1]
+                    terminal_1_info = terminals.filter(terminal_name=terminal_1)
+                if seal_1 is not None and seal_1 != ' ':
+                    seal_1_info = seals.filter(seal_name=seal_1)
 
-                    self.__check_for_availability(
-                        idx,
-                        terminal_1_info,
-                        self.TERMINAL_1_COL,
-                        self.ARMIROVKA_1_COL,
-                        self.SEAL_1_COL,
-                        self.WIRE_CUT_1_COL
-                    )
+                self.__check_for_availability(
+                    idx,
+                    terminal_1_info,
+                    seal_1_info,
+                    self.TERMINAL_1_COL,
+                    self.SEAL_1_COL,
+                )
 
             if armirovka_2 is not None and armirovka_2 != ' ':
-                self.chart.loc[idx, [self.ARMIROVKA_1_COL, self.TERMINAL_1_COL, self.SEAL_1_COL]] = None, None, None
+                self.__delete_cols(idx, self.ARMIROVKA_2_COL, self.TERMINAL_2_COL, self.SEAL_2_COL)
             else:
+                terminal_2_info, seal_2_info = None, None
                 if terminal_2 is not None and terminal_2 != ' ':
-                    terminal_2_info = terminals_df.loc[terminals_df['terminal_name'] == terminal_2]
+                    terminal_2_info = terminals.filter(terminal_name=terminal_2)
+                if seal_2 is not None and seal_2 != ' ':
+                    seal_2_info = seals.filter(seal_name=seal_2)
 
-                    self.__check_for_availability(
-                        idx,
-                        terminal_2_info,
-                        self.TERMINAL_2_COL,
-                        self.ARMIROVKA_2_COL,
-                        self.SEAL_2_COL,
-                        self.WIRE_CUT_2_COL
-                    )
+                self.__check_for_availability(
+                    idx,
+                    terminal_2_info,
+                    seal_2_info,
+                    self.TERMINAL_2_COL,
+                    self.SEAL_2_COL,
+                )
 
     def sort(self, method='simple', first_sort=False, test=False):
 

@@ -133,7 +133,7 @@
                                 <button class="btn btn-outline-info" disabled>
                                     {% trans 'Task loaded' %}
                                 </button>
-                                <a class="btn btn-outline-danger" href="{% url 'komax_app:stop_task'  task_name=komax_task.task_name %}">
+                                <a class="btn btn-outline-danger" href="{% url 'komax_app:stop_task_on_komax'  task_name=komax_task.task_name komax=request.session.komax %}">
                                     {% trans "Stop komax" %}
                                 </a>
                             {% elif komax_time_status.1 == 2 %}
