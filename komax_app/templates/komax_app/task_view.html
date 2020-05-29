@@ -1,110 +1,198 @@
-{% extends 'komax_app/dashboard_main.html' %}
-{% load static %}
+<!doctype html>
+<html>
 {% load i18n %}
+{% load static %}
 
-{% block title %}
-    <title>{% trans 'Task' %} {{ task.task_name }}</title>
-{% endblock %}
+<title>{% trans 'Task' %} {{ task.task_name }}</title>
 
-{% block main %}
-    <link rel="stylesheet" type="text/css" href="{% static 'komax_app/komax_app_task.css' %}">
-    <section class="jumbotron text-center">
-        <div class="container-fluid">
-            <h1 class="jumbotron-heading">Komax {% trans 'task' %} {{ task.task_name }}</h1>
-            <h5>{% trans 'Succesfully allocated!' %}</h5>
+{% block head %}
+     <script src="js/jquery-3.1.1.min.js"></script>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+              crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'komax_app/maketasks.css' %}" >
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+        <style>
+            body
+            {
+
+                    padding-top: 150px;
+                background-size:100%;
+                background-color: #868884;
+                background: -moz-linear-gradient(-45deg, #868884 0%, #E8F1FF 50%, #868884 100%);
+                 background: -webkit-linear-gradient(-45deg, #868884 0%, #E8F1FF 50%, #868884 100%);
+                background: linear-gradient(135deg, #868884 0%, #E8F1FF 50%, #868884 100%);
+                background-attachment: fixed;
+            }
+        </style>
+        <style>
+            header
+            {
+
+            position: fixed;
+            width: 100  vw;
+            top: 0;
+            background-color: white;
+            box-shadow: 0px 5px 4px grey;
+            }
+        </style>
+        <style>
+            .btn-dark{
+
+            background-color: #868884;
+
+            color: white;
+
+            }
+        </style>
+<style>
+     .btn-dark:hover{
+    background-color: #a2a39f;
+}
+</style>
+
+<style>
+    .btn-dark:focus
+    {
+      background-color: #868884;
+   outline: none;
+  color: white;
+    }
+</style>
+
+    <header class="blog-header  fixed-top" >
+
+       <div id="root">
+
+</div>
+
+<script src="/static/komax_app/main1.js">
+</script>
+
+    </header> <!-- Header -->
+
+         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+      <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
+
+    {% endblock %}
+
+    {% block body %}
+
+
+    <div class="container" >
+        <div class="row input-form">
+     <div class="col-sm">
+        <div class="card-columns" style="column-count: 1">
+            <div class="card bg-white" style="width: 100%; ">
+                <div class="card-body">
+
+                    <div class="container">
+                        <form name="form1" >
+
+
+              <h1 class="jumbotron-heading" align="center">Komax task {{ task.task_name }}</h1>
+            <h5 align="center">Succesfully allocated!</h5>
+                                <div class="row">
+                <div class="col-sm">
             <p>
-                <a class="btn btn-primary btn-lg" href="{% url 'komax_app:get_task' task_name=task.task_name %}">
-                    {% trans 'Full' %} {% trans 'task' %}
+                <a  class="btn btn-outline-primary" style="border: 2px solid #4682B4; color: #000000;" href="{% url 'komax_app:get_task' task_name=task.task_name %}">
+                    Full task
                 </a>
 
-                {% for komax, time in alloc.items %}
-                    <a class="btn btn-primary btn-lg" href="{% url 'komax_app:get_spec_task' task_name=task.task_name komax=komax %}">
-                        {% trans 'task' %} {{ komax }}
+            <p>
+                    <b> <a class="btn btn-outline-primary" style="border: 2px solid #4682B4; color: #000000;" href="{% url 'komax_app:task_setup' %}">Again</a>
+                    </b>
+            </p>
+            <p>
+
+                    <b>
+                   <a class="btn btn-outline-primary" style="border: 2px solid #4682B4; color: #000000;"  href="{% url 'komax_app:send_komax_task' task_name=task.task_name %}">
+                    Load task
+                </a>
+                    </b>
+
+
+            </p>
+                                 </div>
+
+                                <div class="col-sm" align="center">
+                    {% for komax, time in alloc.items %}
+                     <a class="btn btn-outline-success " style="border: 2px solid #008000; color: #000000; margin-top: 5px;" href="{% url 'komax_app:get_spec_task' task_name=task.task_name komax=komax %}">
+                        <h6> Task {{ komax }}</h6>
                     </a>
                 {% endfor %}
+
                 {% for kappa in kappas %}
-                    <a class="btn btn-primary btn-lg" href="{% url 'komax_app:get_spec_task_kappa' task_name=task.task_name kappa=kappa.number %}">
-                        {% trans 'task' %} kappa {{ kappa.number }}
+                    <a class="btn btn-outline-success " style="border: 2px solid #008000; color: #000000; margin-top: 5px;" href="{% url 'komax_app:get_spec_task_kappa' task_name=task.task_name kappa=kappa.number %}">
+                      <h6>  Task {{ kappa.number }}</h6>
                     </a>
                 {% endfor %}
-            </p>
-            <p>
-                <a class="btn btn-lg btn-warning" href="{% url 'komax_app:task_setup' %}">{% trans 'Again' %}</a>
-            </p>
-            <p>
-                <a class="btn btn-lg btn-success" href="{% url 'komax_app:send_komax_task' task_name=task.task_name %}">
-                    {% trans 'Load task' %}
-                </a>
-                <!--
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-lg btn-success">
-                        {% trans 'Load task' %}
-                    </button>
-                </form>
-                -->
 
             </p>
-        </div>
-    </section>
-
-    <div class="container-fluid text-center">
-
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">{% trans 'Tickets' %}</h3>
-                        <p class="card-text">
-                            {% for komax, time in alloc.items %}
-                                <a class="btn btn-lg btn-info" href="{% url 'komax_app:get_ticket_view' task_name=task.task_name komax=komax %}">
-                                    {% trans "Ticket" %} {{ komax }}
-                                </a>
-
-                            {% endfor %}
-                            {% for kappa in kappas %}
-                                <a class="btn btn-lg btn-info" href="{% url 'komax_app:get_kappa_ticket_view' task_name=task.task_name kappa=kappa.number %}">
-                                    {% trans 'Ticket' %} kappa {{ kappa.number }}
+                                </div>
+                                    <div class="col-sm" align="center">
+              {% for komax, time in alloc.items %}
+             <a class="btn btn-outline-success " style="border: 2px solid #008000; color: #000000;margin-top: 5px;" href="{% url 'komax_app:get_ticket_view' task_name=task.task_name komax=komax %}">
+                    <h6>   Ticket {{ komax }}</h6>
                                 </a>
                             {% endfor %}
-                        </p>
+
+                                         {% for kappa in kappas %}
+              <a class="btn btn-outline-success " style="border: 2px solid #008000; color: #000000;margin-top: 5px;" href="{% url 'komax_app:get_kappa_ticket_view' task_name=task.task_name kappa=kappa.number %}">
+                                  <h6>Ticket {{ kappa.number }}</h6>
+                                </a>
+                            {% endfor %}
+
+            </p>
+                                </div>
+
+
+
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">{% trans 'Harnesses' %} {% trans 'used' %}</h3>
+
+    <div class="col-sm">
+    <div class="container">
+        <div class="card-columns" style="column-count: 1">
+            <div class="card bg-white" style="width: 103%; " align="center">
+
+                        <!--второй столбец-->
+                        <h3 class="card-title">Harnesses used</h3>
 
                             {% for harness in harnesses %}
                                 <p class="card-text">
-                                <h4>{{ harness }}</h4>
-                                <p>{{ harness.amount }}</p>
+                                <h4>{{ harness }} : {{ harness.amount }}</h4>
+
                                 </p>
                             {% endfor %}
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <p class="card-body">
-                        <h3 class="card-title">Komaxes {% trans 'used' %}</h3>
+                                        <!--clown-->
+                        <h3 class="card-title">Komaxes used</h3>
 
                         <p class="card-text">
                         {% if exceeds_shift %}
                             <p>
                                 <h4>
                                 <i class="fa fa-exclamation-triangle btn-danger"> </i>
-                                    {% blocktrans %}
+
                                         Exceeds shift. Please load next shift!
-                                    {% endblocktrans %}
+
                                 <i class="fa fa-exclamation-triangle btn-danger"> </i>
                                 </h4>
                             </p>
@@ -115,6 +203,7 @@
                             </p>
                         {% endfor %}
                         </p>
+                    </div><!-- Harnesses line -->
                     </div>
                 </div>
             </div>
@@ -122,4 +211,15 @@
     </div>
 
 
-{% endblock %}
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+
+    {% endblock %}
+</html>
