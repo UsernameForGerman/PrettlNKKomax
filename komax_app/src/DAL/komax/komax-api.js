@@ -1,15 +1,15 @@
-import {createAPI} from "../api/api";
+import API from "../api/api";
 import createKomax from "../models/komax";
 
 const BASE_URL = "komaxes/"
 
-let formIdUrl = (id) => {
-    return BASE_URL + id + "/";
-}
+class komaxApi extends API {
+    constructor() {
+        super(BASE_URL);
+    }
 
-class komaxApi {
-    static getKomaxList = () => {
-        return createAPI().get(BASE_URL).then((resp) => {
+    getKomaxList = () => {
+        return this.createAPI().get(BASE_URL).then((resp) => {
             let data = resp.data;
             data = data.map((elem) => {
                 return createKomax(elem);
@@ -18,26 +18,19 @@ class komaxApi {
         });
     }
 
-    static getKomaxById = (id) => {
-        return createAPI().get(formIdUrl(id)).then((resp) => {
-            let data = resp.data;
-            return data;
-        });
+    getKomaxById = (id) => {
+        return this.getObjectById(id);
     }
 
-    static createKomax = (komax) => {
-        return createAPI().post(BASE_URL,{...komax}).then((resp) => {
-            let data = resp.data;
-            return data;
-        });
+    createKomax = (komax) => {
+        return this.createObject({...komax});
     }
 
-    static updateKomax = (komax) => {
-        debugger;
-        return createAPI().put(formIdUrl(komax.number), {...komax}).then(resp => {
+    updateKomax = (komax) => {
+        return this.createAPI().put(this.formIdUrl(komax.number) + "/", {...komax}).then(resp => {
             console.log(resp);
         })
     }
 }
 
-export default komaxApi;
+export default new komaxApi;

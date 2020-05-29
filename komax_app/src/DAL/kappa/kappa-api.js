@@ -1,39 +1,25 @@
-import {createAPI} from "../api/api";
-import createKomax from "../models/komax";
+import API from "../api/api";
 
 const BASE_URL = "kappas/"
 
-let formIdUrl = (id) => {
-  return BASE_URL + id;
-}
-
-class kappaApi {
-    static getKappaList = () => {
-        return createAPI().get(BASE_URL).then((resp) => {
-            let data = resp.data;
-            return data;
-        });
+class kappaApi extends API{
+    constructor() {
+        super(BASE_URL);
     }
 
-    static getKappaById = (id) => {
-        return createAPI().get(formIdUrl(id)).then((resp) => {
-            let data = resp.data;
-            return data;
-        });
+    getKappaList = () => {
+        return this.getObjectList();
     }
 
-    static createKappa = (number) => {
-        return createAPI().post(BASE_URL, {
+    getKappaById = (id) => {
+        return this.getObjectById(id);
+    }
+
+    createKappa = (number) => {
+        return this.createObject({
             number : number
-        }).then((resp) => {
-            let data = resp.data;
-            return data;
         });
-    }
-
-    static options = () => {
-        return createAPI().head(BASE_URL);
     }
 }
 
-export default kappaApi;
+export default new kappaApi;

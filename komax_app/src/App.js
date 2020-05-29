@@ -10,6 +10,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import {library} from "@fortawesome/fontawesome-svg-core";
 import LoginContainer from "./comp/Login/LoginContainer";
+import KomaxTerminalContainer from "./comp/Komax terminal/KomaxTerminalContainer";
 
 library.add(fas, fab);
 
@@ -21,6 +22,9 @@ let App = (props) => {
                   <Header/>
                   <Route path={"/"} exact>
                       <LoginContainer/>
+                  </Route>
+                  <Route path={"/terminals"}>
+                      <KomaxTerminalContainer/>
                   </Route>
                   <Route path={"/komaxes"}>
                       <KomaxesContainer/>

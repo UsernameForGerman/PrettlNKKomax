@@ -3,18 +3,18 @@ import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 let HarnessesChooseTableItem = (props) => {
     return(
-        <div className={!props.heading ? classes.TableItem : classes.TableItemWithoutHover}>
+        <div className={!props.heading ? classes.TableItem : classes.TableItemWithoutHover} onClick={props.select}>
             <div className={classes.firstItem}>
                 <div className={classes.data}>
                     {props.heading
-                        ? <b>{props.number}</b>
-                        : <>{props.number}</>
+                        ? <b>{props.harness_number}</b>
+                        : <>{props.harness_number}</>
                     }
                 </div>
                 <div className={classes.data}>
                     {props.heading
-                        ? <b>{props.date}</b>
-                        : <>{props.date}</>
+                        ? <b>{props.created}</b>
+                        : <>{props.created}</>
                     }
                 </div>
             </div>
@@ -23,7 +23,7 @@ let HarnessesChooseTableItem = (props) => {
                     <button className={`${classes.iconButton} ${classes.downloadBtn}`}>
                         <FontAwesomeIcon icon={['fas', 'download']}/>
                     </button>
-                    <button className={`${classes.iconButton} ${classes.deleteBtn}`}>
+                    <button className={`${classes.iconButton} ${classes.deleteBtn}`} onClick={props.delete}>
                         <FontAwesomeIcon icon={['fas', 'trash-alt']}/>
                     </button>
                  </div>

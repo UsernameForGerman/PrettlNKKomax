@@ -3,8 +3,8 @@ import React from "react";
 import HarnessesChooseTableItem from "./Item/HCTItem";
 let HarnessesChooseTable = (props) => {
     let Heading = {
-        number : "Harnesses Number",
-        date : "and\nDate"
+        harness_number : "Harnesses Number",
+        created : "and\nDate"
     }
     return(
         <div className={classes.Table}>

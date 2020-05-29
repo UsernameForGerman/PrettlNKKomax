@@ -7,6 +7,10 @@ class HarnessSelector {
         return state.harnesses.isFetching
     }
 
+    static getMapFetching = (state) => {
+        return state.harnesses.isMapFetching
+    }
+
     static getMap = (state) => {
         return state.harnesses.selectedMap
     }

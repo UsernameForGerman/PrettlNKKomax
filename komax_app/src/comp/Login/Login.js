@@ -1,10 +1,11 @@
 import React from "react";
+import classes from "./Login.module.css"
 
 let Login = (props) => {
     let loginRef = React.createRef();
     let passwordRef = React.createRef();
     return(
-        <div>
+        <main className={classes.login}>
             <form>
                 <input type={"text"} ref={loginRef}/>
                 <input type={"password"} ref={passwordRef}/>
@@ -16,7 +17,7 @@ let Login = (props) => {
                     );
                 }}/>
             </form>
-        </div>
+        </main>
     )
 }
 

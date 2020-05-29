@@ -3,12 +3,12 @@ import KomaxSelector from "../../selectors/komaxSelector";
 import {createKomaxThunk, getListThunk, updateKomaxThunk} from "../../reducers/komaxReducer";
 import React, {useEffect, useState} from "react";
 import Komaxes from "./Komaxes";
+import auth from "../AuthHOC/authHOC";
 import classes from "./Komaxes.module.css";
 import komax from "../../assets/images/komax.png";
 import file from "../../assets/docs/6282-2124813-12.xlsx"
 import harnessApi from "../../DAL/harness/harness-api";
-import kappaApi from "../../DAL/kappa/kappa-api";
-import komaxApi from "../../DAL/komax/komax-api";
+import Preloader from "../Preloader/Preloader";
 
 let KomaxesContainer = (props) => {
     useEffect(() => {
@@ -37,14 +37,12 @@ let KomaxesContainer = (props) => {
                 <img src={komax} alt={"komax"} className={classes.komaxImg}/>
             </div>
         );
-    })
-
-    harnessApi.createHarness("4444-5555-66", file).then(console.log)
+    });
 
     return(
         <>
             {props.isFetching
-                ? <></>
+                ? <div className={classes.container_fluid}><Preloader/></div>
                 : <Komaxes
                     {...props}
                     items={renderedKomaxItems}
@@ -81,4 +79,4 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(KomaxesContainer);
+export default auth(connect(mapStateToProps, mapDispatchToProps)(KomaxesContainer));

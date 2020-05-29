@@ -6,6 +6,12 @@ main{
     height: 100%;
 }
 
+#root{
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
 body{
     overflow: hidden;
+    margin: 0px 0px;
 }

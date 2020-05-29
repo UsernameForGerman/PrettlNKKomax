@@ -5,6 +5,7 @@ import komax from "../../assets/images/komax.png"
 import KomaxTable from "./KomaxTable/KomaxTable";
 import Modal from 'react-modal';
 import ModalForm from "./Modal/ModalForm";
+import ModalFormContainer from "./Modal/ModalFormContainer";
 
 let Komaxes = (props) => {
     const customStyles = {
@@ -48,7 +49,7 @@ let Komaxes = (props) => {
               style={customStyles}
               contentLabel="Example Modal"
             >
-                <ModalForm close={closeModal} send={props.save} heading={"Cоздать новый аппарат"}/>
+                <ModalFormContainer close={closeModal} send={props.save} heading={"Cоздать новый аппарат"}/>
             </Modal>
             <Modal
               isOpen={isModalOpen2}
@@ -56,7 +57,7 @@ let Komaxes = (props) => {
               style={customStyles}
               contentLabel="Example Modal"
             >
-                <ModalForm close={closeModal2} send={props.update} selected={props.selectedKomax} heading={"Изменить существующий аппарат"}/>
+                <ModalFormContainer close={closeModal2} send={props.update} selected={props.selectedKomax} heading={"Изменить существующий аппарат"}/>
             </Modal>
           </div>
       </div>

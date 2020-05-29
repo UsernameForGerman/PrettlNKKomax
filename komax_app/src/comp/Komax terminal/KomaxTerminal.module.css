@@ -1,0 +1,82 @@
+.KomaxTerminal{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.card{
+    width: 35vw;
+    height: 70vh;
+    transform: translateY(-5vh);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 5px;
+    padding: 10px 10px;
+}
+
+.left_card{
+    overflow-y: scroll;
+    background-color: white;
+    margin-right: 2vw;
+}
+
+.right_card{
+    margin-left: 2vw;
+}
+
+.heading{
+    background-color: white;
+    border-radius: 5px;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.succBtn{
+    color: #12cb10;
+    border: #12cb10 2px solid;
+    box-shadow: 1px 1px 10px;
+    background-color: transparent;
+    font-size: 48px;
+    padding: 1px 15px;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.succBtn:hover{
+    color: #12e010;
+    border-color: #12e010;
+}
+
+.choose{
+    width: 100%;
+    margin-top: 10%;
+    background-color: white;
+    border-radius: 5px;
+    height: 60%;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

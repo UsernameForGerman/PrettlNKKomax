@@ -1,39 +1,32 @@
-import {createAPI, createMediaAPI} from "../api/api";
+import API  from "../api/api";
 
 const BASE_URL = "harnesses/";
 
-let formIdUrl = (id) => {
-  return BASE_URL + id;
-}
-
-class harnessApi {
-    static getHarnessList = () => {
-        return createAPI().get(BASE_URL).then((resp) => {
-            let data = resp.data;
-            return data;
-        });
+class harnessApi extends API{
+    constructor() {
+        super(BASE_URL);
     }
 
-    static getHarnessByNumber = (number) => {
-        return createAPI().get(formIdUrl(number)).then((resp) => {
-            let data = resp.data;
-            return data;
-        });
+    getHarnessList = () => {
+        return this.getObjectList();
     }
 
-    static createHarness = (number, file) => {
-        return createMediaAPI().post(BASE_URL, {
+    getHarnessByNumber = (number) => {
+        return this.getObjectById(number);
+    }
+
+    createHarness = (number, file) => {
+        return this.createObject({
             number : number,
             data : file
-        }).then((resp) => {
-            let data = resp.data;
-            return data;
-        });
+        })
     }
 
-    static options = () => {
-        return createAPI().head(BASE_URL);
+    deleteHarnessByNumber = (number) => {
+        return this.deleteObject(number, {
+            number : number
+        });
     }
 }
 
-export default harnessApi;
+export default new harnessApi;
