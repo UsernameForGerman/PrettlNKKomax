@@ -17,3 +17,4 @@ node_modules
 komaxsite/.idea
 .ipynb_checkpoints
 __pycache__
+redis-stable/
