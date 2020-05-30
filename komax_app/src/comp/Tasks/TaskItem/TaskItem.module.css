@@ -1,0 +1,94 @@
+.TaskWrapper{
+    margin: 0px 1vw;
+    border: 1px rgba(0,0,0,.125) solid;
+    border-radius: 5px;
+    padding: 10px 10px;
+    height: 20vh;
+    width: 30%;
+}
+
+.TaskItem{
+    margin: 0px 0.5vw;
+    height: 95%;
+    border: 1px rgba(0,0,0,.125) solid;
+}
+
+.heading{
+    background-color: rgba(0,0,0,.03);
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    padding: 10px 10px;
+}
+
+.statusBar{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-15%);
+}
+
+.moreBtn, .sendTaskBtn, .taskLoadedBtn, .taskOrderedBtn, .deleteTaskBtn{
+    background-color: transparent;
+    border-radius: 5px;
+    outline: none;
+    padding: 8px 8px;
+    margin: 0px 5px;
+    font-size: 16px;
+    transition: all ease-in 0.2s;
+    cursor: pointer;
+}
+
+.taskLoadedBtn, .taskOrderedBtn{
+    cursor: not-allowed;
+}
+
+.moreBtn{
+    color: #007bff;
+    border-color: #007bff;
+    box-shadow: 2px 2px 5px #007bff;
+}
+
+.moreBtn:hover{
+    color: white;
+    background-color: #007bff;
+    box-shadow: 0px 0px 0px #007bff;
+}
+
+.sendTaskBtn{
+    color: #ffc107;
+    border-color: #ffc107;
+    box-shadow: 2px 2px 5px #ffc107;
+}
+
+.sendTaskBtn:hover{
+    color: white;
+    background-color: #ffc107;
+    box-shadow: 0px 0px 0px #ffc107;
+}
+
+.deleteTaskBtn{
+    color: #dc3545;
+    border-color: #dc3545;
+    box-shadow: 2px 2px 5px #dc3545;
+}
+
+.deleteTaskBtn:hover{
+    color: white;
+    background-color: #dc3545;
+    box-shadow: 0px 0px 0px #dc3545;
+}
+
+.taskOrderedBtn{
+    color: rgba(255, 203, 37, 0.81);
+    border-color: rgba(255, 203, 37, 0.81);
+    box-shadow: 2px 2px 5px rgba(255, 203, 37, 0.81);
+}
+
+.taskLoadedBtn{
+    color: rgba(35, 199, 195, 0.85);
+    border-color: rgba(35, 199, 195, 0.85);
+    box-shadow: 2px 2px 5px rgba(35, 199, 195, 0.85);
+}

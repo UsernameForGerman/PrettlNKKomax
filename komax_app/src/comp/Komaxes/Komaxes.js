@@ -37,7 +37,7 @@ let Komaxes = (props) => {
       <div className={classes.Komaxes}>
           <div className={classes.container}>
             <div className={classes.komaxesColumn}>
-                <SuccessButton click={openModal} value={<FormattedMessage id={"komax.add_button_text"}/>}/>
+                <SuccessButton click={openModal} value={<FormattedMessage id={"add_button_text"}/>}/>
                 {props.items}
             </div>
             <div className={classes.table}>

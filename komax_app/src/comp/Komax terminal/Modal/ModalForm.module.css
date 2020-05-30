@@ -44,26 +44,6 @@ label{
     justify-content: center;
 }
 
-.saveBtn{
-    border: none;
-    background-color: #31a1a8;
-    color: white;
-    border-radius: 5px;
-    outline: none;
-    padding: 10px 10px;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.saveBtn:hover{
-    background-color: #37c4cb;
-}
-
-.saveBtn[disabled], .saveBtn[disabled]:hover{
-    background-color: #818285;
-    cursor: not-allowed;
-}
-
 .error{
     color: red;
 }

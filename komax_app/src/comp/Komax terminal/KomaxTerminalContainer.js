@@ -1,38 +1,44 @@
 import KomaxTerminal from "./KomaxTerminal";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import KomaxTerminalTableItem from "./KomaxTerminalTable/Item/KTTItem";
 import createTerminal from "../../DAL/models/terminal";
+import komax_terminal_api from "../../DAL/komax_terminal/komax_terminal_api";
+import komax_seal_api from "../../DAL/komax_seal/komax_seal_api";
+import auth from "../AuthHOC/authHOC";
+import TerminalSelector from "../../selectors/terminalSelector";
+import {connect} from "react-redux";
+import Preloader from "../Preloader/Preloader";
+import {getTerminalListThunk} from "../../reducers/komaxTerminalReducer";
 
 let KomaxTerminalContainer = (props) => {
-    let [selectedTerminal, setSelectedTerminal] = useState();
+    const [selectedTerminal, setSelectedTerminal] = useState();
     const [materialValue, setMaterialValue] = useState();
-    const [terminalAvaliable, setTerminalAvaliable] =useState();
-    let items = [
-        {
-            terminal_number : "1060-16-0122",
-            terminal_avaliable : "True",
-            material_avaliable : "False"
-        },
-        {
-            terminal_number : "1060-20-0122",
-            terminal_avaliable : "True",
-            material_avaliable : "False"
-        },
-        {
-            terminal_number : "1062-12-0166",
-            terminal_avaliable : "False",
-            material_avaliable : "True"
-        },
-        {
-            terminal_number : "1062-16-0122",
-            terminal_avaliable : "True",
-            material_avaliable : "True"
-        }
-    ].map((item) => {
+    const [terminalAvaliable, setTerminalAvaliable] = useState();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    let closeModal = (e) => {
+        setIsModalOpen(false);
+    }
+
+    let openModal = (e) => {
+        setIsModalOpen(true);
+    }
+
+    useEffect(() => {
+        props.fetchList();
+    }, props.terminalList)
+
+    let list = props.terminalList;
+    if (!list){
+        list = [];
+    }
+    let items = list.map((item) => {
+        debugger;
         let select = () => {
             setSelectedTerminal(item);
             setMaterialValue(item.material_avaliable);
             setTerminalAvaliable(item.terminal_avaliable);
+            openModal();
         }
         return (
             <KomaxTerminalTableItem {...item} select={select}/>
@@ -40,15 +46,37 @@ let KomaxTerminalContainer = (props) => {
     })
 
     return(
-
-        <KomaxTerminal items={items}
+        <>
+            {props.isFetching
+                ? <Preloader/>
+                : <KomaxTerminal items={items}
                        selected={selectedTerminal}
                        setMaterial={setMaterialValue}
                        setTerminal={setTerminalAvaliable}
                        terminalAvaliable={terminalAvaliable}
                        materialValue={materialValue}
-        />
+                       isModalOpen={isModalOpen}
+                       setIsModalOpen={setIsModalOpen}
+                       closeModal={closeModal}
+                />
+            }
+        </>
     )
 }
 
-export default KomaxTerminalContainer;
+let mapStateToProps = (state) => {
+    return {
+        terminalList : TerminalSelector.getList(state),
+        isFetching : TerminalSelector.getFetching(state)
+    }
+}
+
+let mapDispatchToProps = (dispatch) => {
+    return{
+        fetchList : () => {
+            dispatch(getTerminalListThunk())
+        }
+    }
+}
+
+export default auth(connect(mapStateToProps, mapDispatchToProps)(KomaxTerminalContainer));

@@ -62,3 +62,18 @@
 .logo{
 
 }
+
+.localeBtn{
+    font-size: 18px;
+    font-weight: bold;
+    padding: 7px 7px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.localeBtn:hover {
+    cursor: pointer;
+    background-color: rgba(191, 191, 191, 0.12);
+}

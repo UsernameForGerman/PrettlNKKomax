@@ -14,6 +14,11 @@ import KomaxTerminalContainer from "./comp/Komax terminal/KomaxTerminalContainer
 import messages_ru from "./localization/ru.json";
 import messages_en from "./localization/en.json";
 import {IntlProvider} from "react-intl";
+import StartPageContainer from "./comp/Start/StartPageContainer";
+import TasksPageContainer from "./comp/Tasks/TasksPageContainer";
+import CreateTaskPageContainer from "./comp/Tasks/CreateTaskPage/CreateTaskPageContainer";
+import TaskDetailPageContainer from "./comp/Tasks/TaskDetailPage/TaskDetailPageContainer";
+import LabourPageContainer from "./comp/Labour/LabourPageContainer";
 
 library.add(fas, fab);
 
@@ -36,19 +41,31 @@ let App = (props) => {
               <BrowserRouter basename={process.env.PUBLIC_URL}>
                   <Provider store={store}>
                       <Header toggleLocale={toggleLocale}/>
-                      <Route path={"/"} exact>
-                          Главная страница
+                      <Route path={"/labour"} exact>
+                          <LabourPageContainer/>
                       </Route>
-                      <Route path={"/login"}>
+                      <Route path={"/tasks"} exact>
+                          <TasksPageContainer/>
+                      </Route>
+                      <Route path={"/task_create"} exact>
+                          <CreateTaskPageContainer/>
+                      </Route>
+                      <Route path={"/task/:id?"}>
+                          <TaskDetailPageContainer/>
+                      </Route>
+                      <Route path={"/"} exact>
+                          <StartPageContainer/>
+                      </Route>
+                      <Route path={"/login"} exact>
                           <LoginContainer/>
                       </Route>
-                      <Route path={"/terminals"}>
+                      <Route path={"/terminals"} exact>
                           <KomaxTerminalContainer/>
                       </Route>
-                      <Route path={"/komaxes"}>
+                      <Route path={"/komaxes"} exact>
                           <KomaxesContainer/>
                       </Route>
-                      <Route path={"/harnesses"}>
+                      <Route path={"/harnesses"} exact>
                           <HarsessesContainer/>
                       </Route>
                   </Provider>

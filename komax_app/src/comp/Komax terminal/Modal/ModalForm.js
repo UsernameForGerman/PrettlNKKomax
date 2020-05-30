@@ -5,6 +5,7 @@ import MultiSelect from "react-multi-select-component";
 import createKomax from "../../../DAL/models/komax";
 import createTerminal from "../../../DAL/models/terminal";
 import {FormattedMessage} from "react-intl";
+import SaveButton from "../../common/SaveButton/SaveButton";
 
 let ModalForm = (props) => {
     let terminalNumberRef = React.createRef();
@@ -33,7 +34,7 @@ let ModalForm = (props) => {
     return(
         <div className={classes.ModalForm}>
             <div className={classes.heading}>
-                <h2><FormattedMessage id={"terminal.create_terminal_heading"}/></h2>
+                <h2><FormattedMessage id={"terminal.edit_terminal_heading"}/></h2>
                 <button onClick={props.close} className={classes.closeBtn}>X</button>
             </div>
             <div className={classes.inputs}>
@@ -63,9 +64,9 @@ let ModalForm = (props) => {
                 </label>
             </div>
             <div className={classes.toolbar}>
-                <button className={classes.saveBtn} onClick={collectData} disabled={props.isFetching || !props.isValid}>
+                <SaveButton click={collectData} disable={props.isFetching || !props.isValid} value={<FormattedMessage id={"save_button_label"}/>}>
                     <FormattedMessage id={"save_button_label"}/>
-                </button>
+                </SaveButton>
             </div>
         </div>
     );

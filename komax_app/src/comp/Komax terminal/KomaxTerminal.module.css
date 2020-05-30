@@ -20,7 +20,7 @@
     transform: translateY(-5vh);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     border-radius: 5px;
     padding: 10px 10px;
 }
@@ -33,16 +33,7 @@
 
 .right_card{
     margin-left: 2vw;
-}
-
-.heading{
     background-color: white;
-    border-radius: 5px;
-    height: 20vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .title{
@@ -52,16 +43,15 @@
 
 .succBtn{
     box-shadow: 1px 1px 10px;
-    font-size: 48px;
+    font-size: 18px;
     padding: 1px 15px;
 }
 
 .choose{
     width: 100%;
-    margin-top: 10%;
     background-color: white;
     border-radius: 5px;
-    height: 60%;
+    height: 100%;
     font-size: 24px;
     display: flex;
     flex-direction: column;

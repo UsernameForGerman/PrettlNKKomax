@@ -35,7 +35,7 @@ let Header = (props) => {
         },
         {
           desc : <FormattedMessage id={"header.labour_inputs_link"}/>,
-          link : "/input"
+          link : "/labour"
         },
         {
           desc : <FormattedMessage id={"header.komaxes_link"}/>,
@@ -52,7 +52,7 @@ let Header = (props) => {
                 icon = <Folder/>;
                 break;
             };
-            case "/input":{
+            case "/labour":{
                 icon = <Clock/>;
                 break;
             };
@@ -112,7 +112,7 @@ let Header = (props) => {
                     <div className={classes.logoWrapper}>
                         <img src={logo} alt={"logo"} className={classes.logo}/>
                     </div>
-                    <button onClick={props.toggleLocale}>
+                    <button onClick={props.toggleLocale} className={classes.localeBtn}>
                         <FormattedMessage id={"header.locale_label"}/>
                     </button>
                 </div>

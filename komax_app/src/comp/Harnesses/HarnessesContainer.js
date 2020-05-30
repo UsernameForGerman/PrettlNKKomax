@@ -15,6 +15,7 @@ import {connect} from "react-redux";
 import Preloader from "../Preloader/Preloader";
 import harnessChartApi from "../../DAL/harness_chart/harness_chart_api";
 import {FormattedMessage} from "react-intl";
+import auth from "../AuthHOC/authHOC";
 
 let HarsessesContainer = (props) => {
     useEffect(() => {
@@ -135,4 +136,4 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HarsessesContainer);
+export default auth(connect(mapStateToProps, mapDispatchToProps)(HarsessesContainer));

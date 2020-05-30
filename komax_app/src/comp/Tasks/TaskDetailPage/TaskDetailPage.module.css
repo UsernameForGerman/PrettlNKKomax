@@ -1,0 +1,77 @@
+.TaskDetailPage{
+    width: 100vw;
+    height: 100vh;
+}
+
+.card{
+    padding: 10px 10px;
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.left_card{
+
+}
+
+.right_card{
+
+}
+
+.harnesses{
+
+}
+
+.komaxes{
+
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.col{
+    display: flex;
+    flex-direction: column;
+    margin: 0px 10px;
+}
+
+.btnCol{
+
+}
+
+.taskCol{
+
+}
+
+.ticketCol{
+
+}
+
+.container{
+    height: 80vh;
+    width: 80vw;
+    margin: 5vh 10vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.btnTool, .greenBtn{
+    margin: 10px 0px;
+    font-size: 18px;
+    padding: 5px 5px;
+    outline: none;
+    background-color: transparent;
+    border: 2px #14a712 solid;
+    border-radius: 5px;
+}
+
+.greenBtn{
+
+}
+
+.btnTool{
+    border: 2px #1471c2 solid;
+}
