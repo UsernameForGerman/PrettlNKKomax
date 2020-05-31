@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, Serializer, FileField, CharField, RelatedField
 from komax_app.models import Komax, Kappa, KomaxTask, TaskPersonal, Laboriousness, KomaxTerminal, Harness, \
-    HarnessChart, KomaxStatus, KomaxSeal, KomaxTime, HarnessAmount
+    HarnessChart, KomaxStatus, KomaxSeal, KomaxTime, HarnessAmount, Worker
 
 
 class KomaxSerializer(ModelSerializer):
@@ -78,9 +78,11 @@ class KomaxTaskSerializer(ModelSerializer):
     class Meta:
         model = KomaxTask
         fields = ('task_name', 'komaxes', 'harnesses', 'status')
-        depth = 1
 
-
+class WorkerSerializer(ModelSerializer):
+    class Meta:
+        model = Worker
+        fields = '__all__'
 
 
 

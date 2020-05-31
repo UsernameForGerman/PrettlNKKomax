@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.routers import DefaultRouter
 from .viewsets import KomaxViewSet, KappaViewSet, HarnessViewSet, LabourisnessViewSet, KomaxTerminalsViewSet, \
-    KomaxStatusViewSet, HarnessChartViewSet, KomaxSealViewSet, KomaxTaskViewSet
+    KomaxStatusViewSet, HarnessChartViewSet, KomaxSealViewSet, WorkerViewSet
 
 app_name = 'api_komax_app'
 
@@ -18,7 +18,8 @@ router.register('komax_terminals', KomaxTerminalsViewSet)
 router.register('komax_status', KomaxStatusViewSet)
 router.register('harness_chart', HarnessChartViewSet)
 router.register('komax_seals', KomaxSealViewSet)
-# router.register('komax_tasks', KomaxTaskViewSet)
+router.register('workers', WorkerViewSet)
+
 
 urlpatterns = [
     path('v1/auth/', ObtainAuthToken.as_view(), name='get_token'),

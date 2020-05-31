@@ -193,10 +193,9 @@ class HarnessChartListView(APIView):
         harness_chart_serializer = HarnessChartSerializer(harness_charts, context={'request': request}, many=True)
         return Response(harness_chart_serializer.data)
 
-
 class KomaxTaskListView(APIView):
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = KomaxTask.objects.all()
 
     def get_object(self, task_name=None):
