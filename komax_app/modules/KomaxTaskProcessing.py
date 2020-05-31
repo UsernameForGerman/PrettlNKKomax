@@ -8,6 +8,14 @@ import time
 from django.shortcuts import get_object_or_404
 
 
+def get_komax_task_status_on_komax(komax_task, komax_number):
+    if TaskPersonal.objects.filter(komax__number=komax_number, worker=None, komax_task=komax_task, loaded=False):
+        return 2  # не загружено
+    elif TaskPersonal.objects.filter(komax__number=komax_number, worker=None, komax_task=komax_task, loaded=True):
+        return 3  # загружено
+    else:
+        return 4  # сделано
+
 def get_shift(komax_task_obj):
     return komax_task_obj.shift
 
