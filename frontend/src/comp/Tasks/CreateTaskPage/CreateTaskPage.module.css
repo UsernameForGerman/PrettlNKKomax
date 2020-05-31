@@ -24,7 +24,7 @@
 }
 
 .input{
-
+    width: 9vw;
 }
 
 .input_wrapper{
@@ -48,7 +48,7 @@
 }
 
 .select{
-
+    height: 10vh;
 }
 
 .label{
@@ -78,4 +78,16 @@
 
 .addBtn{
     font-size: 24px;
+    margin-bottom: 0px;
+}
+
+.addBtn[disabled]{
+    cursor: not-allowed;
+    color: rgba(150,147,146,0.79);
+    border-color: rgba(150,147,146,0.79);
+}
+
+.err{
+    color: red;
+    margin-bottom: 10px;
 }

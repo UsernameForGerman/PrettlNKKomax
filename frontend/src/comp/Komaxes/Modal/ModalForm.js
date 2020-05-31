@@ -20,7 +20,6 @@ let ModalForm = (props) => {
     let identifierRef = React.createRef();
 
     let collectData = (e) => {
-        debugger;
         props.close();
         let multiArr = multiselectOptions;
         if (multiArr.length === 0){

@@ -8,7 +8,7 @@ let TaskItem = (props) => {
         <div className={classes.TaskWrapper}>
             <div className={classes.TaskItem}>
                 <div className={classes.heading}>
-                    {props.number}
+                    {props.task_name}
                 </div>
                 <div className={classes.statusBar}>
                     {

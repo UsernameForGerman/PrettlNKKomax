@@ -2,7 +2,7 @@ import API  from "../api/api";
 
 const BASE_URL = "komax_tasks/";
 
-class taskApi extends API{
+class task_api extends API{
     constructor() {
         super(BASE_URL);
     }
@@ -10,6 +10,14 @@ class taskApi extends API{
     getKomaxTasks = () => {
         return this.getObjectList();
     }
+
+    createTask = (task) => {
+        return this.createObject(task);
+    }
+
+    updateTask = (task) => {
+        return this.updateObject(task.id, {...task});
+    }
 }
 
-export default new taskApi;
+export default new task_api;

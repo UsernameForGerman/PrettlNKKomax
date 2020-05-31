@@ -1,56 +1,23 @@
-import React from "react";
+import React, {useEffect} from "react";
 import TasksPage from "./TasksPage";
 import auth from "../AuthHOC/authHOC";
 import TaskItem from "./TaskItem/TaskItem";
 import classes from "./TasksPage.module.css"
+import {connect} from "react-redux";
+import TasksSelector from "../../selectors/tasksSelector";
+import {getTasksThunk} from "../../reducers/tasksReducer";
+import FullScreenPreloader from "../common/Preloader/FullScreenPreloader";
 import task_api from "../../DAL/task/task_api";
 
 let TasksPageContainer = (props) => {
     let user = {
         username : "master1"
     }
-    let items = [
-        {
-            number : "11000-132",
-            status : 1,
-            link : "/"
-        },
-        {
-            number : "13241-1387",
-            status : 2,
-            link : "/"
-        },
-        {
-            number : "768-01342",
-            status : 3,
-            link : "/"
-        },
-        {
-            number : "1423-132",
-            status : 2,
-            link : "/"
-        },
-        {
-            number : "13241-1387",
-            status : 3,
-            link : "/"
-        },
-        {
-            number : "73213-13",
-            status : 1,
-            link : "/"
-        },
-        {
-            number : "13241-1387",
-            status : 3,
-            link : "/"
-        },
-        {
-            number : "73213-13",
-            status : 1,
-            link : "/"
-        }
-    ].map(elem => {
+    useEffect(() => {
+        props.fetchList();
+    }, props.tasksList);
+
+    let items = props.tasksList.map(elem => {
         return (
             <TaskItem {...elem}/>
         );
@@ -85,11 +52,29 @@ let TasksPageContainer = (props) => {
         return rows;
     }
 
-    task_api.getKomaxTasks().then(console.log);
-
     return(
-        <TasksPage rows={renderRows(items)} {...user}/>
+        <>
+            {props.isFetching
+                ? <FullScreenPreloader/>
+                : <TasksPage rows={renderRows(items)} {...user}/>
+            }
+        </>
     )
 }
 
-export default auth(TasksPageContainer);
+let mapStateToProps = (state) => {
+    return {
+        isFetching : TasksSelector.getFetching(state),
+        tasksList : TasksSelector.getList(state)
+    }
+}
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        fetchList: () => {
+            dispatch(getTasksThunk())
+        }
+    }
+}
+
+export default auth(connect(mapStateToProps, mapDispatchToProps)(TasksPageContainer));

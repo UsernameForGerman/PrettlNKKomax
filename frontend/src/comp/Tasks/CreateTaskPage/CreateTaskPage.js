@@ -1,5 +1,5 @@
 import classes from "./CreateTaskPage.module.css"
-import React from "react";
+import React, {useState} from "react";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
@@ -10,6 +10,45 @@ import SuccessButton from "../../common/SuccessButton/SuccessButton";
 import {withStyles} from "@material-ui/styles";
 import {FormattedMessage} from "react-intl";
 let CreateTaskPage = (props) => {
+
+    let handleMultiSelect = (e, callback) => {
+        let arr = [];
+        let options = e.target.selectedOptions;
+        for (let option in options) {
+            let value = options[option].value;
+            if (value){
+                arr.push(value);
+            }
+        }
+        callback(arr);
+    }
+
+    let openNextForm = (e) => {
+        e.preventDefault();
+        props.setContinue(true);
+    }
+
+    let collectData = (e) => {
+        e.preventDefault();
+        let data = {
+            work_shift: workShiftRef.current.value,
+            number: numberRef.current.value
+        }
+
+        props.send(data);
+    }
+
+    let renderedHarnesses = props.multiselectOptions.map(elem => {
+        return(
+            <label>
+                {elem}
+                <input placeholder={"Количество"} type={"number"} required onChange={(e) => {
+                    props.addHarnessData(elem, e)
+                }}/>
+            </label>
+        )
+    })
+
     const handleChangeWork = (event) => {
         props.setWorkType(event.target.value);
     };
@@ -17,6 +56,14 @@ let CreateTaskPage = (props) => {
     const handleChangeLoading = (event) => {
         props.setLoadingType(event.target.value);
     };
+
+    let numberRef = React.createRef();
+    let workShiftRef = React.createRef();
+
+    let checkValid = () => {
+        let text = numberRef.current.value;
+        props.check(text);
+    }
 
     const CustomRadio = withStyles({
       root: {
@@ -91,15 +138,15 @@ let CreateTaskPage = (props) => {
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_job_name_label"}/>:</h3>
-                                <input className={classes.input}/>
+                                <input className={classes.input} required ref={numberRef} onChange={checkValid}/>
                             </label>
                         </div>
 
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_harnesses_label"}/>:</h3>
-                                <select className={classes.select}>
-
+                                <select className={classes.select} required multiple={true} onChange={(e) => handleMultiSelect(e, props.setMultiselectOptions)}>
+                                    {props.harnesses_options}
                                 </select>
                             </label>
                         </div>
@@ -107,8 +154,8 @@ let CreateTaskPage = (props) => {
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_komaxes_label"}/>:</h3>
-                                <select className={classes.select}>
-
+                                <select className={classes.select} required multiple={true} onChange={(e) => handleMultiSelect(e, props.setKomaxesOptions)}>
+                                    {props.komaxes_options}
                                 </select>
                             </label>
                         </div>
@@ -116,8 +163,8 @@ let CreateTaskPage = (props) => {
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_kappas_label"}/>:</h3>
-                                <select className={classes.select}>
-
+                                <select className={classes.select} required multiple={true} onChange={(e) => handleMultiSelect(e, props.setKappasOptions)}>
+                                    {props.kappas_options}
                                 </select>
                             </label>
                         </div>
@@ -125,7 +172,7 @@ let CreateTaskPage = (props) => {
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_work_shift_label"}/>:</h3>
-                                <input className={classes.input}/>
+                                <input className={classes.input} required type={"number"} ref={workShiftRef}/>
                             </label>
                         </div>
                     </div>
@@ -134,12 +181,21 @@ let CreateTaskPage = (props) => {
                             {workType}
                             {loadingType}
                         </div>
-                        <SuccessButton value={<FormattedMessage id={"tasks.create_new_task_continue_label"}/>} class={classes.addBtn}/>
+                        <SuccessButton value={<FormattedMessage id={"tasks.create_new_task_continue_label"}/>} class={classes.addBtn} disable={!props.isValid} click={openNextForm}/>
+                        <div className={classes.err}>
+                            {props.errMsg}
+                        </div>
                     </div>
                 </div>
             </form>
             <form className={classes.form}>
-                <FormattedMessage id={"tasks.create_new_task_fill_form_label"}/>
+                {!props.shouldContinue
+                    ? <FormattedMessage id={"tasks.create_new_task_fill_form_label"}/>
+                    : <form>
+                        {renderedHarnesses}
+                        <SuccessButton value={"Создать задание"} class={classes.addBtn} click={collectData}/>
+                    </form>
+                }
             </form>
         </div>
     )

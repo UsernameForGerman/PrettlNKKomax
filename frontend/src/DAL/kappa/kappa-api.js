@@ -2,7 +2,7 @@ import API from "../api/api";
 
 const BASE_URL = "kappas/"
 
-class kappaApi extends API{
+class kappa_api extends API{
     constructor() {
         super(BASE_URL);
     }
@@ -22,4 +22,4 @@ class kappaApi extends API{
     }
 }
 
-export default new kappaApi;
+export default new kappa_api;
