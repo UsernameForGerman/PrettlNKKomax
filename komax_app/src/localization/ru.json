@@ -71,5 +71,24 @@
 
   "harnesses.table_date_label" : "\nи дата",
   "harnesses.table_download_label" : "Загрузить",
-  "harnesses.table_delete_label" : "Удалить"
+  "harnesses.table_delete_label" : "Удалить",
+
+  "login.auth_label" : "Авторизация",
+  "login.login_label" : "Логин",
+  "login.password_label" : "Пароль",
+  "login.sign_in_label" : "Войти",
+  "login.log_out_label" : "Выйти",
+
+  "tasks.all_tasks_page_heading" : "Задания",
+  "tasks.ordered_label" : "Задание заказано",
+  "tasks.loaded_label" : "Задание загружено",
+
+  "tasks.create_new_task_heading" : "Создать новое задание",
+  "tasks.create_new_task_job_name_label" : "Номер задания",
+  "tasks.create_new_task_harnesses_label" : "Жгуты",
+  "tasks.create_new_task_komaxes_label" : "Комаксы",
+  "tasks.create_new_task_kappas_label" : "Каппы",
+  "tasks.create_new_task_work_shift_label" : "Рабочая смена",
+  "tasks.create_new_task_continue_label" : "Продолжить",
+  "tasks.create_new_task_fill_form_label" : "Заполните форму слева"
 }

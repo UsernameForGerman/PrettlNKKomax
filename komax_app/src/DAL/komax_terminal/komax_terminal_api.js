@@ -17,9 +17,7 @@ class komax_terminal_api extends API {
     }
 
     updateTerminal = (terminal) => {
-        return this.createAPI().put(this.formIdUrl(terminal.number) + "/", {...terminal}).then(resp => {
-            console.log(resp);
-        })
+        return this.updateObject(terminal.number, {...terminal})
     }
 }
 

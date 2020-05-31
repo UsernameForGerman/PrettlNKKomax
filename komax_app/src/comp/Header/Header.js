@@ -1,6 +1,6 @@
 import classes from "./Header.module.css"
 import React, {useState} from "react";
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import logo from "../../assets/images/logo2.png"
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -106,15 +106,24 @@ let Header = (props) => {
             </Drawer>
             <div className={classes.Header}>
                 <div className={classes.container}>
-                    <IconButton aria-label="delete" onMouseEnter={toggleDrawer}>
-                        <MenuIcon/>
-                    </IconButton>
+                    {props.isLogged
+                        ?   <IconButton aria-label="delete" onMouseEnter={toggleDrawer}>
+                                <MenuIcon/>
+                            </IconButton>
+                        :   <Redirect to={"/login"}/>
+                    }
                     <div className={classes.logoWrapper}>
                         <img src={logo} alt={"logo"} className={classes.logo}/>
                     </div>
                     <button onClick={props.toggleLocale} className={classes.localeBtn}>
                         <FormattedMessage id={"header.locale_label"}/>
                     </button>
+                    {props.isLogged
+                        ? <button className={classes.logoutBtn} onClick={props.logout}>
+                                <FormattedMessage id={"login.log_out_label"}/>
+                          </button>
+                        : <Redirect to={"/login"}/>
+                    }
                 </div>
             </div>
             <div className={classes.spacing}/>

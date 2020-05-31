@@ -27,9 +27,7 @@ class komaxApi extends API {
     }
 
     updateKomax = (komax) => {
-        return this.createAPI().put(this.formIdUrl(komax.number) + "/", {...komax}).then(resp => {
-            console.log(resp);
-        })
+        return this.updateObject(komax.number, {...komax});
     }
 }
 

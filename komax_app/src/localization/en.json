@@ -71,5 +71,24 @@
 
   "harnesses.table_date_label" : "and\ndate",
   "harnesses.table_download_label" : "Download",
-  "harnesses.table_delete_label" : "Delete"
+  "harnesses.table_delete_label" : "Delete",
+
+  "login.auth_label" : "Login",
+  "login.login_label" : "Login",
+  "login.password_label" : "Password",
+  "login.sign_in_label" : "Sign in",
+  "login.log_out_label" : "Log out",
+
+  "tasks.all_tasks_page_heading" : "Tasks",
+  "tasks.ordered_label" : "Task ordered",
+  "tasks.loaded_label" : "Task loaded",
+
+  "tasks.create_new_task_heading" : "Create new task",
+  "tasks.create_new_task_job_name_label" : "Job name",
+  "tasks.create_new_task_harnesses_label" : "Harnesses",
+  "tasks.create_new_task_komaxes_label" : "Komaxes",
+  "tasks.create_new_task_kappas_label" : "Kappas",
+  "tasks.create_new_task_work_shift_label" : "Work shify",
+  "tasks.create_new_task_continue_label" : "Continue",
+  "tasks.create_new_task_fill_form_label" : "Fill first form"
 }

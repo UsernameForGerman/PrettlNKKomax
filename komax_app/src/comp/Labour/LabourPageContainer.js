@@ -1,35 +1,17 @@
 import LabourPage from "./LabourPage";
-import React from "react";
+import React, {useEffect} from "react";
 import auth from "../AuthHOC/authHOC";
-import classes from "./LabourPage.module.css"
+import classes from "./LabourPage.module.css";
+import {connect} from "react-redux";
+import LabourSelector from "../../selectors/labourSelector";
+import {getListThunk} from "../../reducers/labourReducer";
+import Preloader from "../Preloader/Preloader";
 
 let LabourPageContainer = (props) => {
-    let items = [
-        {
-            action : "a",
-            time : "123"
-        },
-        {
-            action : "b",
-            time : "12213"
-        },
-        {
-            action : "c",
-            time : "7565"
-        },
-        {
-            action : "d",
-            time : "321"
-        },
-        {
-            action : "e",
-            time : "965467"
-        },
-        {
-            action : "f",
-            time : "4654745"
-        }
-    ].map(elem => {
+    useEffect(() => {
+        props.fetchList();
+    }, props.labourList);
+    let items = props.labourList.map(elem => {
         return(
             <div className={classes.data_row}>
                 <div className={classes.data}>
@@ -47,8 +29,29 @@ let LabourPageContainer = (props) => {
         )
     })
     return(
-        <LabourPage rows={items}/>
+        <>
+            {props.isFetching
+                ? <Preloader/>
+                : <LabourPage rows={items}/>
+            }
+        </>
     )
 }
 
-export default auth(LabourPageContainer);
+let mapStateToProps = (state) => {
+    return {
+        isFetching : LabourSelector.getFetching(state),
+        labourList : LabourSelector.getList(state)
+    }
+}
+
+let mapDispatchToProps = (dispatch) => {
+    return{
+        fetchList : () => {
+            dispatch(getListThunk())
+        }
+    }
+}
+
+
+export default auth(connect(mapStateToProps, mapDispatchToProps)(LabourPageContainer));

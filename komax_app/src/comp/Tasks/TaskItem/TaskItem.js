@@ -1,6 +1,8 @@
 import classes from "./TaskItem.module.css";
 import React from "react";
 import {NavLink} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {FormattedMessage} from "react-intl";
 let TaskItem = (props) => {
     return(
         <div className={classes.TaskWrapper}>
@@ -12,24 +14,24 @@ let TaskItem = (props) => {
                     {
                         props.status === 1
                             ? <button className={classes.sendTaskBtn}>
-                                Send task
+                                <FontAwesomeIcon icon={['fas', 'envelope']}/>
                               </button>
                             : props.status === 2
                                 ? <button disabled className={classes.taskOrderedBtn}>
-                                    Task ordered
+                                    <FormattedMessage id={"tasks.ordered_label"}/>
                                   </button>
                                 : <>
                                     <button disabled className={classes.taskLoadedBtn}>
-                                        Task loaded
+                                        <FormattedMessage id={"tasks.loaded_label"}/>
                                     </button>
                                     <button className={classes.deleteTaskBtn}>
-                                        Delete task
+                                        <FontAwesomeIcon icon={['fas', 'trash-alt']}/>
                                     </button>
                                   </>
                     }
-                    <NavLink to={props.link}>
+                    <NavLink to={"/task/" + props.number}>
                         <button className={classes.moreBtn}>
-                            More
+                            <FontAwesomeIcon icon={['fas', 'ellipsis-h']}/>
                         </button>
                     </NavLink>
                 </div>

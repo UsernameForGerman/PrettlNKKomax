@@ -8,6 +8,7 @@ import Radio from "@material-ui/core/Radio";
 import SaveButton from "../../common/SaveButton/SaveButton";
 import SuccessButton from "../../common/SuccessButton/SuccessButton";
 import {withStyles} from "@material-ui/styles";
+import {FormattedMessage} from "react-intl";
 let CreateTaskPage = (props) => {
     const handleChangeWork = (event) => {
         props.setWorkType(event.target.value);
@@ -83,20 +84,20 @@ let CreateTaskPage = (props) => {
         <div className={classes.formWrapper}>
             <form className={classes.form}>
                 <div className={classes.heading}>
-                    <h1>Create new task</h1>
+                    <h1><FormattedMessage id={"tasks.create_new_task_heading"}/></h1>
                 </div>
                 <div className={classes.row}>
                     <div className={classes.column}>
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
-                                <h3>Job number:</h3>
+                                <h3><FormattedMessage id={"tasks.create_new_task_job_name_label"}/>:</h3>
                                 <input className={classes.input}/>
                             </label>
                         </div>
 
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
-                                <h3>Harnesses:</h3>
+                                <h3><FormattedMessage id={"tasks.create_new_task_harnesses_label"}/>:</h3>
                                 <select className={classes.select}>
 
                                 </select>
@@ -105,7 +106,7 @@ let CreateTaskPage = (props) => {
 
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
-                                <h3>Komaxes:</h3>
+                                <h3><FormattedMessage id={"tasks.create_new_task_komaxes_label"}/>:</h3>
                                 <select className={classes.select}>
 
                                 </select>
@@ -114,7 +115,7 @@ let CreateTaskPage = (props) => {
 
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
-                                <h3>Kappas:</h3>
+                                <h3><FormattedMessage id={"tasks.create_new_task_kappas_label"}/>:</h3>
                                 <select className={classes.select}>
 
                                 </select>
@@ -123,7 +124,7 @@ let CreateTaskPage = (props) => {
 
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
-                                <h3>Work shift:</h3>
+                                <h3><FormattedMessage id={"tasks.create_new_task_work_shift_label"}/>:</h3>
                                 <input className={classes.input}/>
                             </label>
                         </div>
@@ -133,12 +134,12 @@ let CreateTaskPage = (props) => {
                             {workType}
                             {loadingType}
                         </div>
-                        <SuccessButton value={"Продолжить"} class={classes.addBtn}/>
+                        <SuccessButton value={<FormattedMessage id={"tasks.create_new_task_continue_label"}/>} class={classes.addBtn}/>
                     </div>
                 </div>
             </form>
             <form className={classes.form}>
-                Заполните форму слева
+                <FormattedMessage id={"tasks.create_new_task_fill_form_label"}/>
             </form>
         </div>
     )

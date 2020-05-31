@@ -17,7 +17,7 @@ let Harnesses = (props) => {
                         <div className={classes.response}>
                             <strong>OK</strong>
                         </div>
-                        <SuccessButton value={<FormattedMessage id={"komax.add_button_text"}/>}/>
+                        <SuccessButton value={<FormattedMessage id={"add_button_text"}/>}/>
                     </form>
                 </div>
                 <HarnessesChooseTable items={props.harnesses}/>

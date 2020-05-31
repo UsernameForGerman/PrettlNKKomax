@@ -3,17 +3,25 @@ import Login from "./Login";
 import LoginSelector from "../../selectors/loginSelector";
 import {authThunk} from "../../reducers/loginReducer";
 import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
 
 let LoginContainer = (props) => {
+    debugger;
     return(
-        <Login login={props.login}/>
+        <>
+            {props.isLogged
+                ? <Redirect to={"/"}/>
+                : <Login login={props.login} errMsg={props.errMsg} isFetching={props.isFetching}/>
+            }
+        </>
     );
 }
 
 let mapStateToProps = (state) => {
     return {
         isLogged : LoginSelector.getLogged(state),
-        isFetching : LoginSelector.getFetching(state)
+        isFetching : LoginSelector.getFetching(state),
+        errMsg : LoginSelector.getErr(state)
     }
 }
 

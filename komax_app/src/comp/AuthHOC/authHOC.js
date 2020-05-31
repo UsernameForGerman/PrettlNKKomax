@@ -5,7 +5,7 @@ let auth = (Component) => {
     return (props) => {
         let storage = window.localStorage;
         let token = storage.getItem('token');
-        if (token){
+        if (token !== null){
             return(
                 <Component {...props}/>
             );

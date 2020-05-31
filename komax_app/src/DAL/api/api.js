@@ -65,6 +65,12 @@ class API {
             return resp.data;
         });
     }
+
+    updateObject = (id, options) => {
+        return this.createAPI().put(this.formIdUrl(id), options).then(resp => {
+            return resp;
+        })
+    }
 }
 
 export default API;

@@ -16,6 +16,16 @@
     margin-right: 40vw;
 }
 
+.recentTasks{
+    width: 100%;
+    min-height: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: white;
+}
+
 .heading{
     height: 30%;
     display: flex;

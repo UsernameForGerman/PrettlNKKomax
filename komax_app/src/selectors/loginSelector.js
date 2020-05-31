@@ -10,6 +10,10 @@ class LoginSelector {
     static getLogged = (state) => {
         return state.login.isLogged
     }
+
+    static getErr = (state) => {
+        return state.login.errMsg;
+    }
 }
 
 export default LoginSelector;

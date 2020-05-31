@@ -19,6 +19,7 @@ import TasksPageContainer from "./comp/Tasks/TasksPageContainer";
 import CreateTaskPageContainer from "./comp/Tasks/CreateTaskPage/CreateTaskPageContainer";
 import TaskDetailPageContainer from "./comp/Tasks/TaskDetailPage/TaskDetailPageContainer";
 import LabourPageContainer from "./comp/Labour/LabourPageContainer";
+import HeaderContainer from "./comp/Header/HeaderContainer";
 
 library.add(fas, fab);
 
@@ -40,7 +41,7 @@ let App = (props) => {
             <main>
               <BrowserRouter basename={process.env.PUBLIC_URL}>
                   <Provider store={store}>
-                      <Header toggleLocale={toggleLocale}/>
+                      <HeaderContainer toggleLocale={toggleLocale}/>
                       <Route path={"/labour"} exact>
                           <LabourPageContainer/>
                       </Route>
