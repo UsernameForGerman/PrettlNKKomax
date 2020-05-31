@@ -20,34 +20,275 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/komax_app/src/DAL/labour/labour_api.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/komax_app/src/DAL/models/labour.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/komax_app/src/comp/Header/HeaderContainer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/komax_app/src/reducers/labourReducer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/komax_app/src/selectors/labourSelector.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.babelrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/robots.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/App.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/DAL/api/api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/DAL/auth/auth-api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/DAL/harness/harness-api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/DAL/harness_chart/harness_chart_api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/DAL/kappa/kappa-api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/DAL/komax/komax-api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/DAL/komax_seal/komax_seal_api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/DAL/komax_terminal/komax_terminal_api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/DAL/labour/labour_api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/DAL/models/harnessChoose.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/DAL/models/harnessMapItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/DAL/models/komax.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/DAL/models/labour.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/DAL/models/terminal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/DAL/task/task_api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Global.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/Preloader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/background1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/komax.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/logo-prettl.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/logo2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/user_imgs/LogoMealDeal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/templates/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/templates/maketasks.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/templates/task_setup.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/templates/task_view.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/templates/tasks.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/AuthHOC/authHOC.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Harnesses/Harnesses.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Harnesses/Harnesses.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Harnesses/HarnessesContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Harnesses/HarnessesTables/HarnessesChooseTable/HCT.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Harnesses/HarnessesTables/HarnessesChooseTable/HarnessesChooseTable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Harnesses/HarnessesTables/HarnessesChooseTable/Item/HCTItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Harnesses/HarnessesTables/HarnessesChooseTable/Item/HCTItem.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Header/Header.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Header/Header.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Header/HeaderContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/AddFrom/AddForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/AddFrom/AddForm.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/AddFrom/AddFormContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/KTEditForm/KomaxTerminalEditForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/KTEditForm/KomaxTerminalEditForm.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/KomaxTerminal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/KomaxTerminal.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/KomaxTerminalContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/KomaxTerminalTable/Item/KTTItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/KomaxTerminalTable/Item/KTTItem.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/KomaxTerminalTable/KomaxTerminalTable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/KomaxTerminalTable/KomaxTerminalTable.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/KomaxTerminalTable/KomaxTerminalTableContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/Modal/ModalForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/Modal/ModalForm.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komax terminal/Modal/ModalFormContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komaxes/KomaxTable/KomaxTable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komaxes/KomaxTable/KomaxTable.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komaxes/KomaxTable/KomaxTableItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komaxes/Komaxes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komaxes/Komaxes.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komaxes/KomaxesContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komaxes/Modal/ModalForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komaxes/Modal/ModalForm.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Komaxes/Modal/ModalFormContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Labour/LabourPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Labour/LabourPage.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Labour/LabourPageContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Login/Login.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Login/Login.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Login/LoginContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Start/StartPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Start/StartPage.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Start/StartPageContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/CreateTaskPage/CreateTaskPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/CreateTaskPage/CreateTaskPage.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/CreateTaskPage/CreateTaskPageContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/TaskDetailPage/TaskDetailPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/TaskDetailPage/TaskDetailPage.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/TaskDetailPage/TaskDetailPageContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/TaskItem/TaskItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/TaskItem/TaskItem.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/TasksPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/TasksPage.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/TasksPageContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/common/IconButton/IconButton.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/common/IconButton/IconButton.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/common/Preloader/FullScreenPreloader.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/common/Preloader/Preloader.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/common/Preloader/Preloader.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/common/SaveButton/SaveButton.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/common/SaveButton/SaveButton.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/common/SuccessButton/SuccessButton.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/comp/common/SuccessButton/SuccessButton.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/localization/en.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/localization/ru.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/reducers/chartReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/reducers/harnessesReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/reducers/komaxReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/reducers/komaxTerminalReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/reducers/labourReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/reducers/loginReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/reducers/modalReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/reducers/tasksReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/selectors/harnessSelector.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/selectors/komaxSelector.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/selectors/labourSelector.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/selectors/loginSelector.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/selectors/modalSelector.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/selectors/terminalSelector.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/serviceWorker.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/store.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/5f81e66c9b09722b407e4a96bf53d570.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/b42311c31c32bc1dabf69c3bb031a354.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/chart_view.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/dashboard.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/dbb22bcf8555073ea29a1070f2408a06.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/harnesses.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/images/featured-area-middle.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/images/featured-area-top.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/komax_app.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/komax_app_amount.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/komax_app_main.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/komax_app_task.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/komax_app_view.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/komax_terminals.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/komaxes.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/main1.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/maketasks.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/static/komax_app/script/websocket.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/webpack.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/api/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/DAL/api/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/komax/komax-api.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/DAL/komax/komax-api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/komax_terminal/komax_terminal_api.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/DAL/komax_terminal/komax_terminal_api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/AuthHOC/authHOC.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/AuthHOC/authHOC.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/Harnesses.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/Harnesses.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Header/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Header/Header.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Header/Header.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Labour/LabourPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Labour/LabourPage.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Labour/LabourPageContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Labour/LabourPageContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Login/Login.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Login/Login.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Login/LoginContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Login/LoginContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Start/StartPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Start/StartPage.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Tasks/CreateTaskPage/CreateTaskPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Tasks/CreateTaskPage/CreateTaskPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Tasks/TaskItem/TaskItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Tasks/TaskItem/TaskItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Tasks/TasksPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/comp/Tasks/TasksPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/localization/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/localization/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/localization/ru.json" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/localization/ru.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/reducers/loginReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/reducers/loginReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/selectors/loginSelector.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/selectors/loginSelector.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/src/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/.babelrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/api/api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/auth/auth-api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/harness/harness-api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/harness_chart/harness_chart_api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/kappa/kappa-api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/komax/komax-api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/komax_seal/komax_seal_api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/komax_terminal/komax_terminal_api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/labour/labour_api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/models/harnessChoose.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/models/harnessMapItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/models/komax.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/models/labour.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/models/terminal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/DAL/task/task_api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/Global.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/assets/docs/6282-2124813-12.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/assets/images/Preloader.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/assets/images/background1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/assets/images/komax.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/assets/images/logo-prettl.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/assets/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/assets/images/logo2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/assets/images/user_imgs/LogoMealDeal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/assets/templates/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/assets/templates/maketasks.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/assets/templates/task_setup.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/assets/templates/task_view.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/assets/templates/tasks.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/AuthHOC/authHOC.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/Harnesses.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/Harnesses.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/HarnessesContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/HarnessesTables/HarnessesChooseTable/HCT.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/HarnessesTables/HarnessesChooseTable/HarnessesChooseTable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/HarnessesTables/HarnessesChooseTable/Item/HCTItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Harnesses/HarnessesTables/HarnessesChooseTable/Item/HCTItem.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Header/Header.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Header/Header.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Header/HeaderContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/AddFrom/AddForm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/AddFrom/AddForm.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/AddFrom/AddFormContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/KTEditForm/KomaxTerminalEditForm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/KTEditForm/KomaxTerminalEditForm.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/KomaxTerminal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/KomaxTerminal.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/KomaxTerminalContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/KomaxTerminalTable/Item/KTTItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/KomaxTerminalTable/Item/KTTItem.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/KomaxTerminalTable/KomaxTerminalTable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/KomaxTerminalTable/KomaxTerminalTable.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/KomaxTerminalTable/KomaxTerminalTableContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/Modal/ModalForm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/Modal/ModalForm.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komax terminal/Modal/ModalFormContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/KomaxTable/KomaxTable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/KomaxTable/KomaxTable.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/KomaxTable/KomaxTableItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Komaxes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Komaxes.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/KomaxesContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Modal/ModalForm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Modal/ModalForm.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Komaxes/Modal/ModalFormContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Labour/LabourPage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Labour/LabourPage.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Labour/LabourPageContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Login/Login.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Login/Login.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Login/LoginContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Preloader/Preloader.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Preloader/Preloader.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Start/StartPage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Start/StartPage.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Start/StartPageContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Tasks/CreateTaskPage/CreateTaskPage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Tasks/CreateTaskPage/CreateTaskPage.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Tasks/CreateTaskPage/CreateTaskPageContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Tasks/TaskDetailPage/TaskDetailPage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Tasks/TaskDetailPage/TaskDetailPage.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Tasks/TaskDetailPage/TaskDetailPageContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Tasks/TaskItem/TaskItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Tasks/TaskItem/TaskItem.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Tasks/TasksPage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Tasks/TasksPage.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/Tasks/TasksPageContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/common/IconButton/IconButton.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/common/IconButton/IconButton.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/common/SaveButton/SaveButton.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/common/SaveButton/SaveButton.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/common/SuccessButton/SuccessButton.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/comp/common/SuccessButton/SuccessButton.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/localization/en.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/localization/ru.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/reducers/chartReducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/reducers/harnessesReducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/reducers/komaxReducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/reducers/komaxTerminalReducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/reducers/labourReducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/reducers/loginReducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/reducers/modalReducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/selectors/harnessSelector.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/selectors/komaxSelector.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/selectors/labourSelector.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/selectors/loginSelector.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/selectors/modalSelector.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/selectors/terminalSelector.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/serviceWorker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/src/store.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/static/komax_app/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/static/komax_app/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komax_app/webpack.config.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +333,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.buildTools.grunt.grunt-cli.package" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/komax_app/src/comp/Komax terminal" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/komax_app/templates/komax_app" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -108,19 +349,19 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\comp\Komax terminal" />
-      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\templates\komax_app" />
-      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app" />
-      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\static\komax_app" />
-      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\comp\Harnesses\HarnessesTables\HarnessesMap" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\frontend" />
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\comp\common" />
       <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\comp\common\SuccessButton" />
       <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\templates\komax_app" />
       <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\comp\Harnesses\HarnessesTables\HarnessesChooseTable\Item" />
-      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\comp\Komaxes" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\templates\komax_app" />
       <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app" />
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\frontend" />
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\src\comp\Komax terminal" />
+      <recent name="C:\Users\vitdu\WebstormProjects\PrettlNKKomax\komax_app\static\komax_app" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.task_view.html">
@@ -341,7 +582,7 @@
       <workItem from="1590613784521" duration="358000" />
       <workItem from="1590653305314" duration="80874000" />
       <workItem from="1590844659855" duration="25946000" />
-      <workItem from="1590929941081" duration="92000" />
+      <workItem from="1590929941081" duration="3604000" />
     </task>
     <servers />
   </component>
@@ -422,10 +663,10 @@
     </state>
     <state x="804" y="349" key="com.intellij.ide.util.TipDialog/0.0.2560.1040/-1440.0.1440.860@0.0.2560.1040" timestamp="1590014012886" />
     <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1586300079011" />
-    <state x="509" y="188" width="672" height="555" key="search.everywhere.popup" timestamp="1590864637092">
+    <state x="509" y="188" width="672" height="555" key="search.everywhere.popup" timestamp="1590931489168">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="509" y="188" width="672" height="555" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1590864637092" />
+    <state x="509" y="188" width="672" height="555" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1590931489168" />
     <state x="814" y="227" width="929" height="670" key="search.everywhere.popup/0.0.2560.1040/-1440.0.1440.860@0.0.2560.1040" timestamp="1589536715505" />
     <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1587455862221" />
     <state x="718" y="384" width="540" height="337" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1587540982491">

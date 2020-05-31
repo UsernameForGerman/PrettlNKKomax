@@ -1,0 +1,16 @@
+
+h2 {
+    margin: 40px 0 10px 0;
+}
+
+td {
+    font-size: large;
+}
+
+.add-button {
+    position: relative;
+    padding: 10px;
+    float: right;
+    margin: 20px;
+
+}

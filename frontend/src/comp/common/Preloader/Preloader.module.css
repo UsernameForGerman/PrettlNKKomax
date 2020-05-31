@@ -1,0 +1,20 @@
+.Preloader{
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.img{
+    height: 40%;
+    margin-bottom: 10%;
+    background-color: transparent;
+}
+
+.wrapper{
+    width: 100vw;
+    height: 100vh;
+}
