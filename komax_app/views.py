@@ -12,7 +12,7 @@ from django_pandas.io import read_frame
 import pandas as pd
 from .modules.HarnessChartProcessing import ProcessDataframe, get_komaxes_from, get_time_from, get_amount_from
 from .modules.KomaxTaskProcessing import get_task_personal, get_komax_task, KomaxTaskProcessing, get_task_to_load, \
-    delete_komax_order, stop_komax_task_on_komax, update_komax_task_status
+    delete_komax_order, stop_komax_task_on_komax, update_komax_task_status, get_komax_task_status_on_komax
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 import openpyxl as xl
@@ -202,7 +202,7 @@ class WorkerAccountView(LoginRequiredMixin, View):
                 for komax_task in ordered_komax_tasks:
                     komax_tasks_dict[komax_task] = [
                         komax_task.komaxes.filter(komax__number__exact=komax_num).first(),
-                        self.__get_status(komax_task, komax_num)
+                        get_komax_task_status_on_komax(komax_task, komax_num)
                     ]
                     komax_tasks_dict[komax_task][0].time = seconds_to_str_hours(komax_tasks_dict[komax_task][0].time)
 

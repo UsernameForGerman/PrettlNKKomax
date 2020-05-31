@@ -264,7 +264,7 @@ class KomaxTask(models.Model):
     type_of_allocation = models.CharField(default='Parallel', max_length=128, choices=ALLOCATION_TYPES)
     loading_type = models.CharField(default='New', max_length=64, choices=LOADING_TYPES)
     status = models.SmallIntegerField(choices=STATUS_TYPES, default=1)
-    #worker = models.ForeignKey(Worker,on_delete=models.CASCADE, null=True)
+    # worker = models.ForeignKey(Worker,on_delete=models.CASCADE, null=True)
     # ordered = models.BooleanField(default=False)
     # loaded = models.BooleanField(default=False)
 

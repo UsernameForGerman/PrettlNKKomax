@@ -7,9 +7,10 @@ from rest_framework import authentication, permissions
 from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.parsers import MultiPartParser, FileUploadParser
 from django.contrib.auth.models import User
-from komax_app.models import Komax
+from komax_app.models import Komax, Worker
 from .serializers import *
 from komax_app.modules.HarnessChartProcessing import HarnessChartReader
+from komax_app.modules.KomaxTaskProcessing import get_komax_task_status_on_komax
 
 
 # Entry point(temporary)
@@ -116,7 +117,7 @@ class KappaDetailView(RetrieveUpdateDestroyAPIView):
 
 class HarnessListView(APIView):
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     parser_classes = [MultiPartParser]
 
     def get(self, request, *args, **kwargs):
@@ -174,7 +175,7 @@ class HarnessDetailView(APIView):
 
 class HarnessChartListView(APIView):
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_objects(self, harness_number):
         harness_charts = HarnessChart.objects.filter(harness__harness_number__iexact=harness_number)
@@ -191,6 +192,50 @@ class HarnessChartListView(APIView):
 
         harness_chart_serializer = HarnessChartSerializer(harness_charts, context={'request': request}, many=True)
         return Response(harness_chart_serializer.data)
+
+class KomaxTaskListView(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = KomaxTask.objects.all()
+
+    def get_object(self, task_name=None):
+        if task_name:
+            return KomaxTask.objects.filter(task_name=task_name)
+        else:
+            return KomaxTask.objects.all()
+
+    def get_queryset(self):
+        return KomaxTask.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        if user.groups.filter(name='Master').exists():
+            queryset = self.get_queryset()
+            if len(queryset):
+                komax_task_serializer = KomaxTaskSerializer(queryset, context={'request': self.request}, many=True)
+                return Response(komax_task_serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_204_NO_CONTENT)
+        elif user.groups.filter(name='Operator').exists():
+            queryset = self.get_queryset()
+            worker = Worker.objects.get(user=user)
+            komax = worker.current_komax
+            komax_number = komax.number if komax is not None else None
+            if komax_number is None:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+            if len(queryset):
+                for obj in queryset:
+                    obj.status = get_komax_task_status_on_komax(obj, komax_number)
+                    for komax_time in obj.komaxes.exclude(komax=komax):
+                        obj.komaxes.remove(komax_time)
+                komax_task_serializer = KomaxTaskSerializer(queryset, context={'request': self.request}, many=True)
+                return Response(komax_task_serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
 
 """
 @api_view(['GET', 'POST'])

@@ -1,11 +1,14 @@
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from .serializers import HarnessSerializer, KomaxSerializer, KappaSerializer, KomaxTerminalSerializer, \
-    LaboriousnessSerializer, KomaxStatusSerializer, HarnessChartSerializer, KomaxSealSerializer
-from komax_app.models import Harness, HarnessChart, Komax, Kappa, Laboriousness, KomaxTerminal, KomaxStatus, KomaxSeal
+    LaboriousnessSerializer, KomaxStatusSerializer, HarnessChartSerializer, KomaxSealSerializer, KomaxTaskSerializer, \
+    WorkerSerializer
+from komax_app.models import Harness, HarnessChart, Komax, Kappa, Laboriousness, KomaxTerminal, KomaxStatus, KomaxSeal, \
+    KomaxTask, Worker, User
+from komax_app.modules.KomaxTaskProcessing import get_komax_task_status_on_komax
 from rest_framework.response import Response
 from komax_app.modules.HarnessChartProcessing import HarnessChartReader
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_202_ACCEPTED, HTTP_200_OK, \
-    HTTP_204_NO_CONTENT
+    HTTP_204_NO_CONTENT, HTTP_404_NOT_FOUND
 
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -97,7 +100,7 @@ class HarnessChartViewSet(ReadOnlyModelViewSet):
     serializer_class = HarnessChartSerializer
     queryset = HarnessChart.objects.all()
     lookup_field = 'harness_number'
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     authentication_classes = [TokenAuthentication]
 
     def retrieve(self, request, *args, **kwargs):
@@ -110,5 +113,113 @@ class HarnessChartViewSet(ReadOnlyModelViewSet):
                 return Response(serializer.data, status=HTTP_200_OK)
             return Response(status=HTTP_204_NO_CONTENT)
         return Response(status=HTTP_400_BAD_REQUEST)
+
+class WorkerViewSet(ModelViewSet):
+    queryset = Worker.objects.all()
+    serializer_class = WorkerSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    lookup_field = 'username'
+
+    def create(self, request, *args, **kwargs):
+        username = self.request.data.get('username', None)
+        if username is None:
+            return Response(status=HTTP_400_BAD_REQUEST)
+        komax_number = self.request.data.get('current_komax', None)
+
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return Response(status=HTTP_204_NO_CONTENT)
+
+        if komax_number is not None:
+            try:
+                komax = Komax.objects.get(number=komax_number)
+            except Komax.DoesNotExist:
+                return Response(status=HTTP_204_NO_CONTENT)
+        else:
+            komax = None
+
+        worker = Worker.objects.create(
+            user=user,
+            current_komax=komax
+        )
+        worker_serializer = WorkerSerializer(worker)
+        worker_serializer.save()
+
+        return Response(status=HTTP_201_CREATED)
+
+    def update(self, request, *args, **kwargs):
+        username = self.kwargs.get('username', None)
+        try:
+            worker = Worker.objects.get(user__username=username)
+        except Worker.DoesNotExist:
+            return Response(status=HTTP_204_NO_CONTENT)
+
+        komax_number = self.request.data.get('current_komax', None)
+        if komax_number is None:
+            return Response(status=HTTP_400_BAD_REQUEST)
+
+        try:
+            komax = Komax.objects.get(number=komax_number)
+        except Komax.DoesNotExist:
+            return Response(status=HTTP_204_NO_CONTENT)
+
+        worker.current_komax = komax
+        worker.save(update_fields=['current_komax'])
+
+        return Response(status=HTTP_200_OK)
+
+    def retrieve(self, request, *args, **kwargs):
+        username = self.kwargs.get('username')
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return Response(status=HTTP_204_NO_CONTENT)
+
+        try:
+            worker = Worker.objects.get(user=user)
+        except Worker.DoesNotExist:
+            return Response(status=HTTP_204_NO_CONTENT)
+
+        worker_serializer = WorkerSerializer(worker)
+
+        return Response(worker_serializer.data, status=HTTP_200_OK)
+
+
+
+# class KomaxTaskViewSet(ModelViewSet):
+#     serializer_class = KomaxTask
+#     queryset = KomaxTask.objects.all()
+#     lookup_field = 'task_name'
+#     permission_classes = [AllowAny]
+#     authentication_classes = [TokenAuthentication]
+#
+#     def list(self, request, *args, **kwargs):
+#         komax_task_serializer = KomaxTaskSerializer(KomaxTask.objects.all(), many=True)
+#         return Response(komax_task_serializer.data, status=HTTP_200_OK)
+#
+#         user = self.request.user
+#         if user.groups.filter(name='Master').exists():
+#             if len(self.queryset):
+#                 komax_task_serializer = KomaxTaskSerializer(self.queryset, context={'request': self.request})
+#                 return Response(komax_task_serializer.data, status=HTTP_200_OK)
+#             else:
+#                 return Response(status=HTTP_204_NO_CONTENT)
+#         elif user.groups.filter(name='Operator').exists():
+#             komax = user.current_komax
+#             komax_number = komax.number if komax is not None else None
+#             if komax_number is None:
+#                 return Response(status=HTTP_404_NOT_FOUND)
+#             if len(self.queryset):
+#                 for obj in self.queryset:
+#                     obj.status = get_komax_task_status_on_komax(obj, komax_number)
+#                 komax_task_serializer = KomaxTaskSerializer(self.queryset, context={'request': self.request})
+#                 return Response(komax_task_serializer.data, status=HTTP_200_OK)
+#             else:
+#                 return Response(status=HTTP_204_NO_CONTENT)
+#         else:
+#             return Response(status=HTTP_400_BAD_REQUEST)
+
 
 
