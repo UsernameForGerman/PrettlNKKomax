@@ -558,10 +558,9 @@ class KomaxTaskProcessing():
                 update_komax_task_status(komax_task_obj)
         else:
             if len(tasks_pers):
+                wire_number = [str(wire_number) for wire_number in dataframe.loc[:, 'wire_number']]
                 # Stop
                 if worker is not None:
-                    wire_number = [str(wire_number) for wire_number in dataframe.loc[:, 'wire_number']]
-
                     finished_tasks = tasks_pers.exclude(wire_number__in=wire_number)
                     for task in finished_tasks:
                         task.worker = worker
@@ -572,13 +571,15 @@ class KomaxTaskProcessing():
                     # update last komax task status
                     update_komax_task_status(tasks_pers.first().komax_task)
                     # Mix type of loading
-                    not_finished_tasks = tasks_pers.filter(wire_number__in=dataframe.loc['wire_number'])
+                    not_finished_tasks = tasks_pers.filter(wire_number__in=wire_number)
                     for task in not_finished_tasks:
+                        task.id = None
                         task.komax_task = komax_task_obj
                         task.komax = None
                         task.kappa = None
                         task.amount = 1
                     TaskPersonal.objects.bulk_create(not_finished_tasks)
+                    print("Created {} task personals for {}".format(len(not_finished_tasks), komax_task_obj))
             else:
                 if harnesses_number is None:
                     harnesses_numbers = dataframe['harness'].unique()

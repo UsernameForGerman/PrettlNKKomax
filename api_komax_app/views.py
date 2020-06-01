@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from komax_app.models import Komax, Worker
 from .serializers import *
 from komax_app.modules.HarnessChartProcessing import HarnessChartReader
-from komax_app.modules.KomaxTaskProcessing import get_komax_task_status_on_komax
+from komax_app.modules.KomaxTaskProcessing import get_komax_task_status_on_komax, KomaxTaskProcessing
 
 
 # Entry point(temporary)
@@ -232,6 +232,50 @@ class KomaxTaskListView(APIView):
                 return Response(komax_task_serializer.data, status=status.HTTP_200_OK)
             else:
                 return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def post(self, request, *args, **kwargs):
+        data = self.request.data
+        komax_task_name = data.get('task_name', None)
+        harnesses = data.get('harnesses', None)
+        komaxes = data.get('komaxes', None)
+        kappas = data.get('kappas', None)
+        shift = data.get('shift', None)
+        type_of_allocation = data.get('type_of_allocation', None)
+        loading_type = data.get('loading_type', None)
+
+        if komax_task_name:
+            komax_task = self.get_object(komax_task_name)
+            if not len(komax_task) and harnesses and komaxes and kappas and shift and type_of_allocation and loading_type:
+                komax_task_processor = KomaxTaskProcessing()
+                komax_task_processor.create_komax_task(
+                    komax_task_name,
+                    harnesses,
+                    komaxes,
+                    kappas,
+                    shift,
+                    type_of_allocation,
+                    loading_type
+                )
+                komax_task_processor.sort_save_komax_task(komax_task_name)
+                return Response(status=status.HTTP_200_OK)
+            elif len(komax_task):
+                harness_amount_dict = data.get('harness_amount', None)
+                if harness_amount_dict:
+                    komax_task_processor = KomaxTaskProcessing()
+                    komax_task_processor.update_harness_amount(komax_task_name, harness_amount_dict)
+                    allocation = komax_task_processor.create_allocation(komax_task_name)
+                    komax_task_processor.update_komax_time(
+                        komax_task_name,
+                        {komax: time[0] for komax, time in allocation.items()}
+                    )
+                    return Response(status=status.HTTP_200_OK)
+                else:
+                    return Response(status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response(status=status.HTTP_204_NO_CONTENT)
+
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
