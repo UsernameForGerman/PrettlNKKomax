@@ -11,7 +11,8 @@ class authApi extends API{
             username : login,
             password : password
         }).then((resp) => {
-            return resp.data.token;
+            debugger;
+            return resp.token;
         });
     }
 }
