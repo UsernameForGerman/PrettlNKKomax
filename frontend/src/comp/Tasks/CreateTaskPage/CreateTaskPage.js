@@ -26,16 +26,17 @@ let CreateTaskPage = (props) => {
     let openNextForm = (e) => {
         e.preventDefault();
         props.setContinue(true);
+        let data = {
+            number : numberRef.current.value,
+            work_shift : workShiftRef.current.value
+        }
+        props.sendDataFirst(data);
     }
 
     let collectData = (e) => {
         e.preventDefault();
-        let data = {
-            work_shift: workShiftRef.current.value,
-            number: numberRef.current.value
-        }
 
-        props.send(data);
+        props.sendDataSecond();
     }
 
     let renderedHarnesses = props.multiselectOptions.map(elem => {

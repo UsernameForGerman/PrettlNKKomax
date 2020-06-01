@@ -21,7 +21,7 @@ import FullScreenPreloader from "../common/Preloader/FullScreenPreloader";
 let HarsessesContainer = (props) => {
     useEffect(() => {
         props.fetchList();
-    }, props.list);
+    }, props.list.length);
 
     let [selectedNumber, setSelectedNumber] = useState("");
 

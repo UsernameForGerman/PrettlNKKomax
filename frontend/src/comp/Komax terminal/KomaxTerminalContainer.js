@@ -27,7 +27,7 @@ let KomaxTerminalContainer = (props) => {
 
     useEffect(() => {
         props.fetchList();
-    }, props.terminalList)
+    }, props.terminalList.length)
 
     let list = props.terminalList;
     if (!list){

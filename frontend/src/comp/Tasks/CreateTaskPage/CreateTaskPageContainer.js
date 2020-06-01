@@ -89,17 +89,27 @@ let CreateTaskPageContainer = (props) => {
         }
     }
 
-    let sendData = (data) => {
+    let sendDataFirst = (data) => {
         let name = data.number;
         let shift = data.work_shift;
         let request = {
             'task_name' : name,
-            'harnesses' : harnessesData,
+            'harnesses' : multiselectOptions,
             'komaxes' : komaxesOptions,
             'kappas' : kappasOptions,
             'shift' : shift,
             'type_of_allocation' : workType,
             'loading_type' : loadingType
+        }
+
+        debugger;
+
+        props.send(request);
+    }
+
+    let sendDataSecond = () => {
+        let request = {
+            'harness_amount' : harnessesData,
         }
 
         debugger;
@@ -130,7 +140,8 @@ let CreateTaskPageContainer = (props) => {
                             shouldContinue={shouldContinue}
                             setContinue={setContinue}
                             addHarnessData={addHarnessData}
-                            send={sendData}
+                            sendDataFirst={sendDataFirst}
+                            sendDataSecond={sendDataSecond}
                         />
                    </div>
             }

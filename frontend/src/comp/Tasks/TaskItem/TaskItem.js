@@ -29,7 +29,7 @@ let TaskItem = (props) => {
                                     </button>
                                   </>
                     }
-                    <NavLink to={"/task/" + props.number}>
+                    <NavLink to={"/task/" + props.task_name}>
                         <button className={classes.moreBtn}>
                             <FontAwesomeIcon icon={['fas', 'ellipsis-h']}/>
                         </button>

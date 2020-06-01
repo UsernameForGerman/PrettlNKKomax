@@ -16,7 +16,7 @@ let KomaxesContainer = (props) => {
         if(props.komaxList.length === 0){
              props.fetchKomaxes();
         }
-    }, props.komaxList);
+    }, props.komaxList.length);
 
     let [selectedKomax, setSelectedKomax] = useState({});
 

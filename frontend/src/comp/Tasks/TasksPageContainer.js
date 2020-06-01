@@ -15,7 +15,7 @@ let TasksPageContainer = (props) => {
     }
     useEffect(() => {
         props.fetchList();
-    }, props.tasksList);
+    }, props.tasksList.length);
 
     let items = props.tasksList.map(elem => {
         return (
