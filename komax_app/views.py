@@ -170,14 +170,6 @@ def load_task_to_komax(request, task_name, *args, **kwargs):
 class WorkerAccountView(LoginRequiredMixin, View):
     template_name = 'komax_app/user_account.html'
 
-    def __get_status(self, komax_task, komax_number):
-        if TaskPersonal.objects.filter(komax__number=komax_number, worker=None, komax_task=komax_task, loaded=False):
-            return 0# не загружено
-        elif TaskPersonal.objects.filter(komax__number=komax_number, worker=None, komax_task=komax_task, loaded=True):
-            return 1# загружено
-        else:
-            return 2# сделано
-
     def get(self, request, *args, **kwargs):
         available_komaxes = Komax.objects.filter(status=1)                      # Все работающий komax
         worker = get_object_or_404(Worker, user=request.user)                   # Находим нужного работника
