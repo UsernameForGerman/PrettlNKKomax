@@ -36,9 +36,9 @@ class HarnessViewSet(ModelViewSet):
     lookup_field = 'harness_number'
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
-    # renderer_classes = [JSONRenderer]
+    renderer_classes = [JSONRenderer]
 
-    @renderer_classes(XMLRenderer)
+    #@renderer_classes(XMLRenderer)
     def create(self, request, *args, **kwargs):
         harness_number = self.request.data.get('harness_number', None)
         harness_chart = self.request.FILES.get('harness_chart', None)
@@ -58,7 +58,7 @@ class HarnessViewSet(ModelViewSet):
 
         return Response(status=HTTP_400_BAD_REQUEST)
 
-    @renderer_classes(XMLRenderer)
+    #@renderer_classes(XMLRenderer)
     def update(self, request, *args, **kwargs):
         harness_number = self.request.query_params.get('harness_number', None)
         harness_chart = self.request.data.get('harness_chart', None)
