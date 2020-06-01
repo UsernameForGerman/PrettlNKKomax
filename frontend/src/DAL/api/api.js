@@ -17,24 +17,42 @@ class API {
 
     createAPI = (baseUrl = BASE_URL) => {
         let token = this.getToken();
-        return axios.create({
-            baseURL : baseUrl,
-            headers : {
-                "Authorization": `Token ${token}`,
-                "Content-Type" : "application/json",
-            }
-        });
+        if (token === "null"){
+            return axios.create({
+                baseURL : baseUrl,
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            });
+        } else {
+           return axios.create({
+                baseURL : baseUrl,
+                headers : {
+                    "Authorization": `Token ${token}`,
+                    "Content-Type" : "application/json",
+                }
+            });
+        }
     }
 
     createMediaAPI = () => {
         let token = this.getToken();
-        return axios.create({
-            baseURL : BASE_URL,
-            headers : {
-                "Authorization": `Token ${token}`,
-                "Content-Type" : "multipart/form-data",
-            }
-        });
+        if (token === "null"){
+            return axios.create({
+                baseURL : BASE_URL,
+                headers : {
+                    "Content-Type" : "multipart/form-data"
+                }
+            });
+        } else {
+           return axios.create({
+                baseURL : BASE_URL,
+                headers : {
+                    "Authorization": `Token ${token}`,
+                    "Content-Type" : "multipart/form-data",
+                }
+            });
+        }
     }
 
     formIdUrl = (id) => {

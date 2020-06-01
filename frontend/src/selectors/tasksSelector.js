@@ -14,6 +14,10 @@ class TasksSelector {
     static getValid = (state) => {
         return state.tasks.isValid
     }
+
+    static getCanSend = (state) => {
+        return state.tasks.canSend
+    }
 }
 
 export default TasksSelector;

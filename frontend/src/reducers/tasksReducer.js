@@ -3,13 +3,15 @@ const initialState = {
     isFetching : false,
     tasksList : [],
     errMsg : "",
-    isValid : true
+    isValid : true,
+    canSend : false
 }
 
 const TOGGLE_FETCHING = "TASKS/TOGGLE_FETCHING";
 const SET_LIST = "TASKS/TOGGLE_SET_LIST";
 const SET_ERR_MSG = "TASKS/ERROR";
 const SET_VALID = "TASKS/VALID";
+const SET_CAN_SEND = "TASKS/CAN_SEND";
 
 const tasksReducer = (state = initialState, action) => {
     let stateCopy = {...state};
@@ -33,6 +35,11 @@ const tasksReducer = (state = initialState, action) => {
             stateCopy.isValid = action.isValid;
             break;
         }
+
+        case SET_CAN_SEND : {
+            stateCopy.canSend = action.canSend;
+            break;
+        }
     }
     return stateCopy;
 }
@@ -40,6 +47,13 @@ const tasksReducer = (state = initialState, action) => {
 const toggleFetchAC = () => {
     return {
         type : TOGGLE_FETCHING
+    }
+}
+
+const canSendAC = (send) => {
+    return {
+        type : SET_CAN_SEND,
+        canSend : send
     }
 }
 
@@ -75,11 +89,10 @@ const getTasksThunk = () => {
 }
 
 const createTaskThunk = (task) => {
-    debugger;
     return (dispatch) => {
         dispatch(toggleFetchAC());
         task_api.createTask(task).then((data) => {
-            dispatch(getTasksThunk());
+            dispatch(canSendAC(true));
             dispatch(toggleFetchAC());
         });
     }
