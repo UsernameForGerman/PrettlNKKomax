@@ -32,7 +32,7 @@ urlpatterns = [
     path('', views.index),
     # path('', include('komax_app.urls')),
     path('api/', include('api_komax_app.urls')),
-    re_path(r'^description/', include('description.urls')),
+    # re_path(r'^description/', include('description.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -248,10 +248,10 @@ class KomaxTaskListView(APIView):
         shift = data.get('shift', None)
         type_of_allocation = data.get('type_of_allocation', None)
         loading_type = data.get('loading_type', None)
-
+        print(data)
         if komax_task_name:
             komax_task = self.get_object(komax_task_name)
-            if not len(komax_task) and harnesses and komaxes and kappas and shift and type_of_allocation and loading_type:
+            if not len(komax_task) and harnesses and komaxes and shift and type_of_allocation and loading_type:
                 komax_task_processor = KomaxTaskProcessing()
                 komax_task_processor.create_komax_task(
                     komax_task_name,
@@ -282,12 +282,6 @@ class KomaxTaskListView(APIView):
 
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
-@method_decorator(csrf_exempt, name='dispatch')
-class ObtainAuthTokenCSRFExempt(ObtainAuthToken):
-
-    def __init__(self, *args, **kwargs):
-        super(ObtainAuthToken, self).__init__(*args, **kwargs)
 
 class Logout(APIView):
 
