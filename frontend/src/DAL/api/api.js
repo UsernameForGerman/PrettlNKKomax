@@ -41,7 +41,7 @@ class API {
             return axios.create({
                 baseURL : BASE_URL,
                 headers : {
-                    "Content-Type" : "multipart/form-data"
+                    "Content-Type" : "text/xml"
                 }
             });
         } else {
@@ -49,7 +49,7 @@ class API {
                 baseURL : BASE_URL,
                 headers : {
                     "Authorization": `Token ${token}`,
-                    "Content-Type" : "multipart/form-data",
+                    "Content-Type" : "text/xml",
                 }
             });
         }
@@ -72,8 +72,8 @@ class API {
         });
     }
 
-    createObject = (options) => {
-        return this.createAPI().post(this.base_url, options).then((resp) => {
+    createObject = (options, api = this.createAPI()) => {
+        return api.post(this.base_url, options).then((resp) => {
             return resp.data;
         });
     }

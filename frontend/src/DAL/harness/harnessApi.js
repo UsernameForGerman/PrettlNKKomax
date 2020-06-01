@@ -17,9 +17,9 @@ class harnessApi extends API{
 
     createHarness = (number, file) => {
         return this.createObject({
-            number : number,
-            data : file
-        })
+            harness_number : number,
+            harness_chart : file
+        }, this.createMediaAPI())
     }
 
     deleteHarnessByNumber = (number) => {

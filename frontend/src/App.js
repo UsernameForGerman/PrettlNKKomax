@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import Header from "./comp/Header/Header";
 import "./Global.css";
 import {Provider} from "react-redux";
@@ -42,6 +42,12 @@ let App = (props) => {
               <BrowserRouter basename={process.env.PUBLIC_URL}>
                   <Provider store={store}>
                       <HeaderContainer toggleLocale={toggleLocale}/>
+                      <Route path={"/api/"}>
+                          <Redirect to={"/"}/>
+                      </Route>
+                      <Route path={"/static/komax_app"}>
+                          <Redirect to={"/"}/>
+                      </Route>
                       <Route path={"/labour"} exact>
                           <LabourPageContainer/>
                       </Route>

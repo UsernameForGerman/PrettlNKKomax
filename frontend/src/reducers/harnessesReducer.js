@@ -1,4 +1,4 @@
-import harnessApi from "../DAL/harness/harness-api";
+import harnessApi from "../DAL/harness/harnessApi";
 import harness_chart_api from "../DAL/harness_chart/harness_chart_api";
 
 let initialState = {

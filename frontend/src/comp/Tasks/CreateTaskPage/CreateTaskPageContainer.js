@@ -142,6 +142,7 @@ let CreateTaskPageContainer = (props) => {
                             addHarnessData={addHarnessData}
                             sendDataFirst={sendDataFirst}
                             sendDataSecond={sendDataSecond}
+                            canSend={props.canSend}
                         />
                    </div>
             }
@@ -157,7 +158,8 @@ let mapStateToProps = (state) => {
         kappas : KappaSelector.getList(state),
         isFetching : HarnessSelector.getFetching(state) || KomaxSelector.getFetching(state) || KappaSelector.getFetching(state),
         errMsg : TasksSelector.getErrMsg(state),
-        isValid : TasksSelector.getValid(state)
+        isValid : TasksSelector.getValid(state),
+        canSend : TasksSelector.getCanSend(state)
     }
 }
 

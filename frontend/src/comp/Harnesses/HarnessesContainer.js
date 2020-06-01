@@ -13,10 +13,11 @@ import HarnessSelector from "../../selectors/harnessSelector";
 import {deleteHarnessByNumberThunk, getChartByNumberThunk, getHarnessesListThunk} from "../../reducers/harnessesReducer";
 import {connect} from "react-redux";
 import Preloader from "../common/Preloader/Preloader";
-import harnessChartApi from "../../DAL/harness_chart/harness_chart_api";
+import harnessApi from "../../DAL/harness/harnessApi";
 import {FormattedMessage} from "react-intl";
 import auth from "../AuthHOC/authHOC";
 import FullScreenPreloader from "../common/Preloader/FullScreenPreloader";
+import file from "../../assets/docs/6282-2124813-12.xlsx";
 
 let HarsessesContainer = (props) => {
     useEffect(() => {
@@ -71,6 +72,8 @@ let HarsessesContainer = (props) => {
     }
 
     let rows = renderRows(props.selectedMap);
+
+    harnessApi.createHarness("6282-2124813-12", file).then(console.log);
 
     let renderMap = () => {
         return(

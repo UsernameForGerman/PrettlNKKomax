@@ -41,7 +41,8 @@ class HarnessViewSet(ModelViewSet):
     @renderer_classes(XMLRenderer)
     def create(self, request, *args, **kwargs):
         harness_number = self.request.data.get('harness_number', None)
-        harness_chart = self.request.data.get('harness_chart', None)
+        harness_chart = self.request.FILES.get('harness_chart', None)
+        print(self.request.data, self.request.FILES)
         if harness_number and harness_chart:
             Harness.objects.get_or_create(harness_number=harness_number)
 

@@ -1,7 +1,5 @@
 import API from "../api/api";
-
-const BASE_URL = "http://localhost:8000/api/v1/";
-const AUTH_URL = "auth/";
+const AUTH_URL = "login/";
 
 class authApi extends API{
     constructor() {
@@ -9,7 +7,7 @@ class authApi extends API{
     }
 
     auth = (login, password) => {
-        return this.createAPI(BASE_URL).post(BASE_URL + AUTH_URL, {
+        return this.createObject({
             username : login,
             password : password
         }).then((resp) => {
