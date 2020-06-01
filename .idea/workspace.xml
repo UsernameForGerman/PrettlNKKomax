@@ -20,23 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1a860dd2-5df5-48d3-88e3-41810c180018" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/reducers/kappasReducer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/selectors/kappaSelector.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/selectors/tasksSelector.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/DAL/kappa/kappa-api.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/DAL/kappa/kappa-api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/DAL/task/task_api.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/DAL/task/task_api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/comp/Komaxes/Modal/ModalForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/comp/Komaxes/Modal/ModalForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/comp/Tasks/CreateTaskPage/CreateTaskPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/CreateTaskPage/CreateTaskPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/comp/Tasks/CreateTaskPage/CreateTaskPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/CreateTaskPage/CreateTaskPage.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/comp/Tasks/CreateTaskPage/CreateTaskPageContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/CreateTaskPage/CreateTaskPageContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/comp/Tasks/TaskItem/TaskItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/TaskItem/TaskItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/comp/Tasks/TasksPageContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/comp/Tasks/TasksPageContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/comp/common/SuccessButton/SuccessButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/comp/common/SuccessButton/SuccessButton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/reducers/tasksReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/reducers/tasksReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/static/komax_app/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/static/komax_app/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komax_app/static/komax_app/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/komax_app/static/komax_app/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -328,7 +312,8 @@
       <workItem from="1590653305314" duration="80874000" />
       <workItem from="1590844659855" duration="25946000" />
       <workItem from="1590929941081" duration="8540000" />
-      <workItem from="1590944475208" duration="14064000" />
+      <workItem from="1590944475208" duration="14247000" />
+      <workItem from="1590998061988" duration="331000" />
     </task>
     <servers />
   </component>
