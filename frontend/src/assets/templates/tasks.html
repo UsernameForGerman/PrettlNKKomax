@@ -1,0 +1,236 @@
+<!doctype html>
+<title>All_tasks</title>
+{% load static %}
+
+{% block head %}
+
+     <script src="js/jquery-3.1.1.min.js"></script>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+              crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'komax_app/maketasks.css' %}" >
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+        <style>
+             body
+            {
+
+                    padding-top: 150px;
+                background-size:100%;
+                background-color: #868884;
+                background: -moz-linear-gradient(-45deg, #868884 0%, #E8F1FF 50%, #868884 100%);
+                 background: -webkit-linear-gradient(-45deg, #868884 0%, #E8F1FF 50%, #868884 100%);
+                background: linear-gradient(135deg, #868884 0%, #E8F1FF 50%, #868884 100%);
+                background-attachment: fixed;
+            }
+        </style>
+        <style>
+            header
+            {
+            position: fixed;
+            width: 100vw;
+            top: 0;
+            background-color: white;
+            box-shadow: 0px 5px 4px grey;
+            }
+        </style>
+            <style>
+            .btn-dark{
+
+            background-color: #868884;
+
+            color: white;
+
+            }
+        </style>
+<style>
+     .btn-dark:hover{
+    background-color: #a2a39f;
+}
+</style>
+
+<style>
+    .btn-dark:focus
+    {
+      background-color: #868884;
+   outline: none;
+  color: white;
+    }
+</style>
+
+
+         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+      <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
+
+{% endblock %}
+
+     {% block body %}
+    <header class="blog-header  fixed-top" >
+
+        <div id="root">
+
+</div>
+
+<script src="/static/komax_app/main.js">
+</script>
+
+    </header>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                    <h1 align="right">{{ user.username }}</h1>
+
+                </div>
+                <div class="col-sm-5">
+                    <p align="right">
+                    <a href="{% url 'komax_app:task_setup' %}"x class="btn btn-success">
+                    <i class="fa fa-plus"></i>
+                    </a></p>
+                </div>
+            </div>
+        </div><!--имя мастера-->
+        {% if komax_tasks %}
+        <div class="col my-auto">
+            <div class="card" style="width: 99%;" align="center">
+                <div class="card-body">
+                    <div class="row">
+                    <div class="col my-auto">
+                        <div class="card" >
+                            <div class="card-body" id="card1"><!--генерируется здесь для карточка 1-->
+                                 {% for komax_task in komax_tasks %}
+                                {% if komax_task.status == 1 %}
+                                <div class="card">
+                                    <div class="card-header">
+                                        {{ komax_task.task_name }}
+
+                                    </div>
+                                    <div class="card-body">
+                                      {% if komax_task.status == 1 %}
+                                <a class="btn btn-outline-warning" href="{% url 'komax_app:send_komax_task' task_name=komax_task.task_name %}">
+                                    Send task
+                                </a>
+                                        {% endif %}
+
+                                        <a class="btn btn-outline-primary" href="{% url 'komax_app:task_view' task_name=komax_task.task_name %}">
+                                            More
+                                        </a>
+                                    </div>
+                                </div>
+                                <hr>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col my-auto">
+                        <div class="card">
+                            <div class="card-body" id="card2"><!--генерируется здесь для карточка 2-->
+                                 {% for komax_task in komax_tasks %}
+                                  {% if komax_task.status == 2 %}
+                                <div class="card">
+                                       <div class="card-header">
+                                        {{ komax_task.task_name }} :
+
+                            {% if komax_task.status == 2 %}
+                                <h7 style="color:rgb(255,190,16)">
+                                  Task ordered
+                                </h7>
+                                    </div>
+                                    <div class="card-body">
+                            {% endif %}
+
+                                        <a class="btn btn-outline-primary" href="{% url 'komax_app:task_view' task_name=komax_task.task_name %}">
+                                            More
+                                        </a>
+                                        </div>
+                                    </div>
+                                <hr>
+                                     {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col my-auto">
+                        <div class="card">
+                            <div class="card-body" id="card3"> <!--генерируется здесь для карточка 3-->
+                                 {% for komax_task in komax_tasks %}
+                                {% if komax_task.status == 3 %}
+                                <div class="card">
+                                                   <div class="card-header">
+                                        {{ komax_task.task_name }} :
+                                                                {% if komax_task.status == 3 %}
+                                <h7 style="color:rgb(16,121,255)">Task loaded</h7>
+
+
+
+
+
+                                    </div>
+                                    <div class="card-body">
+                        <a class="btn btn-outline-danger" href="{% url 'komax_app:delete_task' task_name=komax_task.task_name %}">
+                                    Delete task
+                                </a>
+                                          {% endif %}
+
+
+
+                                        <a class="btn btn-outline-primary" href="{% url 'komax_app:task_view' task_name=komax_task.task_name %}">
+                                            More
+                                        </a>
+                                    </div>
+                                </div>
+                                <hr>
+                                      {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% else %}
+            <div class="row">
+                <h3 class="h3">Create new komax task</h3>
+            </div>
+            <div class="row">
+                <a href="{% url 'komax_app:task_setup' %}" class="btn btn-outline-success">
+                    <i class="fa fa-plus"></i> Create task
+                </a>
+            </div>
+
+        {% endif %}
+
+
+    <div class="container" id="komax_app_setup"></div>
+
+
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+
+    {% endblock %}
+</html>

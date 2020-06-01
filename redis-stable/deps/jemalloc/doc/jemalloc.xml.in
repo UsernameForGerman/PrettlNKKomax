@@ -565,7 +565,7 @@ for (i = 0; i < nbins; i++) {
 
     <para>Assuming 4 KiB pages and a 16-byte quantum on a 64-bit system, the
     size classes in each category are as shown in <xref linkend="size_classes"
-    xrefstyle="template:TableItem %n"/>.</para>
+    xrefstyle="template:KomaxTableItem %n"/>.</para>
 
     <table xml:id="size_classes" frame="all">
       <title>Size classes</title>

@@ -1,0 +1,94 @@
+{
+  "add_button_text" : "Add",
+
+  "komax.number_label" : "Komax number",
+  "komax.type_label" : "Type",
+  "komax.marking_label" : "Marking",
+  "komax.pairing_label" : "Pairing",
+  "komax.group_of_square_label" : "Group of square",
+  "komax.status_label" : "Status",
+  "komax.identifier_label" : "Identifier",
+
+  "komax.modal_form_heading_create" : "Create new komax",
+  "komax.modal_form_heading_edit" : "Komax edit",
+
+  "save_button_label" : "Save",
+
+  "header.start_link" : "Start",
+  "header.tasks_link" : "Tasks",
+  "header.harnesses_link" : "Harnesses",
+  "header.komax_teminals_link" : "Komax terminals",
+  "header.labour_inputs_link" : "Labour inputs",
+  "header.komaxes_link" : "Komaxes",
+  "header.locale_label" : "EN",
+
+  "terminal.terminal_number_0_label" : "Terminal",
+  "terminal.terminal_number_1_label" : "number",
+  "terminal.terminal_avaliable_0_label" : "Terminal",
+  "terminal.terminal_avaliable_1_label" : "avaliable",
+  "terminal.material_avaliable_0_label" : "Material",
+  "terminal.material_avaliable_1_label" : "avaliable",
+
+  "terminal.delete_label" : "Delete",
+
+  "terminal.heading" : "Komax Terminals",
+  "terminal.choose_terminal" : "Choose terminals for editting",
+
+  "terminal.material_avaliable_label" : "Material avaliable",
+  "terminal.terminal_avaliable_label" : "Terminal avaliable",
+
+  "terminal.terminal_number_label" : "Terminal number",
+
+  "terminal.create_terminal_heading" : "Create new terminal",
+  "terminal.edit_terminal_heading" : "Edit terminal",
+
+  "harnesses.add_harness_number_placeholder" : "Harness number",
+  "harnesses.choose_terminal" : "Choose harness to show it`s map",
+  "harnesses.map_name" : "Map",
+
+  "harnesses.map_harnesses_number" : "Harness number",
+  "harnesses.map_harness" : "Harness",
+  "harnesses.map_wire_type" : "Wire type",
+  "harnesses.map_marking" : "Marking",
+  "harnesses.map_wire_number" : "Wire number",
+  "harnesses.map_wire_square" : "Wire square",
+  "harnesses.map_wire_color" : "Wire color",
+  "harnesses.map_wire_length" : "Wire length",
+
+  "harnesses.map_armirovka" : "Armirovka 1",
+  "harnesses.map_tube_len" : "Tube length 1",
+  "harnesses.map_wire_seal" : "Wire seal 1",
+  "harnesses.map_wire_cut_length" : "Wire cut 1",
+  "harnesses.map_wire_terminal" : "Wire terminal 1",
+  "harnesses.map_aplicator" : "Applicator 1",
+
+  "harnesses.map_armirovka_2" : "Armirovka 2",
+  "harnesses.map_tube_len_2" : "Tube length 2",
+  "harnesses.map_wire_seal_2" : "Wire seal 2",
+  "harnesses.map_wire_cut_length_2" : "Wire cut 2",
+  "harnesses.map_wire_terminal_2" : "Wire terminal 2",
+  "harnesses.map_aplicator_2" : "Applicator 2",
+
+  "harnesses.table_date_label" : "and\ndate",
+  "harnesses.table_download_label" : "Download",
+  "harnesses.table_delete_label" : "Delete",
+
+  "login.auth_label" : "Login",
+  "login.login_label" : "Login",
+  "login.password_label" : "Password",
+  "login.sign_in_label" : "Sign in",
+  "login.log_out_label" : "Log out",
+
+  "tasks.all_tasks_page_heading" : "Tasks",
+  "tasks.ordered_label" : "Task ordered",
+  "tasks.loaded_label" : "Task loaded",
+
+  "tasks.create_new_task_heading" : "Create new task",
+  "tasks.create_new_task_job_name_label" : "Job name",
+  "tasks.create_new_task_harnesses_label" : "Harnesses",
+  "tasks.create_new_task_komaxes_label" : "Komaxes",
+  "tasks.create_new_task_kappas_label" : "Kappas",
+  "tasks.create_new_task_work_shift_label" : "Work shify",
+  "tasks.create_new_task_continue_label" : "Continue",
+  "tasks.create_new_task_fill_form_label" : "Fill first form"
+}

@@ -1,0 +1,91 @@
+{
+  "name": "prettlNKKomax",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "",
+  "proxy": "localhost:8000",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.28",
+    "@fortawesome/free-brands-svg-icons": "^5.13.0",
+    "@fortawesome/free-regular-svg-icons": "^5.13.0",
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@fortawesome/react-fontawesome": "^0.1.9",
+    "@jest/globals": "^26.0.1",
+    "@material-ui/core": "^4.10.0",
+    "@material-ui/icons": "^4.9.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.19.2",
+    "ckeditor4-react": "^1.1.0",
+    "css-loader": "^3.5.3",
+    "jquery": "^3.5.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-feather": "^2.0.8",
+    "react-intl": "^4.6.3",
+    "react-modal": "^3.11.2",
+    "react-multi-select-component": "^2.0.7",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "react-select": "^3.1.0",
+    "react-tooltip": "^4.2.6",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "style-loader": "^1.2.1",
+    "video-react": "^0.14.1"
+  },
+  "scripts": {
+    "start": "node_modules/.bin/react-scripts start",
+    "build": "node_modules/.bin/react-scripts build",
+    "test": "node_modules/.bin/react-scripts test",
+    "eject": "node_modules/.bin/react-scripts eject",
+    "webpack-dev-server": "node_modules/.bin/webpack-dev-server",
+    "dev": "node_modules/.bin/webpack-dev-server --mode=development",
+    "prod": "./node_modules/.bin/webpack --mode=production",
+    "deploy": "node_modules/.bin/gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.1",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-react-intl": "^7.5.15",
+    "file-loader": "^6.0.0",
+    "gh-pages": "^2.2.0",
+    "html-webpack-plugin": "^4.3.0",
+    "jest": "^26.0.1",
+    "path": "^0.12.7",
+    "redux-form": "^8.3.5",
+    "styled-components": "^5.1.0",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.43.0",
+    "webpack-bundle-tracker": "^1.0.0-alpha.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-xlsx-loader": "^1.0.0"
+  },
+  "keywords": [],
+  "author": "KFU-War",
+  "license": "ISC"
+}

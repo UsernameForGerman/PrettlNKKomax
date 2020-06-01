@@ -1,0 +1,49 @@
+.StartPage{
+    height: 100vh;
+    width: 100vw;
+}
+
+.container{
+    width: 80vw;
+    height: 100%;
+    margin: auto;
+    flex-direction: column;
+}
+
+.username{
+    font-size: 32px;
+    margin-bottom: 20px;
+    margin-right: 40vw;
+}
+
+.recentTasks{
+    width: 100%;
+    min-height: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.heading{
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.addBtn{
+    color: white;
+    background-color: #118e0f;
+    box-shadow: none;
+    border: none;
+    font-size: 48px;
+    padding: 0px 15px;
+}
+
+.addBtn:hover{
+    color: white;
+    background-color: #14a712;
+}

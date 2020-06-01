@@ -1,0 +1,34 @@
+.TableItem, .TableItemWithoutHover{
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0px;
+    border-radius: 5px;
+}
+
+.TableItem:hover{
+    background-color: #c9cbc9;
+    cursor: pointer;
+}
+
+.toolbar, .firstItem, .secondItem{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.toolbar{
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.data{
+    margin: 5px 0px;
+}
+
+.secondItem{
+    flex-direction: row;
+    justify-content: space-around;
+}

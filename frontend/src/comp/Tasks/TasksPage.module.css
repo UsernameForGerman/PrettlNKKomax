@@ -1,0 +1,63 @@
+.TaskPage{
+    width: 100vw;
+    height: 100vh;
+    margin-top: 5vh;
+    text-align: center;
+}
+
+.container{
+    width: 80vw;
+    height: 70vh;
+    margin: auto;
+    overflow-y: scroll;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.username{
+    font-size: 24px;
+    margin-bottom: 20px;
+    margin-right: 40vw;
+}
+
+.heading{
+    width: 80vw;
+    margin: auto;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.addBtn{
+    color: white;
+    background-color: #118e0f;
+    box-shadow: none;
+    border: none;
+    font-size: 48px;
+    padding: 0px 15px;
+}
+
+.addBtn:hover{
+    color: white;
+    background-color: #14a712;
+}
+
+.recentTasks{
+    width: 100%;
+    min-height: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.title, .username{
+    width: 20vw;
+}
+
+.title{
+    transform: translate(-150%) translateY(-10%);
+}

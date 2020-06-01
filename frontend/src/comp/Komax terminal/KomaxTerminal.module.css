@@ -1,0 +1,60 @@
+.KomaxTerminal{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.card{
+    width: 35vw;
+    height: 70vh;
+    transform: translateY(-5vh);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 5px;
+    padding: 10px 10px;
+}
+
+.left_card{
+    overflow-y: scroll;
+    background-color: white;
+    margin-right: 2vw;
+}
+
+.right_card{
+    margin-left: 2vw;
+    background-color: white;
+}
+
+.title{
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.succBtn{
+    box-shadow: 1px 1px 10px;
+    font-size: 18px;
+    padding: 1px 15px;
+}
+
+.choose{
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    height: 100%;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

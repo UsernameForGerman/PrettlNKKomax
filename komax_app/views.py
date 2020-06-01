@@ -1,4 +1,9 @@
 from django.http import HttpResponseRedirect, Http404, HttpResponse
+from requests import Response
+from rest_framework import status
+from rest_framework.decorators import api_view
+
+from api_komax_app.serializers import HarnessSerializer, KomaxSerializer
 from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask, HarnessAmount, TaskPersonal, \
     Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker, KomaxOrder
 from .forms import KomaxEditForm, LaboriousnessForm
@@ -1509,3 +1514,79 @@ class LabourisnessView(generic.ListView):
     template_name = 'komax_app/laboriousness.html'
     context_object_name = 'actions'
 """
+
+def index(request):
+    return render(request, 'komax_app/index.html', context={"name" : "a"})
+
+
+@api_view(['GET', 'POST'])
+def komax_list(request):
+    if request.method == 'GET':
+        data = Komax.objects.all()
+
+        serializer = KomaxSerializer(data, context={'request': request}, many=True)
+
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = KomaxSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT', 'DELETE'])
+def komax_detail(request, pk):
+    try:
+        student = Komax.objects.get(pk=pk)
+    except Komax.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = KomaxSerializer(student, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        student.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
+def harness_list(request):
+    if request.method == 'GET':
+        data = Harness.objects.all()
+
+        serializer = HarnessSerializer(data, context={'request': request}, many=True)
+
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = HarnessSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT', 'DELETE'])
+def harness_list(request, pk):
+    try:
+        harness = Harness.objects.get(pk=pk)
+    except Komax.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = HarnessSerializer(harness, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        harness.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
