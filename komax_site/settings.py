@@ -63,6 +63,8 @@ CORS_ALLOW_HEADERS = (
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
+
+
 # Application definition
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
@@ -96,6 +98,19 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 #CORS_ORIGIN_ALLOW_ALL = True
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_RENDERER_CLASSES': (
+    #     'rest_framework.renderers.JSONRenderer',
+    #     'rest_framework_xml.renderers.XMLRenderer',
+    # ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    ),
+}
+
 
 CORS_ORIGIN_WHITELIST = [
     "https://example.com",

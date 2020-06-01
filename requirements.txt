@@ -28,3 +28,4 @@ xlwt
 asgiref~=3.2.7
 djangorestframework~=3.11.0
 django-cors-headers==3.3.0
+djangorestframework-xml==2.0.0

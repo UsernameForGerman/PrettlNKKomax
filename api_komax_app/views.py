@@ -11,6 +11,10 @@ from komax_app.models import Komax, Worker
 from .serializers import *
 from komax_app.modules.HarnessChartProcessing import HarnessChartReader
 from komax_app.modules.KomaxTaskProcessing import get_komax_task_status_on_komax, KomaxTaskProcessing
+from rest_framework.views import csrf_exempt
+from django.utils.decorators import method_decorator
+from rest_framework.authtoken.views import ObtainAuthToken
+
 
 
 # Entry point(temporary)
@@ -278,6 +282,13 @@ class KomaxTaskListView(APIView):
 
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+@method_decorator(csrf_exempt, name='dispatch')
+class ObtainAuthTokenCSRFExempt(ObtainAuthToken):
+
+    def __init__(self, *args, **kwargs):
+        super(ObtainAuthToken, self).__init__(*args, **kwargs)
+
 
 
 

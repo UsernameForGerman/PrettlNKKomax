@@ -9,9 +9,12 @@ from rest_framework.response import Response
 from komax_app.modules.HarnessChartProcessing import HarnessChartReader
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_202_ACCEPTED, HTTP_200_OK, \
     HTTP_204_NO_CONTENT, HTTP_404_NOT_FOUND
+from rest_framework.renderers import JSONRenderer
+from rest_framework_xml.renderers import XMLRenderer
 
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.decorators import action, renderer_classes
 
 class KomaxViewSet(ModelViewSet):
     serializer_class = KomaxSerializer
@@ -33,7 +36,9 @@ class HarnessViewSet(ModelViewSet):
     lookup_field = 'harness_number'
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
+    # renderer_classes = [JSONRenderer]
 
+    @renderer_classes(XMLRenderer)
     def create(self, request, *args, **kwargs):
         harness_number = self.request.data.get('harness_number', None)
         harness_chart = self.request.data.get('harness_chart', None)
@@ -52,6 +57,7 @@ class HarnessViewSet(ModelViewSet):
 
         return Response(status=HTTP_400_BAD_REQUEST)
 
+    @renderer_classes(XMLRenderer)
     def update(self, request, *args, **kwargs):
         harness_number = self.request.query_params.get('harness_number', None)
         harness_chart = self.request.data.get('harness_chart', None)
