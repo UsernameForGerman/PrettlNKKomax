@@ -60,7 +60,7 @@ class HarnessViewSet(ModelViewSet):
 
             return Response(status=HTTP_201_CREATED)
 
-        return Response(status=HTTP_403_BAD_REQUEST)
+        return Response(status=HTTP_400_BAD_REQUEST)
 
     # @renderer_classes(XMLRenderer)
     def update(self, request, *args, **kwargs):
