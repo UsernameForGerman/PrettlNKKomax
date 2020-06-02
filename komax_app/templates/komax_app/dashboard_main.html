@@ -49,13 +49,13 @@
                             {% if request.resolver_match.view_name == 'komax_app:tasks_view' %}
                                 <a class="nav-link active" href="{% url 'komax_app:tasks_view' %}">
                                     <span data-feather="briefcase"></span>
-                                    {% trans 'Start' %}
+                                    {% trans 'Tasks' %}
                                     <span class="sr-only">(current)</span>
                                 </a>
                             {% else %}
                                 <a class="nav-link" href="{% url 'komax_app:tasks_view' %}">
                                     <span data-feather="briefcase"></span>
-                                    {% trans 'Start' %}
+                                    {% trans 'Tasks' %}
                                 </a>
                             {% endif %}
                         </li>
@@ -89,6 +89,20 @@
                             {% endif %}
                         </li>
                         <li class="nav-item">
+                            {% if request.resolver_match.view_name == 'komax_app:komax_seals_list' %}
+                                <a class="nav-link active" href="{% url 'komax_app:komax_seals_list' %}">
+                                    <span data-feather="git-commit"></span>
+                                    {% trans 'Komax seals' %}
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            {% else %}
+                                <a class="nav-link" href="{% url 'komax_app:komax_seals_list' %}">
+                                    <span data-feather="git-commit"></span>
+                                    {% trans 'Komax seals' %}
+                                </a>
+                            {% endif %}
+                        </li>
+                        <li class="nav-item">
                             {% if request.resolver_match.view_name == 'komax_app:laboriousness' %}
                                 <a class="nav-link active" href="{% url 'komax_app:laboriousness' %}">
                                     <span data-feather="clock"></span>
@@ -101,6 +115,7 @@
                                 </a>
                             {% endif %}
                         </li>
+
                         {% if user.groups.all.0.name == 'Master' %}
                         <li class="nav-item">
                             {% if request.resolver_match.view_name == 'komax_app:komaxes' %}

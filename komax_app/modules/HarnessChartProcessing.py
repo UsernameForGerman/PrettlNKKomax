@@ -1244,7 +1244,6 @@ class ProcessDataframe:
                     return -1
                 elif returned == 'allocation':
                     black_komax_curr_idx -= 1
-            
 
         return (alloc, error)
 

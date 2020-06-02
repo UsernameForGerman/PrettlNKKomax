@@ -115,7 +115,7 @@
                 </div>
             </div>
             {% else %}
-                {% for komax_task, komax_time_status in komax_tasks.items %}
+                {% for komax_task, komax_time in komax_tasks.items %}
 
                     <div class="card">
                         <div class="card-header">
@@ -123,25 +123,25 @@
                         </div>
                         <div class="card-body">
 
-                            <p>Time: {{ komax_time_status.0.time }}</p>
+                            <p>Time: {{ komax_time.time }}</p>
 
-                            {% if komax_time_status.1 == 2 %}
+                            {% if komax_task.status == 2 %}
                                 <a class="btn btn-warning" href="{% url 'komax_app:load_komax_task' task_name=komax_task.task_name %}">
                                     {% trans 'Load task' %}
                                 </a>
-                            {% elif komax_time_status.1 == 3 %}
+                            {% elif komax_task.status == 3 %}
                                 <button class="btn btn-outline-info" disabled>
                                     {% trans 'Task loaded' %}
                                 </button>
-                                <a class="btn btn-outline-danger" href="{% url 'komax_app:stop_task_on_komax'  task_name=komax_task.task_name komax=request.session.komax %}">
+                                <a class="btn btn-outline-danger" href="#">
                                     {% trans "Stop komax" %}
                                 </a>
-                            {% elif komax_time_status.1 == 4 %}
+                            {% else %}
                                 <button class="btn btn-light" disabled>
                                     {% trans 'Done' %}
                                 </button>
                             {% endif %}
-                            <a class="btn btn-outline-primary" href="{% url 'komax_app:get_spec_task' task_name=komax_task.task_name komax=komax_num %}">
+                            <a class="btn btn-outline-primary" href="{% url 'komax_app:get_spec_task' task_name=komax_task.task_name komax=komax_time.komax.number %}">
                                 {% trans 'task' %} {{ komax }}
                             </a>
                         </div>

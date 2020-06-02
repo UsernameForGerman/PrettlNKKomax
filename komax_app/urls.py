@@ -51,6 +51,7 @@ urlpatterns = [
     path('laboriousness/', views.LaboriousnessListView.as_view(), name='laboriousness'),
     path('komax_tasks/', views.KomaxTaskListView.as_view(), name='komax_task_list'),
     path('komax_terminals/', views.KomaxTerminalsListView.as_view(), name='komax_terminals_list'),
+    path('komax_seals/', views.KomaxSealsListView.as_view(), name='komax_seals_list')
 
 
     #re_path(r'^komax_tasks/(?P<task_name>[a-zA-Z0-9_.-]*)/$', views.KomaxTaskView.as_view(), name='task_view'),

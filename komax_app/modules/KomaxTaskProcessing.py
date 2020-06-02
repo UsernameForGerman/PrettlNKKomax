@@ -686,7 +686,6 @@ class KomaxTaskProcessing():
 
         #TODO: increase efficiensy of func
         alloc = process.allocate(komax_dict, kappas, amount_dict, time_dict, shift, type_of_allocation)
-
         self.__update_task_personal_from_dataframe(process.chart, task_obj)
 
         if type(alloc) is int:

@@ -195,7 +195,7 @@ class Worker(models.Model):
         blank=True,
         editable=True,
     )
-    current_komax = models.ForeignKey(Komax, on_delete=models.SET_NULL, null=True)
+    current_komax = models.ForeignKey(Komax, on_delete=models.SET_NULL, blank=True, null=True)
     locale = models.SmallIntegerField('language', choices=LOCALE_CHOICES, default=1)
 
 

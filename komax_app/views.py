@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 
 from api_komax_app.serializers import HarnessSerializer, KomaxSerializer
 from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask, HarnessAmount, TaskPersonal, \
-    Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker, KomaxOrder
+    Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker, KomaxOrder, KomaxSeal
 from .forms import KomaxEditForm, LaboriousnessForm
 from .modules.ioputter import FileReader
 from django_pandas.io import read_frame
@@ -304,6 +304,62 @@ class KomaxTerminalsListView(LoginRequiredMixin, View):
         """
 
         return redirect('komax_app:komax_terminals_list')
+
+class KomaxSealsListView(LoginRequiredMixin, View):
+    template_name = 'komax_app/komax_seals.html'
+
+    @method_decorator(permission_required('komax_app.view_komaxseal'))
+    def get(self, request, *args, **kwargs):
+        komax_seals = KomaxSeal.objects.order_by('seal_name')
+
+        context = {
+            'seals': komax_seals,
+        }
+
+        return render(request, self.template_name, context)
+
+    @method_decorator(user_passes_test(must_be_master))
+    def post(self, request, *args, **kwargs):
+        if 'Delete' in request.POST:
+            seal_name = request.POST['seal-name']
+
+            KomaxSeal.objects.filter(seal_name=seal_name)[0].delete()
+
+        else:
+            seal_name = request.POST['seal-name']
+            seal = True if request.POST['seal'] == '+' else False
+
+
+            komax_query = KomaxSeal.objects.filter(seal_name=seal_name)
+
+            if len(komax_query):
+                komax_obj = komax_query[0]
+                komax_obj.seal_available = seal
+                komax_obj.save()
+            else:
+                KomaxSeal(seal_name=seal_name, seal_available=seal).save()
+
+
+        """
+        if 'terminal_name' in request.POST and 'availability' in request.POST:
+            terminal_name = request.POST['terminal_name']
+            availability = True if request.POST['availability'] == 'yes' else False
+
+            KomaxTerminal(terminal_name=terminal_name, available=availability).save()
+
+        elif 'Change' in request.POST:
+            terminal_name = request.POST['terminal_name']
+            komax_terminal_obj = KomaxTerminal.objects.filter(terminal_name=terminal_name)[0]
+            komax_terminal_obj.available = not komax_terminal_obj.available
+            komax_terminal_obj.save()
+
+        elif 'Delete' in request.POST:
+            terminal_name = request.POST['terminal_name']
+            KomaxTerminal.objects.filter(terminal_name=terminal_name)[0].delete()
+        """
+
+        return redirect('komax_app:komax_seals_list')
+
 
 class HarnessesListView(LoginRequiredMixin, View):
     template_name = 'komax_app/harnesses.html'
