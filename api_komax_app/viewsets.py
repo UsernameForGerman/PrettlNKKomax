@@ -37,15 +37,15 @@ class HarnessViewSet(ModelViewSet):
     lookup_field = 'harness_number'
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
-<<<<<<< HEAD
+
     renderer_classes = [JSONRenderer]
     #renderer_classes = [XMLRenderer]
     parser_classes = [MultiPartParser, FormParser, JSONParser]
-=======
+
     # renderer_classes = [JSONRenderer]
     # renderer_classes = [XMLRenderer]
     parser_classes = [MultiPartParser, FormParser, JSONParser, FileUploadParser]
->>>>>>> ef9f008c88fe8ea2d425b9e42819026954b7563c
+
 
     # @renderer_classes(XMLRenderer)
     def create(self, request, *args, **kwargs):
@@ -66,7 +66,7 @@ class HarnessViewSet(ModelViewSet):
 
             return Response(status=HTTP_201_CREATED)
 
-        return Response(status=HTTP_403_BAD_REQUEST)
+        return Response(status=HTTP_400_BAD_REQUEST)
 
     # @renderer_classes(XMLRenderer)
     def update(self, request, *args, **kwargs):
