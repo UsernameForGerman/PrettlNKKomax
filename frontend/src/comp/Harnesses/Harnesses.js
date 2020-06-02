@@ -6,35 +6,29 @@ import {FormattedMessage} from "react-intl";
 import file from "../../assets/docs/6282-2124813-12.xlsx"
 let Harnesses = (props) => {
     let send = (e) => {
-        let body = 'harness_number=' + encodeURIComponent("44-11-2") +
-                    '&harness_chart=' + encodeURIComponent(document.getElementById('harness_chart').value);
         e.preventDefault();
         let req = new XMLHttpRequest();
+        let data = new FormData(document.getElementById("form"));
         req.open('POST', 'http://localhost:8000/api/v2/harnesses/');
-        req.setRequestHeader('Authorization', 'Token ' + window.localStorage.getItem('token'));
-        req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        req.send(body);
-
-        req.onload(() => {
-            debugger;
-            console.log("Loaded");
-        })
+        req.send(data);
+        req.onload = () => {
+            props.fetch();
+        }
     }
     return(
         <main className={classes.container}>
             <div className={classes.card}>
                 <div className={classes.addHarness}>
-                    <form className={classes.form} method={"post"} action={"http://localhost:8000/api/v2/harnesses/"} enctype="multipart/form-data">
+                    <form className={classes.form} method={"post"} action={"http://localhost:8000/api/v2/harnesses/"} encType={"multipart/form-data"} id={"form"}>
                         <label>
                             <FormattedMessage id={"harnesses.add_harness_number_placeholder"}/>
-                            <input type={"text"} name={"harness_number"} id={"harness_number"} value={"6282-2124813-12"} className={classes.input}/>
+                            <input type={"text"} name={"harness_number"} id={"harness_number"} className={classes.input} required/>
                         </label>
-                        <input type={"file"} name={"harness_chart"} id={"harness_chart"} className={classes.file}/>
+                        <input type={"file"} name={"harness_chart"} id={"harness_chart"} className={classes.file} required/>
                         <div className={classes.response}>
                             <strong>OK</strong>
                         </div>
-                        <SuccessButton value={<FormattedMessage id={"add_button_text"}/>}/>
-                        <button onClick={send}>Добавить</button>
+                        <SuccessButton value={<FormattedMessage id={"add_button_text"}/>} click={send}/>
                     </form>
                 </div>
                 <HarnessesChooseTable items={props.harnesses}/>

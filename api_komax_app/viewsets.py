@@ -32,6 +32,7 @@ class KappaViewSet(ModelViewSet):
     # authentication_classes = [TokenAuthentication]
 
 class HarnessViewSet(ModelViewSet):
+    permission_classes = [AllowAny]
     serializer_class = HarnessSerializer
     queryset = Harness.objects.all()
     lookup_field = 'harness_number'
@@ -51,6 +52,10 @@ class HarnessViewSet(ModelViewSet):
     def create(self, request, *args, **kwargs):
         harness_number = self.request.data.get('harness_number', None)
         harness_chart = self.request.FILES.get('harness_chart', None)
+        print(self.request.data)
+        print(self.request.FILES)
+        print(self.request.POST)
+        print(self.request.data.get('harness_chart', None))
         if harness_number and harness_chart:
             Harness.objects.get_or_create(harness_number=harness_number)
 

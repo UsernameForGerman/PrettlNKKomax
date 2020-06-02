@@ -41,7 +41,6 @@ const getTerminalListThunk = () => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
         komax_terminal_api.getTerminalList().then((data) => {
-            debugger;
             dispatch(setListAC(data));
             dispatch(toggleFetchAC());
         });

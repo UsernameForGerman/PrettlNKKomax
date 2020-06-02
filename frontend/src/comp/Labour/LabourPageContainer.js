@@ -10,7 +10,7 @@ import FullScreenPreloader from "../common/Preloader/FullScreenPreloader";
 let LabourPageContainer = (props) => {
     useEffect(() => {
         props.fetchList();
-    }, props.labourList);
+    }, props.labourList.length);
     let items = props.labourList.map(elem => {
         return(
             <div className={classes.data_row}>
