@@ -11,7 +11,7 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_2
     HTTP_204_NO_CONTENT, HTTP_404_NOT_FOUND
 from rest_framework.renderers import JSONRenderer
 from rest_framework_xml.renderers import XMLRenderer
-from rest_framework.parsers import MultiPartParser
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser, FileUploadParser, DjangoMultiPartParser
 
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -38,14 +38,15 @@ class HarnessViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
     # renderer_classes = [JSONRenderer]
-    renderer_classes = [XMLRenderer]
-    parser_classes = [MultiPartParser]
+    # renderer_classes = [XMLRenderer]
+    parser_classes = [MultiPartParser, FormParser, JSONParser, FileUploadParser]
 
     # @renderer_classes(XMLRenderer)
     def create(self, request, *args, **kwargs):
+        print(self.request.data)
+        print(self.request.FILES)
         harness_number = self.request.data.get('harness_number', None)
         harness_chart = self.request.FILES.get('harness_chart', None)
-        print(self.request.data, self.request.FILES)
         if harness_number and harness_chart:
             Harness.objects.get_or_create(harness_number=harness_number)
 
@@ -59,7 +60,7 @@ class HarnessViewSet(ModelViewSet):
 
             return Response(status=HTTP_201_CREATED)
 
-        return Response(status=HTTP_400_BAD_REQUEST)
+        return Response(status=HTTP_403_BAD_REQUEST)
 
     # @renderer_classes(XMLRenderer)
     def update(self, request, *args, **kwargs):
