@@ -29,11 +29,11 @@ urlpatterns = [
     # path('login/', LoginView.as_view(template_name='login.html'), name='login'),
     # path('logout/', LogoutView.as_view(template_name='logout.html'), name='logout'),
     # re_path(r'^', include('main_app.urls')),
-    path('', views.index),
     # path('', include('komax_app.urls')),
     path('api/', include('api_komax_app.urls')),
     # re_path(r'^description/', include('description.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
+    re_path(r'^.*$', views.index),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
