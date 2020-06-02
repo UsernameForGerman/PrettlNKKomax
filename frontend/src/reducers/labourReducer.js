@@ -40,9 +40,7 @@ const setListAC = (list) => {
 const getListThunk = () => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        debugger;
         labourApi.getLabourList().then((data) => {
-            debugger;
             dispatch(setListAC(data));
             dispatch(toggleFetchAC());
         });

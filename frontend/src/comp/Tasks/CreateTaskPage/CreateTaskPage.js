@@ -5,22 +5,16 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
-import SaveButton from "../../common/SaveButton/SaveButton";
 import SuccessButton from "../../common/SuccessButton/SuccessButton";
-import {withStyles} from "@material-ui/styles";
+import {makeStyles, withStyles} from "@material-ui/styles";
 import {FormattedMessage} from "react-intl";
+import Select from "@material-ui/core/Select";
+import Input from "@material-ui/core/Input";
+import MenuItem from "@material-ui/core/MenuItem";
 let CreateTaskPage = (props) => {
 
     let handleMultiSelect = (e, callback) => {
-        let arr = [];
-        let options = e.target.selectedOptions;
-        for (let option in options) {
-            let value = options[option].value;
-            if (value){
-                arr.push(value);
-            }
-        }
-        callback(arr);
+        callback(e.target.value);
     }
 
     let openNextForm = (e) => {
@@ -36,7 +30,9 @@ let CreateTaskPage = (props) => {
     let collectData = (e) => {
         e.preventDefault();
 
-        props.sendDataSecond();
+        props.sendDataSecond({
+            name : numberRef.current.value
+        });
     }
 
     let renderedHarnesses = props.multiselectOptions.map(elem => {
@@ -146,27 +142,56 @@ let CreateTaskPage = (props) => {
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_harnesses_label"}/>:</h3>
-                                <select className={classes.select} required multiple={true} onChange={(e) => handleMultiSelect(e, props.setMultiselectOptions)}>
-                                    {props.harnesses_options}
-                                </select>
+                                <Select
+                                  multiple
+                                  classes={classes.select}
+                                  value={props.multiselectOptions}
+                                  onChange={(e) => {handleMultiSelect(e, props.setMultiselectOptions)}}
+                                  input={<Input />}
+                                >
+                                  {props.harnesses_options.map((elem) => {
+                                      return(
+                                    <MenuItem key={elem} value={elem}>
+                                        {elem}
+                                    </MenuItem>
+                                  )})}
+                                </Select>
                             </label>
                         </div>
 
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_komaxes_label"}/>:</h3>
-                                <select className={classes.select} required multiple={true} onChange={(e) => handleMultiSelect(e, props.setKomaxesOptions)}>
-                                    {props.komaxes_options}
-                                </select>
+                                <Select classes={classes.select}
+                                  multiple
+                                  value={props.komaxesOptions}
+                                  onChange={(e) => {handleMultiSelect(e, props.setKomaxesOptions)}}
+                                  input={<Input />}
+                                >
+                                  {props.komaxes_options.map((elem) => (
+                                    <MenuItem key={elem} value={elem}>
+                                      {elem}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
                             </label>
                         </div>
 
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_kappas_label"}/>:</h3>
-                                <select className={classes.select} required multiple={true} onChange={(e) => handleMultiSelect(e, props.setKappasOptions)}>
-                                    {props.kappas_options}
-                                </select>
+                                  <Select classes={classes.select}
+                                      multiple
+                                      value={props.kappasOptions}
+                                      onChange={(e) => {handleMultiSelect(e, props.setKappasOptions)}}
+                                      input={<Input />}
+                                    >
+                                      {props.kappas_options.map((elem) => (
+                                        <MenuItem key={elem} value={elem}>
+                                          {elem}
+                                        </MenuItem>
+                                      ))}
+                                  </Select>
                             </label>
                         </div>
 

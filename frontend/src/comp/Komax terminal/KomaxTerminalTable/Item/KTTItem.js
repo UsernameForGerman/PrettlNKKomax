@@ -3,7 +3,6 @@ import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import IconButton from "../../../common/IconButton/IconButton";
 let KomaxTerminalTableItem = (props) => {
-    debugger;
     return(
         <div className={!props.heading ? classes.TableItem : classes.TableItemWithoutHover} onClick={props.select}>
             <div className={classes.firstItem}>

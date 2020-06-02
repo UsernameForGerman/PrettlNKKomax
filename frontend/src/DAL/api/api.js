@@ -41,7 +41,7 @@ class API {
             return axios.create({
                 baseURL : BASE_URL,
                 headers : {
-                    "Content-Type" : "application/xml"
+                    "Content-Type" : "multipart/form-data"
                 }
             });
         } else {
@@ -49,7 +49,7 @@ class API {
                 baseURL : BASE_URL,
                 headers : {
                     "Authorization": `Token ${token}`,
-                    "Content-Type" : "application/xml",
+                    "Content-Type" : "multipart/form-data",
                 }
             });
         }
