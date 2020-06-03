@@ -1,18 +1,11 @@
 import time
-import os
 import json
 import numpy as np
 import pandas as pd
 import requests
-import sys
-import openpyxl as xl
-from openpyxl import load_workbook
 from urllib.parse import parse_qsl, urljoin, urlparse
 
-'''import highest_pos
-from .highest_pos import Position
-from .insert import Insert
-'''
+
 import highest_pos as conn1
 import insert as conn2
 
@@ -26,13 +19,9 @@ else:
     URL = 'http://localhost:8000/api/v1/komax/'
 KOMAX_NUMBER = 5
 
-#db_get = Position(DB_PATH)
-#db_insert = Insert(DB_PATH, None)
+
 db_get = conn1.Position(DB_PATH)
 db_insert = conn2.Insert(DB_PATH, None)
-
-#komax_df = pd.read_excel('C:\Komax\Data\TopWin\komax_df_{}.xlsx'.format(KOMAX_NUMBER))
-#print(komax_df.columns)
 
 
 def to_normal_int(number):
@@ -63,36 +52,25 @@ def make_headers(url):
 
 client = requests.session()
 
-"""
-if os.path.exists('komax_df_{}.xlsx'.format(KOMAX_NUMBER)) is True:
-    komax_df = pd.read_excel('komax_df_{}.xlsx'.format(KOMAX_NUMBER))
-else:
-    komax_df=None
-"""
 
-komax_df = pd.DataFrame() #хранится на компе
+
+#komax_df = pd.DataFrame()
+#komax_df = pd.read_excel('C:\Komax\Data\TopWin\komax_df_{}.xlsx'.format(KOMAX_NUMBER)) # на комаксе должно быть так
+komax_df = pd.read_excel('C:\\Users\sadyk\PycharmProjects\\forKomax\modules\PrettlNKKomax\komax_modules\komax_df_{}.xlsx'.format(KOMAX_NUMBER))
+print(komax_df.columns)
+
+
 idx_to_send = None
 
 # start connection
-# client.get(URL, params={'komax-number': KOMAX_NUMBER}, headers=make_headers(URL))
-# CSRF_TOKEN = client.cookies['csrftoken']
+
 
 while True:
     client.get(URL, params={'komax-number': KOMAX_NUMBER}, headers=make_headers(URL))
     CSRF_TOKEN = client.cookies['csrftoken']
 
     status = 1
-    position = db_get.current_wire_pos()
-    print('current_pos', position)
 
-    params = {
-        'status': status,
-        'position': json.dumps(position)
-        # 'csrfmiddlewaretoken': CSRF_TOKEN,
-    }
-    print('to_send', params)
-
-    to_send=position
 
 
     if not komax_df.empty:
@@ -102,6 +80,10 @@ while True:
         to_send = komax_df.iloc[idx_to_send, :].to_dict()
         for key, value in to_send.items():
             to_send[key] = to_normal(value)
+
+
+        to_send = db_get.current_wire_pos()
+        print('current_pos', to_send)
     else:
         to_send = 1
 
@@ -133,6 +115,7 @@ while True:
                 position = db_get.current_wire_pos()
                 # result = db_get.stop_komax('delete')
 
+                #находим позицию, которая сейчас режется
                 if position != 1 and komax_df.empty is False:
                     idx = komax_df[(komax_df['harness'] == str(position['harness'])) &
                                    (komax_df['wire_number'] == str(position['wire_number'])) &
@@ -145,12 +128,13 @@ while True:
                 else:  # если пустой
                     to_send = {}
 
-                dict_df_to_send = komax_df.iloc[idx_to_send:, :].to_dict() if idx_to_send is not None else komax_df.to_dict()
+                #вырезаем все из датафрейма, что ниже этой позиции
+                # dict_df_to_send = komax_df.iloc[idx_to_send:, :].to_dict() if idx_to_send is not None else komax_df.to_dict()
 
                 params = {
                      'status': status,
                      'text': text,
-                     'task': json.dumps(dict_df_to_send),
+                     'task': json.dumps(to_send),
                      'csrfmiddlewaretoken': CSRF_TOKEN,
                  }
                 req_task_send = client.post(URL, data=params, headers=make_headers(URL))
@@ -161,17 +145,27 @@ while True:
 
             elif task is not None:
                 komax_df = pd.DataFrame(task)
-                idx_to_send = 0
+                #komax_df.index = pd.Index(komax_df['id'])
                 print('Received task {}'.format(komax_df.shape[0]))
 
-                # load task
+                idx_to_send = 0
 
-
-                komax_df.index = pd.Index(komax_df['id'])
                 # save komax_df to excel
                 komax_df.to_excel('komax_df_{}.xlsx'.format(KOMAX_NUMBER))
                 print(komax_df)
 
+                komax_df.index = pd.Index(range(komax_df.shape[0]))
+                print(komax_df)
+
+                result = db_get.stop_komax('delete')
+                # load task
+                # db_insert.wire_chart_df = pd.DataFrame.from_dict(komax_df)
+                db_insert.wire_chart_df = komax_df
+                db_insert.load_task()
+
+                # clean Excel file
+                # clean_df = komax_df[0:0]
+                # clean_df.to_excel('komax_df_{}.xlsx'.format(KOMAX_NUMBER))
 
 
     if idx_to_send is not None:
