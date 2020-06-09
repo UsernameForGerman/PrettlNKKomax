@@ -96,7 +96,8 @@ class HarnessChart(models.Model):
                     armirovka_2=str(row_dict["Армировка 2 (Трубка ПВХ, Тр. Терм., изоляторы)"])
                 )
             )
-            self.objects.bulk_create(new_harness_charts)
+
+        self.objects.bulk_create(new_harness_charts)
 
 class Temp_chart(models.Model):
     harness = models.CharField(max_length=128)
@@ -108,9 +109,10 @@ class Temp_chart(models.Model):
 class KomaxTerminal(models.Model):
     terminal_name = models.CharField(max_length=64, unique=True)
     terminal_available = models.BooleanField(default=True)
+    seal_installed = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.terminal_name + str(self.terminal_available)
+        return self.terminal_name + str(self.terminal_available) + str(self.seal_installed)
 
 class KomaxSeal(models.Model):
     seal_name = models.CharField(max_length=64, unique=True)

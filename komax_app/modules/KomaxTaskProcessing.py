@@ -544,12 +544,13 @@ class KomaxTaskProcessing():
     #TODO: if harness obj not excisted, but it is in df, return smthg
     def __create_task_personal_from_dataframe(self, dataframe, komax_task_obj, worker=None, komax_number=None, harnesses_number=None):
 
-        tasks_pers = TaskPersonal.objects.filter(komax__number=komax_number)
-        for task in tasks_pers:
-            task.loaded = False
-        TaskPersonal.objects.bulk_update(tasks_pers, ['loaded'])
+
 
         if dataframe.empty and worker is not None:
+            tasks_pers = TaskPersonal.objects.filter(komax__number=komax_number)
+            for task in tasks_pers:
+                task.loaded = False
+            TaskPersonal.objects.bulk_update(tasks_pers, ['loaded'])
 
             if worker is not None:
                 for task in tasks_pers:
@@ -557,7 +558,11 @@ class KomaxTaskProcessing():
                 TaskPersonal.objects.bulk_update(tasks_pers, ['worker'])
                 update_komax_task_status(komax_task_obj)
         else:
-            if len(tasks_pers):
+            if worker is not None:
+                tasks_pers = TaskPersonal.objects.filter(komax__number=komax_number)
+                for task in tasks_pers:
+                    task.loaded = False
+                TaskPersonal.objects.bulk_update(tasks_pers, ['loaded'])
                 wire_number = [str(wire_number) for wire_number in dataframe.loc[:, 'wire_number']]
                 # Stop
                 if worker is not None:

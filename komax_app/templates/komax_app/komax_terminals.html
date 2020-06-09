@@ -51,6 +51,15 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="seal" class="col-sm-5 col-form-label">{% trans 'Seal installed' %}</label>
+                                <div class="col-sm-7">
+                                    <select id="seal" name="seal" class="form-control">
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
@@ -73,6 +82,9 @@
                 <th class="text-center" scope="col">
                     {% trans 'Terminal available' %}
                 </th>
+                <th class="text-center" scope="col">
+                    {% trans 'Seal installed' %}
+                </th>
                 {% if perms.komax_app.change_komaxterminal %}
                 <th scope="col"></th>
                 {% endif %}
@@ -90,6 +102,7 @@
 
                 <td class="text-center">{{ terminal.terminal_name }}</td>
                 <td class="text-center">{{ terminal.terminal_available }}</td>
+                <td class="text-center">{{ terminal.seal_installed }}</td>
 
                 {% if perms.komax_app.change_komaxterminal %}
                 <td class="text-center">
@@ -113,6 +126,15 @@
                                         <input name="terminal" id="terminal+" type="radio" required value="+">
                                         <label for="terminal-">-</label>
                                         <input name="terminal" id="termianl-" type="radio" required value="-">
+
+                                    </div>
+
+                                    <label for="seal" class="col-sm-5 col-form-label">{% trans 'Seal' %}</label>
+                                    <div class="col-sm-7">
+                                        <label for="seal+">+</label>
+                                        <input name="seal" id="seal+" type="radio" required value="+">
+                                        <label for="seal-">-</label>
+                                        <input name="seal" id="seal-" type="radio" required value="-">
 
                                     </div>
                                 </div>

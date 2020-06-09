@@ -279,10 +279,10 @@ class KomaxTerminalsListView(LoginRequiredMixin, View):
             if len(komax_query):
                 komax_obj = komax_query[0]
                 komax_obj.terminal_available = terminal
-                komax_obj.seal_available = seal
+                komax_obj.seal_installed = seal
                 komax_obj.save()
             else:
-                KomaxTerminal(terminal_name=terminal_name, terminal_available=terminal, seal_available=seal).save()
+                KomaxTerminal(terminal_name=terminal_name, terminal_available=terminal, seal_installed=seal).save()
 
 
         """
@@ -810,12 +810,11 @@ class KomaxTaskView(LoginRequiredMixin, View):
 @login_required
 @user_passes_test(must_be_master)
 def get_harness_chart_view(request, harness_number):
-    harness_obj = get_object_or_404(Harness, harness_number=harness_number)
-    harness_chart_query = HarnessChart.objects.filter(harness=harness_obj)
+    harness_chart_query = HarnessChart.objects.filter(harness__harness_number=harness_number)
     if len(harness_chart_query):
         harness_chart_df = read_frame(harness_chart_query)
     else:
-        return redirect('komax_app:harnesses')
+        return Http404("Harness not found")
 
     response = HttpResponse(
         content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -1127,16 +1126,17 @@ def upload_temp_chart(request):
     return render(request, 'komax_app/upload_harness_chart.html', context)
 
 def harness_chart_view(request, harness_number):
-    try:
-        obj = get_list_or_404(HarnessChart, harness_id=get_object_or_404(Harness, harness_number=harness_number))
-    except:
-        raise Http404('Not found Harness of Harness charts or returned list of Harnesses by this id')
-    context = {
-        'harness_number': harness_number,
-        'positions': obj
-    }
+    harness_chart_objs = HarnessChart.objects.filter(harness__harness_number=harness_number)
+    if len(harness_chart_objs):
+        print(len(harness_chart_objs))
+        context = {
+            'harness_number': harness_number,
+            'positions': harness_chart_objs
+        }
     
-    return render(request, 'komax_app/chart_view.html', context)
+        return render(request, 'komax_app/chart_view.html', context)
+    else:
+        return Http404("Harness not found")
 
 def set_amount_task_view(request, pk):
     tasks_objs = KomaxTask.objects.filter(task_name=pk)
