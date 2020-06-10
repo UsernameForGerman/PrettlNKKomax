@@ -652,7 +652,7 @@ class ProcessDataframe:
                     self.SEAL_1_COL,
                 )
 
-            if is_empty(armirovka_2):
+            if not is_empty(armirovka_2):
                 self.__delete_cols(idx, self.ARMIROVKA_2_COL, self.TERMINAL_2_COL, self.SEAL_2_COL)
             else:
                 terminal_2_info, seal_2_info = None, None
