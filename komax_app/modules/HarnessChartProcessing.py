@@ -618,7 +618,7 @@ class ProcessDataframe:
                 else:
                     self.__delete_cols(idx, terminal_col, seal_col)
         else:
-            if terminal_info and terminal_info.terminal_available and terminal_info.seal_installed:
+            if terminal_info and terminal_info.terminal_available and not terminal_info.seal_installed:
                 self.__delete_cols(idx, seal_col)
             else:
                 self.__delete_cols(idx, terminal_col, seal_col)
