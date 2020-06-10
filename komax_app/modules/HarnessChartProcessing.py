@@ -656,10 +656,10 @@ class ProcessDataframe:
                 self.__delete_cols(idx, self.ARMIROVKA_2_COL, self.TERMINAL_2_COL, self.SEAL_2_COL)
             else:
                 terminal_2_info, seal_2_info = None, None
-                if terminal_2 is not None and terminal_2 != ' ':
-                    terminal_2_info = terminals.filter(terminal_name=terminal_2)
-                if seal_2 is not None and seal_2 != ' ':
-                    seal_2_info = seals.filter(seal_name=seal_2)
+                if not is_empty(terminal_2):
+                    terminal_2_info = terminals.filter(terminal_name=terminal_2).first()
+                if not is_empty(seal_2):
+                    seal_2_info = seals.filter(seal_name=seal_2).first()
 
                 self.__check_for_availability(
                     idx,
