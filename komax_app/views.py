@@ -704,7 +704,7 @@ class KomaxClientView(View):
         params = dict()
         komax_number = request.session['komax-number']
         try:
-            worker = Worker.objects.get(current_komax__number__iexact=komax_number)
+            worker = Worker.objects.get(current_komax__number=komax_number)
         except Worker.DoesNotExist:
             worker = None
         status = int(request.POST['status']) if 'status' in request.POST else None #Статус сообщения комакса
