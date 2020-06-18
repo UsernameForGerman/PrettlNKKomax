@@ -116,7 +116,6 @@
             </div>
             {% else %}
                 {% for komax_task, komax_time in komax_tasks.items %}
-
                     <div class="card">
                         <div class="card-header">
                             <p>{{ komax_task.task_name }}</p>
@@ -141,9 +140,11 @@
                                     {% trans 'Done' %}
                                 </button>
                             {% endif %}
-                            <a class="btn btn-outline-primary" href="{% url 'komax_app:get_spec_task' task_name=komax_task.task_name komax=komax_time.komax.number %}">
+                            <a class="btn btn-outline-primary" href="{% url 'komax_app:get_spec_task' task_name=komax_task.task_name komax=komax_time.0.komax.number %}">
                                 {% trans 'task' %} {{ komax }}
                             </a>
+
+
                         </div>
                     </div>
                 {% endfor %}
