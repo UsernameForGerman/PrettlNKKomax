@@ -77,6 +77,7 @@ let getChartByNumberThunk = (number) => {
     return (dispatch) => {
         dispatch(toggleMapFetchingAC());
         harness_chart_api.getHarnessChartByNumber(number).then(data => {
+            debugger;
             dispatch(setMapAC(data));
             dispatch(toggleMapFetchingAC());
         });

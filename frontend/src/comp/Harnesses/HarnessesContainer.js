@@ -73,8 +73,6 @@ let HarsessesContainer = (props) => {
 
     let rows = renderRows(props.selectedMap);
 
-    harnessApi.createHarness("6282-2124813-12", file).then(console.log);
-
     let renderMap = () => {
         return(
             <>{props.isMapFetching
@@ -109,7 +107,7 @@ let HarsessesContainer = (props) => {
     return(
         <>{ props.isFetching
             ? <FullScreenPreloader/>
-            : <Harnesses harnesses={items} selectedTable={renderMap()}/>
+            : <Harnesses harnesses={items} selectedTable={renderMap()} fetch={props.fetchList}/>
           }
         </>
     )

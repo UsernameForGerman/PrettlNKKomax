@@ -40,21 +40,15 @@ let CreateTaskPageContainer = (props) => {
     }, props.tasks.length);
 
     let harnesses_options = props.harnesses.map(elem => {
-        return(
-            <option value={elem.harness_number}>{elem.harness_number}</option>
-        )
+        return elem.harness_number;
     });
 
     let komaxes_options = props.komaxes.map(elem => {
-        return(
-            <option value={elem.number}>{elem.number}</option>
-        )
+        return elem.number;
     });
 
     let kappas_options = props.kappas.map(elem => {
-        return(
-            <option value={elem.number}>{elem.number}</option>
-        )
+        return elem.number;
     });
 
     let addHarnessData = (number, e) => {
@@ -102,17 +96,14 @@ let CreateTaskPageContainer = (props) => {
             'loading_type' : loadingType
         }
 
-        debugger;
-
         props.send(request);
     }
 
-    let sendDataSecond = () => {
+    let sendDataSecond = (data) => {
         let request = {
             'harness_amount' : harnessesData,
+            'task_name' : data.name
         }
-
-        debugger;
 
         props.send(request);
     }
@@ -129,7 +120,9 @@ let CreateTaskPageContainer = (props) => {
                             setLoadingType={setLoadingType}
                             harnesses_options={harnesses_options}
                             komaxes_options={komaxes_options}
+                            komaxesOptions={komaxesOptions}
                             kappas_options={kappas_options}
+                            kappasOptions={kappasOptions}
                             isValid={props.isValid}
                             errMsg={props.errMsg}
                             check={check}

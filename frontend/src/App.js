@@ -42,10 +42,10 @@ let App = (props) => {
               <BrowserRouter basename={process.env.PUBLIC_URL}>
                   <Provider store={store}>
                       <HeaderContainer toggleLocale={toggleLocale}/>
-                      <Route path={"/api/"}>
+                      <Route path={"/api/"} exact>
                           <Redirect to={"/"}/>
                       </Route>
-                      <Route path={"/static/komax_app"}>
+                      <Route path={"/static/komax_app"} exact>
                           <Redirect to={"/"}/>
                       </Route>
                       <Route path={"/labour"} exact>

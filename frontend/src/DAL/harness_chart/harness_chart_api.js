@@ -7,7 +7,7 @@ class harnessChartApi extends API {
     }
 
     getHarnessChartByNumber = (number) => {
-        return this.getObjectById(number);
+        return this.getObjectById(number, BASE_URL + number + "/");
     }
 }
 

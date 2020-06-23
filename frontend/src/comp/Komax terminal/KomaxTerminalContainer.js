@@ -34,7 +34,6 @@ let KomaxTerminalContainer = (props) => {
         list = [];
     }
     let items = list.map((item) => {
-        debugger;
         let select = () => {
             setSelectedTerminal(item);
             setMaterialValue(item.material_avaliable);

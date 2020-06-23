@@ -52,6 +52,8 @@
 }
 
 .label{
+    max-width: 20vw;
+    overflow-x: hidden;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

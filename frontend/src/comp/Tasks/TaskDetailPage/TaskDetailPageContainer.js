@@ -1,80 +1,52 @@
 import TaskDetailPage from "./TaskDetailPage";
-import React from "react";
+import React, {useEffect} from "react";
 import {withRouter} from "react-router-dom";
 import auth from "../../AuthHOC/authHOC";
+import {connect} from "react-redux"
 import classes from "./TaskDetailPage.module.css"
+import TasksSelector from "../../../selectors/tasksSelector";
+import {getTasksThunk} from "../../../reducers/tasksReducer";
 
 let TaskDetailPageContainer = (props) => {
     let name = props.match.params.id;
-    let items = [
-        {
-            number : "14-123-22321"
-        },
-        {
-            number : "1123-221-321"
-        },
-        {
-            number : "675-34798-21"
-        },
-        {
-            number : "16678564-765"
-        },
-    ];
 
-    let harnesses = [
-        {
-            number : "123123",
-            amount : 12
-        },
-        {
-            number : "675436",
-            amount : 42
-        },
-        {
-            number : "896342136",
-            amount : 223
-        },
-    ].map(elem => {
+    useEffect(() => {
+        props.fetchList();
+    }, props.taskList.length);
+
+    debugger;
+    let task = props.taskList.filter(elem => elem.task_name === name)[0];
+    let komaxes = task.komaxes;
+    let harnesses = task.harnesses;
+    debugger;
+    let taskHarnesses = harnesses.map(elem => {
         return(
             <h3 className={classes.harness}>
-                {elem.number} : {elem.amount}
+                {elem.harness} : {elem.amount}
             </h3>
         )
     });
 
-    let komaxes = [
-        {
-            number : "123123",
-            time : 12312
-        },
-        {
-            number : "231",
-            time : 123554
-        },
-        {
-            number : "123",
-            time : 967745
-        },
-    ].map(elem => {
+    let taskKomaxes = komaxes.map(elem => {
         return(
             <h3 className={classes.komax}>
-                {elem.number} - {elem.time}
+                {elem.komax} - {elem.time}
             </h3>
         )
     });
 
-    let task_komax = items.map(elem => {
+    let task_komax = komaxes.map(elem => {
         return(
             <button className={classes.greenBtn}>
-                Task {elem.number}
+                Task {elem.komax}
             </button>
         )
     });
 
-    let ticket_komax = items.map(elem => {
+    let ticket_komax = komaxes.map(elem => {
         return(
             <button className={classes.greenBtn}>
-                Ticket {elem.number}
+                Ticket {elem.komax}
             </button>
         )
     });
@@ -85,10 +57,24 @@ let TaskDetailPageContainer = (props) => {
             task_kappa={task_komax}
             ticket_komax={ticket_komax}
             ticket_kappa={ticket_komax}
-            harnesses={harnesses}
-            komaxes={komaxes}
+            harnesses={taskHarnesses}
+            komaxes={taskKomaxes}
         />
     )
 }
 
-export default auth(withRouter(TaskDetailPageContainer))
+let mapStateToProps = (state) => {
+    return{
+        taskList : TasksSelector.getList(state)
+    }
+}
+
+let mapDispatchToProps = (dispatch) => {
+    return{
+        fetchList : () => {
+            dispatch(getTasksThunk())
+        }
+    }
+}
+
+export default auth(withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskDetailPageContainer)));
