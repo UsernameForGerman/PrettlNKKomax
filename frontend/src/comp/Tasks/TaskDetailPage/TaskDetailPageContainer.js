@@ -14,22 +14,10 @@ let TaskDetailPageContainer = (props) => {
         props.fetchList();
     }, props.taskList.length);
 
-    /*
     let task = props.taskList.filter(elem => elem.task_name === name)[0];
     let komaxes = task.komaxes;
     let harnesses = task.harnesses;
-    debugger;
 
-     */
-
-    let harnesses = [{
-        harness : "14",
-        amount : 2
-    }]
-    let komaxes = [{
-        komax : "15",
-        time : 2
-    }]
     let taskHarnesses = harnesses.map(elem => {
         return(
             <h3 className={classes.harness}>
