@@ -8,10 +8,10 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.parsers import MultiPartParser
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import AnonymousUser
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_202_ACCEPTED, HTTP_200_OK, \
-    HTTP_204_NO_CONTENT, HTTP_404_NOT_FOUND, HTTP_409_CONFLICT
+    HTTP_204_NO_CONTENT, HTTP_404_NOT_FOUND, HTTP_409_CONFLICT, HTTP_401_UNAUTHORIZED
 
 # customs
 from django_pandas.io import read_frame
@@ -82,6 +82,37 @@ def index(request):
 #             workbook.save(response)
 #
 #             return response
+
+class WorkerAccountView(APIView):
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
+
+    def get(self, request, *args, **kwargs):
+        worker = get_object_or_404(Worker, user=request.user)
+        if worker.user.groups.filter(name='Operator').exists():
+            komax = worker.current_komax
+            if komax is None:
+                return Response('No komax number provided', status=HTTP_404_NOT_FOUND)
+
+            ordered_komax_tasks = KomaxTask.objects.filter(
+                komaxes__komax=komax,
+            ).exclude(
+                status=1
+            ).order_by(
+                '-created'
+            )
+            response_data = KomaxTaskSerializer(ordered_komax_tasks, many=True).data
+
+            return Response(response_data, status=HTTP_200_OK)
+        elif worker.user.groups.filter(name='Master').exists():
+            komax_task_objs = get_list_or_404(KomaxTask, status=3)
+            response_data = KomaxTaskSerializer(komax_task_objs, many=True).data
+
+            return Response(response_data, status=HTTP_200_OK)
+        else:
+            return Response('No user group', status=HTTP_404_NOT_FOUND)
+
+
 
 class SendTaskView(APIView):
     """

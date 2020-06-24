@@ -111,7 +111,8 @@ class KomaxStatusViewSet(ReadOnlyModelViewSet):
     serializer_class = KomaxStatusSerializer
     queryset = KomaxStatus.objects.all()
     lookup_field = 'komax'
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    permission_classes = (IsAuthenticated, )
     authentication_classes = [TokenAuthentication]
 
 class HarnessChartViewSet(ReadOnlyModelViewSet):
@@ -203,6 +204,7 @@ class WorkerViewSet(ModelViewSet):
         worker_serializer = WorkerSerializer(worker)
 
         return Response(worker_serializer.data, status=HTTP_200_OK)
+
 
 
 
