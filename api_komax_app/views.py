@@ -28,6 +28,19 @@ from komax_app.modules.KomaxTaskProcessing import get_komax_task_status_on_komax
 def index(request):
     return render(request, 'komax_app/index.html', context={"name": "a"})
 
+class XlsxTaskView(APIView):
+    """
+    Get xlsx document of full task, and task on each komax
+    """
+
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
+
+    def get(self, request, *args, **kwargs):
+        komax = self.request.query_params.get('komax', None)
+        if komax:
+
+
 class SendTaskView(APIView):
     """
     Send tasks to workers
@@ -77,14 +90,12 @@ class LoadTaskView(APIView):
 
         return Response(status=HTTP_200_OK)
 
-
 class KomaxListView(APIView):
     """
     Get list all komaxes
     Post one/list komax
 
     * Requires token authentication.
-    * All are able to access this view.
     """
     authentication_classes = (TokenAuthentication, )
     permission_classes = (IsAuthenticated, )

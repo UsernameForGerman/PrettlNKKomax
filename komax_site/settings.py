@@ -12,6 +12,7 @@ import dj_database_url
 # import dotenv
 # import django_heroku
 import redis
+from corsheaders.defaults import default_headers
 from django.utils.translation import gettext_lazy as _
 import urllib.parse
 
@@ -32,21 +33,40 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.environ.get('DEBUG', True)
+#DEBUG = os.environ.get('DEBUG', True)
 # INPROD = os.environ.get('INPROD', False)
 INPROD = os.environ.get('INPROD', False)
 DEBUG = os.environ.get('DEBUG', True)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', 'komax.prettl.ru']
+
+CORS_ALLOW_HEADERS = (
+    'Access-Control-Allow-Headers',
+    'Access-Control-Allow-Credentials',
+    'Cache-Control',
+    'If-Modified-Since',
+    'Accept',
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+)
+
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
-# Application definition
+
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'description.apps.DescriptionConfig',
     'main_app.apps.MainAppConfig',
     'komax_app.apps.KomaxAppConfig',
+    'api_komax_app.apps.ApiKomaxAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,6 +74,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -62,10 +85,36 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+#CORS_ORIGIN_ALLOW_ALL = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ( 'rest_framework.authentication.TokenAuthentication',),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'api_komax_app.permissions.AllowOptionsAuthentication',
+    # )
+}
+
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:8000",
+    "http://localhost:3000",
+    "http://127.0.0.1:9000"
+]
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
 ]
 
 ROOT_URLCONF = 'komax_site.urls'
@@ -129,42 +178,6 @@ else:
             'PORT': 5432,
         }
     }
-"""
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'db.sqlite3',
-        }
-    }
-
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
-"""
-
-"""
-DATABASES = {
-    'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ.get('DB_NAME'),
-            'USER': os.environ.get('DB_USER'),
-            'PASSWORD': os.environ.get('DB_PASSWORD'),
-            'HOST': os.environ.get('DB_HOST'),
-            'PORT': os.environ.get('DB_PORT'),
-        }
-}
-"""
-"""
-DATABASES = {
-    'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'komaxdb',
-            'USER': 'server',
-            'PASSWORD': "zMv-a5QZ7+Jm5!*@",
-            'HOST': "127.0.0.1",
-            'PORT': 5432,
-        }
-}
-"""
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -188,6 +201,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -231,9 +245,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+
 MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
 
 MEDIA_URL = '/media/'
+
 
 CHANNEL_LAYERS = {
     'default': {
@@ -257,42 +273,14 @@ EMAIL_HOST_PASSWORD = 'komax_prettl-nk'
 EMAIL_USE_SSL = True
 SITE_URL = 'komaxsite.herokuapp.com'
 
-if False:
-    # Prod settings related REDIS and CELERY
 
-    r = redis.from_url(os.environ.get("REDIS_URL"))
-    BROKER_URL = redis.from_url(os.environ.get("REDIS_URL"))
-    # CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-    # CELERY_RESULT_BACKEND = 'os.environ['REDIS_URL']'
-    CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
-    CELERY_ACCEPT_CONTENT = ['application/json']
-    CELERY_TASK_SERIALIZER = 'json'
-    CELERY_RESULT_SERIALIZER = 'json'
-    CELERY_TIMEZONE = 'Canada/Eastern'
 
-    CELERY_BROKER_URL = os.environ['REDIS_URL']
-    CELERY_RESULT_BACKEND = os.environ['REDIS_URL']
-
-    redis_url = urllib.parse.urlparse(os.environ.get('REDIS_URL'))
-
-    CACHES = {
-        "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": os.environ['REDIS_URL'],  # Here we have Redis DSN (for ex. redis://localhost:6379/1)
-            "OPTIONS": {
-                "CLIENT_CLASS": "django_redis.client.DefaultClient",
-                "MAX_ENTRIES": 1000  # Increase max cache entries to 1k (from 300)
-            },
-        }
-    }
-
-elif not INPROD:
-    # Localhost related seetings to REDIS and CELERY
-    REDIS_HOST = 'localhost'
-    REDIS_PORT = '6379'
-    REDIS_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
-    BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
-    CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+# Localhost related seetings to REDIS and CELERY
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6379'
+REDIS_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/account/'
