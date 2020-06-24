@@ -1,9 +1,7 @@
 import React, {useState} from "react";
 import classes from "./KomaxTerminal.module.css"
-import KomaxTerminalEditForm from "./KTEditForm/KomaxTerminalEditForm";
 import Modal from "react-modal";
 import ModalFormContainer from "./Modal/ModalFormContainer";
-import SuccessButton from "../common/SuccessButton/SuccessButton";
 import KomaxTerminalsTableContainer from "./KomaxTerminalTable/KomaxTerminalTableContainer";
 import {FormattedMessage} from "react-intl";
 import AddFormContainer from "./AddFrom/AddFormContainer";

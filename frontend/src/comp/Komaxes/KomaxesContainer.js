@@ -6,7 +6,6 @@ import Komaxes from "./Komaxes";
 import auth from "../AuthHOC/authHOC";
 import classes from "./Komaxes.module.css";
 import komax from "../../assets/images/komax.png";
-import file from "../../assets/docs/6282-2124813-12.xlsx"
 import harnessApi from "../../DAL/harness/harnessApi";
 import Preloader from "../common/Preloader/Preloader";
 import FullScreenPreloader from "../common/Preloader/FullScreenPreloader";

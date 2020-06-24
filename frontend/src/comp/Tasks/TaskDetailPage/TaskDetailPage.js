@@ -1,5 +1,6 @@
 import classes from "./TaskDetailPage.module.css"
 import React from "react";
+import {Link, NavLink} from "react-router-dom";
 let TaskDetailPage = (props) => {
     return(
         <div className={classes.TaskDetailPage}>
@@ -11,20 +12,20 @@ let TaskDetailPage = (props) => {
                         <button className={classes.btnTool}>
                             Full task
                         </button>
-                        <button className={classes.btnTool}>
-                            Again
-                        </button>
+                        <NavLink to={"/task_create/"}>
+                            <button className={classes.btnTool}>
+                                Again
+                            </button>
+                        </NavLink>
                         <button className={classes.btnTool}>
                             Load task
                         </button>
                     </div>
                     <div className={`${classes.col} ${classes.taskCol}`}>
                         {props.task_komax}
-                        {props.task_kappa}
                     </div>
                     <div className={`${classes.col} ${classes.ticketCol}`}>
                         {props.ticket_komax}
-                        {props.ticket_kappa}
                     </div>
                 </div>
             </div>

@@ -3,7 +3,6 @@ import React from "react";
 import HarnessesChooseTable from "./HarnessesTables/HarnessesChooseTable/HarnessesChooseTable";
 import SuccessButton from "../common/SuccessButton/SuccessButton";
 import {FormattedMessage} from "react-intl";
-import file from "../../assets/docs/6282-2124813-12.xlsx"
 let Harnesses = (props) => {
     let send = (e) => {
         e.preventDefault();
@@ -21,8 +20,7 @@ let Harnesses = (props) => {
                 <div className={classes.addHarness}>
                     <form className={classes.form} method={"post"} action={"http://localhost:8000/api/v2/harnesses/"} encType={"multipart/form-data"} id={"form"}>
                         <label>
-                            <FormattedMessage id={"harnesses.add_harness_number_placeholder"}/>
-                            <input type={"text"} name={"harness_number"} id={"harness_number"} className={classes.input} required/>
+                            <input type={"text"} name={"harness_number"} id={"harness_number"} placeholder={"Harness number"} className={classes.input} required/>
                         </label>
                         <input type={"file"} name={"harness_chart"} id={"harness_chart"} className={classes.file} required/>
                         <div className={classes.response}>

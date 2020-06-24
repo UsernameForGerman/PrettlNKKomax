@@ -1,10 +1,10 @@
-Django==3.0
+Django==3.0.7
 Channels==2.3.1
 channels-redis==2.4.1
 daphne==2.4.0
 django-heroku
 dj-database-url==0.5.0
-psycopg2==2.8.3
+#psycopg2==2.8.3
 whitenoise==4.1.4
 bootstrap4==0.1.0
 celery==4.3.0
@@ -16,8 +16,8 @@ django-select2==7.1.1
 numpy~=1.18.4
 openpyxl~=3.0.3
 pandas~=1.0.3
-pillow==5.1.0
-pytest
+#pillow==5.1.0
+#pytest
 redis==3.3.11
 redis-cache==0.1.5
 requests

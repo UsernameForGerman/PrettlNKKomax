@@ -216,7 +216,9 @@ let CreateTaskPage = (props) => {
             </form>
             <form className={classes.form}>
                 {!props.shouldContinue
-                    ? <FormattedMessage id={"tasks.create_new_task_fill_form_label"}/>
+                    ? <button disabled className={classes.fill}>
+                            <FormattedMessage id={"tasks.create_new_task_fill_form_label"}/>
+                      </button>
                     : <form>
                         {renderedHarnesses}
                         <SuccessButton value={"Создать задание"} class={classes.addBtn} click={collectData} disable={!props.canSend}/>
