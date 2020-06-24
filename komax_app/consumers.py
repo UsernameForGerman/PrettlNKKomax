@@ -150,10 +150,16 @@ class KomaxAppTaskConsumer(AsyncConsumer):
         harness_amount_dict = amount_info_dict['harness_amount']
         komax_task_processor.update_harness_amount(komax_task_name, harness_amount_dict)
         allocation = komax_task_processor.create_allocation(komax_task_name)
-        komax_task_processor.update_komax_time(komax_task_name, {komax: time[0] for komax, time in allocation.items()})
+        print('allocation', allocation)
+        if type(allocation) is int:
+
+            return False
+        else:
+            komax_task_processor.update_komax_time(komax_task_name, {komax: time[0] for komax, time in allocation.items()})
+            return True
 
     async def async_complete_komax_task(self, amount_info_dict):
-        await database_sync_to_async(self.complete_komax_task)(amount_info_dict)
+        return await database_sync_to_async(self.complete_komax_task)(amount_info_dict)
 
     async def async_prepare_komax_task(self, komax_task_name, harnesses, komaxes, kappas, shift,
                                  type_of_allocation='parallel', loading_type='New'):
@@ -237,10 +243,10 @@ class KomaxAppTaskConsumer(AsyncConsumer):
             if loaded_dict_data['info_type'] == 'amount_info':
                 task_name = loaded_dict_data['task_name']
 
-                await self.async_complete_komax_task(loaded_dict_data)
-
-                if self.data_alloc is not None and self.data_alloc == -1:
-                    url = 'tasks/setup/'
+                successful_alloc = await self.async_complete_komax_task(loaded_dict_data)
+                print(successful_alloc)
+                if not successful_alloc:
+                    url = ''
                     response = {
                         "info_type": "page_status",
                         "status": "http_redirect",

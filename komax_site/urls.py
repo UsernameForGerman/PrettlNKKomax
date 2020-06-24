@@ -1,5 +1,4 @@
 """komax_site URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
 Examples:
@@ -20,21 +19,20 @@ from django.urls import path, include, re_path
 from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
-from django.conf.urls.i18n import i18n_patterns
-from komax_app import views
+from .views import logout_view
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('login/', LoginView.as_view(template_name='login.html'), name='login'),
+    path('login/', LoginView.as_view(template_name='login.html'), name='login'),
     # path('logout/', LogoutView.as_view(template_name='logout.html'), name='logout'),
+    path('logout/', logout_view, name='logout'),
     # re_path(r'^', include('main_app.urls')),
-    # path('', include('komax_app.urls')),
+    # path('', views.index),
+    path('', include('komax_app.urls')),
     path('api/', include('api_komax_app.urls')),
     # re_path(r'^description/', include('description.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
-    # re_path(r'^.*$', views.index),
-    path('api/index/', views.index),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
@@ -49,4 +47,3 @@ urlpatterns += i18n_patterns(
     re_path(r'^description/', include('description.urls')),
 )
 """
-

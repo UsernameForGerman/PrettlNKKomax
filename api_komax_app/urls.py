@@ -34,5 +34,7 @@ urlpatterns = [
     path('v2/login/', ObtainAuthToken.as_view(), name='get_token'),
     path('v2/logout/', views.Logout.as_view(), name='logout'),
     path('v2/komax_tasks/', views.KomaxTaskListView.as_view(), name='komax_tasks_list'),
+    path('v2/load_komax_task/', views.LoadTaskView.as_view(), name='load-komax-task'),
+    path('v2/send_komax_task/', views.SendTaskView.as_view(), name='send-komax-task'),
     path('v2/', include(router.urls)),
 ]

@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 
 from api_komax_app.serializers import HarnessSerializer, KomaxSerializer
 from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask, HarnessAmount, TaskPersonal, \
-    Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker, KomaxOrder
+    Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker, KomaxOrder, KomaxSeal
 from .forms import KomaxEditForm, LaboriousnessForm
 from .modules.ioputter import FileReader
 from django_pandas.io import read_frame
@@ -105,24 +105,24 @@ def upload(request):
     return render(request, 'komax_app/upload_harness_chart.html', context)
 """
 
-def must_be_operator(user):                                                     #Считает кол-во операторов
+def must_be_operator(user):
     return user.groups.filter(name='Operator').count()
 
-def must_be_master(user):                                                       #Считает кол-во мастеров
+def must_be_master(user):
     return user.groups.filter(name='Master').count()
 
-@login_required                                                                 # Нужно быть залогиненым
-@permission_required('komax_app.add_orderedkomaxtask', raise_exception=True)    #Нужно иметь определенное разрешение(мастер)
-def send_task_to_worker(request, task_name, *args, **kwargs):                   # Меняет status задания с именем task_name на ordered
-    task_obj = get_object_or_404(KomaxTask, task_name=task_name)                #Получает задание с именем из get запроса
-    task_obj.status = 2                                                         #Меняет статус задания на "ordered"
-    task_obj.save(update_fields=['status'])                                     #Сохраняет эти изменения
+@login_required
+@permission_required('komax_app.add_orderedkomaxtask', raise_exception=True)
+def send_task_to_worker(request, task_name, *args, **kwargs):
+    task_obj = get_object_or_404(KomaxTask, task_name=task_name)
+    task_obj.status = 2
+    task_obj.save(update_fields=['status'])
 
-    return redirect('komax_app:tasks_view')                                    #Перенаправляет на страницу task_view.html
+    return redirect('komax_app:tasks_view')
 
 @login_required
 @permission_required('komax_app.delete_komaxtask')
-def delete_task(request, task_name, *args, **kwargs):                           # удаляет задание
+def delete_task(request, task_name, *args, **kwargs):
     task_obj = get_object_or_404(KomaxTask, task_name=task_name)
     task_obj.delete()
 
@@ -171,15 +171,15 @@ class WorkerAccountView(LoginRequiredMixin, View):
     template_name = 'komax_app/user_account.html'
 
     def get(self, request, *args, **kwargs):
-        available_komaxes = Komax.objects.filter(status=1)                      # Все работающий komax
-        worker = get_object_or_404(Worker, user=request.user)                   # Находим нужного работника
-        if worker.user.groups.filter(name='Operator').exists():                 #Если работник - оператор
-            komax_num = request.session.get('komax', None)                      #Какой komax выбрал работник
+        available_komaxes = Komax.objects.filter(status=1)
+        worker = get_object_or_404(Worker, user=request.user)
+        if worker.user.groups.filter(name='Operator').exists():
+            komax_num = request.session.get('komax', None)
             if komax_num is None:
                 context = {
                     'worker': worker,
                     'request_komax_num': True,
-                    'available_komaxes': available_komaxes,                     #Доступные komax
+                    'available_komaxes': available_komaxes,
                 }
 
                 return render(request, self.template_name, context=context)
@@ -279,10 +279,10 @@ class KomaxTerminalsListView(LoginRequiredMixin, View):
             if len(komax_query):
                 komax_obj = komax_query[0]
                 komax_obj.terminal_available = terminal
-                komax_obj.seal_available = seal
+                komax_obj.seal_installed = seal
                 komax_obj.save()
             else:
-                KomaxTerminal(terminal_name=terminal_name, terminal_available=terminal, seal_available=seal).save()
+                KomaxTerminal(terminal_name=terminal_name, terminal_available=terminal, seal_installed=seal).save()
 
 
         """
@@ -304,6 +304,62 @@ class KomaxTerminalsListView(LoginRequiredMixin, View):
         """
 
         return redirect('komax_app:komax_terminals_list')
+
+class KomaxSealsListView(LoginRequiredMixin, View):
+    template_name = 'komax_app/komax_seals.html'
+
+    @method_decorator(permission_required('komax_app.view_komaxseal'))
+    def get(self, request, *args, **kwargs):
+        komax_seals = KomaxSeal.objects.order_by('seal_name')
+
+        context = {
+            'seals': komax_seals,
+        }
+
+        return render(request, self.template_name, context)
+
+    @method_decorator(user_passes_test(must_be_master))
+    def post(self, request, *args, **kwargs):
+        if 'Delete' in request.POST:
+            seal_name = request.POST['seal-name']
+
+            KomaxSeal.objects.filter(seal_name=seal_name)[0].delete()
+
+        else:
+            seal_name = request.POST['seal-name']
+            seal = True if request.POST['seal'] == '+' else False
+
+
+            komax_query = KomaxSeal.objects.filter(seal_name=seal_name)
+
+            if len(komax_query):
+                komax_obj = komax_query[0]
+                komax_obj.seal_available = seal
+                komax_obj.save()
+            else:
+                KomaxSeal(seal_name=seal_name, seal_available=seal).save()
+
+
+        """
+        if 'terminal_name' in request.POST and 'availability' in request.POST:
+            terminal_name = request.POST['terminal_name']
+            availability = True if request.POST['availability'] == 'yes' else False
+
+            KomaxTerminal(terminal_name=terminal_name, available=availability).save()
+
+        elif 'Change' in request.POST:
+            terminal_name = request.POST['terminal_name']
+            komax_terminal_obj = KomaxTerminal.objects.filter(terminal_name=terminal_name)[0]
+            komax_terminal_obj.available = not komax_terminal_obj.available
+            komax_terminal_obj.save()
+
+        elif 'Delete' in request.POST:
+            terminal_name = request.POST['terminal_name']
+            KomaxTerminal.objects.filter(terminal_name=terminal_name)[0].delete()
+        """
+
+        return redirect('komax_app:komax_seals_list')
+
 
 class HarnessesListView(LoginRequiredMixin, View):
     template_name = 'komax_app/harnesses.html'
@@ -648,7 +704,7 @@ class KomaxClientView(View):
         params = dict()
         komax_number = request.session['komax-number']
         try:
-            worker = Worker.objects.get(current_komax__number__iexact=komax_number)
+            worker = Worker.objects.get(current_komax__number=komax_number)
         except Worker.DoesNotExist:
             worker = None
         status = int(request.POST['status']) if 'status' in request.POST else None #Статус сообщения комакса
@@ -754,12 +810,11 @@ class KomaxTaskView(LoginRequiredMixin, View):
 @login_required
 @user_passes_test(must_be_master)
 def get_harness_chart_view(request, harness_number):
-    harness_obj = get_object_or_404(Harness, harness_number=harness_number)
-    harness_chart_query = HarnessChart.objects.filter(harness=harness_obj)
+    harness_chart_query = HarnessChart.objects.filter(harness__harness_number=harness_number)
     if len(harness_chart_query):
         harness_chart_df = read_frame(harness_chart_query)
     else:
-        return redirect('komax_app:harnesses')
+        return Http404("Harness not found")
 
     response = HttpResponse(
         content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -1071,16 +1126,17 @@ def upload_temp_chart(request):
     return render(request, 'komax_app/upload_harness_chart.html', context)
 
 def harness_chart_view(request, harness_number):
-    try:
-        obj = get_list_or_404(HarnessChart, harness_id=get_object_or_404(Harness, harness_number=harness_number))
-    except:
-        raise Http404('Not found Harness of Harness charts or returned list of Harnesses by this id')
-    context = {
-        'harness_number': harness_number,
-        'positions': obj
-    }
+    harness_chart_objs = HarnessChart.objects.filter(harness__harness_number=harness_number)
+    if len(harness_chart_objs):
+        print(len(harness_chart_objs))
+        context = {
+            'harness_number': harness_number,
+            'positions': harness_chart_objs
+        }
     
-    return render(request, 'komax_app/chart_view.html', context)
+        return render(request, 'komax_app/chart_view.html', context)
+    else:
+        return Http404("Harness not found")
 
 def set_amount_task_view(request, pk):
     tasks_objs = KomaxTask.objects.filter(task_name=pk)

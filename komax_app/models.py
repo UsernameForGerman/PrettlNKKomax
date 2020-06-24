@@ -12,6 +12,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import datetime
 from django.urls import reverse
+from django.http import Http404
+import traceback
 
 
 User = get_user_model()
@@ -70,33 +72,39 @@ class HarnessChart(models.Model):
             old_harness_charts.delete()
 
         new_harness_charts = list()
+        harness = get_object_or_404(Harness, harness_number=harness_number)
         for row in harness_dataframe.iterrows():
             row_dict = row[1]
-            new_harness_charts.append(
-                self(
-                    harness=get_object_or_404(Harness, harness_number=harness_number),
-                    notes=row_dict["Примечание"],
-                    marking=str(row_dict["Маркировка"]),
-                    wire_type=str(row_dict["Вид провода"]),
-                    wire_number=str(row_dict["№ провода"]),
-                    wire_square=float(row_dict["Сечение"]),
-                    wire_color=str(row_dict["Цвет"]),
-                    wire_length=int(row_dict["Длина, мм (± 3мм)"]),
-                    wire_seal_1=str(row_dict["Уплотнитель 1"]),
-                    wire_cut_length_1=float(row_dict["Частичное снятие 1"]),
-                    wire_terminal_1=str(row_dict["Наконечник 1"]),
-                    aplicator_1=str(row_dict["Аппликатор 1"]),
-                    tube_len_1=str(row_dict["Длина трубки, L (мм) 1"]),
-                    armirovka_1=str(row_dict["Армировка 1 (Трубка ПВХ, Тр. Терм., изоляторы)"]),
-                    wire_seal_2=str(row_dict["Уплотнитель 2"]),
-                    wire_cut_length_2=float(row_dict["Частичное снятие 2"]),
-                    wire_terminal_2=str(row_dict["Наконечник 2"]),
-                    aplicator_2=str(row_dict["Аппликатор 2"]),
-                    tube_len_2=str(row_dict["Длина трубки, L (мм) 2"]),
-                    armirovka_2=str(row_dict["Армировка 2 (Трубка ПВХ, Тр. Терм., изоляторы)"])
+            try:
+                new_harness_charts.append(
+                    self(
+                        harness=harness,
+                        notes=row_dict["Примечание"],
+                        marking=str(row_dict["Маркировка"]),
+                        wire_type=str(row_dict["Вид провода"]),
+                        wire_number=str(row_dict["№ провода"]),
+                        wire_square=float(row_dict["Сечение"]),
+                        wire_color=str(row_dict["Цвет"]),
+                        wire_length=int(row_dict["Длина, мм (± 3мм)"]),
+                        wire_seal_1=str(row_dict["Уплотнитель 1"]),
+                        wire_cut_length_1=float(row_dict["Частичное снятие 1"]),
+                        wire_terminal_1=str(row_dict["Наконечник 1"]),
+                        aplicator_1=str(row_dict["Аппликатор 1"]),
+                        tube_len_1=str(row_dict["Длина трубки, L (мм) 1"]),
+                        armirovka_1=str(row_dict["Армировка 1 (Трубка ПВХ, Тр. Терм., изоляторы)"]),
+                        wire_seal_2=str(row_dict["Уплотнитель 2"]),
+                        wire_cut_length_2=float(row_dict["Частичное снятие 2"]),
+                        wire_terminal_2=str(row_dict["Наконечник 2"]),
+                        aplicator_2=str(row_dict["Аппликатор 2"]),
+                        tube_len_2=str(row_dict["Длина трубки, L (мм) 2"]),
+                        armirovka_2=str(row_dict["Армировка 2 (Трубка ПВХ, Тр. Терм., изоляторы)"])
+                    )
                 )
-            )
-            self.objects.bulk_create(new_harness_charts)
+            except Exception as e:
+                harness.delete()
+                raise Http404(traceback.format_exc())
+
+        self.objects.bulk_create(new_harness_charts)
 
 class Temp_chart(models.Model):
     harness = models.CharField(max_length=128)
@@ -108,9 +116,10 @@ class Temp_chart(models.Model):
 class KomaxTerminal(models.Model):
     terminal_name = models.CharField(max_length=64, unique=True)
     terminal_available = models.BooleanField(default=True)
+    seal_installed = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.terminal_name + str(self.terminal_available)
+        return self.terminal_name + str(self.terminal_available) + str(self.seal_installed)
 
 class KomaxSeal(models.Model):
     seal_name = models.CharField(max_length=64, unique=True)
@@ -195,7 +204,7 @@ class Worker(models.Model):
         blank=True,
         editable=True,
     )
-    current_komax = models.ForeignKey(Komax, on_delete=models.SET_NULL, null=True)
+    current_komax = models.ForeignKey(Komax, on_delete=models.SET_NULL, blank=True, null=True)
     locale = models.SmallIntegerField('language', choices=LOCALE_CHOICES, default=1)
 
 

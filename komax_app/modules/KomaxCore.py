@@ -2,7 +2,7 @@ from komax_app.models import KomaxStatus, TaskPersonal, Komax, KomaxOrder
 from .KomaxTaskProcessing import KomaxTaskProcessing, update_komax_task_status
 
 def create_update_komax_status( komax_number, position_info):
-    komax_status_query = KomaxStatus.objects.filter(komax__number__exact=komax_number)
+    komax_status_query = KomaxStatus.objects.filter(komax__number=komax_number)
     if len(komax_status_query):
         komax_status_obj = komax_status_query.first()
         if type(position_info) is dict:
@@ -25,7 +25,7 @@ def create_update_komax_status( komax_number, position_info):
             pass
 
 def get_komax_order(komax_number):
-    komax_order_objs = KomaxOrder.objects.filter(komax__number__exact=komax_number)
+    komax_order_objs = KomaxOrder.objects.filter(komax__number=komax_number)
     if len(komax_order_objs):
         return komax_order_objs[0]
 
@@ -45,6 +45,6 @@ def save_komax_task_personal(komax_number, komax_task_personal_df_dict, worker):
 
 
 def delete_komax_status(komax_number):
-    KomaxStatus.objects.filter(komax__number__exact=komax_number).delete()
+    KomaxStatus.objects.filter(komax__number=komax_number).delete()
 
 

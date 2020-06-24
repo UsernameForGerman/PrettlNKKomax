@@ -12,6 +12,12 @@ COLUMN_NAMES = ("Примечание", "№ п/п", "Маркировка", "В
                 "Наконечник 2", "Аппликатор 2", "Армировка 1 (Трубка ПВХ, Тр. Терм., изоляторы)",
                 "Армировка 2 (Трубка ПВХ, Тр. Терм., изоляторы)")
 
+def is_empty(value):
+    if value is None or value == '' or value == ' ':
+        return True
+    else:
+        return False
+
 class HarnessChartReader:
     CABEL = "Кабель"
     CABEL_COLUMN = "Примечание"
@@ -323,12 +329,10 @@ class HarnessChartReader:
             # dataframe processing
 
             self.__dataframe_file = self.__read_xl(start_row=row_start)
-            print(self.__dataframe_file.loc[:, '№ провода'])
             self.__close_xlsx()
             self.__process_file()
 
             self.__process_paired_cells(row_start, paired_terminals, paired_cabels, paired_armirovka)
-
 
 class ProcessDataframe:
     chart = None
@@ -596,22 +600,31 @@ class ProcessDataframe:
         self.chart.loc[idx, list_cols] = list_empties
 
     def __check_for_availability(self, idx, terminal_info, seal_info, terminal_col, seal_col):
-        if seal_info and seal_info.seal_available:
-            if terminal_info and terminal_info.terminal_available:
-                pass
-            elif terminal_info is None:
-                pass
+        if seal_info:
+            if terminal_info:
+                if seal_info.seal_available:
+                    if terminal_info.terminal_available:
+                        if terminal_info.seal_installed:
+                            pass
+                        else:
+                            self.__delete_cols(idx, terminal_col, seal_col)
+                    else:
+                        self.__delete_cols(idx, terminal_col)
+                else:
+                    self.__delete_cols(idx, terminal_col, seal_col)
             else:
-                self.__delete_cols(idx, terminal_col)
-        elif seal_info is None:
-            pass
+                if seal_info.seal_available:
+                    self.__delete_cols(idx, terminal_col)
+                else:
+                    self.__delete_cols(idx, terminal_col, seal_col)
         else:
-            self.__delete_cols(idx, seal_col, terminal_col)
-
+            if terminal_info and terminal_info.terminal_available and not terminal_info.seal_installed:
+                self.__delete_cols(idx, seal_col)
+            else:
+                self.__delete_cols(idx, terminal_col, seal_col)
 
     def filter_availability_komax_terminal_seal(self, terminals, seals):
         """
-        Удаляет все таски, которые невозможно сделать
         :param terminals_df:
         :return:
         """
@@ -622,14 +635,14 @@ class ProcessDataframe:
             seal_1, seal_2 = self.chart.loc[idx, [self.SEAL_1_COL, self.SEAL_2_COL]]
 
 
-            if armirovka_1 is not None and armirovka_1 != ' ':
+            if not is_empty(armirovka_1):
                 self.__delete_cols(idx, self.ARMIROVKA_1_COL, self.TERMINAL_1_COL, self.SEAL_1_COL)
             else:
                 terminal_1_info, seal_1_info = None, None
-                if terminal_1 is not None and terminal_1 != ' ':
-                    terminal_1_info = terminals.filter(terminal_name=terminal_1)
-                if seal_1 is not None and seal_1 != ' ':
-                    seal_1_info = seals.filter(seal_name=seal_1)
+                if not is_empty(terminal_1):
+                    terminal_1_info = terminals.filter(terminal_name=terminal_1).first()
+                if not is_empty(seal_1):
+                    seal_1_info = seals.filter(seal_name=seal_1).first()
 
                 self.__check_for_availability(
                     idx,
@@ -639,14 +652,14 @@ class ProcessDataframe:
                     self.SEAL_1_COL,
                 )
 
-            if armirovka_2 is not None and armirovka_2 != ' ':
+            if not is_empty(armirovka_2):
                 self.__delete_cols(idx, self.ARMIROVKA_2_COL, self.TERMINAL_2_COL, self.SEAL_2_COL)
             else:
                 terminal_2_info, seal_2_info = None, None
-                if terminal_2 is not None and terminal_2 != ' ':
-                    terminal_2_info = terminals.filter(terminal_name=terminal_2)
-                if seal_2 is not None and seal_2 != ' ':
-                    seal_2_info = seals.filter(seal_name=seal_2)
+                if not is_empty(terminal_2):
+                    terminal_2_info = terminals.filter(terminal_name=terminal_2).first()
+                if not is_empty(seal_2):
+                    seal_2_info = seals.filter(seal_name=seal_2).first()
 
                 self.__check_for_availability(
                     idx,
@@ -1244,7 +1257,6 @@ class ProcessDataframe:
                     return -1
                 elif returned == 'allocation':
                     black_komax_curr_idx -= 1
-            
 
         return (alloc, error)
 
