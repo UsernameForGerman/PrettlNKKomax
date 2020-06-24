@@ -1,19 +1,20 @@
+# django libs imports
 from django.shortcuts import render
-from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
-from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.parsers import MultiPartParser, FileUploadParser
-from django.contrib.auth.models import User
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.parsers import MultiPartParser
+from django.utils.decorators import method_decorator
+from django.contrib.auth.models import AnonymousUser
+from django.shortcuts import get_object_or_404
+
+# local imports
 from komax_app.models import Komax, Worker
 from .serializers import *
 from komax_app.modules.HarnessChartProcessing import HarnessChartReader
 from komax_app.modules.KomaxTaskProcessing import get_komax_task_status_on_komax, KomaxTaskProcessing
-from rest_framework.views import csrf_exempt
-from django.utils.decorators import method_decorator
-from rest_framework.authtoken.views import ObtainAuthToken
 
 
 
@@ -286,6 +287,13 @@ class KomaxTaskListView(APIView):
 class Logout(APIView):
 
     def get(self, request, format=None):
+        user = request.user
+        if user is not AnonymousUser:
+            if user.groups.filter(name='Operator'):
+                worker = get_object_or_404(Worker, user=user)
+                worker.current_komax = None
+                worker.save()
+
         # simply delete the token to force a login
         request.user.auth_token.delete()
         return Response(status=status.HTTP_200_OK)
