@@ -36,5 +36,6 @@ urlpatterns = [
     path('v2/komax_tasks/', views.KomaxTaskListView.as_view(), name='komax_tasks_list'),
     path('v2/load_komax_task/', views.LoadTaskView.as_view(), name='load-komax-task'),
     path('v2/send_komax_task/', views.SendTaskView.as_view(), name='send-komax-task'),
+    path('v2/xlsx_task/', views.XlsxTaskView.as_view(), name='xlsx-task'),
     path('v2/', include(router.urls)),
 ]

@@ -13,6 +13,12 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_202_ACCEPTED, HTTP_200_OK, \
     HTTP_204_NO_CONTENT, HTTP_404_NOT_FOUND, HTTP_409_CONFLICT
 
+# customs
+from django_pandas.io import read_frame
+import pandas as pd
+from drf_renderer_xlsx.mixins import XLSXFileMixin
+from drf_renderer_xlsx.renderers import XLSXRenderer
+
 # local imports
 from komax_app.models import Komax, Worker
 from .serializers import *
@@ -20,6 +26,7 @@ from komax_app.models import KomaxOrder
 from komax_app.modules.HarnessChartProcessing import HarnessChartReader
 from komax_app.modules.KomaxTaskProcessing import get_komax_task_status_on_komax, KomaxTaskProcessing, \
     update_komax_task_status
+from komax_app.modules.outer import OutProcess
 
 
 
@@ -28,18 +35,53 @@ from komax_app.modules.KomaxTaskProcessing import get_komax_task_status_on_komax
 def index(request):
     return render(request, 'komax_app/index.html', context={"name": "a"})
 
-class XlsxTaskView(APIView):
-    """
-    Get xlsx document of full task, and task on each komax
-    """
-
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAuthenticated, )
-
-    def get(self, request, *args, **kwargs):
-        komax = self.request.query_params.get('komax', None)
-        if komax:
-
+# class XlsxTaskView(APIView):
+#     """
+#     Get xlsx document of full task, and task on each komax
+#     """
+#
+#     authentication_classes = (TokenAuthentication, )
+#     # permission_classes = (IsAuthenticated, )
+#     permission_classes = (AllowAny,)
+#     # renderer_classes = (XLSXRenderer, )
+#
+#     def get(self, request, *args, **kwargs):
+#         task_name = self.request.query_params.get('task-name', None)
+#         if not task_name:
+#             return Response('No komax task name provided', status=HTTP_400_BAD_REQUEST)
+#
+#         komax = self.request.query_params.get('komax', None)
+#         if komax:
+#             pass
+#         else:
+#             task_pers_df = read_frame(
+#                 TaskPersonal.objects.filter(komax_task=get_object_or_404(KomaxTask, task_name=task_name)))
+#
+#             task_pers_df.sort_values(
+#                 by=['id'],
+#                 ascending=True,
+#                 inplace=True,
+#             )
+#
+#             task_pers_df.drop(labels='worker', axis='columns', inplace=True)
+#             task_pers_df.index = pd.Index(range(task_pers_df.shape[0]))
+#
+#             task_pers_df['done'] = ''
+#
+#             response = Response(
+#                 content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+#                 status=HTTP_200_OK,
+#             )
+#             response['Content-Disposition'] = 'attachment; filename={task_name}.xlsx'.format(
+#                 task_name=task_name,
+#             )
+#
+#             out_file = OutProcess(task_pers_df)
+#             workbook = out_file.get_task_xl()
+#             ws = workbook.active
+#             workbook.save(response)
+#
+#             return response
 
 class SendTaskView(APIView):
     """
