@@ -105,24 +105,24 @@ def upload(request):
     return render(request, 'komax_app/upload_harness_chart.html', context)
 """
 
-def must_be_operator(user):                                                     #Считает кол-во операторов
+def must_be_operator(user):
     return user.groups.filter(name='Operator').count()
 
-def must_be_master(user):                                                       #Считает кол-во мастеров
+def must_be_master(user):
     return user.groups.filter(name='Master').count()
 
-@login_required                                                                 # Нужно быть залогиненым
-@permission_required('komax_app.add_orderedkomaxtask', raise_exception=True)    #Нужно иметь определенное разрешение(мастер)
-def send_task_to_worker(request, task_name, *args, **kwargs):                   # Меняет status задания с именем task_name на ordered
-    task_obj = get_object_or_404(KomaxTask, task_name=task_name)                #Получает задание с именем из get запроса
-    task_obj.status = 2                                                         #Меняет статус задания на "ordered"
-    task_obj.save(update_fields=['status'])                                     #Сохраняет эти изменения
+@login_required
+@permission_required('komax_app.add_orderedkomaxtask', raise_exception=True)
+def send_task_to_worker(request, task_name, *args, **kwargs):
+    task_obj = get_object_or_404(KomaxTask, task_name=task_name)
+    task_obj.status = 2
+    task_obj.save(update_fields=['status'])
 
-    return redirect('komax_app:tasks_view')                                    #Перенаправляет на страницу task_view.html
+    return redirect('komax_app:tasks_view')
 
 @login_required
 @permission_required('komax_app.delete_komaxtask')
-def delete_task(request, task_name, *args, **kwargs):                           # удаляет задание
+def delete_task(request, task_name, *args, **kwargs):
     task_obj = get_object_or_404(KomaxTask, task_name=task_name)
     task_obj.delete()
 
@@ -171,15 +171,15 @@ class WorkerAccountView(LoginRequiredMixin, View):
     template_name = 'komax_app/user_account.html'
 
     def get(self, request, *args, **kwargs):
-        available_komaxes = Komax.objects.filter(status=1)                      # Все работающий komax
-        worker = get_object_or_404(Worker, user=request.user)                   # Находим нужного работника
-        if worker.user.groups.filter(name='Operator').exists():                 #Если работник - оператор
-            komax_num = request.session.get('komax', None)                      #Какой komax выбрал работник
+        available_komaxes = Komax.objects.filter(status=1)
+        worker = get_object_or_404(Worker, user=request.user)
+        if worker.user.groups.filter(name='Operator').exists():
+            komax_num = request.session.get('komax', None)
             if komax_num is None:
                 context = {
                     'worker': worker,
                     'request_komax_num': True,
-                    'available_komaxes': available_komaxes,                     #Доступные komax
+                    'available_komaxes': available_komaxes,
                 }
 
                 return render(request, self.template_name, context=context)
