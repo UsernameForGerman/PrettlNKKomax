@@ -352,6 +352,13 @@ class KomaxStatus(models.Model):
     def __str__(self):
         return str(self.komax.number)
 
+class KomaxTaskCompletion(models.Model):
+    timestamp = models.TimeField('Time last updated', auto_now=True)
+    komax_task = models.ForeignKey(KomaxTask, on_delete=models.CASCADE, unique=True)
+    harness = models.ForeignKey(Harness, on_delete=models.CASCADE)
+    left_time = models.PositiveIntegerField('Time left to create harness')
+    percent_completion = models.PositiveSmallIntegerField('Percent completion harness')
+
 def komax_number_harness_number_path(instance, komax_number, harness_number):
     return '{}-{}'.format(komax_number, harness_number)
 
