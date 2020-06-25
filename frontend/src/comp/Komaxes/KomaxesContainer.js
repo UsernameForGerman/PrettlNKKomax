@@ -1,13 +1,11 @@
 import {connect} from "react-redux";
 import KomaxSelector from "../../selectors/komaxSelector";
-import {createKomaxThunk, getListThunk, updateKomaxThunk} from "../../reducers/komaxReducer";
+import {createKomaxThunk, getListThunk, getStatusesThunk, updateKomaxThunk} from "../../reducers/komaxReducer";
 import React, {useEffect, useState} from "react";
 import Komaxes from "./Komaxes";
 import auth from "../AuthHOC/authHOC";
 import classes from "./Komaxes.module.css";
 import komax from "../../assets/images/komax.png";
-import harnessApi from "../../DAL/harness/harnessApi";
-import Preloader from "../common/Preloader/Preloader";
 import FullScreenPreloader from "../common/Preloader/FullScreenPreloader";
 
 let KomaxesContainer = (props) => {
@@ -15,6 +13,7 @@ let KomaxesContainer = (props) => {
         if(props.komaxList.length === 0){
              props.fetchKomaxes();
         }
+        props.getStatuses();
     }, props.komaxList.length);
 
     let [selectedKomax, setSelectedKomax] = useState({});
@@ -27,13 +26,25 @@ let KomaxesContainer = (props) => {
         props.updateKomax(komax);
     }
 
+    let statusDict = {};
+    props.statuses.forEach(status => {
+        statusDict[status.komax] = status.task_personal;
+    });
+
+    let getColorByNumber = (number) => {
+        let status = statusDict[number];
+        if (status === undefined) return "white";
+        if (status === null) return "red";
+        return "green";
+    }
+
     let renderedKomaxItems = props.komaxList.map((elem) => {
         return (
             <div className={classes.komaxItem}>
                 <div className={classes.komaxItemId}>
                     {elem.number}
                 </div>
-                <img src={komax} alt={"komax"} className={classes.komaxImg}/>
+                <img style={{backgroundColor : getColorByNumber(elem.number)}} src={komax} alt={"komax"} className={classes.komaxImg}/>
             </div>
         );
     });
@@ -58,12 +69,17 @@ let KomaxesContainer = (props) => {
 let mapStateToProps = (state) => {
     return {
         isFetching : KomaxSelector.getFetching(state),
-        komaxList : KomaxSelector.getList(state)
+        komaxList : KomaxSelector.getList(state),
+        statuses : KomaxSelector.getStatuses(state)
     }
 }
 
 let mapDispatchToProps = (dispatch) => {
     return {
+        getStatuses : () => {
+            dispatch(getStatusesThunk())
+        },
+
         fetchKomaxes : () => {
             dispatch(getListThunk())
         },

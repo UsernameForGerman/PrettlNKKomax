@@ -8,10 +8,14 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.parsers import MultiPartParser
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import AnonymousUser
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_202_ACCEPTED, HTTP_200_OK, \
-    HTTP_204_NO_CONTENT, HTTP_404_NOT_FOUND, HTTP_409_CONFLICT
+    HTTP_204_NO_CONTENT, HTTP_404_NOT_FOUND, HTTP_409_CONFLICT, HTTP_401_UNAUTHORIZED
+
+# customs
+from django_pandas.io import read_frame
+import pandas as pd
 
 # local imports
 from komax_app.models import Komax, Worker
@@ -20,6 +24,7 @@ from komax_app.models import KomaxOrder
 from komax_app.modules.HarnessChartProcessing import HarnessChartReader
 from komax_app.modules.KomaxTaskProcessing import get_komax_task_status_on_komax, KomaxTaskProcessing, \
     update_komax_task_status
+from komax_app.modules.outer import OutProcess
 
 
 
@@ -27,6 +32,85 @@ from komax_app.modules.KomaxTaskProcessing import get_komax_task_status_on_komax
 #TODO: rewrite entry point
 def index(request):
     return render(request, 'komax_app/index.html', context={"name": "a"})
+
+# class XlsxTaskView(APIView):
+#     """
+#     Get xlsx document of full task, and task on each komax
+#     """
+#
+#     authentication_classes = (TokenAuthentication, )
+#     # permission_classes = (IsAuthenticated, )
+#     permission_classes = (AllowAny,)
+#     # renderer_classes = (XLSXRenderer, )
+#
+#     def get(self, request, *args, **kwargs):
+#         task_name = self.request.query_params.get('task-name', None)
+#         if not task_name:
+#             return Response('No komax task name provided', status=HTTP_400_BAD_REQUEST)
+#
+#         komax = self.request.query_params.get('komax', None)
+#         if komax:
+#             pass
+#         else:
+#             task_pers_df = read_frame(
+#                 TaskPersonal.objects.filter(komax_task=get_object_or_404(KomaxTask, task_name=task_name)))
+#
+#             task_pers_df.sort_values(
+#                 by=['id'],
+#                 ascending=True,
+#                 inplace=True,
+#             )
+#
+#             task_pers_df.drop(labels='worker', axis='columns', inplace=True)
+#             task_pers_df.index = pd.Index(range(task_pers_df.shape[0]))
+#
+#             task_pers_df['done'] = ''
+#
+#             response = Response(
+#                 content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+#                 status=HTTP_200_OK,
+#             )
+#             response['Content-Disposition'] = 'attachment; filename={task_name}.xlsx'.format(
+#                 task_name=task_name,
+#             )
+#
+#             out_file = OutProcess(task_pers_df)
+#             workbook = out_file.get_task_xl()
+#             ws = workbook.active
+#             workbook.save(response)
+#
+#             return response
+
+class WorkerAccountView(APIView):
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
+
+    def get(self, request, *args, **kwargs):
+        worker = get_object_or_404(Worker, user=request.user)
+        if worker.user.groups.filter(name='Operator').exists():
+            komax = worker.current_komax
+            if komax is None:
+                return Response('No komax number provided', status=HTTP_404_NOT_FOUND)
+
+            ordered_komax_tasks = KomaxTask.objects.filter(
+                komaxes__komax=komax,
+            ).exclude(
+                status=1
+            ).order_by(
+                '-created'
+            )
+            response_data = KomaxTaskSerializer(ordered_komax_tasks, many=True).data
+
+            return Response(response_data, status=HTTP_200_OK)
+        elif worker.user.groups.filter(name='Master').exists():
+            komax_task_objs = get_list_or_404(KomaxTask, status=3)
+            response_data = KomaxTaskSerializer(komax_task_objs, many=True).data
+
+            return Response(response_data, status=HTTP_200_OK)
+        else:
+            return Response('No user group', status=HTTP_404_NOT_FOUND)
+
+
 
 class SendTaskView(APIView):
     """
@@ -77,14 +161,12 @@ class LoadTaskView(APIView):
 
         return Response(status=HTTP_200_OK)
 
-
 class KomaxListView(APIView):
     """
     Get list all komaxes
     Post one/list komax
 
     * Requires token authentication.
-    * All are able to access this view.
     """
     authentication_classes = (TokenAuthentication, )
     permission_classes = (IsAuthenticated, )

@@ -827,8 +827,8 @@ def get_harness_chart_view(request, harness_number):
 
     return response
 
-@login_required
-@permission_required('komax_app.view_komaxtask')
+# @login_required
+# @permission_required('komax_app.view_komaxtask')
 def get_personal_task_view_komax(request, task_name, komax):
     komax_obj = get_object_or_404(Komax, number=komax)
     tasks_obj = get_object_or_404(KomaxTask, task_name=task_name)
@@ -859,41 +859,8 @@ def get_personal_task_view_komax(request, task_name, komax):
 
     return response
 
-@login_required
-@user_passes_test(must_be_master)
-def get_general_tech_task_view(request, task_name):
-    komax_task_obj = get_komax_task(task_name)[0]
-    task_pers_df = get_task_personal(komax_task_obj, output='dataframe')
-    task_pers_df.sort_values(
-        by=['id'],
-        ascending=True,
-        inplace=True,
-    )
-
-    task_pers_df.drop(labels='worker', axis='columns', inplace=True)
-    task_pers_df.index = pd.Index(range(task_pers_df.shape[0]))
-
-    task_pers_df['done'] = ''
-
-    response = HttpResponse(
-        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    )
-    response['Content-Disposition'] = 'attachment; filename={task_name}.xlsx'.format(
-        task_name=task_name,
-    )
-
-    workbook = xl.Workbook()
-    worksheet = workbook.active
-
-    for r in dataframe_to_rows(task_pers_df, index=True, header=True):
-        worksheet.append(r)
-
-    workbook.save(response)
-
-    return response
-
-@login_required
-@user_passes_test(must_be_master)
+# @login_required
+# @user_passes_test(must_be_master)
 def get_general_task_view(request, task_name):
     task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=get_object_or_404(KomaxTask, task_name=task_name)))
 
@@ -922,8 +889,8 @@ def get_general_task_view(request, task_name):
 
     return response
 
-@login_required
-@user_passes_test(must_be_master)
+# @login_required
+# @user_passes_test(must_be_master)
 def get_personal_task_view_kappa(request, task_name, kappa):
     komax_task_obj = get_object_or_404(KomaxTask, task_name=task_name)
 
@@ -953,8 +920,8 @@ def get_personal_task_view_kappa(request, task_name, kappa):
 
     return response
 
-@login_required
-@user_passes_test(must_be_master)
+# @login_required
+# @user_passes_test(must_be_master)
 def get_komax_ticket_view(self, task_name, komax):
     komax_obj = get_object_or_404(Komax, number=komax)
     tasks_obj = get_object_or_404(KomaxTask, task_name=task_name)
@@ -981,8 +948,8 @@ def get_komax_ticket_view(self, task_name, komax):
     wb.save(response)
     return response
 
-@login_required
-@user_passes_test(must_be_master)
+# @login_required
+# @user_passes_test(must_be_master)
 def get_kappa_ticket_view(request, task_name, kappa):
     task_obj = get_object_or_404(KomaxTask, task_name=task_name)
     task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=task_obj, kappa=task_obj.kappas))
