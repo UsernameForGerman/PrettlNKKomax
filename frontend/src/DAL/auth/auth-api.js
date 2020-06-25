@@ -1,5 +1,6 @@
 import API from "../api/api";
 const AUTH_URL = "login/";
+const LOGOUT_URL = "logout/"
 
 class authApi extends API{
     constructor() {
@@ -11,9 +12,12 @@ class authApi extends API{
             username : login,
             password : password
         }).then((resp) => {
-            debugger;
             return resp.token;
         });
+    }
+
+    logout = () => {
+        return this.createAPI().get(LOGOUT_URL);
     }
 }
 

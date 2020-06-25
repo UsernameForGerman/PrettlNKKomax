@@ -18,7 +18,7 @@ const SET_TOKEN = "LOGIN/SET_TOKEN";
 const SET_ERROR = "LOGIN/ERROR";
 const LOGOUT = "LOGIN/LOGOUT"
 
-const loginReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
     let stateCopy = {...state};
     switch (action.type) {
         case TOGGLE_FETCHING : {
@@ -99,4 +99,14 @@ const authThunk = (login, password) => {
     }
 }
 
-export {loginReducer, authThunk, logoutAC}
+const logoutThunk = () => {
+    return (dispatch) => {
+        dispatch(toggleFetchAC());
+        authApi.logout().then(resp => {
+            dispatch(logoutAC());
+            dispatch(toggleFetchAC());
+        })
+    }
+}
+
+export {authReducer, authThunk, logoutThunk}

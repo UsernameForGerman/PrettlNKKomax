@@ -2,7 +2,7 @@ import {applyMiddleware, combineReducers, createStore} from "redux";
 import {komaxReducer} from "./reducers/komaxReducer";
 import thunk from "redux-thunk";
 import {harnessesReducer} from "./reducers/harnessesReducer";
-import {loginReducer} from "./reducers/loginReducer";
+import {authReducer} from "./reducers/authReducer";
 import {modalReducer} from "./reducers/modalReducer";
 import {komaxTerminalReducer} from "./reducers/komaxTerminalReducer";
 import {labourReducer} from "./reducers/labourReducer";
@@ -11,7 +11,7 @@ import {kappasReducer} from "./reducers/kappasReducer";
 
 const reducers = combineReducers({
     komaxes : komaxReducer,
-    login : loginReducer,
+    login : authReducer,
     harnesses : harnessesReducer,
     modal : modalReducer,
     terminals : komaxTerminalReducer,

@@ -67,7 +67,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-<<<<<<< HEAD
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -89,8 +88,6 @@ CORS_ALLOW_METHODS = [
     'PATCH',
     'POST',
     'PUT',
-=======
->>>>>>> 80225993af6d9ad24d79576f40f846595c0188d5
 ]
 
 ROOT_URLCONF = 'komax_site.urls'
