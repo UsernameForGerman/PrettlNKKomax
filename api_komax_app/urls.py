@@ -22,14 +22,6 @@ router.register('workers', WorkerViewSet)
 
 
 urlpatterns = [
-    # path('v1/auth/', ObtainAuthToken.as_view(), name='get_token'),
-    # path('v1/komaxes/', views.KomaxListView.as_view(), name='komax_list'),
-    # path('v1/komaxes/<str:number>/', views.KomaxDetailView.as_view(), name='komax_detail'),
-    # path('v1/kappas/', views.KappaListView.as_view(), name='kappa_list'),
-    # path('v1/kappas/<str:number>/', views.KappaDetailView.as_view(), name='kappa_detail'),
-    # path('v1/harnesses/', views.HarnessListView.as_view(), name='harness_list'),
-    # path('v1/harnesses/<str:harness_number>/', views.HarnessDetailView.as_view(), name='harness_detail'),
-    # path('v1/harness_chart/<str:harness_number>/', views.HarnessChartListView.as_view(), name='harness_chart_list'),
     path('index/', views.index, name='index'),
     path('v2/login/', ObtainAuthToken.as_view(), name='get_token'),
     path('v2/logout/', views.Logout.as_view(), name='logout'),
@@ -37,6 +29,7 @@ urlpatterns = [
     path('v2/load_komax_task/', views.LoadTaskView.as_view(), name='load-komax-task'),
     path('v2/send_komax_task/', views.SendTaskView.as_view(), name='send-komax-task'),
     path('v2/worker_account/', views.WorkerAccountView.as_view(), name='worker-account'),
+    path('v2/komax_task_status/', views.TaskStatusView.as_view(), name='komax-task-status'),
     # path('v2/xlsx_task/', views.XlsxTaskView.as_view(), name='xlsx-task'),
     path('v2/', include(router.urls)),
 ]

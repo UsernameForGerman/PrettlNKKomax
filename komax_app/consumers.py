@@ -618,7 +618,7 @@ class WorkerConsumer(AsyncWebsocketConsumer):
         )
 
     def get_task_personal(self, status):
-        return read_frame(TaskPersonal.objects.filter(komax_task__status__exact=status))
+        return read_frame(TaskPersonal.objects.filter(komax_task__status=status))
 
     async def async_get_task_personal(self, status):
         return await database_sync_to_async(self.get_task_personal)(status)

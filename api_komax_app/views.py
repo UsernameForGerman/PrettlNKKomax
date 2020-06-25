@@ -22,7 +22,7 @@ from drf_renderer_xlsx.renderers import XLSXRenderer
 # local imports
 from komax_app.models import Komax, Worker
 from .serializers import *
-from komax_app.models import KomaxOrder
+from komax_app.models import KomaxOrder, KomaxTaskCompletion
 from komax_app.modules.HarnessChartProcessing import HarnessChartReader
 from komax_app.modules.KomaxTaskProcessing import get_komax_task_status_on_komax, KomaxTaskProcessing, \
     update_komax_task_status
@@ -111,8 +111,6 @@ class WorkerAccountView(APIView):
             return Response(response_data, status=HTTP_200_OK)
         else:
             return Response('No user group', status=HTTP_404_NOT_FOUND)
-
-
 
 class SendTaskView(APIView):
     """
@@ -425,8 +423,8 @@ class KomaxTaskListView(APIView):
 
 class Logout(APIView):
 
-    def get(self, request, format=None):
-        user = request.user
+    def get(self, format=None):
+        user = self.request.user
         if user is not AnonymousUser:
             if user.groups.filter(name='Operator'):
                 worker = get_object_or_404(Worker, user=user)
@@ -434,8 +432,18 @@ class Logout(APIView):
                 worker.save()
 
         # simply delete the token to force a login
-        request.user.auth_token.delete()
+        self.request.user.auth_token.delete()
         return Response(status=status.HTTP_200_OK)
+
+class TaskStatusView(APIView):
+    permission_classes = (IsAuthenticated, )
+    authentication_classes = (TokenAuthentication, )
+
+    def get(self, *args, **kwargs):
+        task_name = self.request.query_params.get('task-name', '')
+        komax_task_completion_objs = get_list_or_404(KomaxTaskCompletion, komax_task__task_name=task_name)
+        response_data = KomaxTaskCompletionSerializer(komax_task_completion_objs, many=True).data
+        return Response(response_data, status=HTTP_200_OK)
 
 
 """

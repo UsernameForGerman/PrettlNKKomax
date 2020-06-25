@@ -92,7 +92,6 @@ while True:
     }
 
     req_info_position = client.post(URL, data=params, headers=make_headers(URL))
-
     data = req_info_position.json()
 
     if len(data):
