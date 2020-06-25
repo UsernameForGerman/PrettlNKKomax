@@ -1,0 +1,5 @@
+-r ./windows_local.txt
+
+psycopg2==2.8.3
+pytest
+pillow==5.1.0
