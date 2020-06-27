@@ -117,7 +117,8 @@ class SendTaskView(APIView):
     permission_classes = (IsAuthenticated, )
     authentication_classes = (TokenAuthentication, )
 
-    def put(self, task_name, *args, **kwargs):
+    def put(self, *args, **kwargs):
+        task_name = self.request.data.get('task_name', None)
         task_obj = get_object_or_404(KomaxTask, task_name=task_name)
         task_obj.status = 2
         task_obj.save(update_fields=['status'])
@@ -131,7 +132,8 @@ class LoadTaskView(APIView):
     authentication_classes = (TokenAuthentication, )
     permission_classes = (IsAuthenticated, )
 
-    def put(self, task_name, *args, **kwargs):
+    def put(self, *args, **kwargs):
+        task_name = self.request.data.get('task_name', None)
         komax_num = self.request.session.get('komax', None)
         komax = get_object_or_404(Komax, number=komax_num)
         komax_task = get_object_or_404(KomaxTask, task_name=task_name)
