@@ -25,13 +25,10 @@ from .views import logout_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),
-    # path('logout/', LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('logout/', logout_view, name='logout'),
-    # re_path(r'^', include('main_app.urls')),
-    # path('', views.index),
     path('', include('komax_app.urls')),
-    path('api/', include('api_komax_app.urls')),
-    # re_path(r'^description/', include('description.urls')),
+    path('api/', include('api.urls')),
+    path('komax_api/', include('komax_api.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -1,7 +1,7 @@
 from komax_app.models import KomaxStatus, TaskPersonal, Komax, KomaxOrder
 from .KomaxTaskProcessing import KomaxTaskProcessing, update_komax_task_status
 
-def create_update_komax_status( komax_number, position_info):
+def create_update_komax_status(komax_number, position_info):
     komax_status_query = KomaxStatus.objects.filter(komax__number=komax_number)
     if len(komax_status_query):
         komax_status_obj = komax_status_query.first()

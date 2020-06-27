@@ -7,7 +7,7 @@ from rest_framework.routers import DefaultRouter
 from .viewsets import KomaxViewSet, KappaViewSet, HarnessViewSet, LabourisnessViewSet, KomaxTerminalsViewSet, \
     KomaxStatusViewSet, HarnessChartViewSet, KomaxSealViewSet, WorkerViewSet
 
-app_name = 'api_komax_app'
+app_name = 'api'
 
 router = DefaultRouter()
 router.register('komaxes', KomaxViewSet)

@@ -1,38 +1,31 @@
-from django.http import HttpResponseRedirect, Http404, HttpResponse
-from requests import Response
-from rest_framework import status
-from rest_framework.decorators import api_view
-
-from api_komax_app.serializers import HarnessSerializer, KomaxSerializer
-from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask, HarnessAmount, TaskPersonal, \
-    Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker, KomaxOrder, KomaxSeal
-from .forms import KomaxEditForm, LaboriousnessForm
-from .modules.ioputter import FileReader
+# django libs
+from django.http import Http404, HttpResponse
 from django_pandas.io import read_frame
-import pandas as pd
-from .modules.HarnessChartProcessing import ProcessDataframe, get_komaxes_from, get_time_from, get_amount_from
-from .modules.KomaxTaskProcessing import get_task_personal, get_komax_task, KomaxTaskProcessing, get_task_to_load, \
-    delete_komax_order, stop_komax_task_on_komax, update_komax_task_status, get_komax_task_status_on_komax
-
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-import openpyxl as xl
-from openpyxl.utils.dataframe import dataframe_to_rows
+from django.views.generic import CreateView, UpdateView, DeleteView
 from django.db.models import Sum
-from .modules.outer import OutProcess
 from django.http import JsonResponse
-
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.views import View
 from .modules.HarnessChartProcessing import HarnessChartReader
 from django.views import generic
-from django.db import close_old_connections
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.utils import translation
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+
+# project libs
+from .models import Harness, HarnessChart, Komax, Laboriousness, KomaxTask, HarnessAmount, TaskPersonal, \
+    Tickets, KomaxTime, KomaxWork, Kappa, KomaxTerminal, OrderedKomaxTask, Worker, KomaxOrder, KomaxSeal
+from .forms import KomaxEditForm
+from .modules.KomaxTaskProcessing import get_task_personal, get_komax_task, KomaxTaskProcessing, get_task_to_load, \
+    delete_komax_order, stop_komax_task_on_komax, update_komax_task_status, get_komax_task_status_on_komax
+from .modules.outer import OutProcess
 from .modules.KomaxCore import create_update_komax_status, get_komax_order, save_komax_task_personal, \
     delete_komax_status
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+
+# others
+import pandas as pd
 import json
 
 browser_useragents = ["ABrowse", "Acoo Browser", "America Online Browser", "AmigaVoyager", "AOL", "Arora",
@@ -76,34 +69,6 @@ time_dict = {
         'ticket': 42,
         'task': 23,
     }
-
-
-"""
-def upload_harness_chart(request):
-    if request.method == 'POST':
-        form = Temp_chartForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('komax_app:harness')
-    else:
-        form = Temp_chartForm()
-    return render(request, 'komax_app/upload_harness_chart.html', {
-        'form': form
-    })
-"""
-
-"""
-def upload(request):
-    context = {
-        'form' : Temp_chartForm
-    }
-    if request.method == 'POST':
-        uploaded_file = request.FILES['xlsx']
-        fs = FileSystemStorage()
-        name = fs.save(uploaded_file.name, uploaded_file)
-        context['url'] = fs.url(name)
-    return render(request, 'komax_app/upload_harness_chart.html', context)
-"""
 
 def must_be_operator(user):
     return user.groups.filter(name='Operator').count()
@@ -692,7 +657,6 @@ def stop_task_on_komax(request, task_name, komax, *args, **kwargs):
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class KomaxClientView(View):
 
-
     def get(self, request, *args, **kwargs):
         komax_number = int(request.GET['komax-number']) if 'komax-number' in request.GET else None
         if komax_number is not None:
@@ -740,8 +704,6 @@ class KomaxClientView(View):
                 delete_komax_order()
 
         return JsonResponse(params)
-
-
 
 class KomaxTaskView(LoginRequiredMixin, View):
     model = KomaxTask
@@ -1000,102 +962,9 @@ def request_from_browser(request):
     else:
         return False
 
-def handle_json_post(request):
-    if not request_from_browser(request):
-        pass
-    else:
-        return redirect('komax_app:task_setup')
-
-@ensure_csrf_cookie
-def handle_json_get(request, harness_number):
-    if not request_from_browser(request):
-        harness_obj = Harness.objects.filter(harness_number=harness_number)[0]
-        data = read_frame(HarnessChart.objects.filter(harness=harness_obj)).to_dict()
-        any(browser_useragent in request.META['HTTP_USER_AGENT'] for browser_useragent in browser_useragents)
-        
-        return JsonResponse(data)
-    else:
-        
-        return redirect('komax_app:task_setup')
-
-def handle_temp_chart(temp_chart):
-    reader = FileReader(temp_chart)
-    reader.read_file_chart()
-
-    return reader.dataframe_file
-
-def upload_temp_chart(request):
-    context = {
-        'form': HarnessChartUploadForm
-    }
-    if request.method == 'POST':
-        form = HarnessChartUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            uploaded_file = request.FILES['xlsx']
-            harness_number = request.POST['harness']
-            chart_data = handle_temp_chart(uploaded_file)
-
-            harness_obj = Harness(harness_number=harness_number)
-            harness_obj.save()
-
-            harness_chart_obj = 0
-            error_ocured = False
-
-            for row in chart_data.iterrows():
-                row_dict = row[1]
-                harness_chart_obj = HarnessChart(
-                    harness=harness_obj,
-                    notes=row_dict["Примечание"],
-                    marking=row_dict["Маркировка"],
-                    wire_type=row_dict["Вид провода"],
-                    wire_number=row_dict["№ провода"],
-                    wire_square=float(row_dict["Сечение"]),
-                    wire_color=row_dict["Цвет"],
-                    wire_length=int(row_dict["Длина, мм (± 3мм)"]),
-                    wire_seal_1=row_dict["Уплотнитель 1"],
-                    wire_cut_length_1=float(row_dict["Частичное снятие 1"]),
-                    wire_terminal_1=row_dict["Наконечник 1"],
-                    aplicator_1=row_dict["Аппликатор 1"],
-                    tube_len_1=float(row_dict["Длина трубки, L (мм) 1"]),
-                    armirovka_1=row_dict["Армировка 1 (Трубка ПВХ, Тр.Терм., изоляторы)"],
-                    wire_seal_2=row_dict["Уплотнитель 2"],
-                    wire_cut_length_2=float(row_dict["Частичное снятие 2"]),
-                    wire_terminal_2=row_dict["Наконечник 2"],
-                    aplicator_2=row_dict["Аппликатор 2"],
-                    tube_len_2=float(row_dict["Длина трубки, L (мм) 2"]),
-                    armirovka_2=row_dict["Армировка 2 (Трубка ПВХ, Тр.Терм., изоляторы)"]
-                )
-
-                if error_ocured:
-                    harness_obj_to_delete = get_object_or_404(Harness, harness_number=harness_number)
-                    harness_obj_to_delete.delete()
-                    return HttpResponseRedirect('/komax_app/harnesses/')
-
-                try:
-                    harness_chart_obj.save()
-                except ValueError:
-                    error_ocured = True
-
-                if error_ocured:
-                    harness_obj_to_delete = get_object_or_404(Harness, harness_number=harness_number)
-                    harness_obj_to_delete.delete()
-                    try:
-                        harness_chart_obj.delete()
-                    except:
-                        pass
-
-                    return HttpResponseRedirect('/komax_app/harnesses/')
-
-
-            return HttpResponseRedirect('/komax_app/harnesses/')
-    else:
-        form = HarnessChartUploadForm
-    return render(request, 'komax_app/upload_harness_chart.html', context)
-
 def harness_chart_view(request, harness_number):
     harness_chart_objs = HarnessChart.objects.filter(harness__harness_number=harness_number)
     if len(harness_chart_objs):
-        print(len(harness_chart_objs))
         context = {
             'harness_number': harness_number,
             'positions': harness_chart_objs
@@ -1104,282 +973,6 @@ def harness_chart_view(request, harness_number):
         return render(request, 'komax_app/chart_view.html', context)
     else:
         return Http404("Harness not found")
-
-def set_amount_task_view(request, pk):
-    tasks_objs = KomaxTask.objects.filter(task_name=pk)
-    harnesses = 0
-
-    if len(tasks_objs) > 0:
-        harnesses = tasks_objs[0].harnesses.all()
-    else:
-        return redirect('komax_app:task_setup')
-
-    harness_numbers = list()
-    for harness in harnesses:
-        harness_numbers.append(harness.harness)
-
-    if request.method == 'POST':
-        for harness_number in harness_numbers:
-            amount = request.POST['amount-' + harness_number.harness_number]
-            harness = request.POST['' + harness_number.harness_number]
-
-            obj = get_object_or_404(KomaxTask, task_name=pk)
-            obj.save()
-            harnesses_tasks_obj = obj.harnesses.filter(harness=harness)[0]
-            harnesses_tasks_obj.amount = amount
-            harnesses_tasks_obj.save()
-
-
-        return redirect('komax_app:task_view', pk=pk)
-
-    elif request.method == 'GET' and harness_numbers:
-
-        context = {
-            'harnesses': harness_numbers,
-        }
-        return render(request, 'komax_app/komax_app_amount.html', context)
-    else:
-        return redirect('komax_app:task_setup')
-
-
-
-
-def create_task_view(request):
-    context = {
-        'form' : KomaxTaskSetupForm
-    }
-    if request.method == 'POST':
-        form = KomaxTaskSetupForm(request.POST)
-        if form.is_valid():
-            # delete empty tasks
-            HarnessAmount.objects.filter(amount=-1).delete()
-            name = request.POST['task_name']
-            harnesses = request.POST.getlist('harnesses')
-            komaxes = request.POST.getlist('komaxes')
-            shift = int(request.POST['shift'])
-
-            # create task
-            task_obj = KomaxTask(shift=0)
-            task_obj.save()
-            harnesses_task_objs = []
-
-            for harness in harnesses:
-                obj = HarnessAmount(harness=Harness.objects.get(id=harness), amount=-1)
-                obj.save()
-                harnesses_task_objs.append(obj)
-
-            task_obj.harnesses.add(*harnesses_task_objs)
-            task_obj.komaxes.add(*komaxes)
-            task_obj.task_name = name
-            task_obj.shift = shift
-            task_obj.save()
-
-            return HttpResponseRedirect('/komax_app/' + name + '/amount')
-
-    return render(request, 'komax_app/komax_app_setup.html', context)
-
-@login_required
-def get_task_view(request, pk):
-    task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=get_object_or_404(KomaxTask, task_name=pk)))
-
-    task_pers_df['done'] = ''
-    alloc_df = read_frame(KomaxTaskAllocation.objects.filter(task=get_object_or_404(KomaxTask, task_name=pk)))
-    alloc_df.drop(
-        columns=['id'],
-        inplace=True
-    )
-
-    response = HttpResponse(
-        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    )
-    response['Content-Disposition'] = 'attachment; filename={task_name}.xlsx'.format(
-        task_name=pk,
-    )
-
-    out_file = OutProcess(task_pers_df)
-    workbook = out_file.get_task_xl()
-    workbook.save(response)
-
-    return response
-
-@login_required
-def get_spec_task_view(request, pk, komax):
-    komax_obj = get_object_or_404(Komax, number=komax)
-    tasks_obj = get_object_or_404(KomaxTask, task_name=pk)
-    task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=tasks_obj, komax=komax_obj))
-    task_pers_df['done'] = ''
-
-    response = HttpResponse(
-        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    )
-    response['Content-Disposition'] = 'attachment; filename={task_name}-{komax_number}.xlsx'.format(
-        task_name=pk,
-        komax_number=komax,
-    )
-    out_file = OutProcess(task_pers_df)
-    workbook = out_file.get_task_xl()
-    workbook.save(response)
-    
-    return response
-
-def fulfill_time():
-    """
-    Fulfills time to database
-
-    :return: None
-    """
-
-    for key, item in time_dict.items():
-        Laboriousness(action=key, time=item).save()
-
-@login_required
-def task_view(request, pk):
-
-    if len(Laboriousness.objects.all()) == 0:
-        fulfill_time()
-
-    task_obj_query = KomaxTask.objects.filter(task_name=pk)
-
-    if len(task_obj_query) > 0:
-        task_obj = task_obj_query[0]
-
-        amount_less_zero = True
-        for harness in task_obj.harnesses.all():
-
-            if harness.amount <= 0:
-                amount_less_zero = True
-                break
-            else:
-                amount_less_zero = False
-                break
-
-
-
-        status = 'success'
-        if amount_less_zero:
-            return redirect('komax_app:task_amount', pk=pk)
-        else:
-            task_pers_query = TaskPersonal.objects.filter(komax_task=task_obj_query[0])
-            if len(task_pers_query) > 0:
-                task_pers_obj = task_pers_query[0]
-                harnesses = task_obj.harnesses.all()
-                final_alloc = {}
-                alloc_objs = get_list_or_404(KomaxTaskAllocation, task=task_obj)
-                for alloc_obj in alloc_objs:
-                    final_alloc[alloc_obj.komax.number] = [alloc_obj.time]
-                alloc_base = {komax_number: [0] for komax_number in final_alloc}
-                status = 'success'
-            else:
-
-                shift = task_obj.shift
-                komaxes = task_obj.komaxes.all()
-                harnesses = task_obj.harnesses.all()
-
-                charts_df = []
-                for harness in harnesses:
-                    temp_df = read_frame(HarnessChart.objects.filter(harness=harness.harness))
-                    charts_df.append(temp_df)
-
-                df = pd.concat(charts_df, ignore_index=True)
-                komax_df = read_frame(komaxes)
-                time_df = read_frame(Laboriousness.objects.all())
-                amount_df = read_frame(task_obj.harnesses.all())
-
-                komax_dict = get_komaxes_from(komax_df)
-                time_dict = get_time_from(time_df)
-                amount_dict = get_amount_from(amount_df)
-
-                process = ProcessDataframe(df)
-                alloc_base = process.task_allocation_base(komax_dict, amount_dict, time_dict, hours=shift)
-
-                process.delete_word_contain('СВ', 'R')
-                first_sort = process.chart.nunique()["wire_terminal_1"] <= process.chart.nunique()["wire_terminal_2"]
-                process.sort(method='simple', first_sort=first_sort)
-                alloc = process.task_allocation(komax_dict, amount_dict, time_dict, hours=shift)
-
-
-                first_sort = not first_sort
-                new_process = ProcessDataframe(df)
-                new_process.sort(method='simple', first_sort=first_sort)
-                new_alloc = new_process.task_allocation(komax_dict, amount_dict, time_dict, hours=shift)
-
-                if new_alloc == -1 and alloc == -1:
-                    task_obj.delete()
-                    return render(request, 'komax_app/task_status.html')
-                elif new_alloc == -1:
-                    final_alloc = alloc
-                    final_chart = process.chart
-                elif alloc == -1:
-                    final_alloc = new_alloc
-                    final_chart = new_process.chart
-                else:
-                    sum_first = sum([i[0] for i in alloc.values()])
-                    sum_new = sum([i[0] for i in new_alloc.values()])
-
-                    if sum_new < sum_first:
-                        final_chart = new_process.chart
-                        final_alloc = new_alloc
-                    else:
-                        final_chart = process.chart
-                        final_alloc = alloc
-
-
-                final_chart.drop(
-                    columns=['tube_len_2', 'tube_len_1', 'armirovka_2', 'armirovka_1', 'id'],
-                    inplace=True
-                )
-
-                for row in final_chart.iterrows():
-                    row_dict = row[1]
-                    task_pers_obj = TaskPersonal(
-                        komax_task=task_obj,
-                        harness=get_object_or_404(Harness, harness_number=row_dict['harness']),
-                        komax=get_object_or_404(Komax, number=row_dict['komax']),
-                        amount=row_dict["amount"],
-                        notes=row_dict["notes"],
-                        marking=row_dict["marking"],
-                        wire_type=row_dict["wire_type"],
-                        wire_number=row_dict["wire_number"],
-                        wire_square=float(row_dict["wire_square"]),
-                        wire_color=row_dict["wire_color"],
-                        wire_length=int(row_dict["wire_length"]),
-                        wire_seal_1=row_dict["wire_seal_1"],
-                        wire_cut_length_1=float(row_dict["wire_cut_length_1"]),
-                        wire_terminal_1=row_dict["wire_terminal_1"],
-                        aplicator_1=row_dict["aplicator_1"],
-                        wire_seal_2=row_dict["wire_seal_2"],
-                        wire_cut_length_2=float(row_dict["wire_cut_length_2"]),
-                        wire_terminal_2=row_dict["wire_terminal_2"],
-                        aplicator_2=row_dict["aplicator_2"],
-                    )
-                    task_pers_obj.save()
-
-                for komax, time in final_alloc.items():
-                    KomaxTaskAllocation(task=task_obj, komax=get_object_or_404(Komax, number=komax), time=time[0]).save()
-
-            for key, item in final_alloc.items():
-                hours = round(final_alloc[key][0] // 3600)
-                final_alloc[key] = str(hours) + ':' + str(round((final_alloc[key][0] / 3600 - hours) * 60))
-
-            for key, item in alloc_base.items():
-                hours = round(alloc_base[key][0] // 3600)
-                alloc_base[key] = str(hours) + ':' + str(round((alloc_base[key][0] / 3600 - hours) * 60))
-
-            for key, item in final_alloc.items():
-                final_alloc[key] = [final_alloc[key], alloc_base[key]]
-
-            context = {
-                'name': str(pk),
-                'harnesses': harnesses,
-                'alloc': final_alloc,
-                'harness_amount': 12 // len(harnesses),
-                'komaxes_amount': 12 // len(final_alloc),
-                'status': status
-            }
-
-            return render(request, 'komax_app/komax_app_task.html', context=context)
-    else:
-        return redirect('komax_app:task_setup')
 
 class MainPageKomaxAppView(View):
     template_name = 'komax_app/main_page.html'
@@ -1404,212 +997,5 @@ class MainPageKomaxAppView(View):
     def post(self, request, *args, **kwargs):
         return
 
-@login_required
-def delete_harness_view(request, harness_number):
-    harness_obj = Harness.objects.filter(harness_number=harness_number)
-    if len(harness_obj) > 0:
-        harnesses_tasks_obj = HarnessAmount.objects.filter(harness=harness_obj[0])
-        if len(harnesses_tasks_obj) > 0:
-            tasks_obj = KomaxTask.objects.filter(harnesses=harnesses_tasks_obj[0])
-            tasks_obj.delete()
-        harnesses_tasks_obj.delete()
-        harness_obj.delete()
-
-    return redirect('komax_app:harness')
-
-@login_required
-def get_ticket_view(request, pk, komax):
-    komax_obj = get_object_or_404(Komax, number=komax)
-    tasks_obj = get_object_or_404(KomaxTask, task_name=pk)
-    task_pers_df = read_frame(TaskPersonal.objects.filter(komax_task=tasks_obj, komax=komax_obj))
-
-    response = HttpResponse(
-        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    )
-    response['Content-Disposition'] = 'attachment; filename={komax_number}-ticket.xlsx'.format(
-        komax_number=komax,
-    )
-
-    out_file = OutProcess(task_pers_df)
-    wb = out_file.get_labels()
-
-    wb.save(response)
-
-    return response
-"""
-def list_harness_view(request):
-    if request.method == 'POST':
-        form = HarnessChartUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            uploaded_file = request.FILES['xlsx']
-            harness_number = request.POST['harness']
-            chart_data = handle_temp_chart(uploaded_file)
-
-            harness_obj = Harness(harness_number=harness_number)
-            harness_obj.save()
-
-            error_ocured = False
-
-            for row in chart_data.iterrows():
-                row_dict = row[1]
-                harness_chart_obj = HarnessChart(
-                    harness=harness_obj,
-                    notes=row_dict["Примечание"],
-                    marking=row_dict["Маркировка"],
-                    wire_type=row_dict["Вид провода"],
-                    wire_number=row_dict["№ провода"],
-                    wire_square=float(row_dict["Сечение"]),
-                    wire_color=row_dict["Цвет"],
-                    wire_length=int(row_dict["Длина, мм (± 3мм)"]),
-                    wire_seal_1=row_dict["Уплотнитель 1"],
-                    wire_cut_length_1=float(row_dict["Частичное снятие 1"]),
-                    wire_terminal_1=row_dict["Наконечник 1"],
-                    aplicator_1=row_dict["Аппликатор 1"],
-                    tube_len_1=float(row_dict["Длина трубки, L (мм) 1"]),
-                    armirovka_1=row_dict["Армировка 1 (Трубка ПВХ, Тр.Терм., изоляторы)"],
-                    wire_seal_2=row_dict["Уплотнитель 2"],
-                    wire_cut_length_2=float(row_dict["Частичное снятие 2"]),
-                    wire_terminal_2=row_dict["Наконечник 2"],
-                    aplicator_2=row_dict["Аппликатор 2"],
-                    tube_len_2=float(row_dict["Длина трубки, L (мм) 2"]),
-                    armirovka_2=row_dict["Армировка 2 (Трубка ПВХ, Тр.Терм., изоляторы)"]
-                )
-
-                if error_ocured:
-                    harness_obj_to_delete = get_object_or_404(Harness, harness_number=harness_number)
-                    harness_obj_to_delete.delete()
-                    return HttpResponseRedirect('/komax_app/harnesses/')
-
-                try:
-                    harness_chart_obj.save()
-                except ValueError:
-                    error_ocured = True
-
-                if error_ocured:
-                    harness_obj_to_delete = get_object_or_404(Harness, harness_number=harness_number)
-                    harness_obj_to_delete.delete()
-                    try:
-                        harness_chart_obj.delete()
-                    except:
-                        pass
-
-    harnesses = get_list_or_404(Harness)
-    print(harnesses)
-    context = {
-        'harnesses': harnesses,
-        'form': HarnessChartUploadForm,
-    }
-
-    return render(request, 'komax_app/harnesses.html', context)
-"""
-"""
-class CreateTaskView(generic.CreateView):
-    model = KomaxTask
-    form_class = KomaxTaskSetupForm
-    template_name = 'komax_app/komax_app_setup.html'
-    success_url = reverse_lazy('komax_app:task_setup')
-
-class KomaxesUpdateView(generic.UpdateView):
-    model = Komax
-    form_class = Komaxes_edit_form
-    context_object_name = 'komaxes'
-    template_name = 'komax_app/komaxes_edit.html'
-    success_url = reverse_lazy('komax_app:komaxes')
-
-class KomaxesView(generic.ListView):
-    template_name = 'komax_app/equipment.html'
-    model = Komax
-    context_object_name = 'komaxes'
-
-class HarnessView(generic.ListView):
-    template_name = 'komax_app/harnesses.html'
-    model = Harness
-    context_object_name = 'harness'
-
-class UploadHarnessChartView(generic.CreateView):
-    template_name = 'komax_app/upload_harness_chart.html'
-    model = Temp_chart
-    form_class = HarnessChartUploadForm
-    success_url = reverse_lazy('komax_app:harness')
-
-class LabourisnessView(generic.ListView):
-    model = Laboriousness
-    template_name = 'komax_app/laboriousness.html'
-    context_object_name = 'actions'
-"""
-
 def index(request):
     return render(request, 'komax_app/index.html', context={"name" : "a"})
-
-
-@api_view(['GET', 'POST'])
-def komax_list(request):
-    if request.method == 'GET':
-        data = Komax.objects.all()
-
-        serializer = KomaxSerializer(data, context={'request': request}, many=True)
-
-        return Response(serializer.data)
-
-    elif request.method == 'POST':
-        serializer = KomaxSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['PUT', 'DELETE'])
-def komax_detail(request, pk):
-    try:
-        student = Komax.objects.get(pk=pk)
-    except Komax.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'PUT':
-        serializer = KomaxSerializer(student, data=request.data, context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        student.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-@api_view(['GET', 'POST'])
-def harness_list(request):
-    if request.method == 'GET':
-        data = Harness.objects.all()
-
-        serializer = HarnessSerializer(data, context={'request': request}, many=True)
-
-        return Response(serializer.data)
-
-    elif request.method == 'POST':
-        serializer = HarnessSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['PUT', 'DELETE'])
-def harness_list(request, pk):
-    try:
-        harness = Harness.objects.get(pk=pk)
-    except Komax.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'PUT':
-        serializer = HarnessSerializer(harness, data=request.data, context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        harness.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)

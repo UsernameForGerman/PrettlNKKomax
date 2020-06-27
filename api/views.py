@@ -421,7 +421,7 @@ class KomaxTaskListView(APIView):
 
 class Logout(APIView):
 
-    def get(self, format=None):
+    def delete(self, *args, **kwargs):
         user = self.request.user
         if user is not AnonymousUser:
             if user.groups.filter(name='Operator'):
@@ -429,7 +429,6 @@ class Logout(APIView):
                 worker.current_komax = None
                 worker.save()
 
-        # simply delete the token to force a login
         self.request.user.auth_token.delete()
         return Response(status=status.HTTP_200_OK)
 

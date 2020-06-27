@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     'description.apps.DescriptionConfig',
     'main_app.apps.MainAppConfig',
     'komax_app.apps.KomaxAppConfig',
-    'api_komax_app.apps.ApiKomaxAppConfig',
+    'api.apps.ApiKomaxAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
@@ -100,18 +100,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ( 'rest_framework.authentication.TokenAuthentication',),
 }
 #CORS_ORIGIN_ALLOW_ALL = True
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.TokenAuthentication',),
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
-    ),
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     'api_komax_app.permissions.AllowOptionsAuthentication',
-    # )
-}
-
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:8000",
