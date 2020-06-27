@@ -1,16 +1,34 @@
 import time
 import os
-# import json
 from json import JSONDecodeError, loads, dumps
 import numpy as np
 import pandas as pd
-import requests
 from requests import Session
 import sys
 import openpyxl as xl
 from openpyxl import load_workbook
-from urllib.parse import parse_qsl, urljoin, urlparse
+from urllib.parse import urlparse
 import atexit
+import logging
+from logging.handlers import RotatingFileHandler
+
+def get_file_logger(logging_level):
+    logger = logging.getLogger('{}'.format(__file__.split('.')[0]))
+    logger.setLevel(logging_level)
+
+    fh = RotatingFileHandler(
+        filename="{}.log".format(__file__.split('.')[0]),
+        maxBytes=5*1024*1024,
+        backupCount=1,
+    )
+    fh.setLevel(logging_level)
+
+    formatter = logging.Formatter('%(asctime)s %(levelname)s %(funcName)s(%(lineno)d) %(message)s')
+    fh.setFormatter(formatter)
+
+    logger.addHandler(fh)
+
+    return logger
 
 def to_normal_int(number):
     type_number = type(number)
@@ -41,13 +59,20 @@ class KomaxClient(Session):
         self.__production = production
         if self.__production:
             self.__base_url = 'https://komax.prettl.ru/komax_api/v1/'
+            # self.__base_url = 'http://localhost:8000/komax_api/v1/'
         else:
             self.__base_url = 'http://localhost:8000/komax_api/v1/'
         atexit.register(self.logout)
+        if self.__production:
+            logger.info('Initialized session in production {} with URL {}'.format(self.__production, self.__base_url))
 
-    @classmethod
-    def __raise_server_error_warning(cls, response):
-        raise Warning('Server error. Response status: {}, text: {}'.format(response.status_code, response.text))
+    def __raise_server_error_warning(self, response):
+        if self.__production:
+            logger.info('Response status: {}'.format(response.status_code))
+            logger.info('Response text: {}'.format(response.text))
+            logger.warning('Server error occured.')
+        else:
+            raise Warning('Server error. Response status: {}, text: {}'.format(response.status_code, response.text))
 
     @classmethod
     def __get_headers(cls, url, method="GET"):
@@ -98,6 +123,8 @@ class KomaxClient(Session):
         """
         Get current position on komax from DB
         """
+        if self.__production:
+            logger.info('Getting position info')
         # Paste you code here
         if not self.komax_df.empty:
             if self.__idx_to_send is None:
@@ -108,12 +135,12 @@ class KomaxClient(Session):
                 to_send[key] = to_normal(value)
         else:
             to_send = 1
-
+        if self.__production:
+            logger.info('Position got to send: \n {}'.format(to_send))
         return to_send
 
     def __send_position_info(self):
         to_send = self.__get_position_info()
-        # print("Position sending: {}".format(to_send))
 
         params = {
             'position': dumps(to_send),
@@ -129,7 +156,10 @@ class KomaxClient(Session):
         elif response.status_code == 403:
             return self.login()
         elif response.status_code == 400:
-            print('bad position info has been sent')
+            if self.__production:
+                logger.info('Bad position info has been sent')
+            else:
+                print('bad position info has been sent')
             return False
         else:
             self.__raise_server_error_warning(response)
@@ -141,15 +171,21 @@ class KomaxClient(Session):
 
         Should return dict
         """
+        if self.__production:
+            logger.info('Getting old positions in DB')
         # Paste your code here.
 
-        # tasks = None
 
         if self.__idx_to_send:
             tasks = self.komax_df.iloc[self.__idx_to_send:, :].to_dict()
         else:
             tasks = self.komax_df.to_dict()
 
+
+        # End of your code
+
+        if self.__production:
+            logger.info('Got {} positions in DB: \n {}'.format(len(tasks), tasks))
         return tasks
 
     def __load_new_tasks(self, tasks=None):
@@ -159,10 +195,17 @@ class KomaxClient(Session):
         if tasks is not None and type(tasks) is dict and len(tasks):
             # Paste your code here
 
+            # End of your code
+
             self.komax_df = pd.DataFrame(tasks)
             self.__idx_to_send = 0
-            print('Received task {}'.format(self.komax_df.shape[0]))
+            if self.__production:
+                logger.info('Received task {}'.format(self.komax_df.shape[0]))
+            else:
+                print('Received task {}'.format(self.komax_df.shape[0]))
         else:
+            if self.__production:
+                logger.warning('No tasks passed to load_new_tasks view')
             raise Warning("No tasks passed to load_new_tasks view")
 
     def __get_and_send_old_tasks(self):
@@ -187,21 +230,29 @@ class KomaxClient(Session):
 
     def check_and_load_new_tasks(self):
         response = self.get(self.__base_url + 'komax_task_personal/', headers=self.__get_headers(self.__base_url))
-        print(response.status_code)
-        print(response.text)
+
+        if self.__production:
+            logger.info('Response from requesting new tasks: \n {}'.format(response.text))
+
         if response.status_code == 200:
-            print(response.text)
             try:
                 response_data = response.json()
             except JSONDecodeError as error:
+                if self.__production:
+                    logger.warning('JSONDecodeError occured: \n {}'.format(error))
                 raise error
+
             text = response_data.get('text', None)
             task = response_data.get('task', None)
             if text:
                 if text == 'Requested':
+                    if self.__production:
+                        logger.info('Master requested old tasks from DB')
                     self.__get_and_send_old_tasks()
                     return 'Sent old tasks'
                 elif text == 'Received' and task:
+                    if self.__production:
+                        logger.info('Master loading new tasks to DB')
                     self.__load_new_tasks(task)
                     return 'Loaded new tasks for {} positions'.format(self.komax_df.shape[0])
         elif response.status_code == 404:
@@ -211,16 +262,26 @@ class KomaxClient(Session):
 
     def work(self, test=False):
         login_successfull = self.login()
-        print(login_successfull)
+        if self.__production:
+            logger.info('Login is {}'.format(login_successfull))
+        else:
+            print(login_successfull)
         if not login_successfull:
+            if self.__production:
+                logger.warning('Authentication failed. Check Komax id')
             raise Warning('Authentication failed. Check Komax id')
         while True:
             position_sent = self.__send_position_info()
             if not position_sent:
+                if self.__production:
+                    logger.warning('Position not sent. Check Komax id and connection with Database')
                 raise Warning('Position not sent. Check Komax id and connection with Database')
             time.sleep(2)
             new_tasks_info = self.check_and_load_new_tasks()
-            print(new_tasks_info)
+            if self.__production:
+                logger.info('Info about new tasks: \n {}'.format(new_tasks_info))
+            else:
+                print(new_tasks_info)
             time.sleep(2)
 
             if test:
@@ -230,62 +291,11 @@ class KomaxClient(Session):
                     self.__idx_to_send = None
 
 
-client = KomaxClient(production=False)
+if __name__ == '__main__':
+    # logger setup
+    logger = get_file_logger(logging.INFO)
 
-client.work(test=True)
+    # main work
+    client = KomaxClient(production=True)
+    client.work(test=True)
 
-"""
-if os.path.exists('komax_df_{}.xlsx'.format(KOMAX_NUMBER)) is True:
-    komax_df = pd.read_excel('komax_df_{}.xlsx'.format(KOMAX_NUMBER))
-else:
-    komax_df=None
-"""
-
-# while True:
-#     # client.get(URL + '', params={'komax-number': KOMAX_NUMBER}, headers=make_headers(URL))
-#     # CSRF_TOKEN = client.cookies['csrftoken']
-#     if not komax_df.empty:
-#         if idx_to_send is None:
-#             idx_to_send = 0
-#
-#         to_send = komax_df.iloc[idx_to_send, :].to_dict()
-#         for key, value in to_send.items():
-#             to_send[key] = to_normal(value)
-#     else:
-#         to_send = 1
-#
-#     print(idx_to_send)
-#     params = {
-#         'position': dumps(to_send),
-#         # 'csrfmiddlewaretoken': CSRF_TOKEN,
-#     }
-#
-#     req_info_position = client.post(URL + 'position/', data=params, headers=make_headers(URL, method="POST"))
-#     data = req_info_position.json()
-#
-#     if len(data):
-#         text = data.get('text', None)
-#         task = data.get('task', None)
-#         if text is not None and text == 'Requested':
-#             # client.get(URL, params={'komax-number': KOMAX_NUMBER}, headers=make_headers(URL))
-#             # CSRF_TOKEN = client.cookies['csrftoken']
-#             dict_df_to_send = komax_df.iloc[idx_to_send:, :].to_dict() if idx_to_send is not None else komax_df.to_dict()
-#             params = {
-#                  'text': text,
-#                  'task': json.dumps(dict_df_to_send),
-#                  # 'csrfmiddlewaretoken': CSRF_TOKEN,
-#              }
-#             req_task_send = client.post(URL + 'komax_task_personal/', data=params, headers=make_headers(URL, method="POST"))
-#             komax_df = pd.DataFrame()
-#             idx_to_send = None
-#
-#         elif task is not None:
-#             komax_df = pd.DataFrame(task)
-#             idx_to_send = 0
-#             print('Received task {}'.format(komax_df.shape[0]))
-#
-#     if idx_to_send is not None:
-#         idx_to_send += 1
-#     if not komax_df.empty and idx_to_send == (komax_df.shape[0] - 1):
-#         idx_to_send = None
-#     time.sleep(3)
