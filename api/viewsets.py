@@ -24,8 +24,8 @@ class KomaxViewSet(ModelViewSet):
     serializer_class = KomaxSerializer
     queryset = Komax.objects.all()
     lookup_field = 'number'
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication]
+    permission_classes = (IsAuthenticated, )
+    authentication_classes = (TokenAuthentication, )
 
 class KappaViewSet(ModelViewSet):
     serializer_class = KappaSerializer
@@ -38,8 +38,8 @@ class HarnessViewSet(ModelViewSet):
     serializer_class = HarnessSerializer
     queryset = Harness.objects.all()
     lookup_field = 'harness_number'
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication]
+    permission_classes = (IsAuthenticated, )
+    authentication_classes = (TokenAuthentication, )
 
     # renderer_classes = [JSONRenderer]
     # renderer_classes = [XMLRenderer]
@@ -90,22 +90,22 @@ class LabourisnessViewSet(ModelViewSet):
     serializer_class = LaboriousnessSerializer
     queryset = Laboriousness.objects.all()
     lookup_field = 'action'
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication]
+    permission_classes = (IsAuthenticated, )
+    authentication_classes = (TokenAuthentication, )
 
 class KomaxTerminalsViewSet(ModelViewSet):
     serializer_class = KomaxTerminalSerializer
     queryset = KomaxTerminal.objects.all()
     lookup_field = 'terminal_name'
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication]
+    permission_classes = (IsAuthenticated, )
+    authentication_classes = (TokenAuthentication, )
 
 class KomaxSealViewSet(ModelViewSet):
     serializer_class = KomaxSealSerializer
     queryset = KomaxSeal.objects.all()
     lookup_field = 'seal_name'
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication]
+    permission_classes = (IsAuthenticated, )
+    authentication_classes = (TokenAuthentication, )
 
 class KomaxStatusViewSet(ReadOnlyModelViewSet):
     serializer_class = KomaxStatusSerializer
@@ -113,14 +113,14 @@ class KomaxStatusViewSet(ReadOnlyModelViewSet):
     lookup_field = 'komax'
     # permission_classes = [IsAuthenticated]
     permission_classes = (IsAuthenticated, )
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = (TokenAuthentication, )
 
 class HarnessChartViewSet(ReadOnlyModelViewSet):
     serializer_class = HarnessChartSerializer
     queryset = HarnessChart.objects.all()
     lookup_field = 'harness_number'
-    permission_classes = [AllowAny]
-    authentication_classes = [TokenAuthentication]
+    permission_classes = (AllowAny, )
+    authentication_classes = (TokenAuthentication, )
 
     def retrieve(self, request, *args, **kwargs):
         harness_number = self.kwargs.get('harness_number', None)
@@ -136,8 +136,8 @@ class HarnessChartViewSet(ReadOnlyModelViewSet):
 class WorkerViewSet(ModelViewSet):
     queryset = Worker.objects.all()
     serializer_class = WorkerSerializer
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication]
+    permission_classes = (IsAuthenticated, )
+    authentication_classes = (TokenAuthentication, )
     lookup_field = 'username'
 
     def create(self, request, *args, **kwargs):
