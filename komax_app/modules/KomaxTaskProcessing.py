@@ -250,9 +250,6 @@ class KomaxTaskProcessing():
         tasks_pers = get_task_personal(komax_task_obj)
 
         for task_pers in tasks_pers:
-            for harness in harness_amount_dict:
-                if str(task_pers.harness.harness_number) in harness['harness']:
-                    task_pers.amount = harness['amount']
             if str(task_pers.harness.harness_number) in harness_amount_dict:
                 task_pers.amount = harness_amount_dict[str(task_pers.harness.harness_number)]
                 save_obj(task_pers)
