@@ -59,8 +59,8 @@ class API {
         return this.base_url + id;
     }
 
-    getObjectList = () => {
-        return this.createAPI().get(this.base_url).then((resp) => {
+    getObjectList = (params="") => {
+        return this.createAPI().get(this.base_url + params).then((resp) => {
             let data = resp.data;
             return data;
         });

@@ -1,9 +1,10 @@
 import RecentTask from "./RecentTask";
 import React from "react";
 import classes from "./RecentTask.module.css"
+import task_status from "../../../DAL/task_status/task_status";
 
 let RecentTaskContainer = (props) => {
-    let ticket_komax = props.komaxes.map(elem => {
+    let ticket_komax = [].map(elem => {
         return(
             <a href={BASE_URL + "tasks/" + props.name +"/get_ticket_komax/" + elem.komax +"/"} target={"blank"}>
                 <button className={classes.greenBtn}>
@@ -13,7 +14,7 @@ let RecentTaskContainer = (props) => {
         )
     });
 
-    let harnesses_btns = props.harnesses.map(elem => {
+    let harnesses_btns = [].map(elem => {
         return(
             <div className={classes.harness}>
                 <div className={classes.heading}>
@@ -30,6 +31,8 @@ let RecentTaskContainer = (props) => {
             </div>
         )
     });
+
+    task_status.getStatuses(1234).then(console.log)
 
     return (
         <RecentTask {...props} tickets={ticket_komax} harnesses={harnesses_btns}/>
