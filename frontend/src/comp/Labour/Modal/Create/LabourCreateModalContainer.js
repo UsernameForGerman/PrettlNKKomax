@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 let LabourCreateModalContainer = (props) => {
     let createLabour = (labour) => {
         let filetered = props.labourList.filter(item => item.action === labour.action);
-        if (!filetered){
+        if (filetered.length === 0){
             props.createLabour(labour);
         }
     }

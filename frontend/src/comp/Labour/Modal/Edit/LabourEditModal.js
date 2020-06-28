@@ -17,11 +17,11 @@ let LabourEditModal = (props) => {
             <div className={classes.heading}>Edit labour</div>
             <label>
                 Labour action
-                <input type={'text'} disabled value={props.selectedLabour.action}/>
+                <input type={'text'} className={classes.input} disabled value={props.selectedLabour.action}/>
             </label>
             <label>
                 Labour time
-                <input type={'text'} value={time} onChange={handleChange}/>
+                <input type={'number'} className={classes.input} value={time} onChange={handleChange}/>
             </label>
             <SaveButton value={"Save"} click={send}/>
         </div>

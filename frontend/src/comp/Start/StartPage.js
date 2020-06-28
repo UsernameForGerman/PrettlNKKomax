@@ -1,6 +1,5 @@
 import classes from "./StartPage.module.css"
 import React from "react";
-import RecentTask from "./RecentTask/RecentTask";
 import RecentTaskContainer from "./RecentTask/RecentTaskContainer";
 let StartPage = (props) => {
     return(

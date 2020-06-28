@@ -14,8 +14,10 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 
 import {Briefcase, Clock, Folder, GitCommit, Home, Settings} from "react-feather";
 import {FormattedMessage} from "react-intl";
+import get_pages from "../AuthHOC/get_pages";
 
 let Header = (props) => {
+    let availablePages = get_pages(props.role);
     let buttonsState = [
         {
           desc : <FormattedMessage id={"header.start_link"}/>,
@@ -41,7 +43,11 @@ let Header = (props) => {
           desc : <FormattedMessage id={"header.komaxes_link"}/>,
           link : "/komaxes"
         },
-    ].map((elem) => {
+    ].filter(page => {
+        let link = page.link.toString().substr(1);
+        if (props.role === "") return true;
+        return link === "" || availablePages.includes(link);
+    }).map((elem) => {
         let icon = undefined;
         switch (elem.link) {
             case "/": {

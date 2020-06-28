@@ -72,8 +72,8 @@ class API {
         });
     }
 
-    createObject = (options, api = this.createAPI()) => {
-        return api.post(this.base_url, options).then((resp) => {
+    createObject = (options, url = "", api = this.createAPI()) => {
+        return api.post(this.base_url + url, options).then((resp) => {
             return resp.data;
         });
     }

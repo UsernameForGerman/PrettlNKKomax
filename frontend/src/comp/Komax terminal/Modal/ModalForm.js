@@ -12,10 +12,9 @@ let ModalForm = (props) => {
         props.close();
         let data = {
             terminal_name : terminalNumberRef.current.value,
-            terminal_avaliable : terminalAvalRef.current.value,
-            material_avaliable : materialAvalRef.current.value
+            terminal_available : terminalAvalRef.current.value,
+            seal_installed : materialAvalRef.current.value
         }
-
         props.send(data);
     };
 
@@ -42,7 +41,7 @@ let ModalForm = (props) => {
                 <label>
                     <FormattedMessage id={"terminal.material_avaliable_label"}/>
                     <select className={classes.select} ref={materialAvalRef}>
-                        <option value={"True"} selected className={classes.option}>True</option>
+                        <option value={"True"} className={classes.option}>True</option>
                         <option value={"False"} className={classes.option}>False</option>
                     </select>
                 </label>

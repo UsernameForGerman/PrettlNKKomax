@@ -23,13 +23,13 @@ let LabourCreateModal = (props) => {
             <div className={classes.heading}>Create labour</div>
             <label>
                 Labour action
-                <input type={'text'} value={action} onChange={handleActionChange}/>
+                <input type={'text'} className={classes.input} value={action} onChange={handleActionChange}/>
             </label>
             <label>
                 Labour time
-                <input type={'text'} value={time} onChange={handleTimeChange}/>
+                <input type={'number'} className={classes.input} value={time} onChange={handleTimeChange}/>
             </label>
-            <SaveButton value={"Save"} click={send}/>
+            <SaveButton value={"Save"} className={classes.input} click={send}/>
         </div>
     )
 }

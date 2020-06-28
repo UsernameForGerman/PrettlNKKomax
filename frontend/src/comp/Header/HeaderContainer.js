@@ -12,7 +12,8 @@ let HeaderContainer = (props) => {
 
 let mapStateToProps = (state) => {
     return {
-        isLogged : LoginSelector.getLogged(state)
+        isLogged : LoginSelector.getLogged(state),
+        role : LoginSelector.getRole(state)
     }
 }
 

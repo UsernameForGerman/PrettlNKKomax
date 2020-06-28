@@ -32,7 +32,7 @@ let RecentTaskContainer = (props) => {
         )
     });
 
-    task_status.getStatuses(1234).then(console.log)
+    //task_status.getStatuses(1234).then(console.log)
 
     return (
         <RecentTask {...props} tickets={ticket_komax} harnesses={harnesses_btns}/>
