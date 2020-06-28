@@ -184,6 +184,7 @@ class KomaxClient(Session):
         return to_send
 
     def __send_position_info(self):
+        # to_send = self.__get_position_info()
         to_send = self.__get_position_info()
 
         params = {
