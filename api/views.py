@@ -444,41 +444,9 @@ class TaskStatusView(APIView):
         response_data = KomaxTaskCompletionSerializer(komax_task_completion_objs, many=True).data
         return Response(response_data, status=HTTP_200_OK)
 
+class UserGroupView(APIView):
+    permission_classes = (IsAuthenticated, )
+    authentication_classes = (TokenAuthentication, )
 
-"""
-@api_view(['GET', 'POST'])
-def komax_list(request):
-    if request.method == 'GET':
-        data = Komax.objects.all()
-
-        serializer = KomaxSerializer(data, context={'request': request}, many=True)
-
-        return Response(serializer.data)
-
-    elif request.method == 'POST':
-        serializer = KomaxSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['PUT', 'DELETE'])
-def komax_detail(request, pk):
-    try:
-        student = Komax.objects.get(pk=pk)
-    except Komax.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'PUT':
-        serializer = KomaxSerializer(student, data=request.data, context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        student.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-"""
+    def get(self, *args, **kwargs):
+        return self.request.user.groups.all()

@@ -44,27 +44,68 @@ def to_normal(value):
     else:
         return to_normal_int(value)
 
+class DatabaseConnection:
+
+    def __init__(self, path_to_database: str):
+        self.db_get = Position(path_to_database)
+        self.db_insert = Insert(path_to_database)
+
+    def get_position(self) -> dict:
+        return self.db_get.current_wire_pos()
+
+    def delete_all_positions(self):
+        self.db_insert.stop_komax('delete')
+
+    def insert_df(self, dataframe: pd.DataFrame):
+        self.db_insert.wire_chart_df = dataframe
+        self.db_insert.stop_komax('delete')
+        self.db_insert.load_task()
+
 class KomaxClient(Session):
     # Unused var komax-number, should delete?
     KOMAX_NUMBER = 3
     KOMAX_ID = 'AAAAC'
-    DB_PATH = 'DatabaseServer.mdb'
 
+    db_connection = None
     komax_df = pd.DataFrame()
     __idx_to_send = None
     __production = False
 
-    def __init__(self, production=False):
+    def __init__(self, production=False, path_to_database='C:\Komax\Data\TopWin\DatabaseServer.mdb'):
         super().__init__()
+        self.db_connection = DatabaseConnection(path_to_database)
         self.__production = production
         if self.__production:
-            self.__base_url = 'https://komax.prettl.ru/komax_api/v1/'
-            # self.__base_url = 'http://localhost:8000/komax_api/v1/'
+            # self.__base_url = 'https://komax.prettl.ru/komax_api/v1/'
+            self.__base_url = 'http://localhost:8000/komax_api/v1/'
         else:
             self.__base_url = 'http://localhost:8000/komax_api/v1/'
+
+        if os.path.exists('komax_df.xlsx'):
+            self.komax_df = pd.read_excel('komax_df.xlsx')
+
         atexit.register(self.logout)
         if self.__production:
             logger.info('Initialized session in production {} with URL {}'.format(self.__production, self.__base_url))
+
+    def __get_positions_to_send(self) -> dict:
+        position = self.db_connection.get_position()
+        self.db_connection.delete_all_positions()
+        if position != 1 and not self.komax_df.empty:
+            idx = self.komax_df[(self.komax_df['amount'].astype(str) == str(position['amount'])) &
+                           (self.komax_df['harness'].astype(str) == str(position['harness'])) &
+                           (self.komax_df['wire_number'].astype(str) == str(position['wire_number'])) &
+                           (self.komax_df['komax'].astype(str) == str(position['komax'])) &
+                           (self.komax_df['wire_color'].astype(str) == str(position['wire_color'])) &
+                           (self.komax_df['wire_square'].astype(str) == str(position['wire_square'])) &
+                           (self.komax_df['wire_length'].astype(str) == str(position['wire_length']))
+                           ]['id']  # все что ниже этого индекса, нужно отправить
+            if idx.empty:
+                return self.komax_df.to_dict()
+            else:
+                return self.komax_df[self.komax_df['id'].astype(int) > idx.array[0].astype(int)].to_dict()
+        else:
+            return pd.DataFrame().to_dict()
 
     def __raise_server_error_warning(self, response):
         if self.__production:
@@ -125,16 +166,17 @@ class KomaxClient(Session):
         """
         if self.__production:
             logger.info('Getting position info')
-        # Paste you code here
-        if not self.komax_df.empty:
-            if self.__idx_to_send is None:
-                self.__idx_to_send = 0
 
-            to_send = self.komax_df.iloc[self.__idx_to_send, :].to_dict()
-            for key, value in to_send.items():
-                to_send[key] = to_normal(value)
-        else:
-            to_send = 1
+        to_send = self.db_connection.get_position()
+        # if not self.komax_df.empty:
+        #     if self.__idx_to_send is None:
+        #         self.__idx_to_send = 0
+        #
+        #     to_send = self.komax_df.iloc[self.__idx_to_send, :].to_dict()
+        #     for key, value in to_send.items():
+        #         to_send[key] = to_normal(value)
+        # else:
+        #     to_send = 1
         if self.__production:
             logger.info('Position got to send: \n {}'.format(to_send))
         return to_send
@@ -173,16 +215,14 @@ class KomaxClient(Session):
         """
         if self.__production:
             logger.info('Getting old positions in DB')
-        # Paste your code here.
 
+        tasks = self.__get_positions_to_send()
 
-        if self.__idx_to_send:
-            tasks = self.komax_df.iloc[self.__idx_to_send:, :].to_dict()
-        else:
-            tasks = self.komax_df.to_dict()
+        # if self.__idx_to_send:
+        #     tasks = self.komax_df.iloc[self.__idx_to_send:, :].to_dict()
+        # else:
+        #     tasks = self.komax_df.to_dict()
 
-
-        # End of your code
 
         if self.__production:
             logger.info('Got {} positions in DB: \n {}'.format(len(tasks), tasks))
@@ -193,12 +233,17 @@ class KomaxClient(Session):
         Load new tasks in DB
         """
         if tasks is not None and type(tasks) is dict and len(tasks):
-            # Paste your code here
-
-            # End of your code
-
             self.komax_df = pd.DataFrame(tasks)
-            self.__idx_to_send = 0
+
+            if self.__production:
+                logger.info(self.komax_df)
+
+            self.komax_df.to_excel('komax_df.xlsx')
+            self.komax_df.index = pd.Index(range(self.komax_df.shape[0]))
+            self.db_connection.insert_df(self.komax_df)
+
+            # self.komax_df = pd.DataFrame(tasks)
+            # self.__idx_to_send = 0
             if self.__production:
                 logger.info('Received task {}'.format(self.komax_df.shape[0]))
             else:
@@ -222,7 +267,7 @@ class KomaxClient(Session):
 
         if response.status_code == 200:
             self.komax_df = pd.DataFrame()
-            self.__idx_to_send = None
+            # self.__idx_to_send = None
         elif response.status_code == 400:
             pass
         else:
@@ -260,7 +305,7 @@ class KomaxClient(Session):
         else:
             self.__raise_server_error_warning(response)
 
-    def work(self, test=False):
+    def work(self):
         login_successfull = self.login()
         if self.__production:
             logger.info('Login is {}'.format(login_successfull))
@@ -284,11 +329,11 @@ class KomaxClient(Session):
                 print(new_tasks_info)
             time.sleep(2)
 
-            if test:
-                if self.__idx_to_send is not None:
-                    self.__idx_to_send += 1
-                if not self.komax_df.empty and self.__idx_to_send == (self.komax_df.shape[0] - 1):
-                    self.__idx_to_send = None
+            # if test:
+            #     if self.__idx_to_send is not None:
+            #         self.__idx_to_send += 1
+            #     if not self.komax_df.empty and self.__idx_to_send == (self.komax_df.shape[0] - 1):
+            #         self.__idx_to_send = None
 
 
 if __name__ == '__main__':
@@ -297,5 +342,5 @@ if __name__ == '__main__':
 
     # main work
     client = KomaxClient(production=True)
-    client.work(test=True)
+    client.work()
 
