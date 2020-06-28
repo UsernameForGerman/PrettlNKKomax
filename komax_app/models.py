@@ -159,7 +159,7 @@ class Komax(models.Model):
     ]
 
     number = models.PositiveSmallIntegerField(unique=True, verbose_name=_('komaxes'))
-    identifier = models.CharField(max_length=256)
+    identifier = models.CharField(max_length=256, unique=True)
     status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, default=1)
     marking = models.PositiveSmallIntegerField(choices=MARKING_CHOICES, default=1)
     pairing = models.PositiveSmallIntegerField(choices=PAIRING_CHOICES, default=0)
@@ -354,8 +354,8 @@ class KomaxStatus(models.Model):
 
 class KomaxTaskCompletion(models.Model):
     timestamp = models.TimeField('Time last updated', auto_now=True)
-    komax_task = models.ForeignKey(KomaxTask, on_delete=models.CASCADE, unique=True)
-    harness = models.ForeignKey(Harness, on_delete=models.CASCADE)
+    komax_task = models.ForeignKey(KomaxTask, on_delete=models.CASCADE)
+    harness = models.ForeignKey(Harness, on_delete=models.CASCADE, null=True, blank=True)
     left_time = models.PositiveIntegerField('Time left to create harness')
     percent_completion = models.PositiveSmallIntegerField('Percent completion harness')
 

@@ -13,13 +13,16 @@ from . import models
 
 @receiver(pre_save, sender=models.KomaxStatus)
 def pre_update_komax_task_completion(sender, instance, *args, **kwargs):
-    if instance is not None and instance.task_personal is None:
-        last_komax_status = models.KomaxStatus.objects.filter(komax=instance.komax).first()
-        if last_komax_status is not None:
-            if last_komax_status.task_personal is None:
-                pass
-            else:
-                models.KomaxTaskCompletion.objects.filter(komax_task=last_komax_status.task_personal.komax_task).delete()
+    if instance is not None:
+        if instance.task_personal is None:
+            last_komax_status = models.KomaxStatus.objects.filter(komax=instance.komax).first()
+            if last_komax_status is not None:
+                if last_komax_status.task_personal is not None:
+                    models.KomaxTaskCompletion.objects.filter(
+                        komax_task=last_komax_status.task_personal.komax_task
+                    ).delete()
+        else:
+            models.KomaxTaskCompletion.objects.filter(komax_task=instance.task_personal.komax_task).delete()
 
 @receiver(pre_delete, sender=models.KomaxStatus)
 def delete_komax_task_completion(sender, instance, *args, **kwargs):
@@ -29,12 +32,12 @@ def delete_komax_task_completion(sender, instance, *args, **kwargs):
 @receiver(post_save, sender=models.KomaxStatus)
 def post_update_komax_task_completion(sender, instance, *args, **kwargs):
     if instance.task_personal is not None:
-        komax_task_df = models.TaskPersonal.objects.filter(komax_task=instance.task_personal.komax_task)
+        komax_task_df = read_frame(models.TaskPersonal.objects.filter(komax_task=instance.task_personal.komax_task))
         komax_idx_dict = dict()
         komax_status_queryset = models.KomaxStatus.objects.all()
         for komax_time in instance.task_personal.komax_task.komaxes.all():
             komax_status_obj = komax_status_queryset.filter(komax=komax_time.komax).first()
-            if komax_status_obj:
+            if komax_status_obj and komax_status_obj.task_personal:
                 idx = komax_status_obj.task_personal.id
                 komax_idx_dict[komax_status_obj.komax.number] = idx
             else:

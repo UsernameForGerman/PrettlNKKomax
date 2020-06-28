@@ -23,13 +23,13 @@ router.register('workers', WorkerViewSet)
 
 urlpatterns = [
     path('index/', views.index, name='index'),
-    path('v2/login/', ObtainAuthToken.as_view(), name='get_token'),
-    path('v2/logout/', views.Logout.as_view(), name='logout'),
-    path('v2/komax_tasks/', views.KomaxTaskListView.as_view(), name='komax_tasks_list'),
-    path('v2/load_komax_task/', views.LoadTaskView.as_view(), name='load-komax-task'),
-    path('v2/send_komax_task/', views.SendTaskView.as_view(), name='send-komax-task'),
-    path('v2/worker_account/', views.WorkerAccountView.as_view(), name='worker-account'),
-    path('v2/komax_task_status/', views.TaskStatusView.as_view(), name='komax-task-status'),
-    # path('v2/xlsx_task/', views.XlsxTaskView.as_view(), name='xlsx-task'),
-    path('v2/', include(router.urls)),
+    path('v1/login/', ObtainAuthToken.as_view(), name='get_token'),
+    path('v1/logout/', views.Logout.as_view(), name='logout'),
+    path('v1/komax_tasks/', views.KomaxTaskListView.as_view(), name='komax_tasks_list'),
+    path('v1/load_komax_task/', views.LoadTaskView.as_view(), name='load-komax-task'),
+    path('v1/send_komax_task/', views.SendTaskView.as_view(), name='send-komax-task'),
+    path('v1/worker_account/', views.WorkerAccountView.as_view(), name='worker-account'),
+    path('v1/komax_task_status/', views.TaskStatusView.as_view(), name='komax-task-status'),
+    # path('v1/xlsx_task/', views.XlsxTaskView.as_view(), name='xlsx-task'),
+    path('v1/', include(router.urls)),
 ]
