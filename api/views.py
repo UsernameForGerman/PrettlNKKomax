@@ -449,4 +449,5 @@ class UserGroupView(APIView):
     authentication_classes = (TokenAuthentication, )
 
     def get(self, *args, **kwargs):
-        return self.request.user.groups.all()
+        response_data = UserGroupsSerializer(self.request.user.groups.all(), many=True).data
+        return Response(response_data, status=HTTP_200_OK)
