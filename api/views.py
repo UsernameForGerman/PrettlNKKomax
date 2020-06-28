@@ -134,7 +134,8 @@ class LoadTaskView(APIView):
 
     def put(self, *args, **kwargs):
         task_name = self.request.data.get('task_name', None)
-        worker = self.request.worker
+        user = self.request.user
+        worker = get_object_or_404(Worker, user=user)
         komax = worker.current_komax
         komax_task = get_object_or_404(KomaxTask, task_name=task_name)
         old_komax_tasks_id = TaskPersonal.objects.filter(
