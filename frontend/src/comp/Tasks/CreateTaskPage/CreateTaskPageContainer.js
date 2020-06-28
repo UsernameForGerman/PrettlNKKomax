@@ -53,18 +53,17 @@ let CreateTaskPageContainer = (props) => {
     });
 
     let addHarnessData = (number, e) => {
-        let data = harnessesData.filter(elem => elem.number === number);
+        let data = harnessesData.filter(elem => elem[number]);
         let text = e.target.value;
         let arr = harnessesData.slice();
         if (data.length === 0){
-            arr.push({
-                number : number,
-                value : Number(text)
-            });
+            let obj = {};
+            obj[number] = Number(text);
+            arr.push(obj);
         } else {
             arr.map((elem) => {
-                if (elem.number === number) {
-                    elem.value = Number(text);
+                if (elem[number]) {
+                    elem[number] = Number(text);
                 }
             });
         }
@@ -101,8 +100,13 @@ let CreateTaskPageContainer = (props) => {
     }
 
     let sendDataSecond = (data) => {
+        let d = {};
+        harnessesData.forEach(harnessItem => {
+            let key = Object.keys(harnessItem)[0];
+            d[key] = harnessItem[key];
+        })
         let request = {
-            'harness_amount' : harnessesData,
+            'harness_amount' : d,
             'task_name' : data.name
         }
 
