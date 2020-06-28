@@ -406,23 +406,14 @@ class KomaxTaskListView(APIView):
             elif len(komax_task):
                 harness_amount_dict = data.get('harness_amount', None)
                 if harness_amount_dict:
-                    harness_amount_serializer = HarnessAmountSerializer(harness_amount_dict, many=True)
-                    if harness_amount_serializer.is_valid():
-                        print('Valid save harness amount')
-                        harness_amount_serializer.save()
-                        komax_task_processor = KomaxTaskProcessing()
-                        komax_task_processor.update_harness_amount(komax_task_name, harness_amount_serializer.data)
-                        allocation = komax_task_processor.create_allocation(komax_task_name)
-                        komax_task_processor.update_komax_time(
-                            komax_task_name,
-                            {komax: time[0] for komax, time in allocation.items()}
-                        )
-                        return Response(status=status.HTTP_200_OK)
-                    else:
-                        print(harness_amount_serializer.errors)
-                        return Response(status=status.HTTP_400_BAD_REQUEST)
-                    # komax_task_processor.update_harness_amount(komax_task_name, harness_amount_dict)
-
+                    komax_task_processor = KomaxTaskProcessing()
+                    komax_task_processor.update_harness_amount(komax_task_name, harness_amount_dict)
+                    allocation = komax_task_processor.create_allocation(komax_task_name)
+                    komax_task_processor.update_komax_time(
+                        komax_task_name,
+                        {komax: time[0] for komax, time in allocation.items()}
+                    )
+                    return Response(status=status.HTTP_200_OK)
                 else:
                     return Response(status=status.HTTP_400_BAD_REQUEST)
             else:
