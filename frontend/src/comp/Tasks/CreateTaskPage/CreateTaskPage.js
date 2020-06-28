@@ -11,7 +11,33 @@ import {FormattedMessage} from "react-intl";
 import Select from "@material-ui/core/Select";
 import Input from "@material-ui/core/Input";
 import MenuItem from "@material-ui/core/MenuItem";
+import IconButton from "../../common/IconButton/IconButton";
+import ModalFormContainer from "../../Komaxes/Modal/ModalFormContainer";
+import Modal from "react-modal";
+import TaskCreateModalForm from "./Modal/TCPModal";
+import TaskCreateModalFormContainer from "./Modal/TCPModalContainer,js";
 let CreateTaskPage = (props) => {
+    const customStyles = {
+      content : {
+        top                   : '25%',
+        left                  : '20%',
+        transform             : 'translate(-10%, -20%)'
+      }
+    };
+
+    let [isModalOpen, setIsOpen] = useState(false);
+    let openModal = () => {
+        setIsOpen(true);
+    }
+
+    let open = () => {
+        openModal();
+        props.fetch();
+    }
+
+    let closeModal = () => {
+        setIsOpen(false)
+    }
 
     let handleMultiSelect = (e, callback) => {
         callback(e.target.value);
@@ -39,7 +65,7 @@ let CreateTaskPage = (props) => {
         return(
             <label>
                 {elem}
-                <input placeholder={"Количество"} type={"number"} required onChange={(e) => {
+                <input placeholder={"Количество"} type={"number"} onChange={(e) => {
                     props.addHarnessData(elem, e)
                 }}/>
             </label>
@@ -126,16 +152,17 @@ let CreateTaskPage = (props) => {
 
     return(
         <div className={classes.formWrapper}>
-            <form className={classes.form}>
+            <div className={classes.form}>
                 <div className={classes.heading}>
-                    <h1><FormattedMessage id={"tasks.create_new_task_heading"}/></h1>
+                    <div className={classes.heading_text}><FormattedMessage id={"tasks.create_new_task_heading"}/></div>
+                    <IconButton icon={["fas", 'cog']} class={classes.modalBtn} click={open}/>
                 </div>
                 <div className={classes.row}>
                     <div className={classes.column}>
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_job_name_label"}/>:</h3>
-                                <input className={classes.input} required ref={numberRef} onChange={checkValid}/>
+                                <input className={classes.input} ref={numberRef} onChange={checkValid}/>
                             </label>
                         </div>
 
@@ -144,7 +171,11 @@ let CreateTaskPage = (props) => {
                                 <h3><FormattedMessage id={"tasks.create_new_task_harnesses_label"}/>:</h3>
                                 <Select
                                   multiple
-                                  classes={classes.select}
+                                  classes={{
+                                      select : {
+                                          width : "100px"
+                                      }
+                                  }}
                                   value={props.multiselectOptions}
                                   onChange={(e) => {handleMultiSelect(e, props.setMultiselectOptions)}}
                                   input={<Input />}
@@ -198,7 +229,7 @@ let CreateTaskPage = (props) => {
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_work_shift_label"}/>:</h3>
-                                <input className={classes.input} required type={"number"} ref={workShiftRef}/>
+                                <input className={classes.input} type={"number"} ref={workShiftRef}/>
                             </label>
                         </div>
                     </div>
@@ -213,18 +244,28 @@ let CreateTaskPage = (props) => {
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
             <form className={classes.form}>
                 {!props.shouldContinue
                     ? <button disabled className={classes.fill}>
                             <FormattedMessage id={"tasks.create_new_task_fill_form_label"}/>
                       </button>
-                    : <form>
-                        {renderedHarnesses}
+                    : <form className={classes.right_form}>
+                        <div className={classes.list}>
+                            {renderedHarnesses}
+                        </div>
                         <SuccessButton value={"Создать задание"} class={classes.addBtn} click={collectData} disable={!props.canSend}/>
                     </form>
                 }
             </form>
+            <Modal
+              isOpen={isModalOpen}
+              onRequestClose={closeModal}
+              style={customStyles}
+              contentLabel="Example Modal"
+            >
+                <TaskCreateModalFormContainer close={closeModal}/>
+            </Modal>
         </div>
     )
 }

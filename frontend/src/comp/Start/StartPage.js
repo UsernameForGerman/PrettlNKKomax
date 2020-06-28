@@ -1,16 +1,23 @@
 import classes from "./StartPage.module.css"
 import React from "react";
-import SuccessButton from "../common/SuccessButton/SuccessButton";
-import {FormattedMessage} from "react-intl";
 let StartPage = (props) => {
     return(
         <div className={classes.StartPage}>
+            <h1>Личный кабинет</h1>
             <div className={classes.container}>
-                <div className={classes.heading}>
-                    <div className={classes.username}>
-                        <h1>{props.username}</h1>
+                <div className={classes.info}>
+                    <div className={classes.header}>
+                        <img src={props.ava} alt={"Avatar"} className={classes.ava}/>
+                        <div className={classes.username}>{props.username}</div>
                     </div>
-                    <SuccessButton class={classes.addBtn} value={"+"}/>
+                    <div className={classes.content}>
+                        <div className={classes.role}>
+                            {props.role}
+                        </div>
+                        <button className={classes.editBtn}>
+                            Edit
+                        </button>
+                    </div>
                 </div>
                 <div className={classes.recentTasks}>
                     {props.tasks}

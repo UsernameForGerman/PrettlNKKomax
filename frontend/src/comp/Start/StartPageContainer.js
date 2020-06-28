@@ -2,6 +2,7 @@ import StartPage from "./StartPage";
 import React from "react";
 import auth from "../AuthHOC/authHOC";
 import TaskItem from "../Tasks/TaskItem/TaskItem";
+import ava from "../../assets/images/ava.png"
 
 let StartPageContainer = (props) => {
     let user = {
@@ -14,23 +15,13 @@ let StartPageContainer = (props) => {
             status : 1,
             link : "/"
         },
-        {
-            number : "13241-1387",
-            status : 2,
-            link : "/"
-        },
-        {
-            number : "768-01342",
-            status : 3,
-            link : "/"
-        }
     ].map(elem => {
         return (
             <TaskItem {...elem}/>
         );
     })
     return(
-        <StartPage {...user} tasks={items}/>
+        <StartPage {...user} tasks={items} role={"master"} ava={ava}/>
     )
 }
 

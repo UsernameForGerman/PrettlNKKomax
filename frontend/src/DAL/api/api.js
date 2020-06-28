@@ -85,7 +85,7 @@ class API {
     }
 
     updateObject = (id, options) => {
-        return this.createAPI().put(this.formIdUrl(id), options).then(resp => {
+        return this.createAPI().put(this.formIdUrl(id) + "/", options).then(resp => {
             return resp;
         })
     }

@@ -6,7 +6,7 @@ module.exports = {
     output: {
         path: path.resolve( __dirname, 'static/komax_app' ),
         filename: 'main.js',
-        publicPath: '/static/komax_app/',
+        publicPath: '/',
     },
     devServer: {
         historyApiFallback: true,

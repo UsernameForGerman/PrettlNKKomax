@@ -9,6 +9,12 @@ import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import SuccessButton from "../../common/SuccessButton/SuccessButton";
 let AddForm = (props) => {
+    let create = () => {
+       props.create(ref.current.value);
+    }
+
+    let ref = React.createRef();
+
      const handleChangeMaterial = (event) => {
         props.setMaterial(event.target.value);
     };
@@ -78,11 +84,11 @@ let AddForm = (props) => {
         <form className={classes.form}>
             <label>
                 <FormattedMessage id={"terminal.terminal_number_label"}/>
-                <input className={classes.input} type={"text"}/>
+                <input className={classes.input} ref={ref} type={"text"}/>
             </label>
             {sealOptions}
             {terminalOptions}
-            <SuccessButton class={classes.btn} value={<FormattedMessage id={"add_button_text"}/>}/>
+            <SuccessButton class={classes.btn} value={<FormattedMessage id={"add_button_text"}/>} click={create}/>
         </form>
     )
 }

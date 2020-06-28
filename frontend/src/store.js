@@ -8,6 +8,7 @@ import {komaxTerminalReducer} from "./reducers/komaxTerminalReducer";
 import {labourReducer} from "./reducers/labourReducer";
 import {tasksReducer} from "./reducers/tasksReducer";
 import {kappasReducer} from "./reducers/kappasReducer";
+import {sealReducer} from "./reducers/sealReducer";
 
 const reducers = combineReducers({
     komaxes : komaxReducer,
@@ -17,7 +18,8 @@ const reducers = combineReducers({
     terminals : komaxTerminalReducer,
     labour : labourReducer,
     tasks : tasksReducer,
-    kappa : kappasReducer
+    kappa : kappasReducer,
+    seal : sealReducer
 });
 
 const store = createStore(reducers, applyMiddleware(thunk));

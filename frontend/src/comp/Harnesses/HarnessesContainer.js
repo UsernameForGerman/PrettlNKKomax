@@ -28,6 +28,7 @@ let HarsessesContainer = (props) => {
     let items = props.list;
 
     items = items.map((elem) => {
+        debugger;
         let deleteHarness = () => {
             props.deleteHarness(elem.harness_number);
         }

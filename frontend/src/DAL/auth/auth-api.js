@@ -17,7 +17,7 @@ class authApi extends API{
     }
 
     logout = () => {
-        return this.createAPI().get(LOGOUT_URL);
+        return this.createAPI().delete(LOGOUT_URL);
     }
 }
 

@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import auth from "../../AuthHOC/authHOC";
 import classes from "./CreateTaskPage.module.css";
 import {connect} from "react-redux";
-import kappa_api from "../../../DAL/kappa/kappa-api";
 import {getHarnessesListThunk} from "../../../reducers/harnessesReducer";
 import {getListThunk} from "../../../reducers/komaxReducer";
 import HarnessSelector from "../../../selectors/harnessSelector";
@@ -13,6 +12,8 @@ import FullScreenPreloader from "../../common/Preloader/FullScreenPreloader";
 import {getKappasThunk} from "../../../reducers/kappasReducer";
 import TasksSelector from "../../../selectors/tasksSelector";
 import {createTaskThunk, getTasksThunk, setErrorAC, setValidAC} from "../../../reducers/tasksReducer";
+import {getSealsListThunk} from "../../../reducers/sealReducer";
+import {getTerminalListThunk} from "../../../reducers/komaxTerminalReducer";
 
 let CreateTaskPageContainer = (props) => {
     let [workType, setWorkType] = useState("Parallel");
@@ -108,6 +109,11 @@ let CreateTaskPageContainer = (props) => {
         props.send(request);
     }
 
+    let fetch = () => {
+        props.fetchSeals();
+        props.fetchTerminals();
+    }
+
     return(
         <>
             {props.isFetching
@@ -136,6 +142,7 @@ let CreateTaskPageContainer = (props) => {
                             sendDataFirst={sendDataFirst}
                             sendDataSecond={sendDataSecond}
                             canSend={props.canSend}
+                            fetch={fetch}
                         />
                    </div>
             }
@@ -172,6 +179,14 @@ let mapDispatchToProps = (dispatch) => {
 
         fetchTasks : () => {
             dispatch(getTasksThunk())
+        },
+
+        fetchSeals : () => {
+            dispatch(getSealsListThunk());
+        },
+
+        fetchTerminals : () => {
+            dispatch(getTerminalListThunk());
         },
 
         setError : (error) => {

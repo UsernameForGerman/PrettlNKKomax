@@ -40,7 +40,7 @@ let Header = (props) => {
         {
           desc : <FormattedMessage id={"header.komaxes_link"}/>,
           link : "/komaxes"
-        }
+        },
     ].map((elem) => {
         let icon = undefined;
         switch (elem.link) {
@@ -68,6 +68,10 @@ let Header = (props) => {
                 icon = <Settings/>;
                 break;
             };
+            default : {
+                icon = <Settings/>;
+                break;
+            }
         }
         elem['icon'] = icon;
         return elem;

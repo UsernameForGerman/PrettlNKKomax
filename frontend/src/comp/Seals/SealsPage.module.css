@@ -1,0 +1,70 @@
+.container, .Preloader{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.list{
+    background-color: white;
+    border-radius: 5px;
+    height: 60vh;
+}
+
+.row, .heading_row{
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+    margin: 10px 10px;
+    align-items: center;
+}
+
+.row{
+    cursor: pointer;
+}
+
+.row:hover{
+    background-color: #c9cbc9;
+}
+
+.wrapper {
+    width: 20vw;
+    overflow-y: scroll;
+}
+
+.data{
+    font-size: 18px;
+    padding: 5px 5px;
+    width: 5vw;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.create{
+    box-shadow: 1px 1px 10px;
+    font-size: 18px;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 10px auto;
+}
+
+.save{
+    margin: 30px 35%;
+}
+
+.btn{
+    margin: 10px 10px;
+}
+
+.heading{
+    font-weight: bold;
+    font-size: 32px;
+    margin-bottom: 20px;
+}

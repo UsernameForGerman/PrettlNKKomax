@@ -20,6 +20,7 @@ import CreateTaskPageContainer from "./comp/Tasks/CreateTaskPage/CreateTaskPageC
 import TaskDetailPageContainer from "./comp/Tasks/TaskDetailPage/TaskDetailPageContainer";
 import LabourPageContainer from "./comp/Labour/LabourPageContainer";
 import HeaderContainer from "./comp/Header/HeaderContainer";
+import SealsContainer from "./comp/Seals/SealsContainer";
 
 library.add(fas, fab);
 

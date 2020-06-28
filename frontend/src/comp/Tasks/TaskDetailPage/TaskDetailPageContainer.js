@@ -8,6 +8,7 @@ import TasksSelector from "../../../selectors/tasksSelector";
 import {getTasksThunk} from "../../../reducers/tasksReducer";
 
 let TaskDetailPageContainer = (props) => {
+    let BASE_URL = "http://localhost:8000/";
     let name = props.match.params.id;
 
     useEffect(() => {
@@ -36,17 +37,21 @@ let TaskDetailPageContainer = (props) => {
 
     let task_komax = komaxes.map(elem => {
         return(
-            <button className={classes.greenBtn}>
-                Task {elem.komax}
-            </button>
+            <a href={BASE_URL + "tasks/" + name +"/get_task_komax/" + elem.komax +"/"} target={"blank"}>
+                <button className={classes.greenBtn}>
+                    Task {elem.komax}
+                </button>
+            </a>
         )
     });
 
     let ticket_komax = komaxes.map(elem => {
         return(
-            <button className={classes.greenBtn}>
-                Ticket {elem.komax}
-            </button>
+            <a href={BASE_URL + "tasks/" + name +"/get_ticket_komax/" + elem.komax +"/"} target={"blank"}>
+                <button className={classes.greenBtn}>
+                    Ticket {elem.komax}
+                </button>
+            </a>
         )
     });
 
@@ -56,6 +61,7 @@ let TaskDetailPageContainer = (props) => {
         ticket_komax={ticket_komax}
         harnesses={taskHarnesses}
         komaxes={taskKomaxes}
+        name={name}
         />
     )
 }

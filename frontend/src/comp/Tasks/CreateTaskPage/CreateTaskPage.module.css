@@ -39,6 +39,10 @@
 
 .heading{
     text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .formWrapper{
@@ -48,7 +52,7 @@
 }
 
 .select{
-    height: 10vh;
+    width: 200px;
 }
 
 .label{
@@ -109,4 +113,24 @@
 
 h3{
     margin-right: 15%;
+}
+
+.list{
+    overflow-y: scroll;
+    height: 50%;
+}
+
+.right_form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.modalBtn{
+    margin-left: 10px;
+}
+
+.heading_text{
+    font-weight: bold;
+    font-size: 24px;
 }

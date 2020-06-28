@@ -5,6 +5,8 @@ import ModalFormContainer from "./Modal/ModalFormContainer";
 import KomaxTerminalsTableContainer from "./KomaxTerminalTable/KomaxTerminalTableContainer";
 import {FormattedMessage} from "react-intl";
 import AddFormContainer from "./AddFrom/AddFormContainer";
+import SuccessButton from "../common/SuccessButton/SuccessButton";
+import SealsContainer from "../Seals/SealsContainer";
 
 let KomaxTerminal = (props) => {
 
@@ -23,10 +25,11 @@ let KomaxTerminal = (props) => {
                     <div className={classes.title}>
                         <b><FormattedMessage id={"terminal.heading"}/></b>
                     </div>
+                    <SuccessButton class={classes.succBtn} click={props.openCreate} value={"Добавить"}/>
                     <KomaxTerminalsTableContainer items={props.items}/>
                 </div>
                 <div className={`${classes.card} ${classes.right_card}`}>
-                    <AddFormContainer/>
+                    <SealsContainer/>
                 </div>
             </div>
             <Modal
@@ -35,7 +38,15 @@ let KomaxTerminal = (props) => {
               style={customStyles}
               contentLabel="Example Modal"
             >
-                <ModalFormContainer close={props.closeModal} isFetching={false} isValid={true} numberErrMsg={""} send={console.log}/>
+                <ModalFormContainer close={props.closeModal} isFetching={false} isValid={true} numberErrMsg={""} send={props.updateTerminal} selected={props.selected}/>
+            </Modal>
+            <Modal
+              isOpen={props.isCreateOpen}
+              onRequestClose={props.closeCreate}
+              style={customStyles}
+              contentLabel="Example Modal"
+            >
+                <AddFormContainer/>
             </Modal>
         </div>
     );

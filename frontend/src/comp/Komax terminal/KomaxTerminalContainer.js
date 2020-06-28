@@ -1,21 +1,26 @@
 import KomaxTerminal from "./KomaxTerminal";
 import React, {useEffect, useState} from "react";
 import KomaxTerminalTableItem from "./KomaxTerminalTable/Item/KTTItem";
-import createTerminal from "../../DAL/models/terminal";
-import komax_terminal_api from "../../DAL/komax_terminal/komax_terminal_api";
-import komax_seal_api from "../../DAL/komax_seal/komax_seal_api";
 import auth from "../AuthHOC/authHOC";
 import TerminalSelector from "../../selectors/terminalSelector";
 import {connect} from "react-redux";
-import Preloader from "../common/Preloader/Preloader";
-import {getTerminalListThunk} from "../../reducers/komaxTerminalReducer";
+import {getTerminalListThunk, updateTerminalThunk} from "../../reducers/komaxTerminalReducer";
 import FullScreenPreloader from "../common/Preloader/FullScreenPreloader";
 
 let KomaxTerminalContainer = (props) => {
-    const [selectedTerminal, setSelectedTerminal] = useState();
+    const [selectedTerminal, setSelectedTerminal] = useState({});
     const [materialValue, setMaterialValue] = useState();
     const [terminalAvaliable, setTerminalAvaliable] = useState();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isCreateOpen, setCreateOpen] = useState(false);
+
+    let openCreate = (e) => {
+        setCreateOpen(true);
+    }
+
+    let closeCreate = (e) => {
+        setCreateOpen(false);
+    }
 
     let closeModal = (e) => {
         setIsModalOpen(false);
@@ -36,7 +41,7 @@ let KomaxTerminalContainer = (props) => {
     let items = list.map((item) => {
         let select = () => {
             setSelectedTerminal(item);
-            setMaterialValue(item.material_avaliable);
+            setMaterialValue(item.seal_installed);
             setTerminalAvaliable(item.terminal_avaliable);
             openModal();
         }
@@ -58,6 +63,10 @@ let KomaxTerminalContainer = (props) => {
                        isModalOpen={isModalOpen}
                        setIsModalOpen={setIsModalOpen}
                        closeModal={closeModal}
+                       isCreateOpen={isCreateOpen}
+                       openCreate={openCreate}
+                       closeCreate={closeCreate}
+                       updateTerminal={props.updateTerminal}
                 />
             }
         </>
@@ -75,6 +84,10 @@ let mapDispatchToProps = (dispatch) => {
     return{
         fetchList : () => {
             dispatch(getTerminalListThunk())
+        },
+
+        updateTerminal : (terminal) => {
+            dispatch(updateTerminalThunk(terminal))
         }
     }
 }
