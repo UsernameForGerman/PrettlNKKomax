@@ -1,5 +1,7 @@
 import classes from "./StartPage.module.css"
 import React from "react";
+import RecentTask from "./RecentTask/RecentTask";
+import RecentTaskContainer from "./RecentTask/RecentTaskContainer";
 let StartPage = (props) => {
     return(
         <div className={classes.StartPage}>
@@ -20,7 +22,7 @@ let StartPage = (props) => {
                     </div>
                 </div>
                 <div className={classes.recentTasks}>
-                    {props.tasks}
+                    <RecentTaskContainer/>
                 </div>
             </div>
         </div>
