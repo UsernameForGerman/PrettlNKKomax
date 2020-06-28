@@ -36,7 +36,6 @@ let ModalForm = (props) => {
             status : statusRef.current.value
         }
 
-        debugger;
         props.send(data);
     };
 
@@ -84,7 +83,7 @@ let ModalForm = (props) => {
                 <label>
                     <FormattedMessage id={"komax.status_label"}/>
                     <select className={classes.select} ref={statusRef}>
-                        <option value={0} selected={currKomax.status === 0} className={classes.option}>Works</option>
+                        <option value={1} selected={currKomax.status === 1} className={classes.option}>Works</option>
                         <option value={0} selected={currKomax.status === 0} className={classes.option}>Repair</option>
                         <option value={2} selected={currKomax.status === 2} className={classes.option}>Not working</option>
                     </select>
