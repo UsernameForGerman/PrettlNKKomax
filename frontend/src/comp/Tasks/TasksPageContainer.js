@@ -17,6 +17,7 @@ let TasksPageContainer = (props) => {
         props.fetchList();
     }, props.tasksList.length);
 
+    debugger;
     let items = props.tasksList.map(elem => {
         return (
             <TaskItem {...elem}/>
