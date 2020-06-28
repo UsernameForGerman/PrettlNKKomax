@@ -20,7 +20,9 @@ class task_api extends API{
     }
 
     loadTask = (task) => {
-        return this.createAPI().put("load_komax_task/?task_name=" + task.name + "/").then(resp => resp.data);
+        return this.createAPI().put("load_komax_task/",{
+            task_name : task.name
+        }).then(resp => resp.data);
     }
 }
 

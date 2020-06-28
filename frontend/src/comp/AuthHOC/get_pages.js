@@ -13,7 +13,7 @@ let get_pages = (permission) => {
         }
 
         case "Operator" : {
-            return []
+            return ['tasks', 'task', 'task_create']
         }
 
         case "Technologist" : {

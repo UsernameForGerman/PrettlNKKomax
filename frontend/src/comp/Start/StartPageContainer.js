@@ -47,6 +47,8 @@ let StartPageContainer = (props) => {
 
     if (props.role.toString().toLocaleLowerCase() === "operator" && props.komax === "" && !isOpen) openModal();
 
+    task_status.getStatuses(1304).then(console.log);
+
     return(
         <>
             <StartPage {...user} ava={ava}/>
