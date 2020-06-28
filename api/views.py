@@ -155,7 +155,7 @@ class LoadTaskView(APIView):
                 status=HTTP_409_CONFLICT
             )
         processor = KomaxTaskProcessing()
-        processor.load_task_personal(task_name, komax_num)
+        processor.load_task_personal(task_name, komax.number)
         KomaxOrder.objects.create(komax_task=komax_task, komax=komax, status='Received')
 
         update_komax_task_status(komax_task)
