@@ -148,7 +148,7 @@ class LoadTaskView(APIView):
             flat=True
         ).distinct()
 
-        old_komax_tasks = KomaxTask.objects.filter(id__in=old_komax_tasks_id).values_list('taks_name', flat=True)
+        old_komax_tasks = KomaxTask.objects.filter(id__in=old_komax_tasks_id).values_list('task_name', flat=True)
         if len(old_komax_tasks):
             return Response(
                 'Stop {} komax tasks before loading new one'.format(', '.join(old_komax_tasks)),
