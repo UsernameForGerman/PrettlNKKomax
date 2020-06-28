@@ -242,19 +242,22 @@ class KomaxTaskProcessing():
     #TODO: increase speed of func
     def update_harness_amount(self, komax_task_name, harness_amount_dict):
         komax_task_obj = get_komax_task(komax_task_name)[0]
-        harnesses = get_harnesses(komax_task_obj)
-        for harness in harnesses:
-            harness.amount = harness_amount_dict[str(harness)]
-            save_obj(harness)
+        # harnesses = get_harnesses(komax_task_obj)
+        # for harness in harnesses:
+        #     harness.amount = harness_amount_dict[str(harness)]
+        #     save_obj(harness)
 
         tasks_pers = get_task_personal(komax_task_obj)
 
         for task_pers in tasks_pers:
-            if str(task_pers.harness.harness_number) in harness_amount_dict:
-                task_pers.amount = harness_amount_dict[str(task_pers.harness.harness_number)]
-                save_obj(task_pers)
-            else:
-                pass
+            for harness in harness_amount_dict:
+                if str(task_pers.harness.harness_number) in harness['harness']:
+                    task_pers.amount = harness['amount']
+            # if str(task_pers.harness.harness_number) in harness_amount_dict:
+            #     task_pers.amount = harness_amount_dict[str(task_pers.harness.harness_number)]
+            #     save_obj(task_pers)
+            # else:
+            #     pass
 
     # TODO: increase speed of func
     def update_komax_time(self, komax_task_name, komax_time_dict):
