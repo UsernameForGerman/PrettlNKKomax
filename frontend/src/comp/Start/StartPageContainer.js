@@ -9,11 +9,18 @@ import {chooseKomaxThunk} from "../../reducers/authReducer";
 import ChooseModalContainer from "./Modal/ChooseModalContainer";
 import KomaxSelector from "../../selectors/komaxSelector";
 import {getListThunk} from "../../reducers/komaxReducer";
+import TasksSelector from "../../selectors/tasksSelector";
+import {getTasksThunk} from "../../reducers/tasksReducer";
+import task_status from "../../DAL/task_status/task_status";
 
 let StartPageContainer = (props) => {
     useEffect(() => {
-        props.fetchList();
+        props.fetchKomaxList();
     },[props.komaxList.length]);
+
+    useEffect(() => {
+        props.fetchTasksList();
+    }, [props.tasks.length])
 
     const customStyles = {
       content : {
@@ -59,7 +66,8 @@ let mapStateToProps = (state) => {
         login : LoginSelector.getLogin(state),
         role : LoginSelector.getRole(state),
         komax : LoginSelector.getKomax(state),
-        komaxList : KomaxSelector.getList(state)
+        komaxList : KomaxSelector.getList(state),
+        tasks : TasksSelector.getList(state)
     }
 }
 
@@ -69,8 +77,12 @@ let mapDispatchToProps = (dispatch) => {
             dispatch(chooseKomaxThunk(login, number))
         },
 
-        fetchList : () => {
+        fetchKomaxList : () => {
             dispatch(getListThunk())
+        },
+
+        fetchTasksList : () => {
+            dispatch(getTasksThunk())
         }
     }
 }
