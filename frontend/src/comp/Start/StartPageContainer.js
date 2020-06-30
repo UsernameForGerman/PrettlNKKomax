@@ -12,6 +12,8 @@ import {getListThunk} from "../../reducers/komaxReducer";
 import TasksSelector from "../../selectors/tasksSelector";
 import {getTasksThunk} from "../../reducers/tasksReducer";
 import task_status from "../../DAL/task_status/task_status";
+import SaveButton from "../common/SaveButton/SaveButton";
+import classes from "./StartPage.module.css"
 
 let StartPageContainer = (props) => {
     useEffect(() => {
@@ -36,6 +38,7 @@ let StartPageContainer = (props) => {
     }
 
     const [isOpen, setOpen] = useState(false);
+    const [isSettingsOpen, setSettingsOpen] = useState(false);
 
     let openModal = () => {
         setOpen(true);
@@ -45,19 +48,47 @@ let StartPageContainer = (props) => {
         setOpen(false);
     }
 
+    let openSettings = () => {
+        setSettingsOpen(true);
+    }
+
+    let closeSettings = () => {
+        setSettingsOpen(false);
+    }
+
     if (props.role.toString().toLocaleLowerCase() === "operator" && props.komax === "" && !isOpen) openModal();
 
-    task_status.getStatuses(1304).then(console.log);
+    task_status.getStatuses(66).then(console.log);
 
     return(
         <>
-            <StartPage {...user} ava={ava}/>
+            <StartPage {...user} ava={ava} open={openSettings}/>
             <Modal
               isOpen={isOpen}
               style={customStyles}
               contentLabel="Example Modal"
             >
                 <ChooseModalContainer komaxList={props.komaxList} close={closeModal} komax={props.komax}/>
+            </Modal>
+            <Modal
+              isOpen={isSettingsOpen}
+              style={customStyles}
+              onRequestClose={closeSettings}
+              contentLabel="Example Modal"
+            >
+                <div className={classes.choose_form}>
+                    <div className={classes.choose_heading}>
+                        Choose your avatar
+                    </div>
+                    <div className={classes.ava_block}>
+                        <img src={ava} alt={"Avatar"} className={classes.choose_ava}/>
+                        <input type={"file"} className={classes.input}/>
+                    </div>
+                    <div className={classes.btns}>
+                        <SaveButton value={"Save"}/>
+                        <button className={classes.close_btn} onClick={closeSettings}>Close</button>
+                    </div>
+                </div>
             </Modal>
         </>
     )

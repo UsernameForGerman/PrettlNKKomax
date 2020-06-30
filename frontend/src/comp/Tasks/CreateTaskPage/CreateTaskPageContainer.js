@@ -16,8 +16,8 @@ import {getSealsListThunk} from "../../../reducers/sealReducer";
 import {getTerminalListThunk} from "../../../reducers/komaxTerminalReducer";
 
 let CreateTaskPageContainer = (props) => {
-    let [workType, setWorkType] = useState("Parallel");
-    let [loadingType, setLoadingType] = useState("New");
+    let [workType, setWorkType] = useState("parallel");
+    let [loadingType, setLoadingType] = useState("new");
     let [multiselectOptions, setMultiselectOptions] = useState([]);
     let [komaxesOptions, setKomaxesOptions] = useState([]);
     let [kappasOptions, setKappasOptions] = useState([]);

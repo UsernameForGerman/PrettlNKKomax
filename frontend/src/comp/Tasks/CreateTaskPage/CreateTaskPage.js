@@ -120,11 +120,11 @@ let CreateTaskPage = (props) => {
         handleChangeWork,
         [
             {
-                value : "Parallel",
+                value : "parallel",
                 label : "Parallel"
             },
             {
-                value : "Consistently",
+                value : "consistently",
                 label : "Consistently"
             }
         ]
@@ -136,15 +136,15 @@ let CreateTaskPage = (props) => {
         handleChangeLoading,
         [
             {
-                value : "New",
+                value : "new",
                 label : "New"
             },
             {
-                value : "Mix",
+                value : "mix",
                 label : "Mix"
             },
             {
-                value : "Urgent",
+                value : "urgent",
                 label : "Urgent"
             }
         ]

@@ -82,6 +82,7 @@ const getTasksThunk = () => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
         task_api.getKomaxTasks().then((data) => {
+            if (data === "") data = [];
             dispatch(setListAC(data));
             dispatch(toggleFetchAC());
         });

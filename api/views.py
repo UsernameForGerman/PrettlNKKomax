@@ -441,7 +441,8 @@ class TaskStatusView(APIView):
 
     def get(self, *args, **kwargs):
         task_name = self.request.query_params.get('task-name', '')
-        komax_task_completion_objs = get_list_or_404(KomaxTaskCompletion, komax_task__task_name=task_name)
+        task_obj = get_object_or_404(KomaxTask, task_name=task_name)
+        komax_task_completion_objs = KomaxTaskCompletion.objects.all()
         response_data = KomaxTaskCompletionSerializer(komax_task_completion_objs, many=True).data
         return Response(response_data, status=HTTP_200_OK)
 

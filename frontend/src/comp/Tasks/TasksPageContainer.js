@@ -7,7 +7,6 @@ import {connect} from "react-redux";
 import TasksSelector from "../../selectors/tasksSelector";
 import {getTasksThunk} from "../../reducers/tasksReducer";
 import FullScreenPreloader from "../common/Preloader/FullScreenPreloader";
-import task_api from "../../DAL/task/task_api";
 
 let TasksPageContainer = (props) => {
     let user = {
@@ -17,7 +16,6 @@ let TasksPageContainer = (props) => {
         props.fetchList();
     }, props.tasksList.length);
 
-    debugger;
     let items = props.tasksList.map(elem => {
         return (
             <TaskItem {...elem}/>

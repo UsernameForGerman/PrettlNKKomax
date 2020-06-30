@@ -8,14 +8,14 @@ let StartPage = (props) => {
             <div className={classes.container}>
                 <div className={classes.info}>
                     <div className={classes.header}>
-                        <img src={props.ava} alt={"Avatar"} className={classes.ava}/>
+                        <img src={props.ava} alt={"Avatar"} className={classes.ava} onClick={props.open}/>
                         <div className={classes.username}>{props.username}</div>
                     </div>
                     <div className={classes.content}>
                         <div className={classes.role}>
                             {props.role}
                         </div>
-                        <button className={classes.editBtn}>
+                        <button className={classes.editBtn} onClick={props.open}>
                             Edit
                         </button>
                     </div>
