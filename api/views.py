@@ -134,6 +134,8 @@ class LoadTaskView(APIView):
 
     def put(self, *args, **kwargs):
         task_name = self.request.data.get('task_name', None)
+        # user = self.request.data.get('username', None)
+        # worker = Worker.objects.filter(user__username=user).first()
         user = self.request.user
         worker = get_object_or_404(Worker, user=user)
         komax = worker.current_komax
@@ -441,9 +443,72 @@ class TaskStatusView(APIView):
 
     def get(self, *args, **kwargs):
         task_name = self.request.query_params.get('task-name', '')
+        print(task_name)
         task_obj = get_object_or_404(KomaxTask, task_name=task_name)
-        komax_task_completion_objs = KomaxTaskCompletion.objects.all()
-        response_data = KomaxTaskCompletionSerializer(komax_task_completion_objs, many=True).data
+        komax_status_queryset = KomaxStatus.objects.all()
+
+        komax_task_df = read_frame(TaskPersonal.objects.filter(komax_task=task_obj))
+        print(komax_task_df)
+        print(komax_task_df.shape)
+        komax_idx_dict = dict()
+
+        for komax_time in task_obj.komaxes.all():
+            print(komax_time)
+            komax_status_obj = komax_status_queryset.filter(komax=komax_time.komax).first()
+            print(komax_status_obj)
+            if komax_status_obj and komax_status_obj.task_personal:
+                idx = komax_status_obj.task_personal.id
+                komax_idx_dict[komax_status_obj.komax.number] = idx
+            else:
+                komax_idx_dict[komax_time.komax.number] = 0
+
+        harnesses = komax_task_df['harness'].unique()
+        komax_task_completion_data = {
+            'task_name': task_obj.task_name,
+            'harnesses': []
+        }
+        for harness in harnesses:
+            left_times = [
+                sum(
+                    komax_task_df[(komax_task_df['id'] > idx) & (komax_task_df['harness'] == harness) & (
+                            komax_task_df['komax'] == str(komax))][
+                        'time']) if idx is not None else 0 for komax, idx in komax_idx_dict.items()
+            ]
+
+            sum_all_times = [
+                sum(komax_task_df[
+                        (komax_task_df['harness'] == harness) & (komax_task_df['komax'] == str(komax))][
+                        'time']) if idx is not None else 0 for komax, idx in komax_idx_dict.items()
+            ]
+            print(harness)
+            print(komax_idx_dict)
+            print(left_times)
+            print(sum_all_times)
+
+            if len(left_times) and len(sum_all_times):
+                data = {
+                    'number': harness,
+                    'percent': round((1 - sum(left_times) / sum(sum_all_times)) * 100) if sum(sum_all_times) > 0 else 0,
+                    'left': max(left_times),
+                    'all': sum(sum_all_times) if sum(sum_all_times) > 0 else 0,
+                }
+            else:
+                data = {
+                    'number': harness,
+                    'percent': 0,
+                    'left': 0,
+                    'all': 0,
+                }
+
+            komax_task_completion_data['harnesses'].append({
+                'harness_number': data['number'],
+                'left_time_secs': data['left'],
+                'sum_time_secs': data['all']
+            })
+
+        print(komax_task_completion_data)
+        response_data = KomaxTaskCompletionSerializer(komax_task_completion_data).data
+        print(response_data)
         return Response(response_data, status=HTTP_200_OK)
 
 class UserGroupView(APIView):
