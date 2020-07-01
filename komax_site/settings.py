@@ -40,6 +40,8 @@ DEBUG = os.environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = ['localhost', 'komax.prettl.ru']
 
+CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOW_HEADERS = (
     'Access-Control-Allow-Headers',
     'Access-Control-Allow-Credentials',
