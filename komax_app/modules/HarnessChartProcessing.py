@@ -545,6 +545,116 @@ class ProcessDataframe:
     def __fulfill_NaN(self, terminal):
         return np.nan if terminal is None or terminal == '' or terminal == ' ' else terminal
 
+    def __fulfill_two_cols_empty(self, idxs):
+        for idx in idxs:
+            marking, group, wire_square, wire_color = self.chart.loc[idx, [
+                'marking', 'groups', 'wire_square', 'wire_color'
+            ]]
+            target_by_group = self.chart.loc[
+                (self.chart['marking'] == marking) &
+                (self.chart['groups'] == group) &
+                (self.chart['wire_terminal_1'] != np.nan) &
+                (self.chart['wire_terminal_2'] != np.nan), :]
+            if not target_by_group.empty:
+                target_by_square = target_by_group.loc[
+                    (target_by_group['wire_square'] == wire_square) &
+                    (target_by_group['wire_terminal_1'] != np.nan) &
+                    (target_by_group['wire_terminal_2'] != np.nan), :]
+                if not target_by_square.empty:
+                    target_by_color = target_by_square.loc[
+                        (target_by_square['wire_color'] == wire_color) &
+                        (target_by_square['wire_terminal_1'] != np.nan) &
+                        (target_by_square['wire_terminal_2'] != np.nan), :]
+                    if not target_by_color.empty:
+                        self.chart.loc[idx, ['wire_terminal_1', 'wire_terminal_2']] = target_by_color[
+                            ['wire_terminal_1', 'wire_terminal_2']
+                        ].iloc[0]
+                        print('572')
+                    else:
+                        self.chart.loc[idx, ['wire_terminal_1', 'wire_terminal_2']] = target_by_square[
+                            ['wire_terminal_1', 'wire_terminal_2']
+                        ].iloc[0]
+                        print('577', target_by_square[
+                            ['wire_terminal_1', 'wire_terminal_2']
+                        ].iloc[0])
+                else:
+                    self.chart.loc[idx, ['wire_terminal_1', 'wire_terminal_2']] = target_by_group[
+                        ['wire_terminal_1', 'wire_terminal_2']
+                    ].iloc[0]
+                    print('584', target_by_group[
+                        ['wire_terminal_1', 'wire_terminal_2']
+                    ].iloc[0])
+            else:
+                target_by_group = self.chart.loc[
+                    (self.chart['marking'] == marking) &
+                    (self.chart['groups'] == group) &
+                    (self.chart['wire_terminal_1'] != np.nan) | (self.chart['wire_terminal_2'] != np.nan), :]
+                if target_by_group:
+                    target_by_square = target_by_group.loc[
+                        (target_by_group['wire_square'] == wire_square) &
+                        ((not empty(target_by_group['wire_terminal_1'])) |
+                         (not empty(target_by_group['wire_terminal_2']))), :]
+                    if target_by_square:
+                        target_by_color = target_by_square[
+                            (target_by_square['wire_color'] == wire_color) &
+                            ((self.chart['wire_terminal_1'] != np.nan) |
+                             (self.chart['wire_terminal_2'] != np.nan)), :]
+                        if target_by_color:
+                            self.chart.loc[idx, ['wire_terminal_1', 'wire_terminal_2']] = target_by_color[
+                                ['wire_terminal_1', 'wire_terminal_2']
+                            ].iloc[0]
+                            print('606', target_by_color[
+                                ['wire_terminal_1', 'wire_terminal_2']
+                            ].iloc[0])
+                        else:
+                            self.chart.loc[idx, ['wire_terminal_1', 'wire_terminal_2']] = target_by_square[
+                                ['wire_terminal_1', 'wire_terminal_2']
+                            ].iloc[0]
+                            print('613', target_by_square[
+                                ['wire_terminal_1', 'wire_terminal_2']
+                            ].iloc[0])
+                    else:
+                        self.chart.loc[idx, ['wire_terminal_1', 'wire_terminal_2']] = target_by_group[
+                            ['wire_terminal_1', 'wire_terminal_2']
+                        ].iloc[0]
+                        print('620', target_by_group[
+                            ['wire_terminal_1', 'wire_terminal_2']
+                        ].iloc[0])
+            print('623', self.chart.loc[idx, ['wire_terminal_1', 'wire_terminal_2']])
+        return idxs
+
+    def __fulfill_one_col_empty(self, idxs, column_name='wire_terminal_1'):
+        for idx in idxs:
+            marking, group, wire_square, wire_color, wire_terminal = self.chart.loc[idx, [
+                                                                                        'marking',
+                                                                                        'groups',
+                                                                                        'wire_square',
+                                                                                        'wire_color',
+                                                                                        column_name,
+                                                                                    ]]
+            target_by_group = self.chart.loc[
+                (self.chart['marking'] == marking) &
+                (self.chart['groups'] == group) &
+                (self.chart[column_name] != np.nan), :]
+            if not target_by_group.empty:
+                target_by_square = target_by_group.loc[
+                    (target_by_group['wire_square'] == wire_square) &
+                    (self.chart[column_name] != np.nan), :]
+                if not target_by_square.empty:
+                    target_by_color = target_by_square.loc[
+                        (target_by_square['wire_color'] == wire_color) &
+                        (self.chart[column_name] != np.nan), :]
+                    if not target_by_color.empty:
+                        self.chart.loc[idx, column_name] = target_by_color[column_name].iloc[0]
+                        print('649', target_by_color[[column_name]].iloc[0])
+                    else:
+                        self.chart.loc[idx, column_name] = target_by_square[column_name].iloc[0]
+                        print('652', target_by_square[[column_name]].iloc[0])
+                else:
+                    self.chart.loc[idx, column_name] = target_by_group[column_name].iloc[0]
+                    print('655', target_by_group[column_name].iloc[0])
+                print('656', self.chart.loc[idx, [column_name]])
+
     def __fulfill_terminals_built_in(self):
         self.chart['wire_terminal_1'] = self.chart['wire_terminal_1'].apply(
             lambda x: self.__fulfill_NaN(x)
@@ -562,6 +672,10 @@ class ProcessDataframe:
                 idxs_1.append(empty_terminals_idxs[0][i])
             else:
                 idxs_2.append(empty_terminals_idxs[0][i])
+
+        two_cols_idxs = self.__fulfill_two_cols_empty(set(idxs_1).intersection(set(idxs_2)))
+        self.__fulfill_one_col_empty(set(idxs_1) - two_cols_idxs, column_name='wire_terminal_1')
+        self.__fulfill_one_col_empty(set(idxs_2) - two_cols_idxs, column_name='wire_terminal_2')
 
         for i in range(1, 4):
             str_i = str(i)
@@ -2397,5 +2511,6 @@ def get_amount_from(amount_df):
         output_dict[harness] = temp_dict['amount'][idx]
 
     return output_dict
+
 
 
