@@ -92,7 +92,7 @@ class HarnessCompletionSerializer(Serializer):
 
 class KomaxTaskCompletionSerializer(Serializer):
     harnesses = HarnessCompletionSerializer(many=True, read_only=True)
-    task_name = CharField(max_length=256, read_only=True)
+    komax_task = KomaxTaskSerializer(read_only=True)
 
 
 

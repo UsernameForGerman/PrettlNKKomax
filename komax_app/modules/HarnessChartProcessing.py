@@ -545,11 +545,52 @@ class ProcessDataframe:
     def __fulfill_NaN(self, terminal):
         return np.nan if terminal is None or terminal == '' or terminal == ' ' else terminal
 
-    # def __fulfill_two_cols_empty(self, idxs):
-    #     for idx in idxs:
-    #         group, wire_square, wire_color = self.chart.loc[idx, ['group', 'wire_square', 'wire_color']]
-    #         target = self.chart[(self.chart['group'] == )]
-    #     return
+    def __fulfill_two_cols_empty(self, idxs):
+
+        for idx in idxs:
+            marking, group, wire_square, wire_color = self.chart.loc[idx, ['marking', 'group', 'wire_square', 'wire_color']]
+            target_by_group = self.chart[
+                (self.chart['marking'] == marking) &
+                (self.chart['group'] == group) &
+                (not empty(self.chart['wire_terminal_1'])) &
+                (not empty(self.chart['wire_terminal_2']))
+                ]
+            if target_by_group:
+                target_by_square = target_by_group[
+                    (target_by_group['wire_square'] == wire_square) &
+                    (not empty(target_by_group['wire_terminal_1'])) &
+                    (not empty(target_by_group['wire_terminal_1']))
+                    ]
+                if target_by_square:
+                    target_by_color = target_by_square[
+                        (target_by_square['wire_color'] == wire_color) &
+                        (not empty(target_by_square['wire_terminal_1'])) &
+                        (not empty(target_by_square['wire_terminal_1']))
+                        ]
+                    if target_by_color:
+                        self.chart[idx, ['wire_terminal_1', 'wire_terminal_2']] = target_by_color[
+                            'wire_terminal_1',
+                            'wire_terminal_2'
+                        ]
+                    else:
+                        self.chart[idx, ['wire_terminal_1', 'wire_terminal_2']] = target_by_square[
+                            'wire_terminal_1',
+                            'wire_terminal_2'
+                        ]
+                else:
+                    self.chart[idx, ['wire_terminal_1', 'wire_terminal_2']] = target_by_group[
+                        'wire_terminal_1',
+                        'wire_terminal_2'
+                    ]
+            else:
+                target_by_group = self.chart[
+                    (self.chart['marking'] == marking) &
+                    (self.chart['group'] == group) &
+                    ((not empty(self.chart['wire_terminal_1'])) | (not empty(self.chart['wire_terminal_2'])))
+                    ]
+
+
+        return
 
 
     def __fulfill_terminals_built_in(self):
