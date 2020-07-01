@@ -442,9 +442,10 @@ class TaskStatusView(APIView):
     authentication_classes = (TokenAuthentication, )
 
     def get(self, *args, **kwargs):
-        task_name = self.request.query_params.get('task-name', '')
-        print(task_name)
-        task_obj = get_object_or_404(KomaxTask, task_name=task_name)
+        # task_name = self.request.query_params.get('task-name', '')
+        # if task_name:
+        #     task_obj = get_object_or_404(KomaxTask, task_name=task_name)
+        task_obj = get_object_or_404(KomaxTask, status=3)
         komax_status_queryset = KomaxStatus.objects.all()
 
         komax_task_df = read_frame(TaskPersonal.objects.filter(komax_task=task_obj))
