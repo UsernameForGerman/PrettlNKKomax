@@ -465,7 +465,7 @@ class TaskStatusView(APIView):
 
         harnesses = komax_task_df['harness'].unique()
         komax_task_completion_data = {
-            'task_name': task_obj.task_name,
+            'komax_task': task_obj,
             'harnesses': []
         }
         for harness in harnesses:
