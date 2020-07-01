@@ -73,7 +73,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
-    'channels',
+    # 'channels',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
@@ -97,7 +97,7 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ( 'rest_framework.authentication.TokenAuthentication',),
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.TokenAuthentication', ),
 }
 #CORS_ORIGIN_ALLOW_ALL = True
 
@@ -250,14 +250,14 @@ MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
 MEDIA_URL = '/media/'
 
 
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', '6379')],
-        },
-    },
-}
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [('127.0.0.1', '6379')],
+#         },
+#     },
+# }
 
 # IS_CI = os.environ.get('IS_CI', False)
 # if not IS_CI:
@@ -275,11 +275,11 @@ SITE_URL = 'komaxsite.herokuapp.com'
 
 
 # Localhost related seetings to REDIS and CELERY
-REDIS_HOST = 'localhost'
-REDIS_PORT = '6379'
-REDIS_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
-BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
-CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+# REDIS_HOST = 'localhost'
+# REDIS_PORT = '6379'
+# REDIS_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+# BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+# CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/account/'
