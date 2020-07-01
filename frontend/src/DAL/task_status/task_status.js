@@ -6,7 +6,11 @@ class Task_status_api extends api{
     }
 
     getStatuses = (name) => {
+<<<<<<< HEAD
         return this.getObjectList("?task-name=" + name + "");
+=======
+        return this.getObjectList("?task-name=" + name);
+>>>>>>> 187ac9fd0074931a9d05a3e0d4ac61a9031a29de
     }
 }
 

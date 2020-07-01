@@ -154,7 +154,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'komax_site.wsgi.application'
 
 # Channels
-ASGI_APPLICATION = 'komax_site.routing.application'
+ASGI_APPLICATION = 'komax_site.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases

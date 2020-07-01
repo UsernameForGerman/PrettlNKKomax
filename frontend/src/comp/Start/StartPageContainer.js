@@ -58,7 +58,7 @@ let StartPageContainer = (props) => {
 
     if (props.role.toString().toLocaleLowerCase() === "operator" && props.komax === "" && !isOpen) openModal();
 
-    task_status.getStatuses(66).then(console.log);
+    task_status.getStatuses(1801).then(console.log);
 
     return(
         <>

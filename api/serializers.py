@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer, Serializer, FileField, CharField, SerializerMethodField
+from rest_framework.serializers import ModelSerializer, Serializer, FileField, CharField, IntegerField
 from django.contrib.auth.models import Group
 from komax_app.models import Komax, Kappa, KomaxTask, TaskPersonal, Laboriousness, KomaxTerminal, Harness, \
     HarnessChart, KomaxStatus, KomaxSeal, KomaxTime, HarnessAmount, Worker, KomaxTaskCompletion
@@ -17,7 +17,7 @@ class KappaSerializer(ModelSerializer):
 class HarnessSerializer(ModelSerializer):
     class Meta:
         model = Harness
-        fields = '__all__'
+        fields = ('harness_number', 'created')
 
 class HarnessChartSerializer(ModelSerializer):
     class Meta:
@@ -85,15 +85,16 @@ class WorkerSerializer(ModelSerializer):
         model = Worker
         fields = '__all__'
 
-class KomaxTaskCompletionSerializer(ModelSerializer):
-    harness = SerializerMethodField()
+class HarnessCompletionSerializer(Serializer):
+    harness_number = CharField(max_length=256)
+    left_time_secs = IntegerField()
+    sum_time_secs = IntegerField()
 
-    class Meta:
-        model = KomaxTaskCompletion
-        fields = ('harness', 'left_time', 'percent_completion')
+class KomaxTaskCompletionSerializer(Serializer):
+    harnesses = HarnessCompletionSerializer(many=True, read_only=True)
+    task_name = CharField(max_length=256, read_only=True)
 
-    def get_harness(self, komax_task_completion):
-        return komax_task_completion.harness.harness_number
+
 
 class UserGroupsSerializer(ModelSerializer):
     class Meta:
