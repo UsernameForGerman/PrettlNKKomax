@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {BrowserRouter, Redirect, Route} from "react-router-dom";
-import Header from "./comp/Header/Header";
 import "./Global.css";
 import {Provider} from "react-redux";
 import store from "./store";
@@ -20,8 +19,7 @@ import CreateTaskPageContainer from "./comp/Tasks/CreateTaskPage/CreateTaskPageC
 import TaskDetailPageContainer from "./comp/Tasks/TaskDetailPage/TaskDetailPageContainer";
 import LabourPageContainer from "./comp/Labour/LabourPageContainer";
 import HeaderContainer from "./comp/Header/HeaderContainer";
-import SealsContainer from "./comp/Seals/SealsContainer";
-
+import './index.css'
 library.add(fas, fab);
 
 let App = (props) => {

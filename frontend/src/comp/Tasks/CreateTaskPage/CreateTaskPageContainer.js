@@ -1,5 +1,5 @@
 import CreateTaskPage from "./CreateTaskPage";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import auth from "../../AuthHOC/authHOC";
 import classes from "./CreateTaskPage.module.css";
 import {connect} from "react-redux";
@@ -19,26 +19,27 @@ let CreateTaskPageContainer = (props) => {
     let [workType, setWorkType] = useState("parallel");
     let [loadingType, setLoadingType] = useState("new");
     let [multiselectOptions, setMultiselectOptions] = useState([]);
-    let [komaxesOptions, setKomaxesOptions] = useState([]);
-    let [kappasOptions, setKappasOptions] = useState([]);
     let [shouldContinue, setContinue] = useState(false);
     let [harnessesData, setHarnessesData] = useState([]);
+    let [komaxesOptions, setKomaxesOptions] = useState([]);
+    let [kappasOptions, setKappasOptions] = useState([]);
+    const mount = useRef(true);
 
     useEffect(() => {
-        props.fetchHarnesses();
-    }, props.harnesses.length);
-
-    useEffect(() => {
-        props.fetchKomaxes();
-    }, props.komaxes.length);
-
-    useEffect(() => {
-        props.fetchKappas();
-    }, props.kappas.length);
-
-    useEffect(() => {
-        props.fetchTasks();
-    }, props.tasks.length);
+        if (mount){
+            props.fetchHarnesses();
+            props.fetchKomaxes();
+            props.fetchKappas();
+            props.fetchKappas();
+            props.fetchTasks();
+        }
+        return () => {
+            mount.current = false;
+        }
+    },
+        [
+            props.harnesses.length
+        ]);
 
     let harnesses_options = props.harnesses.map(elem => {
         return elem.harness_number;
@@ -89,8 +90,8 @@ let CreateTaskPageContainer = (props) => {
         let request = {
             'task_name' : name,
             'harnesses' : multiselectOptions,
-            'komaxes' : komaxesOptions,
-            'kappas' : kappasOptions,
+            'komaxes' : data.komaxesOptions,
+            'kappas' : data.kappasOptions,
             'shift' : shift,
             'type_of_allocation' : workType,
             'loading_type' : loadingType
@@ -120,36 +121,34 @@ let CreateTaskPageContainer = (props) => {
 
     return(
         <>
-            {props.isFetching
-                ? <FullScreenPreloader/>
-                : <div className={classes.container}>
-                        <CreateTaskPage
-                            workType={workType}
-                            setWorkType={setWorkType}
-                            loadingType={loadingType}
-                            setLoadingType={setLoadingType}
-                            harnesses_options={harnesses_options}
-                            komaxes_options={komaxes_options}
-                            komaxesOptions={komaxesOptions}
-                            kappas_options={kappas_options}
-                            kappasOptions={kappasOptions}
-                            isValid={props.isValid}
-                            errMsg={props.errMsg}
-                            check={check}
-                            multiselectOptions={multiselectOptions}
-                            setMultiselectOptions={setMultiselectOptions}
-                            setKomaxesOptions={setKomaxesOptions}
-                            setKappasOptions={setKappasOptions}
-                            shouldContinue={shouldContinue}
-                            setContinue={setContinue}
-                            addHarnessData={addHarnessData}
-                            sendDataFirst={sendDataFirst}
-                            sendDataSecond={sendDataSecond}
-                            canSend={props.canSend}
-                            fetch={fetch}
-                        />
-                   </div>
-            }
+            <div className={classes.container}>
+                    <CreateTaskPage
+                        workType={workType}
+                        setWorkType={setWorkType}
+                        loadingType={loadingType}
+                        setLoadingType={setLoadingType}
+                        harnesses_options={harnesses_options}
+                        komaxes_options={komaxes_options}
+                        kappas_options={kappas_options}
+                        isValid={props.isValid}
+                        errMsg={props.errMsg}
+                        check={check}
+                        mount={mount}
+                        multiselectOptions={multiselectOptions}
+                        setMultiselectOptions={setMultiselectOptions}
+                        shouldContinue={shouldContinue}
+                        setContinue={setContinue}
+                        addHarnessData={addHarnessData}
+                        sendDataFirst={sendDataFirst}
+                        sendDataSecond={sendDataSecond}
+                        canSend={props.canSend}
+                        fetch={fetch}
+                        komaxesOptions={komaxesOptions}
+                        setKomaxesOptions={setKomaxesOptions}
+                        kappasOptions={kappasOptions}
+                        setKappasOptions={setKappasOptions}
+                    />
+               </div>
         </>
     )
 }

@@ -6,17 +6,25 @@ import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
 import SuccessButton from "../../common/SuccessButton/SuccessButton";
-import {makeStyles, withStyles} from "@material-ui/styles";
+import {withStyles} from "@material-ui/styles";
 import {FormattedMessage} from "react-intl";
 import Select from "@material-ui/core/Select";
 import Input from "@material-ui/core/Input";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "../../common/IconButton/IconButton";
-import ModalFormContainer from "../../Komaxes/Modal/ModalFormContainer";
 import Modal from "react-modal";
-import TaskCreateModalForm from "./Modal/TCPModal";
 import TaskCreateModalFormContainer from "./Modal/TCPModalContainer,js";
+import {Multiselect} from "multiselect-react-dropdown";
+import '../../../index.css';
 let CreateTaskPage = (props) => {
+    const MenuProps = {
+          PaperProps: {
+            style: {
+              width: 100,
+              top: "100px !important"
+            },
+          },
+        };
     const customStyles = {
       content : {
         top                   : '25%',
@@ -39,8 +47,12 @@ let CreateTaskPage = (props) => {
         setIsOpen(false)
     }
 
-    let handleMultiSelect = (e, callback) => {
+    let oldHandle = (e, callback) => {
         callback(e.target.value);
+    }
+
+    let handleMultiSelect = (e, callback) => {
+        callback(e.map(elem => elem.name));
     }
 
     let openNextForm = (e) => {
@@ -48,7 +60,8 @@ let CreateTaskPage = (props) => {
         props.setContinue(true);
         let data = {
             number : numberRef.current.value,
-            work_shift : workShiftRef.current.value
+            work_shift : workShiftRef.current.value,
+            komaxesOptions : komaxesOptions
         }
         props.sendDataFirst(data);
     }
@@ -150,6 +163,17 @@ let CreateTaskPage = (props) => {
         ]
     );
 
+    let convertOptions = (src) => {
+        return src.map(elem => {
+            return {
+                name: elem,
+                id: elem
+            }
+        })
+    }
+
+    let harnesses_options = convertOptions(props.harnesses_options);
+
     return(
         <div className={classes.formWrapper}>
             <div className={classes.form}>
@@ -168,25 +192,22 @@ let CreateTaskPage = (props) => {
 
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
-                                <h3><FormattedMessage id={"tasks.create_new_task_harnesses_label"}/>:</h3>
-                                <Select
-                                  multiple
-                                  classes={{
-                                      select : {
-                                          width : "100px"
-                                      }
-                                  }}
-                                  value={props.multiselectOptions}
-                                  onChange={(e) => {handleMultiSelect(e, props.setMultiselectOptions)}}
-                                  input={<Input />}
-                                >
-                                  {props.harnesses_options.map((elem) => {
-                                      return(
-                                    <MenuItem key={elem} value={elem}>
-                                        {elem}
-                                    </MenuItem>
-                                  )})}
-                                </Select>
+                                <div><FormattedMessage id={"tasks.create_new_task_harnesses_label"}/>:</div>
+                                <div className={classes.multiselect_wrapper}>
+                                    <Multiselect
+                                        options={harnesses_options}
+                                        onSelect={(e) => {handleMultiSelect(e, props.setMultiselectOptions)}}
+                                        onRemove={(e) => {handleMultiSelect(e, props.setMultiselectOptions)}}
+                                        selectedValues={props.multiselectOptions.map(elem => {return {name : elem, id : elem}})}
+                                        displayValue="name"
+                                        style={{
+                                              multiselectContainer: { // To change css for multiselect (Width,height,etc..)
+                                                width : "200px"
+                                              }
+                                        }}
+                                        id={"harnesses_select"}
+                                    />
+                                </div>
                             </label>
                         </div>
 
@@ -196,8 +217,9 @@ let CreateTaskPage = (props) => {
                                 <Select classes={classes.select}
                                   multiple
                                   value={props.komaxesOptions}
-                                  onChange={(e) => {handleMultiSelect(e, props.setKomaxesOptions)}}
+                                  onChange={(e) => {oldHandle(e, props.setKomaxesOptions)}}
                                   input={<Input />}
+                                    MenuProps={MenuProps}
                                 >
                                   {props.komaxes_options.map((elem) => (
                                     <MenuItem key={elem} value={elem}>
@@ -211,10 +233,10 @@ let CreateTaskPage = (props) => {
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_kappas_label"}/>:</h3>
-                                  <Select classes={classes.select}
+                                    <Select classes={classes.select}
                                       multiple
                                       value={props.kappasOptions}
-                                      onChange={(e) => {handleMultiSelect(e, props.setKappasOptions)}}
+                                      onChange={(e) => {oldHandle(e, props.setKappasOptions)}}
                                       input={<Input />}
                                     >
                                       {props.kappas_options.map((elem) => (
