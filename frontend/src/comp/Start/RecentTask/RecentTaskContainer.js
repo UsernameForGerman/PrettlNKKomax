@@ -11,7 +11,6 @@ let RecentTaskContainer = (props) => {
     useEffect(() => {
         props.getStatus();
     }, [props.status.harnesses.length]);
-    debugger;
 
     let komaxes = props.status.komax_task !== undefined ? props.status.komax_task.komaxes : [];
 
@@ -50,7 +49,12 @@ let RecentTaskContainer = (props) => {
     });
 
     return (
-        <RecentTask {...props} tickets={ticket_komax} harnesses={harnesses_btns} number={name}/>
+        <>
+            {name + "" === "-1"
+                ? <></>
+                : <RecentTask {...props} tickets={ticket_komax} harnesses={harnesses_btns} number={name}/>
+            }
+        </>
     )
 }
 

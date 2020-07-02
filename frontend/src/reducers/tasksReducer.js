@@ -102,6 +102,8 @@ const getTasksThunk = () => {
             if (data === "") data = [];
             dispatch(setListAC(data));
             dispatch(toggleFetchAC());
+        }).catch(resp => {
+            dispatch(toggleFetchAC())
         });
     }
 }
