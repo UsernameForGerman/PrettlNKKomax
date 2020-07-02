@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8000/api/v1/";
+const BASE_URL = "https://komax.prettl.ru/api/v1/";
 
 class API {
     constructor(base_url) {
