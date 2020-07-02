@@ -125,7 +125,7 @@ def get_task_to_load(komax_number):
         #     TaskPersonal.objects.bulk_update(task_pers_objs, ['loaded'])
         return task_pers_df
 
-    return None
+    return pd.DataFrame()
 
 def stop_komax_task_on_komax(komax, komax_task):
     if TaskPersonal.objects.filter(komax=komax, loaded=True, komax_task=komax_task).exists():

@@ -5,22 +5,54 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
-import SaveButton from "../../common/SaveButton/SaveButton";
 import SuccessButton from "../../common/SuccessButton/SuccessButton";
 import {withStyles} from "@material-ui/styles";
 import {FormattedMessage} from "react-intl";
+import Select from "@material-ui/core/Select";
+import Input from "@material-ui/core/Input";
+import MenuItem from "@material-ui/core/MenuItem";
+import IconButton from "../../common/IconButton/IconButton";
+import Modal from "react-modal";
+import TaskCreateModalFormContainer from "./Modal/TCPModalContainer,js";
+import {Multiselect} from "multiselect-react-dropdown";
+import '../../../index.css';
 let CreateTaskPage = (props) => {
+    const MenuProps = {
+          PaperProps: {
+            style: {
+              width: 100,
+              top: "100px !important"
+            },
+          },
+        };
+    const customStyles = {
+      content : {
+        top                   : '25%',
+        left                  : '20%',
+        transform             : 'translate(-10%, -20%)'
+      }
+    };
+
+    let [isModalOpen, setIsOpen] = useState(false);
+    let openModal = () => {
+        setIsOpen(true);
+    }
+
+    let open = () => {
+        openModal();
+        props.fetch();
+    }
+
+    let closeModal = () => {
+        setIsOpen(false)
+    }
+
+    let oldHandle = (e, callback) => {
+        callback(e.target.value);
+    }
 
     let handleMultiSelect = (e, callback) => {
-        let arr = [];
-        let options = e.target.selectedOptions;
-        for (let option in options) {
-            let value = options[option].value;
-            if (value){
-                arr.push(value);
-            }
-        }
-        callback(arr);
+        callback(e.map(elem => elem.name));
     }
 
     let openNextForm = (e) => {
@@ -28,7 +60,7 @@ let CreateTaskPage = (props) => {
         props.setContinue(true);
         let data = {
             number : numberRef.current.value,
-            work_shift : workShiftRef.current.value
+            work_shift : workShiftRef.current.value,
         }
         props.sendDataFirst(data);
     }
@@ -36,14 +68,16 @@ let CreateTaskPage = (props) => {
     let collectData = (e) => {
         e.preventDefault();
 
-        props.sendDataSecond();
+        props.sendDataSecond({
+            name : numberRef.current.value
+        });
     }
 
     let renderedHarnesses = props.multiselectOptions.map(elem => {
         return(
             <label>
                 {elem}
-                <input placeholder={"Количество"} type={"number"} required onChange={(e) => {
+                <input placeholder={"Количество"} type={"number"} onChange={(e) => {
                     props.addHarnessData(elem, e)
                 }}/>
             </label>
@@ -98,11 +132,11 @@ let CreateTaskPage = (props) => {
         handleChangeWork,
         [
             {
-                value : "Parallel",
+                value : "parallel",
                 label : "Parallel"
             },
             {
-                value : "Consistently",
+                value : "consistently",
                 label : "Consistently"
             }
         ]
@@ -114,66 +148,109 @@ let CreateTaskPage = (props) => {
         handleChangeLoading,
         [
             {
-                value : "New",
+                value : "new",
                 label : "New"
             },
             {
-                value : "Mix",
+                value : "mix",
                 label : "Mix"
             },
             {
-                value : "Urgent",
+                value : "urgent",
                 label : "Urgent"
             }
         ]
     );
 
+    let convertOptions = (src) => {
+        return src.map(elem => {
+            return {
+                name: elem,
+                id: elem
+            }
+        })
+    }
+
+    let harnesses_options = convertOptions(props.harnesses_options);
+
     return(
         <div className={classes.formWrapper}>
-            <form className={classes.form}>
+            <div className={classes.form}>
                 <div className={classes.heading}>
-                    <h1><FormattedMessage id={"tasks.create_new_task_heading"}/></h1>
+                    <div className={classes.heading_text}><FormattedMessage id={"tasks.create_new_task_heading"}/></div>
+                    <IconButton icon={["fas", 'cog']} class={classes.modalBtn} click={open}/>
                 </div>
                 <div className={classes.row}>
                     <div className={classes.column}>
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_job_name_label"}/>:</h3>
-                                <input className={classes.input} required ref={numberRef} onChange={checkValid}/>
+                                <input className={classes.input} ref={numberRef} onChange={checkValid}/>
                             </label>
                         </div>
 
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
-                                <h3><FormattedMessage id={"tasks.create_new_task_harnesses_label"}/>:</h3>
-                                <select className={classes.select} required multiple={true} onChange={(e) => handleMultiSelect(e, props.setMultiselectOptions)}>
-                                    {props.harnesses_options}
-                                </select>
+                                <div><FormattedMessage id={"tasks.create_new_task_harnesses_label"}/>:</div>
+                                <div className={classes.multiselect_wrapper}>
+                                    <Multiselect
+                                        options={harnesses_options}
+                                        onSelect={(e) => {handleMultiSelect(e, props.setMultiselectOptions)}}
+                                        onRemove={(e) => {handleMultiSelect(e, props.setMultiselectOptions)}}
+                                        selectedValues={props.multiselectOptions.map(elem => {return {name : elem, id : elem}})}
+                                        displayValue="name"
+                                        style={{
+                                              multiselectContainer: { // To change css for multiselect (Width,height,etc..)
+                                                width : "200px"
+                                              }
+                                        }}
+                                        id={"harnesses_select"}
+                                    />
+                                </div>
                             </label>
                         </div>
 
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_komaxes_label"}/>:</h3>
-                                <select className={classes.select} required multiple={true} onChange={(e) => handleMultiSelect(e, props.setKomaxesOptions)}>
-                                    {props.komaxes_options}
-                                </select>
+                                <Select classes={classes.select}
+                                  multiple
+                                  value={props.komaxesOptions}
+                                  onChange={(e) => {oldHandle(e, props.setKomaxesOptions)}}
+                                  input={<Input />}
+                                    MenuProps={MenuProps}
+                                >
+                                  {props.komaxes_options.map((elem) => (
+                                    <MenuItem key={elem} value={elem}>
+                                      {elem}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
                             </label>
                         </div>
 
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_kappas_label"}/>:</h3>
-                                <select className={classes.select} required multiple={true} onChange={(e) => handleMultiSelect(e, props.setKappasOptions)}>
-                                    {props.kappas_options}
-                                </select>
+                                    <Select classes={classes.select}
+                                      multiple
+                                      value={props.kappasOptions}
+                                      onChange={(e) => {oldHandle(e, props.setKappasOptions)}}
+                                      input={<Input />}
+                                    >
+                                      {props.kappas_options.map((elem) => (
+                                        <MenuItem key={elem} value={elem}>
+                                          {elem}
+                                        </MenuItem>
+                                      ))}
+                                  </Select>
                             </label>
                         </div>
 
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_work_shift_label"}/>:</h3>
-                                <input className={classes.input} required type={"number"} ref={workShiftRef}/>
+                                <input className={classes.input} type={"number"} ref={workShiftRef}/>
                             </label>
                         </div>
                     </div>
@@ -188,16 +265,28 @@ let CreateTaskPage = (props) => {
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
             <form className={classes.form}>
                 {!props.shouldContinue
-                    ? <FormattedMessage id={"tasks.create_new_task_fill_form_label"}/>
-                    : <form>
-                        {renderedHarnesses}
+                    ? <button disabled className={classes.fill}>
+                            <FormattedMessage id={"tasks.create_new_task_fill_form_label"}/>
+                      </button>
+                    : <form className={classes.right_form}>
+                        <div className={classes.list}>
+                            {renderedHarnesses}
+                        </div>
                         <SuccessButton value={"Создать задание"} class={classes.addBtn} click={collectData} disable={!props.canSend}/>
                     </form>
                 }
             </form>
+            <Modal
+              isOpen={isModalOpen}
+              onRequestClose={closeModal}
+              style={customStyles}
+              contentLabel="Example Modal"
+            >
+                <TaskCreateModalFormContainer close={closeModal}/>
+            </Modal>
         </div>
     )
 }

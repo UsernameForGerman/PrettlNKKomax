@@ -2,7 +2,7 @@ import Header from "./Header";
 import React from "react";
 import LoginSelector from "../../selectors/loginSelector";
 import {connect} from "react-redux";
-import {logoutAC} from "../../reducers/loginReducer";
+import {logoutThunk} from "../../reducers/authReducer";
 
 let HeaderContainer = (props) => {
     return(
@@ -12,14 +12,15 @@ let HeaderContainer = (props) => {
 
 let mapStateToProps = (state) => {
     return {
-        isLogged : LoginSelector.getLogged(state)
+        isLogged : LoginSelector.getLogged(state),
+        role : LoginSelector.getRole(state)
     }
 }
 
 let mapDispatchToProps = (dispatch) => {
     return {
         logout : () => {
-            dispatch(logoutAC())
+            dispatch(logoutThunk())
         }
     }
 }

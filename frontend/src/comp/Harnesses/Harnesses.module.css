@@ -6,11 +6,11 @@
 }
 
 .card{
-    height: 80%;
-    width: 35%;
+    height: 100%;
+    width: 45%;
     padding: 10px 10px;
     border-radius: 5px;
-    margin: 0px 3vw;
+    margin: 0px 1vw;
     background-color: white;
     overflow-y: scroll;
 }

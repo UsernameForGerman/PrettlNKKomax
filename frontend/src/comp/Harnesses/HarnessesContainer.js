@@ -17,7 +17,7 @@ import harnessApi from "../../DAL/harness/harnessApi";
 import {FormattedMessage} from "react-intl";
 import auth from "../AuthHOC/authHOC";
 import FullScreenPreloader from "../common/Preloader/FullScreenPreloader";
-import file from "../../assets/docs/6282-2124813-12.xlsx";
+import LoginSelector from "../../selectors/loginSelector";
 
 let HarsessesContainer = (props) => {
     useEffect(() => {
@@ -39,7 +39,7 @@ let HarsessesContainer = (props) => {
         }
 
         return(
-          <HarnessesChooseTableItem {...elem} select={select} delete={deleteHarness}/>
+          <HarnessesChooseTableItem {...elem} role={props.role} select={select} delete={deleteHarness}/>
         );
     });
 
@@ -72,8 +72,6 @@ let HarsessesContainer = (props) => {
     }
 
     let rows = renderRows(props.selectedMap);
-
-    harnessApi.createHarness("6282-2124813-12", file).then(console.log);
 
     let renderMap = () => {
         return(
@@ -109,7 +107,7 @@ let HarsessesContainer = (props) => {
     return(
         <>{ props.isFetching
             ? <FullScreenPreloader/>
-            : <Harnesses harnesses={items} selectedTable={renderMap()}/>
+            : <Harnesses harnesses={items} role={props.role} selectedTable={renderMap()} fetch={props.fetchList}/>
           }
         </>
     )
@@ -120,7 +118,8 @@ let mapStateToProps = (state) => {
         list : HarnessSelector.getList(state),
         isFetching : HarnessSelector.getFetching(state),
         isMapFetching : HarnessSelector.getMapFetching(state),
-        selectedMap : HarnessSelector.getMap(state)
+        selectedMap : HarnessSelector.getMap(state),
+        role : LoginSelector.getRole(state)
     }
 }
 

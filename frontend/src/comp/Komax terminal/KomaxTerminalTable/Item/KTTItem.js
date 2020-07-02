@@ -3,7 +3,6 @@ import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import IconButton from "../../../common/IconButton/IconButton";
 let KomaxTerminalTableItem = (props) => {
-    debugger;
     return(
         <div className={!props.heading ? classes.TableItem : classes.TableItemWithoutHover} onClick={props.select}>
             <div className={classes.firstItem}>
@@ -30,7 +29,7 @@ let KomaxTerminalTableItem = (props) => {
                         <b>{props.material_avaliable[0]}</b>
                         <b>{props.material_avaliable[1]}</b>
                     </div>
-                    : <>{props.material_avaliable}</>
+                    : <>{props.seal_installed ? "True" : "False"}</>
                 }
             </div>
             <div className={classes.firstItem}>

@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {BrowserRouter, Redirect, Route} from "react-router-dom";
-import Header from "./comp/Header/Header";
 import "./Global.css";
 import {Provider} from "react-redux";
 import store from "./store";
@@ -20,7 +19,7 @@ import CreateTaskPageContainer from "./comp/Tasks/CreateTaskPage/CreateTaskPageC
 import TaskDetailPageContainer from "./comp/Tasks/TaskDetailPage/TaskDetailPageContainer";
 import LabourPageContainer from "./comp/Labour/LabourPageContainer";
 import HeaderContainer from "./comp/Header/HeaderContainer";
-
+import './index.css'
 library.add(fas, fab);
 
 let App = (props) => {
@@ -42,10 +41,10 @@ let App = (props) => {
               <BrowserRouter basename={process.env.PUBLIC_URL}>
                   <Provider store={store}>
                       <HeaderContainer toggleLocale={toggleLocale}/>
-                      <Route path={"/api/"}>
+                      <Route path={"/api/"} exact>
                           <Redirect to={"/"}/>
                       </Route>
-                      <Route path={"/static/komax_app"}>
+                      <Route path={"/static/komax_app"} exact>
                           <Redirect to={"/"}/>
                       </Route>
                       <Route path={"/labour"} exact>

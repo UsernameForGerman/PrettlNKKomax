@@ -18,6 +18,10 @@ class komaxApi extends API {
         });
     }
 
+    getStatuses = () => {
+        return this.createAPI().get("komax_status/").then(resp => resp.data);
+    }
+
     getKomaxById = (id) => {
         return this.getObjectById(id);
     }

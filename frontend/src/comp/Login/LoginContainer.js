@@ -1,12 +1,11 @@
 import React from "react";
 import Login from "./Login";
 import LoginSelector from "../../selectors/loginSelector";
-import {authThunk} from "../../reducers/loginReducer";
+import {authThunk} from "../../reducers/authReducer";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 
 let LoginContainer = (props) => {
-    debugger;
     return(
         <>
             {props.isLogged

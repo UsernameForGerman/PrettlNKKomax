@@ -1,0 +1,38 @@
+.recentTask{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.task_lists{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.ticket_list, .harness_list{
+    display: flex;
+    flex-direction: column;
+    min-height: 30vh;
+}
+
+.heading{
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.greenBtn{
+    padding: 5px 5px;
+    font-size: 18px;
+    background-color: transparent;
+    border: #12e010 1px solid;
+    border-radius: 5px;
+    margin: 10px 10px;
+}
+
+.harness_heading{
+    font-weight: bold;
+    font-size: 24px;
+}

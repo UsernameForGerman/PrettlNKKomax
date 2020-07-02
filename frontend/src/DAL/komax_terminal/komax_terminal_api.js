@@ -17,7 +17,7 @@ class komax_terminal_api extends API {
     }
 
     updateTerminal = (terminal) => {
-        return this.updateObject(terminal.number, {...terminal})
+        return this.updateObject(terminal.terminal_name, {...terminal})
     }
 }
 

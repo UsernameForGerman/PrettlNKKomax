@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8000/api/v2/";
+const BASE_URL = "https://komax.prettl.ru/api/v1/";
 
 class API {
     constructor(base_url) {
@@ -41,7 +41,7 @@ class API {
             return axios.create({
                 baseURL : BASE_URL,
                 headers : {
-                    "Content-Type" : "application/xml"
+                    "Content-Type" : "multipart/form-data"
                 }
             });
         } else {
@@ -49,7 +49,7 @@ class API {
                 baseURL : BASE_URL,
                 headers : {
                     "Authorization": `Token ${token}`,
-                    "Content-Type" : "application/xml",
+                    "Content-Type" : "multipart/form-data",
                 }
             });
         }
@@ -59,21 +59,21 @@ class API {
         return this.base_url + id;
     }
 
-    getObjectList = () => {
-        return this.createAPI().get(this.base_url).then((resp) => {
+    getObjectList = (params="") => {
+        return this.createAPI().get(this.base_url + params).then((resp) => {
             let data = resp.data;
             return data;
         });
     }
 
-    getObjectById = (id) => {
+    getObjectById = (id, url = this.formIdUrl(id)) => {
         return this.createAPI().get(this.formIdUrl(id)).then((resp) => {
             return resp.data;
         });
     }
 
-    createObject = (options, api = this.createAPI()) => {
-        return api.post(this.base_url, options).then((resp) => {
+    createObject = (options, url = "", api = this.createAPI()) => {
+        return api.post(this.base_url + url, options).then((resp) => {
             return resp.data;
         });
     }
@@ -85,7 +85,7 @@ class API {
     }
 
     updateObject = (id, options) => {
-        return this.createAPI().put(this.formIdUrl(id), options).then(resp => {
+        return this.createAPI().put(this.formIdUrl(id) + "/", options).then(resp => {
             return resp;
         })
     }

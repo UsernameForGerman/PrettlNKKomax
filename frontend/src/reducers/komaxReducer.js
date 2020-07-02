@@ -2,11 +2,13 @@ import komaxApi from "../DAL/komax/komax-api";
 
 const initialState = {
     isFetching : false,
-    komaxList : []
+    komaxList : [],
+    statuses : []
 }
 
 const TOGGLE_FETCHING = "KOMAX/TOGGLE_FETCHING";
 const SET_LIST = "KOMAX/TOGGLE_SET_LIST";
+const SET_STATUSES = "KOMAX/STATUSES";
 
 const komaxReducer = (state = initialState, action) => {
     let stateCopy = {...state};
@@ -19,6 +21,10 @@ const komaxReducer = (state = initialState, action) => {
         case SET_LIST : {
             stateCopy.komaxList = action.list;
             break;
+        }
+
+        case SET_STATUSES : {
+            stateCopy.statuses = action.statuses
         }
     }
     return stateCopy;
@@ -34,6 +40,13 @@ const setListAC = (list) => {
     return {
         type : SET_LIST,
         list : list
+    }
+}
+
+const setStatusesAC = (statuses) => {
+    return {
+        type : SET_STATUSES,
+        statuses : statuses
     }
 }
 
@@ -67,4 +80,27 @@ const updateKomaxThunk = (komax) => {
     }
 }
 
-export {toggleFetchAC, setListAC, komaxReducer, getListThunk, createKomaxThunk, updateKomaxThunk};
+const getStatusesThunk = () => {
+    return (dispatch) => {
+        let send = () => {
+            komaxApi.getStatuses()
+                .then(resp => {
+                    let path = window.location.pathname;
+                    if (path === "/komaxes"){
+                        dispatch(setStatusesAC(resp));
+                        setTimeout(() => {
+                            send();
+                        }, 2000);
+                    } else {
+                        return '';
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+        send();
+    }
+}
+
+export {toggleFetchAC, setListAC, komaxReducer, getListThunk, createKomaxThunk, updateKomaxThunk, getStatusesThunk};

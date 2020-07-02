@@ -3,9 +3,10 @@ import classes from "./ModalForm.module.css";
 import createKomax from "../../../DAL/models/komax";
 import SaveButton from "../../common/SaveButton/SaveButton";
 import {FormattedMessage} from 'react-intl';
+import { Multiselect } from 'multiselect-react-dropdown';
 
 let ModalForm = (props) => {
-    let [multiselectOptions, setMultiselectOptions] = useState([]);
+    let [multiselectOptions, setMultiselectOptions] = useState(props.selected ? (props.selected.sepairing ? props.selected.sepairing.trim().split(' ').filter(elem => elem.length > 0) : []) : []);
 
     let currKomax = props.selected;
     if (!currKomax){
@@ -36,7 +37,6 @@ let ModalForm = (props) => {
             status : statusRef.current.value
         }
 
-        debugger;
         props.send(data);
     };
 
@@ -52,17 +52,19 @@ let ModalForm = (props) => {
         }
     }
 
-    let handleMultiSelect = (e) => {
+    let handleChoose = (e) => {
         let arr = [];
-        let options = e.target.selectedOptions;
-        for (let option in options) {
-            let value = options[option].value;
-            if (value){
-                arr.push(Number(value));
-            }
-        }
+        e.forEach(elem => {
+            arr.push(elem["id"]);
+        });
         setMultiselectOptions(arr);
     }
+
+    let options = ['0.5 - 1.0', '1.5 - 2.5', '4.0 - 6.0'].map((elem, index) => {
+        return (
+            {name : elem, id : index + 1}
+        )
+    });
 
     return(
         <div className={classes.ModalForm}>
@@ -84,7 +86,7 @@ let ModalForm = (props) => {
                 <label>
                     <FormattedMessage id={"komax.status_label"}/>
                     <select className={classes.select} ref={statusRef}>
-                        <option value={0} selected={currKomax.status === 0} className={classes.option}>Works</option>
+                        <option value={1} selected={currKomax.status === 1} className={classes.option}>Works</option>
                         <option value={0} selected={currKomax.status === 0} className={classes.option}>Repair</option>
                         <option value={2} selected={currKomax.status === 2} className={classes.option}>Not working</option>
                     </select>
@@ -106,11 +108,15 @@ let ModalForm = (props) => {
                 </label>
                 <label>
                     <FormattedMessage id={"komax.group_of_square_label"}/>
-                    <select className={classes.select} multiple={true} ref={sepairingRef} onChange={handleMultiSelect}>
-                        <option value={1} selected={currKomax.sepairing && currKomax.sepairing.indexOf("1") !== -1} className={classes.option}>0.5 - 1.0</option>
-                        <option value={2} selected={currKomax.sepairing && currKomax.sepairing.indexOf("2") !== -1} className={classes.option}>1.5 - 2.5</option>
-                        <option value={3} selected={currKomax.sepairing && currKomax.sepairing.indexOf("3") !== -1} className={classes.option}>4.0 - 6.0</option>
-                    </select>
+                    <Multiselect
+                        options={options} // Options to display in the dropdown
+                        onSelect={handleChoose} // Function will trigger on select event
+                        onRemove={handleChoose} // Function will trigger on remove event
+                        selectedValues={multiselectOptions.map(elem => {
+                            return options[new Number(elem) - 1];
+                        })}
+                        displayValue="name" // Property name to display in the dropdown options
+                    />
                 </label>
                 <label>
                     <FormattedMessage id={"komax.identifier_label"}/>

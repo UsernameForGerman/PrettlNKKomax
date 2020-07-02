@@ -14,7 +14,7 @@ class labourApi extends API{
     }
 
     updateLabour = (labour) => {
-        return this.updateObject(labour.number, {...labour});
+        return this.updateObject(labour.action, {...labour});
     }
 }
 

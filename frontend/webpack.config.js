@@ -1,4 +1,5 @@
 const HtmlWebPackPlugin = require( 'html-webpack-plugin' );
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 const path = require( 'path' );
 module.exports = {
     context: __dirname,
@@ -6,10 +7,11 @@ module.exports = {
     output: {
         path: path.resolve( __dirname, 'static/komax_app' ),
         filename: 'main.js',
-        publicPath: '/static/komax_app/',
+        publicPath: '/',
     },
     devServer: {
         historyApiFallback: true,
+        host : "localhost",
         port : 3000
     },
     module: {
@@ -36,6 +38,11 @@ module.exports = {
                 use: 'file-loader'
             },
             {
+                test: /\.less$/,
+                loader: 'less-loader',
+                options: { javascriptEnabled: true }
+            },
+            {
                 test: /\.(mp4)?$/,
                 use: 'file-loader'
             },
@@ -57,6 +64,7 @@ module.exports = {
         new HtmlWebPackPlugin({
             template: path.resolve( __dirname, 'public/index.html' ),
             filename: 'index.html'
-        })
+        }),
+        new AntdDayjsWebpackPlugin()
     ]
 };

@@ -6,7 +6,6 @@ import numpy as np
 import time
 
 "TODO: make variable DB_path unchangeable"
-"TODO: fill the dict of komax id"
 "TODO: what should be article_key?"
 "TODO: try to insert into inkjetactions '' value"
 
@@ -30,7 +29,8 @@ class Insert():
         self.created_time = format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         self.modified_time = self.created_time
         self.color_dict = {'Ч': 'BLACK', 'Б': 'WHITE', 'Г': 'BLUE', 'К': 'RED', 'Кч': 'BROWN', 'Р': 'PINK', 'С': 'GRAY', 'Ж': 'YELLOW', 'З': 'GREEN', 'О': 'ORANGE', 'Ф': 'PURPLE'}
-        self.komax_number_dict = {2: '355.0281'} # must be changed
+        self.komax_number_dict = {1: '355.0281', 2: '355.0661', 3: '355.1990', 4: '355.2273', 5: '355.2205'}
+
 
 
     def __do_commit(self):
@@ -110,8 +110,6 @@ class Insert():
         self.__do_commit()
 
 
-
-
     def __delete_harness_from_database(self, tow):
         """
         Func deletes harness from all tables of database (tables: articlegroups, articles, leadsets)
@@ -120,11 +118,16 @@ class Insert():
         """
         self.cursor.execute("SELECT ArticleID FROM articles WHERE ArticleGroupID="
                             "(SELECT ArticleGroupID FROM articlegroups WHERE ArticleGroupName='{}')".format(tow))
-        delete_article_id = self.cursor.fetchall()[0][0]
+        delete_article_id = []  # список артиклей, которые нужно удалить
+        for row in self.cursor:
+            delete_article_id.append(row[0])
+
+        print('delete articles ', delete_article_id)
+
         for article in delete_article_id:
             self.cursor.execute("DELETE FROM articles WHERE ArticleID={}".format(article))
             self.cursor.execute("DELETE FROM leadsets WHERE ArticleID={}".format(article))
-        self.cursor.execute("DELETE FROM articlegroups WHERE ArticleGroupName='{}')".format(tow))
+        self.cursor.execute("DELETE FROM articlegroups WHERE ArticleGroupName='{}'".format(tow))
 
 
 
@@ -206,7 +209,7 @@ class Insert():
 
             ArticleID += 1
             article_key = '{:08}'.format(ArticleID)
-            komax = self.komax_number_dict[inserting_df['komax'][i]]
+            komax = self.komax_number_dict[int(inserting_df['komax'][i])]
             #komax = 2
             name = str(inserting_df['wire_number'][i]) + ' (' + str(inserting_df['harness'][i]) + ')'
             self.cursor.execute("INSERT INTO articles (Created, Modified, ArticleID, "
@@ -410,7 +413,7 @@ class Insert():
                 batchsize = amount
             else:
                 batchsize = 50
-            komax = self.komax_number_dict[self.wire_chart_df['komax'][i]]
+            komax = self.komax_number_dict[int(self.wire_chart_df['komax'][i])]
             wire_square = self.wire_chart_df['wire_square'][i]
             wire_color = self.wire_chart_df['wire_color'][i]
             wire_length = self.wire_chart_df['wire_length'][i]

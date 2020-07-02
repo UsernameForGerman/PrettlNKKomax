@@ -1,30 +1,47 @@
 import classes from "./TaskDetailPage.module.css"
 import React from "react";
+import {Link, NavLink} from "react-router-dom";
+import task_api from "../../../DAL/task/task_api";
 let TaskDetailPage = (props) => {
+    let BASE_URL = "http://localhost:8000/";
+    let handleClick = () => {
+        task_api.loadTask(props)
+            .then(resp => {
+                alert("Заявка успешно отправлена")
+            })
+            .catch(err => {
+                alert("Ошибка при отправке")
+            })
+    }
     return(
         <div className={classes.TaskDetailPage}>
             <div className={classes.container}>
                 <div className={`${classes.card} ${classes.left_card}`}>
-                <h1>Komax task {props.task_name}</h1>
+                <h1>Komax task {props.name}</h1>
                 <div className={classes.row}>
                     <div className={`${classes.col} ${classes.btnCol}`}>
-                        <button className={classes.btnTool}>
-                            Full task
-                        </button>
-                        <button className={classes.btnTool}>
-                            Again
-                        </button>
-                        <button className={classes.btnTool}>
-                            Load task
-                        </button>
+                        <a href={BASE_URL + "tasks/" + props.name + "/get_task/"} target={"_blank"}>
+                            <button className={classes.btnTool}>
+                                Full task
+                            </button>
+                        </a>
+                        <NavLink to={"/task_create/"}>
+                            <button className={classes.btnTool}>
+                                Again
+                            </button>
+                        </NavLink>
+                        {props.role.toLowerCase() === "operator"
+                            ?   <button className={classes.btnTool} onClick={handleClick}>
+                                    Load task
+                                </button>
+                            :   <></>
+                        }
                     </div>
                     <div className={`${classes.col} ${classes.taskCol}`}>
                         {props.task_komax}
-                        {props.task_kappa}
                     </div>
                     <div className={`${classes.col} ${classes.ticketCol}`}>
                         {props.ticket_komax}
-                        {props.ticket_kappa}
                     </div>
                 </div>
             </div>

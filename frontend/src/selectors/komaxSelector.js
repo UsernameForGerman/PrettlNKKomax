@@ -6,6 +6,10 @@ class KomaxSelector {
     static getFetching = (state) => {
         return state.komaxes.isFetching
     }
+
+    static getStatuses = (state) => {
+        return state.komaxes.statuses
+    }
 }
 
 export default KomaxSelector;

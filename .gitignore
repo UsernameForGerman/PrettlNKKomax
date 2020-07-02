@@ -5,15 +5,16 @@ env/
 __pycache__/
 local_settings.py
 db.sqlite3
+venv*/
 venv/
-<<<<<<< HEAD
+venv2/
 .idea
 node_modules
 *.xlsx
 *.xls
 =======
 .idea/
->>>>>>> bb64ecdeb7470d11cbbf137ff2a0b40cd27bc8cd
 komaxsite/.idea
 .ipynb_checkpoints
 __pycache__
+.git/

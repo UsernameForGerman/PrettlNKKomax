@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
-from PIL import Image
+#from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys
@@ -159,7 +159,7 @@ class Komax(models.Model):
     ]
 
     number = models.PositiveSmallIntegerField(unique=True, verbose_name=_('komaxes'))
-    identifier = models.CharField(max_length=256)
+    identifier = models.CharField(max_length=256, unique=True)
     status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, default=1)
     marking = models.PositiveSmallIntegerField(choices=MARKING_CHOICES, default=1)
     pairing = models.PositiveSmallIntegerField(choices=PAIRING_CHOICES, default=0)
@@ -351,6 +351,13 @@ class KomaxStatus(models.Model):
 
     def __str__(self):
         return str(self.komax.number)
+
+class KomaxTaskCompletion(models.Model):
+    timestamp = models.TimeField('Time last updated', auto_now=True)
+    komax_task = models.ForeignKey(KomaxTask, on_delete=models.CASCADE)
+    harness = models.ForeignKey(Harness, on_delete=models.CASCADE, null=True, blank=True)
+    left_time = models.PositiveIntegerField('Time left to create harness')
+    percent_completion = models.PositiveSmallIntegerField('Percent completion harness')
 
 def komax_number_harness_number_path(instance, komax_number, harness_number):
     return '{}-{}'.format(komax_number, harness_number)

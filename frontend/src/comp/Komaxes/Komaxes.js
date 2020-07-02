@@ -1,10 +1,8 @@
 import classes from "./Komaxes.module.css"
 import React, {useState} from "react";
 
-import komax from "../../assets/images/komax.png"
 import KomaxTable from "./KomaxTable/KomaxTable";
 import Modal from 'react-modal';
-import ModalForm from "./Modal/ModalForm";
 import ModalFormContainer from "./Modal/ModalFormContainer";
 import SuccessButton from "../common/SuccessButton/SuccessButton";
 import {FormattedMessage} from "react-intl";
@@ -12,7 +10,7 @@ import {FormattedMessage} from "react-intl";
 let Komaxes = (props) => {
     const customStyles = {
       content : {
-        top                   : '25%',
+        top                   : '33%',
         left                  : '60%',
         transform             : 'translate(-70%, -20%)'
       }
