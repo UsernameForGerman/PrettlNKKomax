@@ -26,7 +26,7 @@
   "terminal.terminal_number_1_label" : "number",
   "terminal.terminal_avaliable_0_label" : "Terminal",
   "terminal.terminal_avaliable_1_label" : "avaliable",
-  "terminal.material_avaliable_0_label" : "Material",
+  "terminal.material_avaliable_0_label" : "Seal",
   "terminal.material_avaliable_1_label" : "avaliable",
 
   "terminal.delete_label" : "Delete",
@@ -34,7 +34,7 @@
   "terminal.heading" : "Komax Terminals",
   "terminal.choose_terminal" : "Choose terminals for editting",
 
-  "terminal.material_avaliable_label" : "Material avaliable",
+  "terminal.material_avaliable_label" : "Seal avaliable",
   "terminal.terminal_avaliable_label" : "Terminal avaliable",
 
   "terminal.terminal_number_label" : "Terminal number",
