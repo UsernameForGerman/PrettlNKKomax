@@ -17,30 +17,30 @@
   "header.start_link" : "Главная",
   "header.tasks_link" : "Задания",
   "header.harnesses_link" : "Жгуты",
-  "header.komax_teminals_link" : "Терминалы",
+  "header.komax_teminals_link" : "Контакты",
   "header.labour_inputs_link" : "Трудозатраты",
   "header.komaxes_link" : "Комаксы",
   "header.locale_label" : "RU",
 
   "terminal.terminal_number_0_label" : "Номер",
-  "terminal.terminal_number_1_label" : "терминала",
-  "terminal.terminal_avaliable_0_label" : "Терминал",
+  "terminal.terminal_number_1_label" : "контакта",
+  "terminal.terminal_avaliable_0_label" : "Контакт",
   "terminal.terminal_avaliable_1_label" : "доступен",
-  "terminal.material_avaliable_0_label" : "Материал",
+  "terminal.material_avaliable_0_label" : "Уплотнитель",
   "terminal.material_avaliable_1_label" : "доступен",
 
   "terminal.delete_label" : "Удалить",
 
-  "terminal.heading" : "Терминалы",
-  "terminal.choose_terminal" : "Выберите терминал для редактирования",
+  "terminal.heading" : "Контакты",
+  "terminal.choose_terminal" : "Выберите контакт для редактирования",
 
-  "terminal.material_avaliable_label" : "Материал доступен",
-  "terminal.terminal_avaliable_label" : "Терминал доступен",
+  "terminal.material_avaliable_label" : "Уплотнитель доступен",
+  "terminal.terminal_avaliable_label" : "Контакт доступен",
 
-  "terminal.terminal_number_label" : "Номер терминала",
+  "terminal.terminal_number_label" : "Номер контакта",
 
-  "terminal.create_terminal_heading" : "Создать новый терминал",
-  "terminal.edit_terminal_heading" : "Редактировать терминал",
+  "terminal.create_terminal_heading" : "Создать новый контакт",
+  "terminal.edit_terminal_heading" : "Редактировать контакт",
 
   "harnesses.add_harness_number_placeholder" : "Номер жгута",
   "harnesses.choose_terminal" : "Выберите жгут для просмотра КРП",
