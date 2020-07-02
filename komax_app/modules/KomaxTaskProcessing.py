@@ -462,7 +462,7 @@ class KomaxTaskProcessing():
     def __sort_task(self, df, terminals, seals, time_dict):
 
         process = ProcessDataframe(df)
-        process.filter_availability_komax_terminal_seal(terminals, seals)
+        # process.filter_availability_komax_terminal_seal(terminals, seals)
         process.make_best_sort(quantity=1, time=time_dict)
         return process.chart
 

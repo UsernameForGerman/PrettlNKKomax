@@ -94,8 +94,6 @@ class KomaxTaskCompletionSerializer(Serializer):
     harnesses = HarnessCompletionSerializer(many=True, read_only=True)
     komax_task = KomaxTaskSerializer(read_only=True)
 
-
-
 class UserGroupsSerializer(ModelSerializer):
     class Meta:
         model = Group
