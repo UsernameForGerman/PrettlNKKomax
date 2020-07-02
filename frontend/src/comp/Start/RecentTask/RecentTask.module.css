@@ -14,7 +14,7 @@
 .ticket_list, .harness_list{
     display: flex;
     flex-direction: column;
-    height: 30vh;
+    min-height: 30vh;
 }
 
 .heading{

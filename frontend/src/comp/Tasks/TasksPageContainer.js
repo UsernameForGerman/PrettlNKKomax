@@ -7,10 +7,11 @@ import {connect} from "react-redux";
 import TasksSelector from "../../selectors/tasksSelector";
 import {getTasksThunk} from "../../reducers/tasksReducer";
 import FullScreenPreloader from "../common/Preloader/FullScreenPreloader";
+import LoginSelector from "../../selectors/loginSelector";
 
 let TasksPageContainer = (props) => {
     let user = {
-        username : "master1"
+        username : props.login
     }
     useEffect(() => {
         props.fetchList();
@@ -18,7 +19,7 @@ let TasksPageContainer = (props) => {
 
     let items = props.tasksList.map(elem => {
         return (
-            <TaskItem {...elem}/>
+            <TaskItem {...elem} role={props.role}/>
         );
     });
 
@@ -64,7 +65,9 @@ let TasksPageContainer = (props) => {
 let mapStateToProps = (state) => {
     return {
         isFetching : TasksSelector.getFetching(state),
-        tasksList : TasksSelector.getList(state)
+        tasksList : TasksSelector.getList(state),
+        login : LoginSelector.getLogin(state),
+        role : LoginSelector.getRole(state)
     }
 }
 

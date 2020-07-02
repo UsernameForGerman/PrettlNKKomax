@@ -35,8 +35,9 @@
     background-color: #118e0f;
     box-shadow: none;
     border: none;
-    font-size: 48px;
+    font-size: 32px;
     padding: 0px 15px;
+    padding-bottom: 10px;
 }
 
 .addBtn:hover{

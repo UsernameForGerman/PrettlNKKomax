@@ -5,8 +5,8 @@ class Task_status_api extends api{
         super(BASE_URL);
     }
 
-    getStatuses = (name) => {
-        return this.getObjectList("?task-name=" + name + "");
+    getStatuses = () => {
+        return this.getObjectList();
     }
 }
 

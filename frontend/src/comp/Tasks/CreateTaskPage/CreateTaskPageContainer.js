@@ -85,13 +85,14 @@ let CreateTaskPageContainer = (props) => {
     }
 
     let sendDataFirst = (data) => {
+        debugger;
         let name = data.number;
         let shift = data.work_shift;
         let request = {
             'task_name' : name,
             'harnesses' : multiselectOptions,
-            'komaxes' : data.komaxesOptions,
-            'kappas' : data.kappasOptions,
+            'komaxes' : komaxesOptions,
+            'kappas' : kappasOptions,
             'shift' : shift,
             'type_of_allocation' : workType,
             'loading_type' : loadingType

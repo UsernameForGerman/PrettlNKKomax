@@ -6,6 +6,7 @@ import {connect} from "react-redux"
 import classes from "./TaskDetailPage.module.css"
 import TasksSelector from "../../../selectors/tasksSelector";
 import {getTasksThunk} from "../../../reducers/tasksReducer";
+import LoginSelector from "../../../selectors/loginSelector";
 
 let TaskDetailPageContainer = (props) => {
     let BASE_URL = "http://localhost:8000/";
@@ -57,6 +58,7 @@ let TaskDetailPageContainer = (props) => {
 
     return(
         <TaskDetailPage
+            role={props.role}
         task_komax={task_komax}
         ticket_komax={ticket_komax}
         harnesses={taskHarnesses}
@@ -68,7 +70,8 @@ let TaskDetailPageContainer = (props) => {
 
 let mapStateToProps = (state) => {
     return{
-        taskList : TasksSelector.getList(state)
+        taskList : TasksSelector.getList(state),
+        role : LoginSelector.getLogin(state)
     }
 }
 

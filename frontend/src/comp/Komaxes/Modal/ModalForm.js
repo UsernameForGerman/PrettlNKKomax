@@ -6,7 +6,7 @@ import {FormattedMessage} from 'react-intl';
 import { Multiselect } from 'multiselect-react-dropdown';
 
 let ModalForm = (props) => {
-    let [multiselectOptions, setMultiselectOptions] = useState(props.selected.sepairing ? props.selected.sepairing.trim().split(' ').filter(elem => elem.length > 0) : []);
+    let [multiselectOptions, setMultiselectOptions] = useState(props.selected ? (props.selected.sepairing ? props.selected.sepairing.trim().split(' ').filter(elem => elem.length > 0) : []) : []);
 
     let currKomax = props.selected;
     if (!currKomax){

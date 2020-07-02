@@ -24,6 +24,12 @@ class task_api extends API{
             task_name : task.name
         }).then(resp => resp.data);
     }
+
+    sendTask = (task) => {
+        return this.createAPI().put("send_komax_task/", {
+            task_name : task.name
+        }).then(resp => resp.data);
+    }
 }
 
 export default new task_api;

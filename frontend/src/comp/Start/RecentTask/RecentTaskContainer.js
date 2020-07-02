@@ -1,27 +1,23 @@
 import RecentTask from "./RecentTask";
-import React from "react";
+import React, {useEffect} from "react";
 import classes from "./RecentTask.module.css"
 import task_status from "../../../DAL/task_status/task_status";
+import {connect} from "react-redux";
+import {getStatusThunk} from "../../../reducers/tasksReducer";
+import TasksSelector from "../../../selectors/tasksSelector";
+import LinearProgress from "@material-ui/core/LinearProgress";
 const BASE_URL = "http://localhost:8000/"
 let RecentTaskContainer = (props) => {
-    let komaxes = [
-        {komax : 3},
-        {komax : 5}
-    ]
+    useEffect(() => {
+        props.getStatus();
+    }, [props.status.harnesses.length]);
+    debugger;
 
-    let harnesses = [
-        {
-            harness : "123214-132",
-            percent : 50
-        },
+    let komaxes = props.status.komax_task !== undefined ? props.status.komax_task.komaxes : [];
 
-        {
-            harness : "126544-754",
-            percent : 30
-        },
-    ]
+    let harnesses =  props.status.harnesses ? props.status.harnesses : [];
 
-    let name = 1234;
+    let name = props.status.komax_task !== undefined ? props.status.komax_task.task_name : -1;
 
     let ticket_komax = komaxes.map(elem => {
         return(
@@ -34,15 +30,17 @@ let RecentTaskContainer = (props) => {
     });
 
     let harnesses_btns = harnesses.map(elem => {
+        let percent = isNaN(elem.left_time_secs / elem.sum_time_secs) ? 0 : (elem.left_time_secs / elem.sum_time_secs) * 100;
         return(
             <div className={classes.harness}>
                 <div className={classes.harness_heading}>
-                    Harness {elem.harness}
+                    {elem.harness_number}
                 </div>
                 <div className={classes.status}>
-                    {elem.percent} % completed
+                    {percent} % completed
+                    <LinearProgress variant="determinate" value={percent} />
                 </div>
-                <a href={BASE_URL + "tasks/" + name +"/harnesses/" + elem.harness +"/download/"} target={"blank"}>
+                <a href={BASE_URL + "harnesses/" + elem.harness_number +"/download/"} target={"blank"}>
                     <button className={classes.greenBtn}>
                         Download
                     </button>
@@ -56,4 +54,18 @@ let RecentTaskContainer = (props) => {
     )
 }
 
-export default RecentTaskContainer;
+let mapStateToProps = (state) => {
+    return {
+        status : TasksSelector.getStatus(state)
+    }
+}
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        getStatus : () => {
+            dispatch(getStatusThunk())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecentTaskContainer);

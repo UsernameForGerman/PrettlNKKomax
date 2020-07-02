@@ -29,7 +29,7 @@ let Harnesses = (props) => {
                         <SuccessButton value={<FormattedMessage id={"add_button_text"}/>} click={send}/>
                     </form>
                 </div>
-                <HarnessesChooseTable items={props.harnesses}/>
+                <HarnessesChooseTable role={props.role} items={props.harnesses}/>
             </div>
             <div className={`${classes.card} ${classes.tableWrapper}`}>
                 {props.selectedTable

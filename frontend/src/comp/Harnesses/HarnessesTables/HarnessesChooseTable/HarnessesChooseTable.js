@@ -9,7 +9,7 @@ let HarnessesChooseTable = (props) => {
     }
     return(
         <div className={classes.Table}>
-            <HarnessesChooseTableItem {...Heading} heading/>
+            <HarnessesChooseTableItem {...Heading} role={props.role} heading/>
             {props.items}
         </div>
     )

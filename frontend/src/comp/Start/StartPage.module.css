@@ -1,5 +1,5 @@
 .StartPage{
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     text-align: center;
     padding: 40px 0px;
@@ -71,7 +71,7 @@
     width: 30%;
 }
 
-/* СЕЛЕКТОРЫ МОДАЛЬНОГО ОКНА */
+/* MODAL WINDOW SELECTORS */
 .choose_form{
     height: 100%;
     width: 100%;

@@ -30,9 +30,12 @@ let TaskDetailPage = (props) => {
                                 Again
                             </button>
                         </NavLink>
-                        <button className={classes.btnTool} onClick={handleClick}>
-                            Load task
-                        </button>
+                        {props.role.toLowerCase() === "operator"
+                            ?   <button className={classes.btnTool} onClick={handleClick}>
+                                    Load task
+                                </button>
+                            :   <></>
+                        }
                     </div>
                     <div className={`${classes.col} ${classes.taskCol}`}>
                         {props.task_komax}

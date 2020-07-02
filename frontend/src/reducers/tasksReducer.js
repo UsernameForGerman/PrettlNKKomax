@@ -1,10 +1,14 @@
 import task_api from "../DAL/task/task_api";
+import task_status from "../DAL/task_status/task_status";
 const initialState = {
     isFetching : false,
     tasksList : [],
     errMsg : "",
     isValid : true,
-    canSend : false
+    canSend : false,
+    status : {
+        harnesses : []
+    }
 }
 
 const TOGGLE_FETCHING = "TASKS/TOGGLE_FETCHING";
@@ -12,6 +16,7 @@ const SET_LIST = "TASKS/TOGGLE_SET_LIST";
 const SET_ERR_MSG = "TASKS/ERROR";
 const SET_VALID = "TASKS/VALID";
 const SET_CAN_SEND = "TASKS/CAN_SEND";
+const SET_STATUS = "TASKS/SET_STATUS";
 
 const tasksReducer = (state = initialState, action) => {
     let stateCopy = {...state};
@@ -38,6 +43,11 @@ const tasksReducer = (state = initialState, action) => {
 
         case SET_CAN_SEND : {
             stateCopy.canSend = action.canSend;
+            break;
+        }
+
+        case SET_STATUS : {
+            stateCopy.status = action.status;
             break;
         }
     }
@@ -78,6 +88,13 @@ const setErrorAC = (error) => {
     }
 }
 
+const setStatusAC = (status) => {
+    return {
+        type : SET_STATUS,
+        status : status
+    }
+}
+
 const getTasksThunk = () => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
@@ -109,4 +126,12 @@ const updateTaskThunk = (task) => {
     }
 }
 
-export {tasksReducer, createTaskThunk, updateTaskThunk, getTasksThunk, setErrorAC, setValidAC}
+let getStatusThunk = () => {
+    return (dispatch) => {
+        task_status.getStatuses().then(resp => {
+            dispatch(setStatusAC(resp));
+        });
+    }
+}
+
+export {tasksReducer, createTaskThunk, updateTaskThunk, getTasksThunk, setErrorAC, setValidAC, getStatusThunk}

@@ -3,6 +3,7 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {FormattedMessage} from "react-intl";
+import task_api from "../../../DAL/task/task_api";
 let TaskItem = (props) => {
     return(
         <div className={classes.TaskWrapper}>
@@ -12,8 +13,14 @@ let TaskItem = (props) => {
                 </div>
                 <div className={classes.statusBar}>
                     {
-                        props.status === 1
-                            ? <button className={classes.sendTaskBtn}>
+                        props.status === 1 && props.role.toLowerCase() === "master"
+                            ? <button className={classes.sendTaskBtn} onClick={() => {
+                                task_api.sendTask({name : props.task_name}).then(() => {
+                                    alert("Задание успешно отправлено");
+                                }).catch(() => {
+                                    alert("Ошибка отправки");
+                                })
+                            }}>
                                 <FontAwesomeIcon icon={['fas', 'envelope']}/>
                               </button>
                             : props.status === 2

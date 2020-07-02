@@ -61,7 +61,6 @@ let CreateTaskPage = (props) => {
         let data = {
             number : numberRef.current.value,
             work_shift : workShiftRef.current.value,
-            komaxesOptions : komaxesOptions
         }
         props.sendDataFirst(data);
     }

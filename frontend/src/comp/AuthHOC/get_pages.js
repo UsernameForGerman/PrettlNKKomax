@@ -1,7 +1,7 @@
 let get_pages = (permission) => {
     switch (permission) {
         case "Master" : {
-            return ['tasks', 'task', 'task_create', 'komaxes'];
+            return ['tasks', 'task', 'task_create', 'komaxes', 'harnesses'];
         }
 
         case "Archivarius" : {

@@ -9,20 +9,13 @@ import {chooseKomaxThunk} from "../../reducers/authReducer";
 import ChooseModalContainer from "./Modal/ChooseModalContainer";
 import KomaxSelector from "../../selectors/komaxSelector";
 import {getListThunk} from "../../reducers/komaxReducer";
-import TasksSelector from "../../selectors/tasksSelector";
-import {getTasksThunk} from "../../reducers/tasksReducer";
-import task_status from "../../DAL/task_status/task_status";
 import SaveButton from "../common/SaveButton/SaveButton";
 import classes from "./StartPage.module.css"
 
 let StartPageContainer = (props) => {
     useEffect(() => {
-        props.fetchKomaxList();
-    },[props.komaxList.length]);
-
-    useEffect(() => {
-        props.fetchTasksList();
-    }, [props.tasks.length])
+        props.fetchKomaxes();
+    }, [props.komaxList.length])
 
     const customStyles = {
       content : {
@@ -57,8 +50,6 @@ let StartPageContainer = (props) => {
     }
 
     if (props.role.toString().toLocaleLowerCase() === "operator" && props.komax === "" && !isOpen) openModal();
-
-    task_status.getStatuses(1801).then(console.log);
 
     return(
         <>
@@ -100,7 +91,6 @@ let mapStateToProps = (state) => {
         role : LoginSelector.getRole(state),
         komax : LoginSelector.getKomax(state),
         komaxList : KomaxSelector.getList(state),
-        tasks : TasksSelector.getList(state)
     }
 }
 
@@ -110,12 +100,8 @@ let mapDispatchToProps = (dispatch) => {
             dispatch(chooseKomaxThunk(login, number))
         },
 
-        fetchKomaxList : () => {
+        fetchKomaxes : () => {
             dispatch(getListThunk())
-        },
-
-        fetchTasksList : () => {
-            dispatch(getTasksThunk())
         }
     }
 }
