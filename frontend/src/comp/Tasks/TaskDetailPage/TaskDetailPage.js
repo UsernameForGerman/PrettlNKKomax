@@ -1,9 +1,9 @@
 import classes from "./TaskDetailPage.module.css"
 import React from "react";
+import BASE_URL from "../../../DAL/getBaseUrl";
 import {Link, NavLink} from "react-router-dom";
 import task_api from "../../../DAL/task/task_api";
 let TaskDetailPage = (props) => {
-    let BASE_URL = "http://localhost:8000/";
     let handleClick = () => {
         task_api.loadTask(props)
             .then(resp => {

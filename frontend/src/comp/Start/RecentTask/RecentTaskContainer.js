@@ -1,12 +1,12 @@
 import RecentTask from "./RecentTask";
 import React, {useEffect} from "react";
 import classes from "./RecentTask.module.css"
-import task_status from "../../../DAL/task_status/task_status";
 import {connect} from "react-redux";
 import {getStatusThunk} from "../../../reducers/tasksReducer";
 import TasksSelector from "../../../selectors/tasksSelector";
 import LinearProgress from "@material-ui/core/LinearProgress";
-const BASE_URL = "http://localhost:8000/"
+import BASE_URL from "../../../DAL/getBaseUrl";
+import LoginSelector from "../../../selectors/loginSelector";
 let RecentTaskContainer = (props) => {
     useEffect(() => {
         props.getStatus();
@@ -50,7 +50,7 @@ let RecentTaskContainer = (props) => {
 
     return (
         <>
-            {name + "" === "-1"
+            {name + "" === "-1" || props.role.toString().toLowerCase() !== ("master" || "operator")
                 ? <></>
                 : <RecentTask {...props} tickets={ticket_komax} harnesses={harnesses_btns} number={name}/>
             }
@@ -60,7 +60,8 @@ let RecentTaskContainer = (props) => {
 
 let mapStateToProps = (state) => {
     return {
-        status : TasksSelector.getStatus(state)
+        status : TasksSelector.getStatus(state),
+        role : LoginSelector.getRole(state)
     }
 }
 
