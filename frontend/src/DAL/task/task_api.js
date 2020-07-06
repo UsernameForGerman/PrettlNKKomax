@@ -30,6 +30,10 @@ class task_api extends API{
             task_name : task.name
         }).then(resp => resp.data);
     }
+
+    deleteTask = (task) => {
+        return this.createAPI().delete(BASE_URL + task.name + "");
+    }
 }
 
 export default new task_api;

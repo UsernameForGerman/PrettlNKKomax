@@ -31,7 +31,15 @@ let TaskItem = (props) => {
                                     <button disabled className={classes.taskLoadedBtn}>
                                         <FormattedMessage id={"tasks.loaded_label"}/>
                                     </button>
-                                    <button className={classes.deleteTaskBtn}>
+                                    <button className={classes.deleteTaskBtn} onClick={() => {
+                                        task_api.deleteTask({name : props.task_name})
+                                            .then(() => {
+                                                alert('Задание успешно удалено')
+                                            })
+                                            .catch((err) => {
+                                                alert("Ошибка при отправке")
+                                            })
+                                    }}>
                                         <FontAwesomeIcon icon={['fas', 'trash-alt']}/>
                                     </button>
                                   </>

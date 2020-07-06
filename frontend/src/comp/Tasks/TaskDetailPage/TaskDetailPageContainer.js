@@ -10,7 +10,6 @@ import LoginSelector from "../../../selectors/loginSelector";
 import BASE_URL from "../../../DAL/getBaseUrl";
 
 let TaskDetailPageContainer = (props) => {
-    debugger;
     let name = props.match.params.id;
 
     useEffect(() => {
@@ -72,7 +71,7 @@ let TaskDetailPageContainer = (props) => {
 let mapStateToProps = (state) => {
     return{
         taskList : TasksSelector.getList(state),
-        role : LoginSelector.getLogin(state)
+        role : LoginSelector.getRole(state)
     }
 }
 
