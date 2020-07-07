@@ -117,7 +117,7 @@ let Header = (props) => {
             <div className={classes.Header}>
                 <div className={classes.container}>
                     {props.isLogged
-                        ?   <IconButton aria-label="delete" onMouseEnter={toggleDrawer}>
+                        ?   <IconButton aria-label="delete" onMouseEnter={toggleDrawer} onClick={toggleDrawer}>
                                 <MenuIcon/>
                             </IconButton>
                         :   <Redirect to={"/login"}/>

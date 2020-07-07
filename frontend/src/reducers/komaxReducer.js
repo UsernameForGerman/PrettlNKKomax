@@ -19,7 +19,9 @@ const komaxReducer = (state = initialState, action) => {
         }
 
         case SET_LIST : {
-            stateCopy.komaxList = action.list;
+            stateCopy.komaxList = action.list.sort((elem, elem2) => {
+                return elem.number - elem2.number
+            });
             break;
         }
 

@@ -4,7 +4,6 @@ import IconButton from "../../../../common/IconButton/IconButton";
 import {FormattedMessage} from "react-intl";
 const BASE_URL = "http://localhost:8000/"
 let HarnessesChooseTableItem = (props) => {
-    debugger;
     return(
         <div className={!props.heading ? classes.TableItem : classes.TableItemWithoutHover} onClick={props.select}>
             <div className={classes.firstItem}>

@@ -16,6 +16,7 @@ import Modal from "react-modal";
 import TaskCreateModalFormContainer from "./Modal/TCPModalContainer,js";
 import {Multiselect} from "multiselect-react-dropdown";
 import '../../../index.css';
+import {NavLink, Redirect} from "react-router-dom";
 let CreateTaskPage = (props) => {
     const MenuProps = {
           PaperProps: {
@@ -66,8 +67,6 @@ let CreateTaskPage = (props) => {
     }
 
     let collectData = (e) => {
-        e.preventDefault();
-
         props.sendDataSecond({
             name : numberRef.current.value
         });
@@ -259,7 +258,7 @@ let CreateTaskPage = (props) => {
                             {workType}
                             {loadingType}
                         </div>
-                        <SuccessButton value={<FormattedMessage id={"tasks.create_new_task_continue_label"}/>} class={classes.addBtn} disable={!props.isValid} click={openNextForm}/>
+                        <SuccessButton value={<FormattedMessage id={"tasks.create_new_task_continue_label"}/>} class={classes.addBtn} disable={!props.isValid || props.shouldContinue} click={openNextForm}/>
                         <div className={classes.err}>
                             {props.errMsg}
                         </div>
@@ -275,7 +274,9 @@ let CreateTaskPage = (props) => {
                         <div className={classes.list}>
                             {renderedHarnesses}
                         </div>
-                        <SuccessButton value={"Создать задание"} class={classes.addBtn} click={collectData} disable={!props.canSend}/>
+                        <NavLink to={"/tasks"} onClick={collectData}>
+                            <SuccessButton value={"Создать задание"} class={classes.addBtn} disable={!props.canSend}/>
+                        </NavLink>
                     </form>
                 }
             </form>

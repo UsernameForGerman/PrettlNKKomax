@@ -1,17 +1,16 @@
 import RecentTask from "./RecentTask";
 import React, {useEffect} from "react";
 import classes from "./RecentTask.module.css"
-import task_status from "../../../DAL/task_status/task_status";
 import {connect} from "react-redux";
 import {getStatusThunk} from "../../../reducers/tasksReducer";
 import TasksSelector from "../../../selectors/tasksSelector";
 import LinearProgress from "@material-ui/core/LinearProgress";
-const BASE_URL = "http://localhost:8000/"
+import BASE_URL from "../../../DAL/getBaseUrl";
+import LoginSelector from "../../../selectors/loginSelector";
 let RecentTaskContainer = (props) => {
     useEffect(() => {
         props.getStatus();
     }, [props.status.harnesses.length]);
-    debugger;
 
     let komaxes = props.status.komax_task !== undefined ? props.status.komax_task.komaxes : [];
 
@@ -50,13 +49,19 @@ let RecentTaskContainer = (props) => {
     });
 
     return (
-        <RecentTask {...props} tickets={ticket_komax} harnesses={harnesses_btns} number={name}/>
+        <>
+            {name + "" === "-1" || props.role.toString().toLowerCase() !== ("master" || "operator")
+                ? <></>
+                : <RecentTask {...props} tickets={ticket_komax} harnesses={harnesses_btns} number={name}/>
+            }
+        </>
     )
 }
 
 let mapStateToProps = (state) => {
     return {
-        status : TasksSelector.getStatus(state)
+        status : TasksSelector.getStatus(state),
+        role : LoginSelector.getRole(state)
     }
 }
 

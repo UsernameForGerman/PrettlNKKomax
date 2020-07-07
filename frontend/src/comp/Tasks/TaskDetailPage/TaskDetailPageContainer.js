@@ -7,9 +7,9 @@ import classes from "./TaskDetailPage.module.css"
 import TasksSelector from "../../../selectors/tasksSelector";
 import {getTasksThunk} from "../../../reducers/tasksReducer";
 import LoginSelector from "../../../selectors/loginSelector";
+import BASE_URL from "../../../DAL/getBaseUrl";
 
 let TaskDetailPageContainer = (props) => {
-    let BASE_URL = "http://localhost:8000/";
     let name = props.match.params.id;
 
     useEffect(() => {
@@ -17,8 +17,8 @@ let TaskDetailPageContainer = (props) => {
     }, props.taskList.length);
 
     let task = props.taskList.filter(elem => elem.task_name === name)[0];
-    let komaxes = task.komaxes;
-    let harnesses = task.harnesses;
+    let komaxes = task ? task.komaxes: []
+    let harnesses = task ? task.harnesses : [];
 
     let taskHarnesses = harnesses.map(elem => {
         return(
@@ -71,7 +71,7 @@ let TaskDetailPageContainer = (props) => {
 let mapStateToProps = (state) => {
     return{
         taskList : TasksSelector.getList(state),
-        role : LoginSelector.getLogin(state)
+        role : LoginSelector.getRole(state)
     }
 }
 

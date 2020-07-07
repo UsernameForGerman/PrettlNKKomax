@@ -10,7 +10,7 @@
 .list{
     background-color: white;
     border-radius: 5px;
-    height: 60vh;
+    height: 55vh;
 }
 
 .row, .heading_row{
@@ -30,6 +30,7 @@
 }
 
 .wrapper {
+    height: 30vh;
     width: 20vw;
     overflow-y: scroll;
 }

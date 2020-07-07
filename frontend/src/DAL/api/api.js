@@ -1,10 +1,11 @@
 import axios from "axios";
+import BASE_URL from "../getBaseUrl";
 
-const BASE_URL = "https://komax.prettl.ru/api/v1/";
+const API_URL = BASE_URL + "api/v1/";
 
 class API {
     constructor(base_url) {
-        this.base_url = BASE_URL + base_url;
+        this.base_url = API_URL + base_url;
     }
 
     getToken = () => {
@@ -15,7 +16,7 @@ class API {
         return token;
     }
 
-    createAPI = (baseUrl = BASE_URL) => {
+    createAPI = (baseUrl = API_URL) => {
         let token = this.getToken();
         if (token === "null"){
             return axios.create({
@@ -39,14 +40,14 @@ class API {
         let token = this.getToken();
         if (token === "null"){
             return axios.create({
-                baseURL : BASE_URL,
+                baseURL : API_URL,
                 headers : {
                     "Content-Type" : "multipart/form-data"
                 }
             });
         } else {
            return axios.create({
-                baseURL : BASE_URL,
+                baseURL : API_URL,
                 headers : {
                     "Authorization": `Token ${token}`,
                     "Content-Type" : "multipart/form-data",
