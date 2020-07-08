@@ -38,7 +38,7 @@ let TaskDetailPageContainer = (props) => {
 
     let task_komax = komaxes.map(elem => {
         return(
-            <a href={BASE_URL + "tasks/" + name +"/get_task_komax/" + elem.komax +"/"} target={"blank"}>
+            <a href={BASE_URL + "api/v1/" + name +"/get_task_komax/" + elem.komax +"/"} target={"blank"}>
                 <button className={classes.greenBtn}>
                     Task {elem.komax}
                 </button>
@@ -48,7 +48,7 @@ let TaskDetailPageContainer = (props) => {
 
     let ticket_komax = komaxes.map(elem => {
         return(
-            <a href={BASE_URL + "tasks/" + name +"/get_ticket_komax/" + elem.komax +"/"} target={"blank"}>
+            <a href={BASE_URL + "api/v1/" + name +"/get_ticket_komax/" + elem.komax +"/"} target={"blank"}>
                 <button className={classes.greenBtn}>
                     Ticket {elem.komax}
                 </button>

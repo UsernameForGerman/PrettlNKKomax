@@ -20,7 +20,7 @@ let TaskDetailPage = (props) => {
                 <h1>Komax task {props.name}</h1>
                 <div className={classes.row}>
                     <div className={`${classes.col} ${classes.btnCol}`}>
-                        <a href={BASE_URL + "tasks/" + props.name + "/get_task/"} target={"_blank"}>
+                        <a href={BASE_URL + "api/v1/" + props.name + "/get_task/"} target={"_blank"}>
                             <button className={classes.btnTool}>
                                 Full task
                             </button>
