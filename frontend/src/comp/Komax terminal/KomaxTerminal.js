@@ -25,7 +25,7 @@ let KomaxTerminal = (props) => {
                     <div className={classes.title}>
                         <b><FormattedMessage id={"terminal.heading"}/></b>
                     </div>
-                    <SuccessButton class={classes.succBtn} click={props.openCreate} value={"Добавить"}/>
+                    <SuccessButton class={classes.succBtn} click={props.openCreate} value={<FormattedMessage id={"add_button_text"}/>}/>
                     <KomaxTerminalsTableContainer items={props.items}/>
                 </div>
                 <div className={`${classes.card} ${classes.right_card}`}>

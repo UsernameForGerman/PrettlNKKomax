@@ -16,8 +16,8 @@ let SealItem = (seal) => {
             </div>
             <div className={classes.item}>
                 <select value={available} onChange={change} className={classes.select}>
-                    <option className={classes.option} value={true}>True</option>
-                    <option className={classes.option} value={false}>False</option>
+                    <option className={classes.option} value={true}>+</option>
+                    <option className={classes.option} value={false}>-</option>
                 </select>
             </div>
         </div>

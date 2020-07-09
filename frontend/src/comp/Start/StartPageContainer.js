@@ -11,6 +11,7 @@ import KomaxSelector from "../../selectors/komaxSelector";
 import {getListThunk} from "../../reducers/komaxReducer";
 import SaveButton from "../common/SaveButton/SaveButton";
 import classes from "./StartPage.module.css"
+import {FormattedMessage} from "react-intl";
 
 let StartPageContainer = (props) => {
     useEffect(() => {
@@ -53,7 +54,7 @@ let StartPageContainer = (props) => {
 
     return(
         <>
-            <StartPage {...user} ava={ava} open={openSettings}/>
+            <StartPage {...user} ava={ava} open={openSettings} {...props}/>
             <Modal
               isOpen={isOpen}
               style={customStyles}
@@ -69,15 +70,15 @@ let StartPageContainer = (props) => {
             >
                 <div className={classes.choose_form}>
                     <div className={classes.choose_heading}>
-                        Choose your avatar
+                        <FormattedMessage id={"choose_avatar_label"}/>
                     </div>
                     <div className={classes.ava_block}>
                         <img src={ava} alt={"Avatar"} className={classes.choose_ava}/>
                         <input type={"file"} className={classes.input}/>
                     </div>
                     <div className={classes.btns}>
-                        <SaveButton value={"Save"}/>
-                        <button className={classes.close_btn} onClick={closeSettings}>Close</button>
+                        <SaveButton value={<FormattedMessage id={"save_button_label"}/>}/>
+                        <button className={classes.close_btn} onClick={closeSettings}><FormattedMessage id={"close_label"}/></button>
                     </div>
                 </div>
             </Modal>

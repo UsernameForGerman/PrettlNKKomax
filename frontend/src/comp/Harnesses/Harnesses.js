@@ -23,9 +23,6 @@ let Harnesses = (props) => {
                             <input type={"text"} name={"harness_number"} id={"harness_number"} placeholder={"Harness number"} className={classes.input} required/>
                         </label>
                         <input type={"file"} name={"harness_chart"} id={"harness_chart"} className={classes.file} required/>
-                        <div className={classes.response}>
-                            <strong>OK</strong>
-                        </div>
                         <SuccessButton value={<FormattedMessage id={"add_button_text"}/>} click={send}/>
                     </form>
                 </div>

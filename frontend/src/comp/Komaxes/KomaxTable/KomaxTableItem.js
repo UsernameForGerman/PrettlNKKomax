@@ -30,9 +30,6 @@ let KomaxTableItem = (props) => {
         <div className={`${dataClasses} ${classes.sepairing}`} name={"separing"}>
             {sepairing}
         </div>
-        <div className={dataClasses} name={"id"}>
-            {props.id}
-        </div>
       </div>
     );
 }

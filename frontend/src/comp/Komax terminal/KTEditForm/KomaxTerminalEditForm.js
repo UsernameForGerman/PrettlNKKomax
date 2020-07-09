@@ -12,11 +12,11 @@ import {FormattedMessage} from "react-intl";
 let KomaxTerminalEditForm = (props) => {
 
     const handleChangeMaterial = (event) => {
-        props.setMaterial(event.target.value);
+        props.setMaterial(event.target.value === "+" ? "True" : "False");
     };
 
     const handleChangeTerminal = (event) => {
-        props.setTerminal(event.target.value);
+        props.setTerminal(event.target.value === "+" ? "True" : "False");
     };
 
     const CustomRadio = withStyles({
@@ -32,7 +32,7 @@ let KomaxTerminalEditForm = (props) => {
     let renderOptions = (formName, value, onChange, options) => {
         let renderedOptions = options.map((option) => {
             return(
-                <FormControlLabel value={option.value} control={<CustomRadio />} label={option.label} />
+                <FormControlLabel value={option.value} control={<CustomRadio label={option.label} />} label={option.label} />
             );
         });
         return (
@@ -51,11 +51,11 @@ let KomaxTerminalEditForm = (props) => {
         handleChangeMaterial,
         [
             {
-                value : "False",
+                value : "-",
                 label : "-"
             },
             {
-                value : "True",
+                value : "+",
                 label : "+"
             },
         ]
@@ -67,11 +67,11 @@ let KomaxTerminalEditForm = (props) => {
         handleChangeTerminal,
         [
             {
-                value : "False",
+                value : "-",
                 label : "-"
             },
             {
-                value : "True",
+                value : "+",
                 label : "+"
             },
         ]

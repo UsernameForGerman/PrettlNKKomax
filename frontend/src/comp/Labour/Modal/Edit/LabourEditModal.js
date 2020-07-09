@@ -1,6 +1,7 @@
 import classes from './LabourEditModal.module.css'
 import React, {useState} from "react";
 import SaveButton from "../../../common/SaveButton/SaveButton";
+import {FormattedMessage} from "react-intl";
 let LabourEditModal = (props) => {
     const [time, setTime] = useState(props.selectedLabour.time);
     let send = () => {
@@ -14,16 +15,16 @@ let LabourEditModal = (props) => {
     }
     return(
         <div className={classes.form}>
-            <div className={classes.heading}>Edit labour</div>
+            <div className={classes.heading}><FormattedMessage id={"edit_labour"}/></div>
             <label>
-                Labour action
+                <FormattedMessage id={"action_label"}/>
                 <input type={'text'} className={classes.input} disabled value={props.selectedLabour.action}/>
             </label>
             <label>
-                Labour time
+                <FormattedMessage id={"time_label"}/>
                 <input type={'number'} className={classes.input} value={time} onChange={handleChange}/>
             </label>
-            <SaveButton value={"Save"} click={send}/>
+            <SaveButton value={<FormattedMessage id={'save_button_label'}/>} click={send}/>
         </div>
     )
 }

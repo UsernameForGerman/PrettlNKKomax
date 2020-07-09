@@ -1,5 +1,10 @@
 {
   "add_button_text" : "Add",
+  "choose_label" : "Choose",
+  "edit_label" : "Edit",
+
+  "action_label" : "Action",
+  "time_label" : "Time (sec)",
 
   "komax.number_label" : "Komax number",
   "komax.type_label" : "Type",
@@ -8,9 +13,11 @@
   "komax.group_of_square_label" : "Group of square",
   "komax.status_label" : "Status",
   "komax.identifier_label" : "Identifier",
+  "labournesses_label" : "Labournesses",
 
   "komax.modal_form_heading_create" : "Create new komax",
   "komax.modal_form_heading_edit" : "Komax edit",
+  "seal_edit" : "Edit seal",
 
   "save_button_label" : "Save",
 
@@ -88,7 +95,29 @@
   "tasks.create_new_task_harnesses_label" : "Harnesses",
   "tasks.create_new_task_komaxes_label" : "Komaxes",
   "tasks.create_new_task_kappas_label" : "Kappas",
-  "tasks.create_new_task_work_shift_label" : "Work shify",
+  "tasks.create_new_task_work_shift_label" : "Work shift",
   "tasks.create_new_task_continue_label" : "Continue",
-  "tasks.create_new_task_fill_form_label" : "Fill first form"
+  "tasks.create_new_task_fill_form_label" : "Fill first form",
+
+  "choose_komax_label" : "Choose komax",
+  "close_label" : "Close",
+
+  "personal_account" : "Personal account",
+  "seals_label" : "Seals",
+
+  "seal_name_label" : "Seal name",
+  "terminal_name_label" : "Terminal name",
+
+  "choose_avatar_label" : "Choose your avatar",
+
+  "create_labour" : "Create labour",
+  "edit_labour" : "Edit labour",
+
+  "work_status" : "Works",
+  "repair_status" : "Repair",
+  "not_working_status" : "Not working",
+
+  "black_marking" : "Black",
+  "white_marking" : "White",
+  "both_marking" : "Both"
 }

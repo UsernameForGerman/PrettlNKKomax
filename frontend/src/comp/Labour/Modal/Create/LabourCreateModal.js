@@ -1,6 +1,7 @@
 import classes from './LabourCreateModal.module.css'
 import React, {useState} from "react";
 import SaveButton from "../../../common/SaveButton/SaveButton";
+import {FormattedMessage} from "react-intl";
 let LabourCreateModal = (props) => {
     const [time, setTime] = useState();
     const [action, setAction] = useState();
@@ -20,16 +21,16 @@ let LabourCreateModal = (props) => {
     }
     return (
         <div className={classes.form}>
-            <div className={classes.heading}>Create labour</div>
+            <div className={classes.heading}><FormattedMessage id={"create_labour"}/></div>
             <label>
-                Labour action
+                <FormattedMessage id={"action_label"}/>
                 <input type={'text'} className={classes.input} value={action} onChange={handleActionChange}/>
             </label>
             <label>
-                Labour time
+                <FormattedMessage id={"time_label"}/>
                 <input type={'number'} className={classes.input} value={time} onChange={handleTimeChange}/>
             </label>
-            <SaveButton value={"Save"} className={classes.input} click={send}/>
+            <SaveButton value={<FormattedMessage id={'save_button_label'}/>} className={classes.input} click={send}/>
         </div>
     )
 }

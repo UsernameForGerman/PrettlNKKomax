@@ -33,8 +33,8 @@ let AddForm = (props) => {
             <label className={classes.label}>
                 <div className={classes.input_label}>Seal available</div>
                 <select className={classes.select} ref={selectRef} value={selectedOption} onChange={handleChange}>
-                    <option value={true} className={classes.option}>True</option>
-                    <option value={false} className={classes.option}>False</option>
+                    <option value={true} className={classes.option}>+</option>
+                    <option value={false} className={classes.option}>-</option>
                 </select>
             </label>
             <SuccessButton value={"Create"} click={create} class={classes.succBtn}/>
