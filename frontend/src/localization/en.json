@@ -121,5 +121,7 @@
   "load_task_label" : "Load task",
 
   "harnesses_used" : "Harnesses used",
-  "komaxes_used" : "Komaxes used"
+  "komaxes_used" : "Komaxes used",
+
+  "create_new_seal" : "Create new seal"
 }
