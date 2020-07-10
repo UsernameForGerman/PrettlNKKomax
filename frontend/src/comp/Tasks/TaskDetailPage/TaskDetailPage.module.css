@@ -82,3 +82,10 @@
         margin-top: 10vh;
     }
 }
+
+@media (max-width: 420px) {
+    .container{
+        width: 85vw;
+        flex-direction: column;
+    }
+}

@@ -21,7 +21,6 @@ let format = (time, locale) => {
     keys.forEach((elem, index) => {
         let key = keys[keys.length - 1 - index];
         let value = obj[key];
-        debugger;
         switch (key) {
             case "sec" : {
                 str += value > 0 ? value + (locale === "ru" ? "сек" : key) : ""
