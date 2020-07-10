@@ -83,12 +83,15 @@ let Header = (props) => {
         return elem;
     });
     let [isOpen, setOpen] = useState(false);
-    let toggleDrawer = () => {
+    let toggleDrawer = (e) => {
         setOpen(!isOpen);
     }
-    let renderedLinkItems = buttonsState.map((elem) => {
+    let close = (e) => {
+        setOpen(false)
+    }
+    let renderedLinkItems = buttonsState.map((elem, index) => {
         return(
-            <NavLink to={elem.link} className={classes.link} key={elem.desc} activeClassName={classes.activeLink}>
+            <NavLink to={elem.link} className={classes.link} key={index} activeClassName={classes.activeLink}>
                 <ListItem button key={elem.desc} onClick={toggleDrawer}>
                     <ListItemIcon>
                         {elem.icon}
@@ -109,8 +112,12 @@ let Header = (props) => {
     return(
         <>
             <Drawer
+                ModalProps={{
+                  keepMounted: false, // Better open performance on mobile.
+                }}
+                anchor={"left"}
                 open={isOpen}
-                onClose={toggleDrawer}
+                onClose={close}
             >
                 {drawer}
             </Drawer>

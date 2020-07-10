@@ -75,3 +75,9 @@
 .btnTool{
     border: 2px #1471c2 solid;
 }
+
+@media (max-height: 420px) {
+    .TaskDetailPage{
+        margin-top: 10vh;
+    }
+}

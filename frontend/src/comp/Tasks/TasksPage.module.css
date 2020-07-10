@@ -7,9 +7,8 @@
 
 .container{
     width: 80vw;
-    height: 70vh;
+    min-height: 70vh;
     margin: auto;
-    overflow-y: scroll;
     background-color: white;
     border-radius: 5px;
 }
@@ -59,6 +58,79 @@
     width: 20vw;
 }
 
+.username{
+    font-size: 2em;
+    font-weight: bold;
+}
+
 .title{
     transform: translate(-150%) translateY(-10%);
+}
+
+@media (max-width: 420px) {
+    .username{
+        width: 30vw;
+        font-size: 24px;
+        margin-right: 0px;
+    }
+
+    .title{
+        width: 30vw;
+        transform: translateX(0px);
+        font-size: 12px;
+        margin-bottom: .9em;
+    }
+
+    .addBtn{
+        padding: 0px 10px;
+        padding-bottom: 4px;
+        font-size: 16px;
+    }
+
+    .recentTasks{
+        flex-direction: column;
+        min-height: 0px;
+    }
+
+    .container{
+        padding-top: 20px;
+    }
+
+    .TaskPage{
+
+    }
+}
+
+@media (max-height: 420px) {
+    .heading{
+        height: 15%;
+    }
+
+    .username{
+        width: 30vw;
+        font-size: 24px;
+        margin-right: 0px;
+    }
+
+    .title{
+        width: 30vw;
+        transform: translateX(0px);
+        font-size: 12px;
+        margin-bottom: .9em;
+    }
+
+    .addBtn{
+        padding: 0px 10px;
+        padding-bottom: 4px;
+        font-size: 16px;
+    }
+
+    .container{
+        padding-top: 20px;
+    }
+
+    .TaskPage{
+
+        margin-top: 15vh;
+    }
 }
