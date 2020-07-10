@@ -74,6 +74,7 @@
 
 .btnTool{
     border: 2px #1471c2 solid;
+    width: 100px;
 }
 
 @media (max-height: 420px) {

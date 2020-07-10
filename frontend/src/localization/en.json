@@ -113,11 +113,13 @@
   "create_labour" : "Create labour",
   "edit_labour" : "Edit labour",
 
-  "work_status" : "Works",
-  "repair_status" : "Repair",
-  "not_working_status" : "Not working",
+  "task_label" : "Task",
+  "ticket_label" : "Ticket",
 
-  "black_marking" : "Black",
-  "white_marking" : "White",
-  "both_marking" : "Both"
+  "full_task_label" : "Full task",
+  "again" : "Again",
+  "load_task_label" : "Load task",
+
+  "harnesses_used" : "Harnesses used",
+  "komaxes_used" : "Komaxes used"
 }

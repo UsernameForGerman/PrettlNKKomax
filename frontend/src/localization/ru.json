@@ -111,5 +111,15 @@
   "choose_avatar_label" : "Выберите фото",
 
   "create_labour" : "Создать действие",
-  "edit_labour" : "Реадктировать действие"
+  "edit_labour" : "Реадктировать действие",
+
+  "task_label" : "Задание",
+  "ticket_label" : "Бирка",
+
+  "full_task_label" : "Полное задание",
+  "again" : "Заново",
+  "load_task_label" : "Загрузить задание",
+
+  "harnesses_used" : "Жгуты использованы",
+  "komaxes_used" : "Комаксы использованы"
 }
