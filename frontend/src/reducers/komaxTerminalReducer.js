@@ -1,4 +1,5 @@
 import komax_terminal_api from "../DAL/komax_terminal/komax_terminal_api";
+import handle401 from "./handle401";
 
 const initialState = {
     isFetching : false,
@@ -40,30 +41,42 @@ const setListAC = (list) => {
 const getTerminalListThunk = () => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        komax_terminal_api.getTerminalList().then((data) => {
-            dispatch(setListAC(data));
-            dispatch(toggleFetchAC());
-        });
+        komax_terminal_api.getTerminalList()
+            .then((data) => {
+                dispatch(setListAC(data));
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch)
+            });
     }
 }
 
 const createTerminalThunk = (terminal) => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        komax_terminal_api.createTerminal(terminal).then((data) => {
-            dispatch(getTerminalListThunk());
-            dispatch(toggleFetchAC());
-        });
+        komax_terminal_api.createTerminal(terminal)
+            .then((data) => {
+                dispatch(getTerminalListThunk());
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch)
+            });
     }
 }
 
 const updateTerminalThunk = (terminal) => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        komax_terminal_api.updateTerminal(terminal).then((data) => {
-            dispatch(getTerminalListThunk());
-            dispatch(toggleFetchAC());
-        });
+        komax_terminal_api.updateTerminal(terminal)
+            .then((data) => {
+                dispatch(getTerminalListThunk());
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch)
+            });
     }
 }
 

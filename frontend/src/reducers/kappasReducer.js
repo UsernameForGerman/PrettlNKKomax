@@ -1,4 +1,5 @@
 import kappa_api from "../DAL/kappa/kappa-api";
+import handle401 from "./handle401";
 const initialState = {
     isFetching : false,
     kappasList : []
@@ -39,20 +40,28 @@ const setListAC = (list) => {
 const getKappasThunk = () => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        kappa_api.getKappaList().then((data) => {
-            dispatch(setListAC(data));
-            dispatch(toggleFetchAC());
-        });
+        kappa_api.getKappaList()
+            .then((data) => {
+                dispatch(setListAC(data));
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch)
+            });
     }
 }
 
 const createKappaThunk = (task) => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        kappa_api.createKappa(task).then((data) => {
-            dispatch(getKappasThunk());
-            dispatch(toggleFetchAC());
-        });
+        kappa_api.createKappa(task)
+            .then((data) => {
+                dispatch(getKappasThunk());
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch)
+            });
     }
 }
 

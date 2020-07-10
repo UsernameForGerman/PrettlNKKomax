@@ -1,4 +1,6 @@
 import komax_seal_api from "../DAL/komax_seal/komax_seal_api";
+import handle401 from "./handle401";
+import {logoutThunk} from "./authReducer";
 
 const initialState = {
     isFetching : false,
@@ -40,40 +42,56 @@ const setListAC = (list) => {
 const getSealsListThunk = () => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        komax_seal_api.getSealsList().then((data) => {
-            dispatch(setListAC(data));
-            dispatch(toggleFetchAC());
-        });
+        komax_seal_api.getSealsList()
+            .then((data) => {
+                dispatch(setListAC(data));
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch);
+            });
     }
 }
 
 const updateSealThunk = (seal) => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        komax_seal_api.updateSeal(seal).then((data) => {
-            dispatch(getSealsListThunk());
-            dispatch(toggleFetchAC());
-        });
+        komax_seal_api.updateSeal(seal)
+            .then((data) => {
+                dispatch(getSealsListThunk());
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                dispatch(logoutThunk())
+            })
     }
 }
 
 const createSealThunk = (seal) => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        komax_seal_api.createSeal(seal).then((data) => {
-            dispatch(getSealsListThunk());
-            dispatch(toggleFetchAC());
-        });
+        komax_seal_api.createSeal(seal)
+            .then((data) => {
+                dispatch(getSealsListThunk());
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch);
+            });
     }
 }
 
 const deleteSealThunk = (seal) => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        komax_seal_api.deleteSeal(seal).then((data) => {
-            dispatch(getSealsListThunk());
-            dispatch(toggleFetchAC());
-        });
+        komax_seal_api.deleteSeal(seal)
+            .then((data) => {
+                dispatch(getSealsListThunk());
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch);
+            });
     }
 }
 
