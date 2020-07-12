@@ -23,7 +23,7 @@ from .serializers import *
 from komax_app.models import KomaxOrder, KomaxTaskCompletion, KomaxTask, TaskPersonal, Kappa, Komax,HarnessChart, Harness, KomaxStatus
 from komax_app.modules.HarnessChartProcessing import HarnessChartReader
 from komax_app.modules.KomaxTaskProcessing import get_komax_task_status_on_komax, KomaxTaskProcessing, \
-    update_komax_task_status
+    update_komax_task_status, stop_komax_task_on_komax
 from komax_app.modules.outer import OutProcess
 
 
@@ -80,6 +80,40 @@ def index(request):
 #             workbook.save(response)
 #
 #             return response
+
+class KomaxTaskStop(APIView):
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
+
+    def post(self, task_name, *args, **kwargs):
+        task_obj = get_object_or_404(KomaxTask, task_name=task_name)
+        for komax in task_obj.komaxes.all():
+            stop_komax_task_on_komax(komax.komax, task_obj)
+            if TaskPersonal.objects.filter(komax=komax.komax, loaded=True, komax_task=task_obj).exists():
+                KomaxOrder.objects.create(komax_task=task_obj, komax=komax.komax, status="Requested")
+            else:
+                pass
+
+        return Response(status=HTTP_200_OK)
+
+class KomaxTaskStopOnKomax(APIView):
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
+
+    def post(self, task_name, komax, *args, **kwargs):
+        worker = get_object_or_404(Worker, user=self.request.user)
+        if int(komax) != int(worker.current_komax.number):
+            return Response(status=HTTP_404_NOT_FOUND)
+
+        komax_task = get_object_or_404(KomaxTask, task_name=task_name)
+        komax = worker.current_komax
+        stop_komax_task_on_komax(komax, komax_task)
+        if TaskPersonal.objects.filter(komax=komax, loaded=True, komax_task=komax_task).exists():
+            KomaxOrder.objects.create(komax_task=komax_task, komax=komax, status="Requested")
+        else:
+            pass
+
+        return Response(status=HTTP_200_OK)
 
 class WorkerAccountView(APIView):
     authentication_classes = (TokenAuthentication, )
@@ -423,6 +457,12 @@ class KomaxTaskListView(APIView):
 
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, task_name, *args, **kwargs):
+        task_obj = get_object_or_404(KomaxTask, task_name=task_name)
+        task_obj.delete()
+
+        return Response(status=HTTP_204_NO_CONTENT)
 
 class Logout(APIView):
 
