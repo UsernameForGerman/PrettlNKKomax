@@ -36,3 +36,10 @@
         margin: 20px 0px;
     }
 }
+
+@media (max-height: 420px) {
+    .graph{
+        height: 150px;
+        width: 150px;
+    }
+}
