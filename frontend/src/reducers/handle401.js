@@ -1,7 +1,11 @@
-import {logoutThunk} from "./authReducer";
+import {logoutAC} from "./authReducer";
 
 let handle401 = (err, dispatch) => {
-    if (err.status === 401) dispatch(logoutThunk());
+    let status = err.response.status;
+    if (status === 401){
+        window.localStorage.clear();
+        dispatch(logoutAC())
+    }
 }
 
 export default handle401;
