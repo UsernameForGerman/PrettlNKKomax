@@ -54,3 +54,27 @@
 .submit_btn:hover{
     background-color: var(--light-accent);
 }
+
+@media (max-width: 1025px) {
+    .Feedback{
+        height: 50vh;
+    }
+}
+
+@media (max-height: 770px) {
+    .Feedback{
+        height: 65vw;
+    }
+}
+
+@media (max-width: 420px) {
+    .Feedback{
+        height: 90vh;
+    }
+}
+
+@media (max-height: 420px) {
+    .Feedback{
+        height: 80vw;
+    }
+}
