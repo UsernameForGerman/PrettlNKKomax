@@ -42,6 +42,10 @@
     cursor: pointer;
 }
 
+.desc_btn:hover{
+    background-color: var(--light-accent);
+}
+
 @media (max-width: 1025px) {
     .desc_heading{
         text-align: center;
