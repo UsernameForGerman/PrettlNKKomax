@@ -181,4 +181,4 @@ const chooseKomaxThunk = (login, number) => {
     }
 }
 
-export {authReducer, authThunk, logoutThunk, chooseKomaxThunk}
+export {authReducer, authThunk, logoutThunk, chooseKomaxThunk, logoutAC}

@@ -20,7 +20,7 @@ let KomaxTerminalTableItem = (props) => {
                         <b>{props.terminal_avaliable[0]}</b>
                         <b>{props.terminal_avaliable[1]}</b>
                     </div>
-                    : <>{props.terminal_available ? "True" : "False"}</>
+                    : <>{props.terminal_available ? "+" : "-"}</>
                 }
             </div>
             <div className={classes.firstItem}>
@@ -29,7 +29,7 @@ let KomaxTerminalTableItem = (props) => {
                         <b>{props.material_avaliable[0]}</b>
                         <b>{props.material_avaliable[1]}</b>
                     </div>
-                    : <>{props.seal_installed ? "True" : "False"}</>
+                    : <>{props.seal_installed ? "+" : "-"}</>
                 }
             </div>
             <div className={classes.firstItem}>

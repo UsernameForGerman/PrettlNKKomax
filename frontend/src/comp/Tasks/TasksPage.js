@@ -8,7 +8,7 @@ let TaskPage = (props) => {
         <div className={classes.TaskPage}>
             <div className={classes.heading}>
                 <div className={classes.username}>
-                    <h1>{props.username}</h1>
+                    <div>{props.username}</div>
                 </div>
                 <div className={classes.title}>
                     <h1><FormattedMessage id={"tasks.all_tasks_page_heading"}/></h1>

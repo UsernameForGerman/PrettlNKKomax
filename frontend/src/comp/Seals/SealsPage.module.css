@@ -66,6 +66,17 @@
 
 .heading{
     font-weight: bold;
-    font-size: 32px;
+    font-size: 24px;
     margin-bottom: 20px;
+}
+
+.heading_text{
+    font-size: 12px;
+}
+
+.seal_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
 }

@@ -34,15 +34,15 @@ let ModalForm = (props) => {
                 <label>
                     <FormattedMessage id={"terminal.terminal_avaliable_label"}/>
                     <select className={classes.select} ref={terminalAvalRef}>
-                        <option value={"True"} className={classes.option}>True</option>
-                        <option value={"False"} className={classes.option}>False</option>
+                        <option value={"True"} className={classes.option}>+</option>
+                        <option value={"False"} className={classes.option}>-</option>
                     </select>
                 </label>
                 <label>
                     <FormattedMessage id={"terminal.material_avaliable_label"}/>
                     <select className={classes.select} ref={materialAvalRef}>
-                        <option value={"True"} className={classes.option}>True</option>
-                        <option value={"False"} className={classes.option}>False</option>
+                        <option value={"True"} className={classes.option}>+</option>
+                        <option value={"False"} className={classes.option}>-</option>
                     </select>
                 </label>
             </div>

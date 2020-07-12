@@ -8,6 +8,8 @@ import TasksSelector from "../../../selectors/tasksSelector";
 import {getTasksThunk} from "../../../reducers/tasksReducer";
 import LoginSelector from "../../../selectors/loginSelector";
 import BASE_URL from "../../../DAL/getBaseUrl";
+import formatTime from "./formatTime";
+import {FormattedMessage} from "react-intl";
 
 let TaskDetailPageContainer = (props) => {
     let name = props.match.params.id;
@@ -31,7 +33,7 @@ let TaskDetailPageContainer = (props) => {
     let taskKomaxes = komaxes.map(elem => {
         return(
             <h3 className={classes.komax}>
-                {elem.komax} - {elem.time}
+                {elem.komax} - {formatTime(elem.time, props.locale)}
             </h3>
         )
     });
@@ -40,7 +42,7 @@ let TaskDetailPageContainer = (props) => {
         return(
             <a href={BASE_URL + "api/v1/" + name +"/get_task_komax/" + elem.komax +"/"} target={"blank"}>
                 <button className={classes.greenBtn}>
-                    Task {elem.komax}
+                    <FormattedMessage id={"task_label"}/> {elem.komax}
                 </button>
             </a>
         )
@@ -50,7 +52,7 @@ let TaskDetailPageContainer = (props) => {
         return(
             <a href={BASE_URL + "api/v1/" + name +"/get_ticket_komax/" + elem.komax +"/"} target={"blank"}>
                 <button className={classes.greenBtn}>
-                    Ticket {elem.komax}
+                    <FormattedMessage id={"ticket_label"}/> {elem.komax}
                 </button>
             </a>
         )

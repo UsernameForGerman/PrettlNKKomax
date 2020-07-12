@@ -1,4 +1,5 @@
 import labourApi from "../DAL/labour/labour_api";
+import handle401 from "./handle401";
 
 const initialState = {
     isFetching : false,
@@ -40,30 +41,42 @@ const setListAC = (list) => {
 const getListThunk = () => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        labourApi.getLabourList().then((data) => {
-            dispatch(setListAC(data));
-            dispatch(toggleFetchAC());
-        });
+        labourApi.getLabourList()
+            .then((data) => {
+                dispatch(setListAC(data));
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch);
+            });
     }
 }
 
 const createLabourThunk = (labour) => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        labourApi.createLabour(labour).then((data) => {
-            dispatch(getListThunk());
-            dispatch(toggleFetchAC());
-        });
+        labourApi.createLabour(labour)
+            .then((data) => {
+                dispatch(getListThunk());
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch)
+            });
     }
 }
 
 const updateLabourThunk = (labour) => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        labourApi.updateLabour(labour).then((data) => {
-            dispatch(getListThunk());
-            dispatch(toggleFetchAC());
-        });
+        labourApi.updateLabour(labour)
+            .then((data) => {
+                dispatch(getListThunk());
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch)
+            });
     }
 }
 

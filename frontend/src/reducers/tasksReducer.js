@@ -1,5 +1,7 @@
 import task_api from "../DAL/task/task_api";
 import task_status from "../DAL/task_status/task_status";
+import {logoutThunk} from "./authReducer";
+import handle401 from "./handle401";
 const initialState = {
     isFetching : false,
     tasksList : [],
@@ -102,7 +104,8 @@ const getTasksThunk = () => {
             if (data === "") data = [];
             dispatch(setListAC(data));
             dispatch(toggleFetchAC());
-        }).catch(resp => {
+        }).catch(err => {
+            handle401(err, dispatch);
             dispatch(toggleFetchAC())
         });
     }
@@ -111,28 +114,40 @@ const getTasksThunk = () => {
 const createTaskThunk = (task) => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        task_api.createTask(task).then((data) => {
-            dispatch(canSendAC(true));
-            dispatch(toggleFetchAC());
-        });
+        task_api.createTask(task)
+            .then((data) => {
+                dispatch(canSendAC(true));
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch);
+            });
     }
 }
 
 const updateTaskThunk = (task) => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        task_api.updateTask(task).then((data) => {
-            dispatch(getTasksThunk());
-            dispatch(toggleFetchAC());
-        });
+        task_api.updateTask(task)
+            .then((data) => {
+                dispatch(getTasksThunk());
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch);
+            });
     }
 }
 
 let getStatusThunk = () => {
     return (dispatch) => {
-        task_status.getStatuses().then(resp => {
-            dispatch(setStatusAC(resp));
-        });
+        task_status.getStatuses()
+            .then(resp => {
+                dispatch(setStatusAC(resp));
+            })
+            .catch(err => {
+                handle401(err, dispatch);
+            });
     }
 }
 

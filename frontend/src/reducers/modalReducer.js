@@ -1,4 +1,5 @@
 import komaxApi from "../DAL/komax/komax-api";
+import handle401 from "./handle401";
 
 let initialState = {
     isFetching : false,
@@ -63,35 +64,30 @@ let setNumberErrMsgAC = (errMsg) => {
     }
 }
 
-let checkValidThunk = (number, id) => {
+let checkValidThunk = (number) => {
     return (dispatch) => {
         dispatch(toggleFetchingAC());
-        komaxApi.getKomaxList().then(data => {
-           dispatch(toggleFetchingAC());
-           let numberSet = data.map(elem => elem.number);
-           let idSet = data.map(elem => elem.id);
-           if (numberSet.includes(number)){
-               dispatch(setNumberErrMsgAC("Komax с данным номером уже существует"));
-               dispatch(setIdErrMsgAC(""));
-               dispatch(setValidAC(false));
-           } else if (number === 0){
-               dispatch(setNumberErrMsgAC("Заполните поле `Komax number`"));
-               dispatch(setIdErrMsgAC(""));
-               dispatch(setValidAC(false));
-           } else if (id.length === 0){
-               dispatch(setIdErrMsgAC("Заполните поле `Идентификатор`"));
-               dispatch(setNumberErrMsgAC(""));
-               dispatch(setValidAC(false));
-           } else if (idSet.includes(id)){
-              dispatch(setIdErrMsgAC("Komax с данным идентификатором уже существует"));
-              dispatch(setNumberErrMsgAC(""));
-              dispatch(setValidAC(false));
-           } else {
-              dispatch(setValidAC(true));
-              dispatch(setIdErrMsgAC(""));
-              dispatch(setNumberErrMsgAC(""));
-           }
-        });
+        komaxApi.getKomaxList()
+            .then(data => {
+               dispatch(toggleFetchingAC());
+               let numberSet = data.map(elem => elem.number);
+               if (numberSet.includes(number)){
+                   dispatch(setNumberErrMsgAC("Komax с данным номером уже существует"));
+                   dispatch(setIdErrMsgAC(""));
+                   dispatch(setValidAC(false));
+               } else if (number === 0){
+                   dispatch(setNumberErrMsgAC("Заполните поле `Komax number`"));
+                   dispatch(setIdErrMsgAC(""));
+                   dispatch(setValidAC(false));
+               } else {
+                  dispatch(setValidAC(true));
+                  dispatch(setIdErrMsgAC(""));
+                  dispatch(setNumberErrMsgAC(""));
+               }
+            })
+            .catch(err => {
+                handle401(err, dispatch);
+            });
     }
 }
 

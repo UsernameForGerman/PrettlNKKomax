@@ -21,8 +21,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        checkValid : (number, id) => {
-            dispatch(checkValidThunk(number, id))
+        checkValid : (number) => {
+            dispatch(checkValidThunk(number))
         }
     }
 }

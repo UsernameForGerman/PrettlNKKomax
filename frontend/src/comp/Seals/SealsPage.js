@@ -6,6 +6,7 @@ import SuccessButton from "../common/SuccessButton/SuccessButton";
 import SaveButton from "../common/SaveButton/SaveButton";
 import AddForm from "./AddForm/AddForm";
 import AddFormContainer from "./AddForm/AddFormContainer";
+import {FormattedMessage} from "react-intl";
 let SealsPage = (props) => {
     const customStyles = {
       content : {
@@ -24,9 +25,9 @@ let SealsPage = (props) => {
 
     return (
       <div className={classes.container}>
-          <div className={classes.heading}>Seals</div>
+          <div className={classes.heading}><FormattedMessage id={"seals_label"}/></div>
          <div className={classes.list}>
-             <SuccessButton value={"Create"} class={classes.create} click={props.openCreate}/>
+             <SuccessButton value={<FormattedMessage id={"add_button_text"}/>} class={classes.create} click={props.openCreate}/>
              {props.heading}
              <div className={classes.wrapper}>
                  {props.list}
@@ -38,13 +39,13 @@ let SealsPage = (props) => {
               style={customStyles}
               contentLabel="Example Modal"
             >
-                <>
+                <div className={classes.seal_form}>
                     <div className={classes.heading}>
-                        Edit Seal
+                        <FormattedMessage id={"seal_edit"}/>
                     </div>
                     <SealItem {...props.selectedSeal} callback={setSelected}/>
-                    <SaveButton click={handleClose} value={"Save"} class={classes.save}/>
-                </>
+                    <SaveButton click={handleClose} value={<FormattedMessage id={"save_button_label"}/>} class={classes.save}/>
+                </div>
             </Modal>
             <Modal
               isOpen={props.isCreateOpen}

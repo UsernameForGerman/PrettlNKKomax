@@ -60,3 +60,37 @@
     margin-top: 10px;
     color: red;
 }
+
+@media (max-width: 420px) {
+    .login{
+        transform: translateY(-12vh);
+    }
+
+    .form{
+        width: 80vw;
+    }
+
+    .input{
+        width: 60vw;
+    }
+}
+
+@media (max-height: 420px) {
+    .login{
+
+    }
+
+    .form{
+        height: 55vh;
+        width: 80vw;
+    }
+
+    .input{
+        width: 60vw;
+        font-size: 18px;
+    }
+
+    .sign_in_btn{
+        font-size: 18px;
+    }
+}

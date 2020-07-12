@@ -47,8 +47,7 @@ let ModalForm = (props) => {
     let check = (e) => {
         if (!isInEditMode){
             let number = Number(komaxNumberRef.current.value);
-            let id = identifierRef.current.value;
-            props.checkValid(number, id);
+            props.checkValid(number);
         }
     }
 
@@ -102,8 +101,8 @@ let ModalForm = (props) => {
                 <label>
                     <FormattedMessage id={"komax.pairing_label"}/>
                     <select className={classes.select} ref={pairingRef}>
-                        <option value={1} selected={currKomax.pairing === 1} className={classes.option}>Yes</option>
-                        <option value={0} selected={currKomax.pairing === 0} className={classes.option}>No</option>
+                        <option value={1} selected={currKomax.pairing === 1} className={classes.option}>+</option>
+                        <option value={0} selected={currKomax.pairing === 0} className={classes.option}>-</option>
                     </select>
                 </label>
                 <label>
@@ -117,10 +116,6 @@ let ModalForm = (props) => {
                         })}
                         displayValue="name" // Property name to display in the dropdown options
                     />
-                </label>
-                <label>
-                    <FormattedMessage id={"komax.identifier_label"}/>
-                    <input type={"text"} className={`${classes.input} ${!isIdValid ? classes.invalidInput :""}`} value={currKomax.id} ref={identifierRef} onChange={check} disabled={isInEditMode}/>
                 </label>
                 {isIdValid
                     ? <></>

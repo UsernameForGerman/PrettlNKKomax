@@ -8,19 +8,20 @@ import {updateSealThunk} from "../../../../reducers/sealReducer";
 import classes from "./TCPModal.module.css"
 import SealItem from "./SealItem";
 import TerminalItem from "./TerminalItem";
+import {FormattedMessage} from "react-intl";
 
 let TaskCreateModalFormContainer = (props) => {
     let seal_list = (
         <div className={classes.list}>
-            <h2 className={classes.list_heading}>Seals</h2>
+            <h2 className={classes.list_heading}><FormattedMessage id={"seals_label"}/></h2>
             <div className={classes.table}>
                 {(
                     <div className={classes.row}>
                         <div className={classes.item}>
-                            <b>Seal name</b>
+                            <b><FormattedMessage id={"seal_name_label"}/></b>
                         </div>
                         <div className={classes.item}>
-                            <b>Seal available</b>
+                            <b><FormattedMessage id={"terminal.material_avaliable_label"}/></b>
                         </div>
                     </div>
                 )}
@@ -33,15 +34,15 @@ let TaskCreateModalFormContainer = (props) => {
 
     let terminal_list = (
         <div className={classes.list}>
-            <h2 className={classes.list_heading}>Terminals</h2>
+            <h2 className={classes.list_heading}><FormattedMessage id={"header.komax_teminals_link"}/></h2>
             <div className={classes.table}>
                 {(
                     <div className={classes.row}>
                         <div className={classes.item}>
-                            <b>Terminal name</b>
+                            <b><FormattedMessage id={"terminal_name_label"}/></b>
                         </div>
                         <div className={classes.item}>
-                            <b>Terminal available</b>
+                            <b><FormattedMessage id={"terminal.terminal_avaliable_label"}/></b>
                         </div>
                     </div>
                 )}

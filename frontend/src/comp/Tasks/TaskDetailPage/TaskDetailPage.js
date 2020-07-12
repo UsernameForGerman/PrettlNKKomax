@@ -3,6 +3,7 @@ import React from "react";
 import BASE_URL from "../../../DAL/getBaseUrl";
 import {Link, NavLink} from "react-router-dom";
 import task_api from "../../../DAL/task/task_api";
+import {FormattedMessage} from "react-intl";
 let TaskDetailPage = (props) => {
     let handleClick = () => {
         task_api.loadTask(props)
@@ -17,22 +18,22 @@ let TaskDetailPage = (props) => {
         <div className={classes.TaskDetailPage}>
             <div className={classes.container}>
                 <div className={`${classes.card} ${classes.left_card}`}>
-                <h1>Komax task {props.name}</h1>
+                <h1><FormattedMessage id={"task_label"}/> {props.name}</h1>
                 <div className={classes.row}>
                     <div className={`${classes.col} ${classes.btnCol}`}>
                         <a href={BASE_URL + "api/v1/" + props.name + "/get_task/"} target={"_blank"}>
                             <button className={classes.btnTool}>
-                                Full task
+                                <FormattedMessage id={"full_task_label"}/>
                             </button>
                         </a>
                         <NavLink to={"/task_create/"}>
                             <button className={classes.btnTool}>
-                                Again
+                                <FormattedMessage id={"again"}/>
                             </button>
                         </NavLink>
                         {props.role.toLowerCase() === "operator"
                             ?   <button className={classes.btnTool} onClick={handleClick}>
-                                    Load task
+                                    <FormattedMessage id={"load_task_label"}/>
                                 </button>
                             :   <></>
                         }
@@ -48,13 +49,13 @@ let TaskDetailPage = (props) => {
                 <div className={`${classes.card} ${classes.right_card}`}>
                 <div className={classes.harnesses}>
                     <h2>
-                        Harnesses used
+                        <FormattedMessage id={"harnesses_used"}/>
                     </h2>
                     {props.harnesses}
                 </div>
                 <div className={classes.komaxes}>
                     <h2>
-                        Komaxes used
+                        <FormattedMessage id={"komaxes_used"}/>
                     </h2>
                     {props.warning
                         ? <>Warning</>

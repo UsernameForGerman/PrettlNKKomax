@@ -12,7 +12,7 @@ let TaskCreateModalForm = (props) => {
             </div>
             <div className={classes.btns}>
                 <button onClick={props.close} className={classes.closeBtn}>
-                    Закрыть
+                    <FormattedMessage id={"close_label"}/>
                 </button>
             </div>
         </div>

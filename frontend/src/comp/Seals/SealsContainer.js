@@ -7,6 +7,7 @@ import {deleteSealThunk, getSealsListThunk, updateSealThunk} from "../../reducer
 import classes from "./SealsPage.module.css"
 import Preloader from "../common/Preloader/Preloader";
 import IconButton from "../common/IconButton/IconButton";
+import {FormattedMessage} from "react-intl";
 
 let SealsContainer = (props) => {
     useEffect(() => {
@@ -46,7 +47,7 @@ let SealsContainer = (props) => {
                     {seal.seal_name}
                 </div>
                 <div className={classes.data}>
-                    {seal.seal_available ? "True" : "False"}
+                    {seal.seal_available ? "+" : "-"}
                 </div>
                 <IconButton icon={['fas', 'trash']} class={classes.btn} click={del}/>
             </div>
@@ -56,10 +57,10 @@ let SealsContainer = (props) => {
     let heading = (
         <div className={classes.heading_row}>
             <div className={classes.data}>
-                <b>Seal name</b>
+                <b className={classes.heading_text}><FormattedMessage id={"seal_name_label"}/></b>
             </div>
             <div className={classes.data}>
-                <b>Seal available</b>
+                <b className={classes.heading_text}><FormattedMessage id={"terminal.material_avaliable_label"}/></b>
             </div>
         </div>
     )

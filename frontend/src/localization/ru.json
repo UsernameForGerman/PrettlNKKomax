@@ -1,5 +1,10 @@
 {
   "add_button_text" : "Добавить",
+  "choose_label" : "Выбрать",
+  "edit_label" : "Редактировать",
+
+  "action_label" : "Действие",
+  "time_label" : "Время (секунды)",
 
   "komax.number_label" : "Номер оборудования",
   "komax.type_label" : "Тип",
@@ -8,9 +13,11 @@
   "komax.group_of_square_label" : "Группа сечения",
   "komax.status_label" : "Статус",
   "komax.identifier_label" : "Идентификатор",
+  "labournesses_label" : "Трудозатраты",
 
   "komax.modal_form_heading_create" : "Создать новый комакс",
   "komax.modal_form_heading_edit" : "Изменить существующий комакс",
+  "seal_edit" : "Редактировать уплотнитель",
 
   "save_button_label" : "Сохранить",
 
@@ -20,7 +27,7 @@
   "header.komax_teminals_link" : "Контакты",
   "header.labour_inputs_link" : "Трудозатраты",
   "header.komaxes_link" : "Комаксы",
-  "header.locale_label" : "RU",
+  "header.locale_label" : "РУ",
 
   "terminal.terminal_number_0_label" : "Номер",
   "terminal.terminal_number_1_label" : "контакта",
@@ -90,5 +97,31 @@
   "tasks.create_new_task_kappas_label" : "Каппы",
   "tasks.create_new_task_work_shift_label" : "Рабочая смена",
   "tasks.create_new_task_continue_label" : "Продолжить",
-  "tasks.create_new_task_fill_form_label" : "Заполните форму слева"
+  "tasks.create_new_task_fill_form_label" : "Заполните форму слева",
+
+  "choose_komax_label" : "Выберите комакс",
+  "close_label" : "Закрыть",
+
+  "personal_account" : "Личный кабинет",
+  "seals_label" : "Уплотнители",
+
+  "seal_name_label" : "Название уплотнителя",
+  "terminal_name_label" : "Название контакта",
+
+  "choose_avatar_label" : "Выберите фото",
+
+  "create_labour" : "Создать действие",
+  "edit_labour" : "Реадктировать действие",
+
+  "task_label" : "Задание",
+  "ticket_label" : "Бирка",
+
+  "full_task_label" : "Полное задание",
+  "again" : "Заново",
+  "load_task_label" : "Загрузить задание",
+
+  "harnesses_used" : "Жгуты использованы",
+  "komaxes_used" : "Комаксы использованы",
+
+  "create_new_seal" : "Создать новый уплотнитель"
 }

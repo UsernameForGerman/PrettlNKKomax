@@ -1,5 +1,6 @@
 import harnessApi from "../DAL/harness/harnessApi";
 import harness_chart_api from "../DAL/harness_chart/harness_chart_api";
+import handle401 from "./handle401";
 
 let initialState = {
     isFetching : false,
@@ -66,31 +67,42 @@ let setMapAC = (map) => {
 let getHarnessesListThunk = () => {
     return (dispatch) => {
         dispatch(toggleFetchingAC());
-        harnessApi.getHarnessList().then(data => {
-            dispatch(setListAC(data));
-            dispatch(toggleFetchingAC());
-        })
+        harnessApi.getHarnessList()
+            .then(data => {
+                dispatch(setListAC(data));
+                dispatch(toggleFetchingAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch)
+            })
     }
 }
 
 let getChartByNumberThunk = (number) => {
     return (dispatch) => {
         dispatch(toggleMapFetchingAC());
-        harness_chart_api.getHarnessChartByNumber(number).then(data => {
-            debugger;
-            dispatch(setMapAC(data));
-            dispatch(toggleMapFetchingAC());
-        });
+        harness_chart_api.getHarnessChartByNumber(number)
+            .then(data => {
+                dispatch(setMapAC(data));
+                dispatch(toggleMapFetchingAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch)
+            });
     }
 }
 
 let deleteHarnessByNumberThunk = (number) => {
     return (dispatch) => {
         dispatch(toggleFetchingAC());
-        harnessApi.deleteHarnessByNumber(number).then(data => {
-            dispatch(toggleFetchingAC());
-            dispatch(getHarnessesListThunk());
-        });
+        harnessApi.deleteHarnessByNumber(number)
+            .then(data => {
+                dispatch(toggleFetchingAC());
+                dispatch(getHarnessesListThunk());
+            })
+            .catch(err => {
+                handle401(err, dispatch)
+            });
     }
 }
 

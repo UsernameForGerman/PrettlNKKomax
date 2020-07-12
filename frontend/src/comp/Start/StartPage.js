@@ -1,10 +1,11 @@
 import classes from "./StartPage.module.css"
 import React from "react";
 import RecentTaskContainer from "./RecentTask/RecentTaskContainer";
+import {FormattedMessage} from "react-intl";
 let StartPage = (props) => {
     return(
         <div className={classes.StartPage}>
-            <h1>Личный кабинет</h1>
+            <h1><FormattedMessage id={"personal_account"}/></h1>
             <div className={classes.container}>
                 <div className={classes.info}>
                     <div className={classes.header}>
@@ -16,7 +17,7 @@ let StartPage = (props) => {
                             {props.role}
                         </div>
                         <button className={classes.editBtn} onClick={props.open}>
-                            Edit
+                            <FormattedMessage id={"edit_label"}/>
                         </button>
                     </div>
                 </div>

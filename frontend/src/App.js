@@ -57,7 +57,7 @@ let App = (props) => {
                           <CreateTaskPageContainer/>
                       </Route>
                       <Route path={"/task/:id?"}>
-                          <TaskDetailPageContainer/>
+                          <TaskDetailPageContainer locale={locale}/>
                       </Route>
                       <Route path={"/"} exact>
                           <StartPageContainer/>

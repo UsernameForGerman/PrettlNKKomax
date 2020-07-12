@@ -1,3 +1,24 @@
 .form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+.select{
+    margin-bottom: 20px;
+}
+
+.input, .select{
+    width: 200px;
+    padding: 5px 5px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px #d9dbd9 solid;
+    outline: none;
+}
+
+.heading{
+    font-size: 21px;
+    font-weight: bold;
 }

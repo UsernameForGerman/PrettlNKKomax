@@ -3,6 +3,7 @@ import React from "react";
 import Modal from 'react-modal';
 import LabourCreateModalContainer from "./Modal/Create/LabourCreateModalContainer";
 import LabourEditModalContainer from "./Modal/Edit/LabourEditModalContainer";
+import {FormattedMessage} from "react-intl";
 let LabourPage = (props) => {
     const customStyles = {
       content : {
@@ -16,18 +17,18 @@ let LabourPage = (props) => {
         <div className={classes.LabourPage}>
             <div className={classes.container}>
                 <h1>
-                    Laboriousness
+                    <FormattedMessage id={"labournesses_label"}/>
                 </h1>
                 <div className={classes.table}>
                     <button className={classes.create_btn} onClick={props.openCreate}>
-                        Create
+                        <FormattedMessage id={"add_button_text"}/>
                     </button>
                     <div className={classes.table_heading}>
                         <div className={classes.data}>
-                            <b>Action</b>
+                            <b><FormattedMessage id={"action_label"}/></b>
                         </div>
                         <div className={classes.data}>
-                            <b>Time (sec)</b>
+                            <b><FormattedMessage id={"time_label"}/></b>
                         </div>
                     </div>
                     {props.rows}

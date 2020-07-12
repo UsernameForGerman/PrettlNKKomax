@@ -1,4 +1,5 @@
 import komaxApi from "../DAL/komax/komax-api";
+import handle401 from "./handle401";
 
 const initialState = {
     isFetching : false,
@@ -55,30 +56,42 @@ const setStatusesAC = (statuses) => {
 const getListThunk = () => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        komaxApi.getKomaxList().then((data) => {
-            dispatch(setListAC(data));
-            dispatch(toggleFetchAC());
-        });
+        komaxApi.getKomaxList()
+            .then((data) => {
+                dispatch(setListAC(data));
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch)
+            });
     }
 }
 
 const createKomaxThunk = (komax) => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        komaxApi.createKomax(komax).then((data) => {
-            dispatch(getListThunk());
-            dispatch(toggleFetchAC());
-        });
+        komaxApi.createKomax(komax)
+            .then((data) => {
+                dispatch(getListThunk());
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch)
+            });
     }
 }
 
 const updateKomaxThunk = (komax) => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        komaxApi.updateKomax(komax).then((data) => {
-            dispatch(getListThunk());
-            dispatch(toggleFetchAC());
-        });
+        komaxApi.updateKomax(komax)
+            .then((data) => {
+                dispatch(getListThunk());
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch)
+            });
     }
 }
 
@@ -98,7 +111,7 @@ const getStatusesThunk = () => {
                     }
                 })
                 .catch(err => {
-                    console.log(err);
+                    handle401(err, dispatch)
                 })
         }
         send();
