@@ -28,8 +28,9 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            importLoaders: 1,
-                            modules: true
+                            modules: {
+                                auto: true
+                            }
                         }
                     }
                 ]
@@ -69,7 +70,6 @@ module.exports = {
         new Dotenv({
           path: path.resolve( __dirname, '.env' ), // Path to .env file (this is the default)
           safe: false // load .env.example (defaults to "false" which does not use dotenv-safe)
-        }),
-        new AntdDayjsWebpackPlugin()
+        })
     ]
 };
