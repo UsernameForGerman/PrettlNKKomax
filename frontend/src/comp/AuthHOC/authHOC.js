@@ -10,7 +10,7 @@ let auth = (Component) => {
         let token = storage.getItem('token');
         let role = storage.getItem('role');
         let availPages = get_pages(role);
-        if (token !== null && (path === '' || availPages.includes(path))){
+        if (token !== null && (path === 'account' || path === '' || availPages.includes(path))){
             return(
                 <Component {...props}/>
             );

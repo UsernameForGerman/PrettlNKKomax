@@ -1,0 +1,53 @@
+.header{
+    font-family: 'Montserrat';
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.prettl_heading{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.prettl{
+    margin-right: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--accent);
+    text-transform: uppercase;
+}
+
+.login_btn{
+    margin-bottom: 0px;
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.login_btn:hover{
+    color: var(--light-accent);
+    border-color: var(--light-accent);
+}
+
+.tetra_heading{
+    font-size: 2em;
+    font-weight: bold;
+}
+
+@media (max-width: 420px){
+    .prettl{
+        font-size: 1em;
+    }
+
+    .login_btn{
+        font-size: 1em;
+        padding: 10px 10px;
+    }
+
+    .tetra_heading{
+        font-size: 1.25em;
+    }
+}

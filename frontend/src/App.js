@@ -20,6 +20,7 @@ import TaskDetailPageContainer from "./comp/Tasks/TaskDetailPage/TaskDetailPageC
 import LabourPageContainer from "./comp/Labour/LabourPageContainer";
 import HeaderContainer from "./comp/Header/HeaderContainer";
 import './index.css'
+import LandingPage from "./comp/LandingPage/LandingPage";
 library.add(fas, fab);
 
 let App = (props) => {
@@ -59,7 +60,7 @@ let App = (props) => {
                       <Route path={"/task/:id?"}>
                           <TaskDetailPageContainer locale={locale}/>
                       </Route>
-                      <Route path={"/"} exact>
+                      <Route path={"/account"} exact>
                           <StartPageContainer/>
                       </Route>
                       <Route path={"/login"} exact>

@@ -1,0 +1,10 @@
+*{
+    --accent : #d43a3a;
+    --dark-accent : #561004;
+    --light-accent : #fad3cc;
+}
+
+.container{
+    width: 90vw;
+    margin: 0px auto;
+}
