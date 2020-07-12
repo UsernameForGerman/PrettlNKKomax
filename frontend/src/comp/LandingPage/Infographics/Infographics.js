@@ -2,30 +2,47 @@ import React from "react";
 import classes from "./Infographics.module.css";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { easeQuadInOut } from 'd3-ease';
+import AnimatedProgressProvider from "../AnimatedProgressProvider";
+
 
 let Infographics = (props) => {
-    const value1 = 0.7;
-    const value2 = 0.4;
-    const value3 = 0.35;
+    const value1 = 70;
+    const value2 = 40;
+    const value3 = 35;
     let renderChart = (val) => {
         return (
-            <CircularProgressbar
-                value={val}
-                maxValue={1}
-                text={`До ${val * 100}%`}
-                styles={buildStyles({
-                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                    strokeLinecap: 'round',
+            <AnimatedProgressProvider
+              valueStart={0}
+              valueEnd={val}
+              duration={1.0}
+              easingFunction={easeQuadInOut}
+            >
+                {(value) => {
+                    const roundedValue = Math.round(value);
+                    return (
+                        <CircularProgressbar
+                            value={roundedValue}
+                            maxValue={100}
+                            text={`До ${roundedValue}%`}
+                            styles={buildStyles({
+                                // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                                strokeLinecap: 'round',
 
-                    // Text size
-                    textSize: '16px',
+                                // Text size
+                                textSize: '16px',
 
-                    // Colors
-                    pathColor: `#d43a3a`,
-                    textColor: '#d43a3a',
-                    trailColor: 'gray'
-              })}
-            />
+                                // Colors
+                                pathColor: `#d43a3a`,
+                                textColor: '#d43a3a',
+                                trailColor: 'gray',
+
+                                pathTransition: 'none'
+                          })}
+                        />
+                    )
+                }}
+            </AnimatedProgressProvider>
         )
     }
     return (
