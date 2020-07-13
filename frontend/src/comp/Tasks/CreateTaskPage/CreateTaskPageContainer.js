@@ -41,8 +41,19 @@ let CreateTaskPageContainer = (props) => {
             props.harnesses.length
         ]);
 
+    let formatNumber = (number) => {
+        let replaced = number.toString().replace("\-", "");
+        while (replaced.toString().indexOf("-") > 0){
+            replaced = replaced.toString().replace("\-", "");
+        }
+        let formatted = Number(replaced);
+        return formatted;
+    }
+
     let harnesses_options = props.harnesses.map(elem => {
         return elem.harness_number;
+    }).sort((a,b) => {
+        return formatNumber(a) - formatNumber(b);
     });
 
     let komaxes_options = props.komaxes.map(elem => {
@@ -85,11 +96,8 @@ let CreateTaskPageContainer = (props) => {
     }
 
     let sendDataFirst = (data) => {
-        debugger;
-        let name = data.number;
         let shift = data.work_shift;
         let request = {
-            'task_name' : name,
             'harnesses' : multiselectOptions,
             'komaxes' : komaxesOptions,
             'kappas' : kappasOptions,

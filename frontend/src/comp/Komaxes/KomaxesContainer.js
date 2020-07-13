@@ -7,14 +7,21 @@ import auth from "../AuthHOC/authHOC";
 import classes from "./Komaxes.module.css";
 import komax from "../../assets/images/komax.png";
 import FullScreenPreloader from "../common/Preloader/FullScreenPreloader";
+import KappaSelector from "../../selectors/kappaSelector";
+import {getKappasThunk} from "../../reducers/kappasReducer";
 
 let KomaxesContainer = (props) => {
     useEffect(() => {
         if(props.komaxList.length === 0){
              props.fetchKomaxes();
         }
+
         props.getStatuses();
     }, props.komaxList.length);
+
+    useEffect(() => {
+        props.fetchKappas();
+    }, [props.kappaList.length])
 
     let [selectedKomax, setSelectedKomax] = useState({});
 
@@ -70,6 +77,7 @@ let mapStateToProps = (state) => {
     return {
         isFetching : KomaxSelector.getFetching(state),
         komaxList : KomaxSelector.getList(state),
+        kappaList : KappaSelector.getList(state),
         statuses : KomaxSelector.getStatuses(state)
     }
 }
@@ -82,6 +90,10 @@ let mapDispatchToProps = (dispatch) => {
 
         fetchKomaxes : () => {
             dispatch(getListThunk())
+        },
+
+        fetchKappas : () => {
+            dispatch(getKappasThunk())
         },
 
         createKomax : (komax) => {

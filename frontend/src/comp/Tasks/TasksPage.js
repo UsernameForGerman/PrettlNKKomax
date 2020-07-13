@@ -13,9 +13,12 @@ let TaskPage = (props) => {
                 <div className={classes.title}>
                     <h1><FormattedMessage id={"tasks.all_tasks_page_heading"}/></h1>
                 </div>
-                <NavLink to={"task_create/"}>
-                    <SuccessButton class={classes.addBtn} value={"+"}/>
-                </NavLink>
+                {props.role.toString().toLowerCase() !== 'operator'
+                    ?   <NavLink to={"task_create/"}>
+                            <SuccessButton class={classes.addBtn} value={"+"}/>
+                        </NavLink>
+                    :   <></>
+                }
             </div>
             <div className={classes.container}>
                 {props.rows}

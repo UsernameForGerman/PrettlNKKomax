@@ -11,6 +11,7 @@
     background-color: white;
     border-radius: 5px;
     height: 55vh;
+    width: 100%;
 }
 
 .row, .heading_row{
@@ -31,14 +32,13 @@
 
 .wrapper {
     height: 30vh;
-    width: 20vw;
     overflow-y: scroll;
 }
 
 .data{
     font-size: 18px;
     padding: 5px 5px;
-    width: 5vw;
+    width: 12vw;
     text-align: center;
     display: flex;
     flex-direction: row;
@@ -54,6 +54,8 @@
     flex-direction: row;
     justify-content: center;
     margin: 10px auto;
+    margin-bottom: 30px;
+    margin-top: 5px;
 }
 
 .save{
@@ -66,12 +68,12 @@
 
 .heading{
     font-weight: bold;
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 28px;
+    margin-bottom: 15px;
 }
 
 .heading_text{
-    font-size: 12px;
+    font-size: 18px;
 }
 
 .seal_form{

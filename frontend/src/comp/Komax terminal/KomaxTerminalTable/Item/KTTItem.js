@@ -1,6 +1,5 @@
 import classes from "./KTTItem.module.css"
 import React from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import IconButton from "../../../common/IconButton/IconButton";
 let KomaxTerminalTableItem = (props) => {
     return(
@@ -37,7 +36,7 @@ let KomaxTerminalTableItem = (props) => {
                     ? <div className={classes.data}>
                         <b>{props.delete}</b>
                     </div>
-                    : <IconButton icon={['fas', 'trash-alt']}/>
+                    : <IconButton icon={['fas', 'trash-alt']} click={props.del}/>
                 }
             </div>
         </div>

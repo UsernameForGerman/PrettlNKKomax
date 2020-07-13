@@ -14,8 +14,10 @@ let KomaxTable = (props) => {
     };
     let renderedItems = props.items.map((elem) => {
         return (<KomaxTableItem {...elem} key={elem.number} click={() => {
-            props.setSelected(elem);
-            props.open();
+            if (elem.type){
+                props.setSelected(elem);
+                props.open();
+            }
         }}/>);
     });
     return(

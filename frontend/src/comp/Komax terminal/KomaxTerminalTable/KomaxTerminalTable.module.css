@@ -1,3 +1,4 @@
-.Table{
+.wrapper{
     overflow-y: scroll;
+    height: 30vh;
 }

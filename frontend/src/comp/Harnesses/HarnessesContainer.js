@@ -50,7 +50,7 @@ let HarsessesContainer = (props) => {
     });
 
     let renderRows = (list) => {
-        let order = ['id', 'harness', 'wire_type', 'marking', 'wire_number', 'wire_square', 'wire_color', 'wire_length', 'armirovka_1', 'tube_len_1', 'wire_seal_1', 'wire_cut_length_1', 'wire_terminal_1', 'aplicator_1', 'armirovka_2', 'tube_len_2', 'wire_seal_2', 'wire_cut_length_2', 'wire_terminal_2', 'aplicator_2'];
+        let order = ['harness', 'wire_type', 'marking', 'wire_number', 'wire_square', 'wire_color', 'wire_length', 'armirovka_1', 'tube_len_1', 'wire_seal_1', 'wire_cut_length_1', 'wire_terminal_1', 'aplicator_1', 'armirovka_2', 'tube_len_2', 'wire_seal_2', 'wire_cut_length_2', 'wire_terminal_2', 'aplicator_2'];
 
         list = list.map((row) => {
             row = Object.keys(row).map((elem, index) => {
@@ -84,7 +84,6 @@ let HarsessesContainer = (props) => {
                       <Table aria-label="simple table">
                         <TableHead>
                           <TableRow>
-                            <TableCell><b>#</b></TableCell>
                               {headings}
                           </TableRow>
                         </TableHead>

@@ -17,8 +17,6 @@ let ModalForm = (props) => {
     let statusRef = React.createRef();
     let markingRef = React.createRef();
     let pairingRef = React.createRef();
-    let sepairingRef = React.createRef();
-    let identifierRef = React.createRef();
 
     let collectData = (e) => {
         props.close();
@@ -28,7 +26,6 @@ let ModalForm = (props) => {
         }
         let data = {
             number : komaxNumberRef.current.value,
-            identifier : identifierRef.current.value,
             group_of_square : multiArr.reduce((prev, elem) => {
                 return prev + " " + elem
             }).trim(),
@@ -93,9 +90,9 @@ let ModalForm = (props) => {
                 <label>
                     <FormattedMessage id={"komax.marking_label"}/>
                     <select className={classes.select} ref={markingRef}>
-                        <option value={3} selected={currKomax.marking === 3} className={classes.option}>Black</option>
+                        <option value={1} selected={currKomax.marking === 1} className={classes.option}>Black</option>
                         <option value={2} selected={currKomax.marking === 2} className={classes.option}>White</option>
-                        <option value={1} selected={currKomax.marking === 1} className={classes.option}>Both</option>
+                        <option value={3} selected={currKomax.marking === 3} className={classes.option}>Both</option>
                     </select>
                 </label>
                 <label>

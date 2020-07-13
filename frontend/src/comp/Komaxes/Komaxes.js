@@ -39,7 +39,7 @@ let Komaxes = (props) => {
                 {props.items}
             </div>
             <div className={classes.table}>
-                <KomaxTable items={props.komaxList} setSelected={props.setSelected} open={openModal2}/>
+                <KomaxTable items={props.komaxList.concat(props.kappaList)} setSelected={props.setSelected} open={openModal2}/>
             </div>
             <Modal
               isOpen={isModalOpen}

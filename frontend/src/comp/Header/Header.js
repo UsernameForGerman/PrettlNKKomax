@@ -89,6 +89,7 @@ let Header = (props) => {
     let close = (e) => {
         setOpen(false)
     }
+
     let renderedLinkItems = buttonsState.map((elem, index) => {
         return(
             <NavLink to={elem.link} className={classes.link} key={index} activeClassName={classes.activeLink}>
@@ -130,7 +131,9 @@ let Header = (props) => {
                         :   <Redirect to={"/login"}/>
                     }
                     <div className={classes.logoWrapper}>
-                        <img src={logo} alt={"logo"} className={classes.logo}/>
+                        <NavLink to={"/account"}>
+                            <img src={logo} alt={"logo"} className={classes.logo}/>
+                        </NavLink>
                     </div>
                     <button onClick={props.toggleLocale} className={classes.localeBtn}>
                         <FormattedMessage id={"header.locale_label"}/>

@@ -7,7 +7,6 @@ let TerminalItem = (terminal) => {
         setAvailable(e.currentTarget.value);
         let copy = {...terminal};
         copy.terminal_available = e.currentTarget.value;
-        debugger;
         terminal.updateTerminal(copy);
     }
     return (
@@ -17,8 +16,8 @@ let TerminalItem = (terminal) => {
             </div>
             <div className={classes.item}>
                 <select value={available} onChange={change} className={classes.select}>
-                    <option value={true}>True</option>
-                    <option value={false}>False</option>
+                    <option value={true}>+</option>
+                    <option value={false}>-</option>
                 </select>
             </div>
         </div>

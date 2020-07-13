@@ -80,4 +80,18 @@ const updateTerminalThunk = (terminal) => {
     }
 }
 
-export {komaxTerminalReducer, updateTerminalThunk, getTerminalListThunk, createTerminalThunk}
+const deleteTerminalThunk = (terminal) => {
+    return (dispatch) => {
+        dispatch(toggleFetchAC());
+        komax_terminal_api.deleteTerminal(terminal)
+            .then((data) => {
+                dispatch(getTerminalListThunk())
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch);
+            })
+    }
+}
+
+export {komaxTerminalReducer, updateTerminalThunk, getTerminalListThunk, createTerminalThunk, deleteTerminalThunk}

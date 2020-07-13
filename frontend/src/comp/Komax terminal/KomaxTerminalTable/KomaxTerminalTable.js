@@ -13,7 +13,9 @@ let KomaxTerminalTable = (props) => {
     return(
         <div className={classes.Table}>
             <KomaxTerminalTableItem {...Heading} heading/>
-            {props.items}
+            <div className={classes.wrapper}>
+                {props.items}
+            </div>
         </div>
     )
 }

@@ -4,7 +4,7 @@ import KomaxTerminalTableItem from "./KomaxTerminalTable/Item/KTTItem";
 import auth from "../AuthHOC/authHOC";
 import TerminalSelector from "../../selectors/terminalSelector";
 import {connect} from "react-redux";
-import {getTerminalListThunk, updateTerminalThunk} from "../../reducers/komaxTerminalReducer";
+import {deleteTerminalThunk, getTerminalListThunk, updateTerminalThunk} from "../../reducers/komaxTerminalReducer";
 import FullScreenPreloader from "../common/Preloader/FullScreenPreloader";
 
 let KomaxTerminalContainer = (props) => {
@@ -45,8 +45,13 @@ let KomaxTerminalContainer = (props) => {
             setTerminalAvaliable(item.terminal_avaliable);
             openModal();
         }
+
+        let del = (e) => {
+            e.stopPropagation();
+            props.deleteTerminal(item);
+        }
         return (
-            <KomaxTerminalTableItem {...item} select={select}/>
+            <KomaxTerminalTableItem {...item} select={select} del={del}/>
         )
     })
 
@@ -67,6 +72,7 @@ let KomaxTerminalContainer = (props) => {
                        openCreate={openCreate}
                        closeCreate={closeCreate}
                        updateTerminal={props.updateTerminal}
+                       deleteTerminal={props.deleteTerminal}
                 />
             }
         </>
@@ -88,6 +94,10 @@ let mapDispatchToProps = (dispatch) => {
 
         updateTerminal : (terminal) => {
             dispatch(updateTerminalThunk(terminal))
+        },
+
+        deleteTerminal : (terminal) => {
+            dispatch(deleteTerminalThunk(terminal))
         }
     }
 }
