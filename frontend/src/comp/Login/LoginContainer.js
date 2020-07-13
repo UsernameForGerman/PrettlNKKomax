@@ -9,7 +9,7 @@ let LoginContainer = (props) => {
     return(
         <>
             {props.isLogged
-                ? <Redirect to={"/"}/>
+                ? <Redirect to={"/account"}/>
                 : <Login login={props.login} errMsg={props.errMsg} isFetching={props.isFetching}/>
             }
         </>

@@ -172,11 +172,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'komaxdb',
-            'USER': 'server',
-            'PASSWORD': "zMv-a5QZ7+Jm5!*@",
-            'HOST': "127.0.0.1",
-            'PORT': 5432,
+            'NAME': os.environ.get('DB_NAME', 'komaxdb'),
+            'USER': os.environ.get('DB_USER', 'server'),
+            'PASSWORD': os.environ.get('DB_PASSWORD', "zMv-a5QZ7+Jm5!*@"),
+            'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
+            'PORT': os.environ.get('DB_PORT', '5432'),
         }
     }
 

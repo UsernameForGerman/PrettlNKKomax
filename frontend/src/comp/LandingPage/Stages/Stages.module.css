@@ -1,0 +1,22 @@
+.stages{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 100px 0px;
+}
+
+.heading{
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.img{
+    width: 100%;
+}
+
+@media (max-width: 420px) {
+    .heading{
+        font-size: 24px;
+    }
+}

@@ -21,7 +21,7 @@ let Header = (props) => {
     let buttonsState = [
         {
           desc : <FormattedMessage id={"header.start_link"}/>,
-          link : "/"
+          link : "/account"
         },
         {
           desc : <FormattedMessage id={"header.tasks_link"}/>,
@@ -50,7 +50,7 @@ let Header = (props) => {
     }).map((elem) => {
         let icon = undefined;
         switch (elem.link) {
-            case "/": {
+            case "/account": {
                 icon = <Home/>;
                 break;
             };
