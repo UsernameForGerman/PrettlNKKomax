@@ -34,9 +34,9 @@ let RemoveBtn = (props) => {
             {
                 props.status === 1
                     ? delBtn
-                    : props.status === 2 || 3
+                    : props.status === 2 || props.status === 3
                         ? stopBtn
-                        : <></>
+                        : delBtn
             }
         </>
     )

@@ -1,27 +1,27 @@
 let get_pages = (permission) => {
     switch (permission) {
         case "Master" : {
-            return ['tasks', 'task', 'task_create', 'komaxes', 'harnesses'];
+            return ['account', 'tasks', 'task', 'task_create', 'komaxes', 'harnesses'];
         }
 
         case "Archivarius" : {
-            return ['harnesses']
+            return ['account', 'harnesses']
         }
 
         case "Mechanic" : {
-            return ['komaxes']
+            return ['account', 'komaxes']
         }
 
         case "Operator" : {
-            return ['tasks', 'task', 'task_create']
+            return ['account', 'tasks', 'task', 'task_create']
         }
 
         case "Technologist" : {
-            return ['terminals', 'labour', 'komaxes']
+            return ['account', 'terminals', 'labour', 'komaxes']
         }
 
         case "Admin" : {
-            return ['tasks', 'task', 'task_create', 'harnesses', 'terminals', 'labour', 'komaxes']
+            return ['account', 'tasks', 'task', 'task_create', 'harnesses', 'terminals', 'labour', 'komaxes']
         }
     }
 }

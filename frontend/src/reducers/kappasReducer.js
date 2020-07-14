@@ -51,10 +51,10 @@ const getKappasThunk = () => {
     }
 }
 
-const createKappaThunk = (task) => {
+const createKappaThunk = (kappa) => {
     return (dispatch) => {
         dispatch(toggleFetchAC());
-        kappa_api.createKappa(task)
+        kappa_api.createKappa(kappa)
             .then((data) => {
                 dispatch(getKappasThunk());
                 dispatch(toggleFetchAC());
@@ -65,4 +65,18 @@ const createKappaThunk = (task) => {
     }
 }
 
-export {kappasReducer, getKappasThunk, createKappaThunk}
+const updateKappaThunk = (kappa) => {
+    return (dispatch) => {
+        dispatch(toggleFetchAC());
+        kappa_api.updateKappa(kappa)
+            .then((data) => {
+                dispatch(getKappasThunk());
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch)
+            });
+    }
+}
+
+export {kappasReducer, getKappasThunk, createKappaThunk, updateKappaThunk}

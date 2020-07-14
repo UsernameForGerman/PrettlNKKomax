@@ -1,6 +1,6 @@
 .TaskDetailPage{
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .card{
@@ -20,6 +20,10 @@
 
 .harnesses{
 
+}
+
+.harness{
+    margin: 0px 0px;
 }
 
 .komaxes{
@@ -50,9 +54,11 @@
 }
 
 .container{
-    height: 80vh;
+    min-height: 80vh;
     width: 80vw;
-    margin: 5vh 10vw;
+    margin-top: 10vh;
+    margin-left: 10vw;
+    padding-bottom: 2vh;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -60,7 +66,7 @@
 
 .btnTool, .greenBtn{
     color: black;
-    margin: 10px 0px;
+    margin: 10px 5px;
     font-size: 18px;
     padding: 5px 5px;
     outline: none;
@@ -104,5 +110,9 @@
     .container{
         width: 85vw;
         flex-direction: column;
+    }
+
+    .btnTool, .greenBtn{
+        font-size: 16px;
     }
 }

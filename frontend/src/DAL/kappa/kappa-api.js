@@ -20,6 +20,10 @@ class kappa_api extends API{
             number : number
         });
     }
+
+    updateKappa = (kappa) => {
+        return this.updateObject(kappa.number, {...kappa});
+    }
 }
 
 export default new kappa_api;

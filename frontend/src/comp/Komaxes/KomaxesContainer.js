@@ -8,7 +8,7 @@ import classes from "./Komaxes.module.css";
 import komax from "../../assets/images/komax.png";
 import FullScreenPreloader from "../common/Preloader/FullScreenPreloader";
 import KappaSelector from "../../selectors/kappaSelector";
-import {getKappasThunk} from "../../reducers/kappasReducer";
+import {getKappasThunk, updateKappaThunk} from "../../reducers/kappasReducer";
 
 let KomaxesContainer = (props) => {
     useEffect(() => {
@@ -65,6 +65,7 @@ let KomaxesContainer = (props) => {
                     items={renderedKomaxItems}
                     save={save}
                     update={update}
+                    updateKappa={props.updateKappa}
                     selectedKomax={selectedKomax}
                     setSelected={setSelectedKomax}
                 />
@@ -102,6 +103,10 @@ let mapDispatchToProps = (dispatch) => {
 
         updateKomax : (komax) => {
             dispatch(updateKomaxThunk(komax))
+        },
+
+        updateKappa : (kappa) => {
+            dispatch(updateKappaThunk(kappa))
         }
     }
 }
