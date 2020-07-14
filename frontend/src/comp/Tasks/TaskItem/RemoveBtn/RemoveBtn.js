@@ -31,11 +31,12 @@ let RemoveBtn = (props) => {
                     </button>);
     return (
         <>
-            {isMaster
-                ?   props.status === 3
+            {
+                props.status === 1
+                    ? delBtn
+                    : props.status === 2 || 3
                         ? stopBtn
-                        : delBtn
-                :   delBtn
+                        : <></>
             }
         </>
     )

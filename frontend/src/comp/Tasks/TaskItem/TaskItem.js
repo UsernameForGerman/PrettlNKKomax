@@ -44,7 +44,7 @@ let TaskItem = (props) => {
                             }}>
                                 <FontAwesomeIcon icon={['fas', 'envelope']}/>
                               </button>
-                            : props.status === 2
+                            : props.status === 2 && props.role.toString().toLowerCase() !== "master"
                                 ? <button className={classes.taskLoadedBtn} onClick={loadTask}>
                                         <FontAwesomeIcon icon={['fas', 'arrow-up']}/>
                                   </button>
