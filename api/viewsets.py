@@ -222,10 +222,6 @@ class KomaxTaskViewSet(ViewSet):
         return KomaxTask.objects.all()
 
     def list(self, *args, **kwargs):
-        response_data = KomaxTaskSerializer(self.get_queryset(), many=True).data
-        return Response(response_data, status=HTTP_200_OK)
-
-    def create(self, *args, **kwargs):
         user = self.request.user
         if user.groups.filter(name='Master').exists():
             queryset = self.get_queryset()
@@ -253,9 +249,9 @@ class KomaxTaskViewSet(ViewSet):
         else:
             return Response(status=HTTP_400_BAD_REQUEST)
 
-    def update(self, *args, **kwargs):
+    def create(self, *args, **kwargs):
         data = self.request.data
-        komax_task_name = self.kwargs.get('task_name', None)
+        komax_task_name = data.get('task_name', None)
         harnesses = data.get('harnesses', None)
         komaxes = data.get('komaxes', None)
         kappas = data.get('kappas', None)
