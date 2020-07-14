@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.routers import DefaultRouter
 from .viewsets import KomaxViewSet, KappaViewSet, HarnessViewSet, LabourisnessViewSet, KomaxTerminalsViewSet, \
-    KomaxStatusViewSet, HarnessChartViewSet, KomaxSealViewSet, WorkerViewSet
+    KomaxStatusViewSet, HarnessChartViewSet, KomaxSealViewSet, WorkerViewSet, KomaxTaskViewSet
 
 app_name = 'api'
 
@@ -19,13 +19,13 @@ router.register('komax_status', KomaxStatusViewSet)
 router.register('harness_chart', HarnessChartViewSet)
 router.register('komax_seals', KomaxSealViewSet)
 router.register('workers', WorkerViewSet)
+router.register('komax_tasks', KomaxTaskViewSet, basename='komax-tasks')
 
 
 urlpatterns = [
     path('index/', views.index, name='index'),
     path('v1/login/', ObtainAuthToken.as_view(), name='get_token'),
     path('v1/logout/', views.Logout.as_view(), name='logout'),
-    path('v1/komax_tasks/', views.KomaxTaskListView.as_view(), name='komax_tasks_list'),
     path('v1/<str:task_name>/stop', views.KomaxTaskStop.as_view(), name='stop_task'),
     path('v1/<str:task_name>/stop/<str:komax>/', views.KomaxTaskStopOnKomax.as_view(), name='stop_task_on_komax'),
     path('v1/load_komax_task/', views.LoadTaskView.as_view(), name='load-komax-task'),

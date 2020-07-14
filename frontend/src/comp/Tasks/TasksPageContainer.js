@@ -5,7 +5,7 @@ import TaskItem from "./TaskItem/TaskItem";
 import classes from "./TasksPage.module.css"
 import {connect} from "react-redux";
 import TasksSelector from "../../selectors/tasksSelector";
-import {getTasksThunk} from "../../reducers/tasksReducer";
+import {deleteTaskThunk, getTasksThunk} from "../../reducers/tasksReducer";
 import FullScreenPreloader from "../common/Preloader/FullScreenPreloader";
 import LoginSelector from "../../selectors/loginSelector";
 
@@ -21,7 +21,7 @@ let TasksPageContainer = (props) => {
         return Number(b.task_name) - Number(a.task_name);
     }).map(elem => {
         return (
-            <TaskItem {...elem} role={props.role}/>
+            <TaskItem {...elem} role={props.role} komax={props.komax} delete={props.deleteTask}/>
         );
     });
 
@@ -69,7 +69,8 @@ let mapStateToProps = (state) => {
         isFetching : TasksSelector.getFetching(state),
         tasksList : TasksSelector.getList(state),
         login : LoginSelector.getLogin(state),
-        role : LoginSelector.getRole(state)
+        role : LoginSelector.getRole(state),
+        komax : LoginSelector.getKomax(state)
     }
 }
 
@@ -77,6 +78,10 @@ let mapDispatchToProps = (dispatch) => {
     return {
         fetchList: () => {
             dispatch(getTasksThunk())
+        },
+
+        deleteTask: (task) => {
+            dispatch(deleteTaskThunk(task))
         }
     }
 }

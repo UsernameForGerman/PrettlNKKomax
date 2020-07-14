@@ -76,8 +76,8 @@ class KomaxClient(Session):
         # self.db_connection = DatabaseConnection(path_to_database)
         self.__production = production
         if self.__production:
-            # self.__base_url = 'https://komax.prettl.ru/komax_api/v1/'
-            self.__base_url = 'http://localhost:8000/komax_api/v1/'
+            self.__base_url = 'https://komax.prettl.ru/komax_api/v1/'
+            # self.__base_url = 'http://localhost:8000/komax_api/v1/'
         else:
             self.__base_url = 'http://localhost:8000/komax_api/v1/'
 
