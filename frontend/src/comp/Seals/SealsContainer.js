@@ -62,6 +62,9 @@ let SealsContainer = (props) => {
             <div className={classes.data}>
                 <b className={classes.heading_text}><FormattedMessage id={"terminal.material_avaliable_label"}/></b>
             </div>
+            <div className={classes.data}>
+                <b className={classes.heading_text}><FormattedMessage id={"terminal.delete_label"}/></b>
+            </div>
         </div>
     )
 

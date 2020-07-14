@@ -98,6 +98,7 @@
   "tasks.create_new_task_work_shift_label" : "Work shift",
   "tasks.create_new_task_continue_label" : "Continue",
   "tasks.create_new_task_fill_form_label" : "Fill first form",
+  "tasks.stop_task" : "Stop task",
 
   "choose_komax_label" : "Choose komax",
   "close_label" : "Close",
@@ -123,5 +124,16 @@
   "harnesses_used" : "Harnesses used",
   "komaxes_used" : "Komaxes used",
 
-  "create_new_seal" : "Create new seal"
+  "create_new_seal" : "Create new seal",
+  "status" : "Status",
+  "created" : "Task Created",
+  "completed" : "Task Completed",
+
+  "black_marking" : "Black",
+  "white_marking" : "White",
+  "both_marking" : "Both",
+
+  "working_status" : "Working",
+  "repairing_status" : "Repairing",
+  "not_working_status" : "Not working"
 }

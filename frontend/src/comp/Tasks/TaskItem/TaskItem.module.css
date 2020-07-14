@@ -3,7 +3,7 @@
     border: 1px rgba(0,0,0,.125) solid;
     border-radius: 5px;
     padding: 10px 10px;
-    height: 20vh;
+    height: 30vh;
     width: 30%;
 }
 
@@ -30,7 +30,7 @@
     transform: translateY(-15%);
 }
 
-.moreBtn, .sendTaskBtn, .taskLoadedBtn, .taskOrderedBtn, .deleteTaskBtn{
+.moreBtn, .sendTaskBtn, .taskLoadedBtn, .taskOrderedBtn, .deleteTaskBtn, taskLoadedBtn{
     background-color: transparent;
     border-radius: 5px;
     outline: none;
@@ -91,6 +91,11 @@
     color: rgba(35, 199, 195, 0.85);
     border-color: rgba(35, 199, 195, 0.85);
     box-shadow: 2px 2px 5px rgba(35, 199, 195, 0.85);
+}
+
+.taskLoadedBtn:hover{
+    color: white;
+    background-color: rgba(35, 199, 195, 0.85);
 }
 
 @media (max-width: 420px) {

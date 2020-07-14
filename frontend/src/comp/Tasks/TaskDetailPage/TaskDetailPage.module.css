@@ -59,6 +59,7 @@
 }
 
 .btnTool, .greenBtn{
+    color: black;
     margin: 10px 0px;
     font-size: 18px;
     padding: 5px 5px;
@@ -66,15 +67,31 @@
     background-color: transparent;
     border: 2px #14a712 solid;
     border-radius: 5px;
+    transition: all linear .3s;
+    cursor: pointer;
 }
 
-.greenBtn{
-
+.greenBtn:hover{
+    color: white;
+    background-color: #14a712;
 }
 
 .btnTool{
     border: 2px #1471c2 solid;
     width: 100px;
+}
+
+.btnTool:hover{
+    color: white;
+    background-color: #1471c2;
+}
+
+.komax{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin: 0px 0px;
 }
 
 @media (max-height: 420px) {

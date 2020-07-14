@@ -33,7 +33,14 @@ let TaskDetailPageContainer = (props) => {
     let taskKomaxes = komaxes.map(elem => {
         return(
             <h3 className={classes.komax}>
-                {elem.komax} - {formatTime(elem.time, props.locale)}
+                <div style={{
+                    minWidth : "50px",
+                    textAlign : "right"
+                }}>{elem.komax} - </div>
+                <div style={{
+                    minWidth : "150px",
+                    textAlign : "left"
+                }}>{formatTime(elem.time, props.locale)}</div>
             </h3>
         )
     });

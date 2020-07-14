@@ -77,7 +77,7 @@
   "harnesses.map_aplicator_2" : "Апликатор 2",
 
   "harnesses.table_date_label" : "\nи дата",
-  "harnesses.table_download_label" : "Загрузить",
+  "harnesses.table_download_label" : "Скачать",
   "harnesses.table_delete_label" : "Удалить",
 
   "login.auth_label" : "Авторизация",
@@ -98,6 +98,7 @@
   "tasks.create_new_task_work_shift_label" : "Рабочая смена",
   "tasks.create_new_task_continue_label" : "Продолжить",
   "tasks.create_new_task_fill_form_label" : "Заполните форму слева",
+  "tasks.stop_task" : "Остановить задание",
 
   "choose_komax_label" : "Выберите комакс",
   "close_label" : "Закрыть",
@@ -123,5 +124,16 @@
   "harnesses_used" : "Жгуты использованы",
   "komaxes_used" : "Комаксы использованы",
 
-  "create_new_seal" : "Создать новый уплотнитель"
+  "create_new_seal" : "Создать новый уплотнитель",
+  "status" : "Статус",
+  "created" : "Задание создано",
+  "completed" : "Задание выполнено",
+
+  "black_marking" : "Черная",
+  "white_marking" : "Белая",
+  "both_marking" : "Парная",
+
+  "working_status" : "Работает",
+  "repairing_status" : "В ремонте",
+  "not_working_status" : "Не Работает"
 }

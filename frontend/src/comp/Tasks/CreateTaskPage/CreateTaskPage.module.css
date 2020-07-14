@@ -10,7 +10,7 @@
     padding: 5% 5%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     background-color: white
 }
 

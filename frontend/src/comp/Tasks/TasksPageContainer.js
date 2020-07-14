@@ -17,7 +17,9 @@ let TasksPageContainer = (props) => {
         props.fetchList();
     }, props.tasksList.length);
 
-    let items = props.tasksList.map(elem => {
+    let items = props.tasksList.sort((a,b) => {
+        return Number(b.task_name) - Number(a.task_name);
+    }).map(elem => {
         return (
             <TaskItem {...elem} role={props.role}/>
         );
@@ -56,7 +58,7 @@ let TasksPageContainer = (props) => {
         <>
             {props.isFetching
                 ? <FullScreenPreloader/>
-                : <TasksPage rows={renderRows(items)} {...user}/>
+                : <TasksPage rows={renderRows(items)} {...user} role={props.role}/>
             }
         </>
     )

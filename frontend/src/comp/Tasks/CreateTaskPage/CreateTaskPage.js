@@ -60,7 +60,6 @@ let CreateTaskPage = (props) => {
         e.preventDefault();
         props.setContinue(true);
         let data = {
-            number : numberRef.current.value,
             work_shift : workShiftRef.current.value,
         }
         props.sendDataFirst(data);
@@ -181,13 +180,6 @@ let CreateTaskPage = (props) => {
                 </div>
                 <div className={classes.row}>
                     <div className={classes.column}>
-                        <div className={classes.input_wrapper}>
-                            <label className={classes.label}>
-                                <h3><FormattedMessage id={"tasks.create_new_task_job_name_label"}/>:</h3>
-                                <input className={classes.input} ref={numberRef} onChange={checkValid}/>
-                            </label>
-                        </div>
-
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <div><FormattedMessage id={"tasks.create_new_task_harnesses_label"}/>:</div>
