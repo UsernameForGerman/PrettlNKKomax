@@ -32,7 +32,7 @@ class task_api extends API{
     }
 
     deleteTask = (task) => {
-        return this.createAPI().delete(BASE_URL + task.name + "", {task_name : task.name});
+        return this.createAPI().delete(BASE_URL + task.task_name + "", {task_name : task.task_name});
     }
 }
 
