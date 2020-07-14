@@ -221,6 +221,11 @@ class KomaxTaskViewSet(ViewSet):
     def get_queryset(self):
         return KomaxTask.objects.all()
 
+    def retrieve(self, *args, **kwargs):
+        task = get_object_or_404(KomaxTask, task_name=self.kwargs.get('task_name', None))
+        response_data = KomaxTaskSerializer(task).data
+        return Response(response_data, status=HTTP_200_OK)
+
     def list(self, *args, **kwargs):
         user = self.request.user
         if user.groups.filter(name='Master').exists():
