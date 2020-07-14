@@ -1,5 +1,5 @@
 # django lib imports
-from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet, ViewSet
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_202_ACCEPTED, HTTP_200_OK, \
     HTTP_204_NO_CONTENT, HTTP_404_NOT_FOUND
@@ -9,6 +9,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, JSONParser, File
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import action, renderer_classes
+from django.shortcuts import get_object_or_404
 
 # local imports
 from .serializers import HarnessSerializer, KomaxSerializer, KappaSerializer, KomaxTerminalSerializer, \
@@ -16,7 +17,7 @@ from .serializers import HarnessSerializer, KomaxSerializer, KappaSerializer, Ko
     WorkerSerializer
 from komax_app.models import Harness, HarnessChart, Komax, Kappa, Laboriousness, KomaxTerminal, KomaxStatus, \
     KomaxSeal, KomaxTask, Worker, User
-from komax_app.modules.KomaxTaskProcessing import get_komax_task_status_on_komax
+from komax_app.modules.KomaxTaskProcessing import get_komax_task_status_on_komax, KomaxTaskProcessing
 from komax_app.modules.HarnessChartProcessing import HarnessChartReader
 
 
@@ -206,41 +207,102 @@ class WorkerViewSet(ModelViewSet):
         return Response(worker_serializer.data, status=HTTP_200_OK)
 
 
+class KomaxTaskViewSet(ViewSet):
+    permission_classes = (IsAuthenticated, )
+    authentication_classes = (TokenAuthentication, )
+    lookup_field = 'task_name'
 
+    def get_object(self, task_name=None):
+        if task_name:
+            return KomaxTask.objects.filter(task_name=task_name)
+        else:
+            return KomaxTask.objects.all()
 
+    def get_queryset(self):
+        return KomaxTask.objects.all()
 
-# class KomaxTaskViewSet(ModelViewSet):
-#     serializer_class = KomaxTask
-#     queryset = KomaxTask.objects.all()
-#     lookup_field = 'task_name'
-#     permission_classes = [AllowAny]
-#     authentication_classes = [TokenAuthentication]
-#
-#     def list(self, request, *args, **kwargs):
-#         komax_task_serializer = KomaxTaskSerializer(KomaxTask.objects.all(), many=True)
-#         return Response(komax_task_serializer.data, status=HTTP_200_OK)
-#
-#         user = self.request.user
-#         if user.groups.filter(name='Master').exists():
-#             if len(self.queryset):
-#                 komax_task_serializer = KomaxTaskSerializer(self.queryset, context={'request': self.request})
-#                 return Response(komax_task_serializer.data, status=HTTP_200_OK)
-#             else:
-#                 return Response(status=HTTP_204_NO_CONTENT)
-#         elif user.groups.filter(name='Operator').exists():
-#             komax = user.current_komax
-#             komax_number = komax.number if komax is not None else None
-#             if komax_number is None:
-#                 return Response(status=HTTP_404_NOT_FOUND)
-#             if len(self.queryset):
-#                 for obj in self.queryset:
-#                     obj.status = get_komax_task_status_on_komax(obj, komax_number)
-#                 komax_task_serializer = KomaxTaskSerializer(self.queryset, context={'request': self.request})
-#                 return Response(komax_task_serializer.data, status=HTTP_200_OK)
-#             else:
-#                 return Response(status=HTTP_204_NO_CONTENT)
-#         else:
-#             return Response(status=HTTP_400_BAD_REQUEST)
+    def list(self, *args, **kwargs):
+        response_data = KomaxTaskSerializer(self.get_queryset(), many=True).data
+        return Response(response_data, status=HTTP_200_OK)
+
+    def create(self, *args, **kwargs):
+        user = self.request.user
+        if user.groups.filter(name='Master').exists():
+            queryset = self.get_queryset()
+            if len(queryset):
+                komax_task_serializer = KomaxTaskSerializer(queryset, context={'request': self.request}, many=True)
+                return Response(komax_task_serializer.data, status=HTTP_200_OK)
+            else:
+                return Response(status=HTTP_204_NO_CONTENT)
+        elif user.groups.filter(name='Operator').exists():
+            queryset = self.get_queryset()
+            worker = Worker.objects.get(user=user)
+            komax = worker.current_komax
+            komax_number = komax.number if komax is not None else None
+            if komax_number is None:
+                return Response(status=HTTP_404_NOT_FOUND)
+            if len(queryset):
+                for obj in queryset:
+                    obj.status = get_komax_task_status_on_komax(obj, komax_number)
+                    for komax_time in obj.komaxes.exclude(komax=komax):
+                        obj.komaxes.remove(komax_time)
+                komax_task_serializer = KomaxTaskSerializer(queryset, context={'request': self.request}, many=True)
+                return Response(komax_task_serializer.data, status=HTTP_200_OK)
+            else:
+                return Response(status=HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=HTTP_400_BAD_REQUEST)
+
+    def update(self, *args, **kwargs):
+        data = self.request.data
+        komax_task_name = self.kwargs.get('task_name', None)
+        harnesses = data.get('harnesses', None)
+        komaxes = data.get('komaxes', None)
+        kappas = data.get('kappas', None)
+        shift = data.get('shift', None)
+        type_of_allocation = data.get('type_of_allocation', None)
+        loading_type = data.get('loading_type', None)
+        print(data)
+        if komax_task_name:
+            komax_task = self.get_object(komax_task_name)
+            if not len(komax_task) and harnesses and komaxes and shift and type_of_allocation and loading_type:
+                komax_task_processor = KomaxTaskProcessing()
+                komax_task_processor.create_komax_task(
+                    komax_task_name,
+                    harnesses,
+                    komaxes,
+                    kappas,
+                    shift,
+                    type_of_allocation,
+                    loading_type
+                )
+                komax_task_processor.sort_save_komax_task(komax_task_name)
+                return Response(status=HTTP_200_OK)
+            elif len(komax_task):
+                harness_amount_dict = data.get('harness_amount', None)
+                if harness_amount_dict:
+                    komax_task_processor = KomaxTaskProcessing()
+                    komax_task_processor.update_harness_amount(komax_task_name, harness_amount_dict)
+                    allocation = komax_task_processor.create_allocation(komax_task_name)
+                    komax_task_processor.update_komax_time(
+                        komax_task_name,
+                        {komax: time[0] for komax, time in allocation.items()}
+                    )
+                    return Response(status=HTTP_200_OK)
+                else:
+                    return Response(status=HTTP_400_BAD_REQUEST)
+            else:
+                return Response(status=HTTP_204_NO_CONTENT)
+
+        else:
+            return Response(status=HTTP_400_BAD_REQUEST)
+
+    def destroy(self, *args, **kwargs):
+        task_name = self.kwargs.get('task_name', None)
+        task_obj = get_object_or_404(KomaxTask, task_name=task_name)
+        task_obj.delete()
+
+        return Response(status=HTTP_204_NO_CONTENT)
 
 
 
