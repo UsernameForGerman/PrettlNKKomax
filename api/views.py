@@ -33,22 +33,6 @@ from komax_app.modules.outer import OutProcess
 def index(request):
     return render(request, 'komax_app/index.html', context={"name": "a"})
 
-class Example(APIView):
-    permission_classes = (AllowAny, )
-    lookup_field = 'task_name'
-
-    def get(self, *args, **kwargs):
-        print(self.kwargs.get(self.lookup_field))
-        return Response(status=HTTP_200_OK)
-
-    def delete(self, *args, **kwargs):
-        print(self.kwargs)
-        print(self.args)
-        print(self.request.query_params)
-
-        print(self.kwargs.get('task_name'))
-        return Response(status=HTTP_204_NO_CONTENT)
-
 class KomaxTaskStop(APIView):
     authentication_classes = (TokenAuthentication, )
     permission_classes = (IsAuthenticated, )
