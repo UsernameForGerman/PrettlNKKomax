@@ -151,4 +151,18 @@ let getStatusThunk = () => {
     }
 }
 
-export {tasksReducer, createTaskThunk, updateTaskThunk, getTasksThunk, setErrorAC, setValidAC, getStatusThunk}
+let deleteTaskThunk = (task) => {
+    return (dispatch) => {
+        dispatch(toggleFetchAC());
+        task_api.deleteTask(task)
+            .then(resp => {
+                dispatch(getTasksThunk());
+                dispatch(toggleFetchAC());
+            })
+            .catch(err => {
+                handle401(err, dispatch)
+            })
+    }
+}
+
+export {tasksReducer, createTaskThunk, updateTaskThunk, getTasksThunk, setErrorAC, setValidAC, getStatusThunk, deleteTaskThunk}

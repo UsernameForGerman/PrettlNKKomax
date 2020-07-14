@@ -27,7 +27,7 @@ let ChooseModal = (props) => {
             <div className={classes.btns}>
                 <SaveButton click={choose} disable={props.komax} class={classes.save} value={<FormattedMessage id={"choose_label"}/>}/>
                 {props.komax
-                    ? <button onClick={props.close} className={classes.closeBtn}><FormattedMessage id={"close_label"}/></button>
+                    ? props.close()
                     : <></>
                 }
             </div>

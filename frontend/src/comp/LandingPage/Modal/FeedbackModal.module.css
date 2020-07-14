@@ -1,0 +1,31 @@
+.form{
+    display: flex;
+    flex-direction: column;;
+}
+
+.input{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    outline: none;
+    margin-bottom: 20px;
+    width: 100%;
+    font-size: 24px;
+    padding: 5px 5px;
+    border-bottom: var(--dark-accent) 1px solid;
+}
+
+.submit_btn{
+    font-size: 24px;
+    color: white;
+    padding: 10px 10px;
+    outline: none;
+    border-radius: 10px;
+    background-color: var(--accent);
+    border: 0px;
+    cursor: pointer;
+}
+
+.submit_btn:hover{
+    background-color: var(--light-accent);
+}
