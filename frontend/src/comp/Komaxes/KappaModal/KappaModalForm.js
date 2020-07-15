@@ -1,12 +1,11 @@
 import React, {useState} from "react";
-import classes from "./ModalForm.module.css";
+import classes from "./KappaModalForm.module.css";
 import createKomax from "../../../DAL/models/komax";
 import SaveButton from "../../common/SaveButton/SaveButton";
 import {FormattedMessage} from 'react-intl';
 import { Multiselect } from 'multiselect-react-dropdown';
 
-let ModalForm = (props) => {
-    let [multiselectOptions, setMultiselectOptions] = useState(props.selected ? (props.selected.sepairing ? props.selected.sepairing.trim().split(' ').filter(elem => elem.length > 0) : []) : []);
+let KappaModalForm = (props) => {
 
     let currKomax = props.selected;
     if (!currKomax){
@@ -15,22 +14,11 @@ let ModalForm = (props) => {
 
     let komaxNumberRef = React.createRef();
     let statusRef = React.createRef();
-    let markingRef = React.createRef();
-    let pairingRef = React.createRef();
 
     let collectData = (e) => {
         props.close();
-        let multiArr = multiselectOptions;
-        if (multiArr.length === 0){
-            multiArr = currKomax.sepairing.split(" ");
-        }
         let data = {
             number : komaxNumberRef.current.value,
-            group_of_square : multiArr.reduce((prev, elem) => {
-                return prev + " " + elem
-            }).trim(),
-            pairing : pairingRef.current.value,
-            marking : markingRef.current.value,
             status : statusRef.current.value
         }
 
@@ -47,20 +35,6 @@ let ModalForm = (props) => {
             props.checkValid(number);
         }
     }
-
-    let handleChoose = (e) => {
-        let arr = [];
-        e.forEach(elem => {
-            arr.push(elem["id"]);
-        });
-        setMultiselectOptions(arr);
-    }
-
-    let options = ['0.5 - 1.0', '1.5 - 2.5', '4.0 - 6.0'].map((elem, index) => {
-        return (
-            {name : elem, id : index + 1}
-        )
-    });
 
     return(
         <div className={classes.ModalForm}>
@@ -87,33 +61,6 @@ let ModalForm = (props) => {
                         <option value={3} selected={currKomax.status === 2} className={classes.option}>Not working</option>
                     </select>
                 </label>
-                <label>
-                    <FormattedMessage id={"komax.marking_label"}/>
-                    <select className={classes.select} ref={markingRef}>
-                        <option value={1} selected={currKomax.marking === 1} className={classes.option}>Black</option>
-                        <option value={2} selected={currKomax.marking === 2} className={classes.option}>White</option>
-                        <option value={3} selected={currKomax.marking === 3} className={classes.option}>Both</option>
-                    </select>
-                </label>
-                <label>
-                    <FormattedMessage id={"komax.pairing_label"}/>
-                    <select className={classes.select} ref={pairingRef}>
-                        <option value={1} selected={currKomax.pairing === 1} className={classes.option}>+</option>
-                        <option value={0} selected={currKomax.pairing === 0} className={classes.option}>-</option>
-                    </select>
-                </label>
-                <label>
-                    <FormattedMessage id={"komax.group_of_square_label"}/>
-                    <Multiselect
-                        options={options} // Options to display in the dropdown
-                        onSelect={handleChoose} // Function will trigger on select event
-                        onRemove={handleChoose} // Function will trigger on remove event
-                        selectedValues={multiselectOptions.map(elem => {
-                            return options[new Number(elem) - 1];
-                        })}
-                        displayValue="name" // Property name to display in the dropdown options
-                    />
-                </label>
                 {isIdValid
                     ? <></>
                     : <div className={classes.error}>
@@ -128,4 +75,4 @@ let ModalForm = (props) => {
     );
 }
 
-export default ModalForm;
+export default KappaModalForm;

@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 import ModalFormContainer from "./Modal/ModalFormContainer";
 import SuccessButton from "../common/SuccessButton/SuccessButton";
 import {FormattedMessage} from "react-intl";
+import KappaModalFormContainer from "./KappaModal/KappaModalFormContainer";
 
 let Komaxes = (props) => {
     const customStyles = {
@@ -15,6 +16,14 @@ let Komaxes = (props) => {
         transform             : 'translate(-70%, -20%)'
       }
     };
+
+    const kappaStyles = {
+      content : {
+        top                   : '55%',
+        left                  : '70%',
+        transform             : 'translate(-120%, -80%)'
+      }
+    }
 
     let [isModalOpen, setIsOpen] = useState(false);
     let openModal = () => {
@@ -31,6 +40,15 @@ let Komaxes = (props) => {
         setIsOpen2(false)
     }
 
+    let [isKappaModalOpen, setKappaModalOpen] = useState(false);
+    let openKappaModal = () => {
+        setKappaModalOpen(true);
+    }
+    let closeKappaModal = () => {
+        setKappaModalOpen(false)
+    }
+
+
     return(
       <div className={classes.Komaxes}>
           <div className={classes.container}>
@@ -39,7 +57,7 @@ let Komaxes = (props) => {
                 {props.items}
             </div>
             <div className={classes.table}>
-                <KomaxTable items={props.komaxList.concat(props.kappaList)} setSelected={props.setSelected} open={openModal2}/>
+                <KomaxTable items={props.komaxList.concat(props.kappaList)} setSelected={props.setSelected} open={openModal2} kappaOpen={openKappaModal}/>
             </div>
             <Modal
               isOpen={isModalOpen}
@@ -56,6 +74,14 @@ let Komaxes = (props) => {
               contentLabel="Example Modal"
             >
                 <ModalFormContainer close={closeModal2} send={props.update} selected={props.selectedKomax} heading={<FormattedMessage id={"komax.modal_form_heading_edit"}/>}/>
+            </Modal>
+            <Modal
+              isOpen={isKappaModalOpen}
+              onRequestClose={closeKappaModal}
+              style={kappaStyles}
+              contentLabel="Example Modal"
+            >
+                <KappaModalFormContainer close={closeKappaModal} send={props.updateKappa} selected={props.selectedKomax} heading={<FormattedMessage id={"edit_kappa_label"}/>}/>
             </Modal>
           </div>
       </div>

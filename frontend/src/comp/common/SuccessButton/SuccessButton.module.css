@@ -1,6 +1,7 @@
 .succBtn{
     color: #12cb10;
     border: #12cb10 1px solid;
+    box-shadow: 1px 1px 10px #12e010;
     background-color: transparent;
     font-size: 16px;
     padding: 10px 10px;
@@ -8,9 +9,11 @@
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 20px;
+    transition: all linear .3s;
 }
 
 .succBtn:hover{
-    color: #12e010;
-    border-color: #12e010;
+    color: white;
+    box-shadow: 1px 1px 10px #12e010;
+    background-color: #12e010;
 }

@@ -16,6 +16,7 @@ let TaskItem = (props) => {
                 alert("Ошибка при отправке")
             })
     }
+
     return(
         <div className={classes.TaskWrapper}>
             <div className={classes.TaskItem}>

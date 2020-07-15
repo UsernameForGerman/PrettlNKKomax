@@ -135,5 +135,7 @@
 
   "working_status" : "Working",
   "repairing_status" : "Repairing",
-  "not_working_status" : "Not working"
+  "not_working_status" : "Not working",
+
+  "edit_kappa_label" : "Edit kappa"
 }
