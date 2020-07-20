@@ -19,5 +19,4 @@ komaxsite/.idea
 .ipynb_checkpoints
 __pycache__
 .git/
-frontend/static/
 redis-stable
