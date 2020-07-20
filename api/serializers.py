@@ -1,4 +1,5 @@
-from rest_framework.serializers import ModelSerializer, Serializer, FileField, CharField, IntegerField
+from rest_framework.serializers import ModelSerializer, Serializer, FileField, CharField, IntegerField, \
+    SerializerMethodField
 from django.contrib.auth.models import Group
 from komax_app.models import Komax, Kappa, KomaxTask, TaskPersonal, Laboriousness, KomaxTerminal, Harness, \
     HarnessChart, KomaxStatus, KomaxSeal, KomaxTime, HarnessAmount, Worker, KomaxTaskCompletion
@@ -63,9 +64,14 @@ class KomaxTimeSerializer(ModelSerializer):
     #     return data
 
 class HarnessAmountSerializer(ModelSerializer):
+    harness = SerializerMethodField()
+
     class Meta:
         model = HarnessAmount
-        fields = '__all__'
+        fields = ('harness', 'amount')
+
+    def get_harness(self, harness_amount):
+        return harness_amount.harness.harness_number
 
     # def to_representation(self, value):
     #     data = super(HarnessAmountSerializer, self).to_representation(value)
