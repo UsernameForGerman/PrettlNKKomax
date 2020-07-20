@@ -261,6 +261,7 @@ class KomaxTaskViewSet(ViewSet):
         data = self.request.data
         komax_task_name = data.get('task_name', None)
         # komax_task_name = timezone.now().strftime('%Y%m%d%H%M%S')
+        # some commit
         harnesses = data.get('harnesses', None)
         komaxes = data.get('komaxes', None)
         kappas = data.get('kappas', None)
