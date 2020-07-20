@@ -1,5 +1,4 @@
 const HtmlWebPackPlugin = require( 'html-webpack-plugin' );
-const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const path = require( 'path' );
 module.exports = {

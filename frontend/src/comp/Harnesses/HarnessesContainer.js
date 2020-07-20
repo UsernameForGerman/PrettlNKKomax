@@ -13,7 +13,6 @@ import HarnessSelector from "../../selectors/harnessSelector";
 import {deleteHarnessByNumberThunk, getChartByNumberThunk, getHarnessesListThunk} from "../../reducers/harnessesReducer";
 import {connect} from "react-redux";
 import Preloader from "../common/Preloader/Preloader";
-import harnessApi from "../../DAL/harness/harnessApi";
 import {FormattedMessage} from "react-intl";
 import auth from "../AuthHOC/authHOC";
 import FullScreenPreloader from "../common/Preloader/FullScreenPreloader";

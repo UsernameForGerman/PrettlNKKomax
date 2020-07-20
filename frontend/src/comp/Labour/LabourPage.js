@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import LabourCreateModalContainer from "./Modal/Create/LabourCreateModalContainer";
 import LabourEditModalContainer from "./Modal/Edit/LabourEditModalContainer";
 import {FormattedMessage} from "react-intl";
+import SuccessButton from "../common/SuccessButton/SuccessButton";
 let LabourPage = (props) => {
     const customStyles = {
       content : {
@@ -20,9 +21,7 @@ let LabourPage = (props) => {
                     <FormattedMessage id={"labournesses_label"}/>
                 </h1>
                 <div className={classes.table}>
-                    <button className={classes.create_btn} onClick={props.openCreate}>
-                        <FormattedMessage id={"add_button_text"}/>
-                    </button>
+                    <SuccessButton value={<FormattedMessage id={"add_button_text"}/>} click={props.openCreate}/>
                     <div className={classes.table_heading}>
                         <div className={classes.data}>
                             <b><FormattedMessage id={"action_label"}/></b>

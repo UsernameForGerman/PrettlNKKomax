@@ -22,7 +22,7 @@ let TaskDetailPageContainer = (props) => {
     let komaxes = task ? task.komaxes: []
     let harnesses = task ? task.harnesses : [];
 
-    let taskHarnesses = harnesses.map(elem => {
+    let taskHarnesses = harnesses.map((elem, index) => {
         return(
             <h3 className={classes.harness}>
                 {elem.harness} : {elem.amount}
@@ -45,25 +45,66 @@ let TaskDetailPageContainer = (props) => {
         )
     });
 
-    let task_komax = komaxes.map(elem => {
-        return(
+    let row = [];
+    let task_komax = komaxes.map((elem, index) => {
+        row.push(
             <a href={BASE_URL + "api/v1/" + name +"/get_task_komax/" + elem.komax +"/"} target={"blank"}>
                 <button className={classes.greenBtn}>
                     <FormattedMessage id={"task_label"}/> {elem.komax}
                 </button>
             </a>
         )
-    });
 
-    let ticket_komax = komaxes.map(elem => {
-        return(
+        if ((index + 1) % 3 === 0){
+            let result =
+             (
+                <div className={classes.row}>
+                    {[...row]}
+                </div>
+            )
+            row = [];
+            return result;
+        } else {
+            return (<></>)
+        }
+    });
+    if (row.length > 0){
+        task_komax.push(
+                <div className={classes.row}>
+                    {[...row]}
+                </div>)
+            row = [];
+    }
+    row = [];
+
+    let ticket_komax = komaxes.map((elem, index) => {
+        row.push(
             <a href={BASE_URL + "api/v1/" + name +"/get_ticket_komax/" + elem.komax +"/"} target={"blank"}>
                 <button className={classes.greenBtn}>
                     <FormattedMessage id={"ticket_label"}/> {elem.komax}
                 </button>
             </a>
         )
+        if ((index + 1) % 3 === 0){
+            let result =
+             (
+                <div className={classes.row}>
+                    {[...row]}
+                </div>
+            )
+            row = [];
+            return result;
+        } else {
+            return (<></>)
+        }
     });
+    if (row.length > 0){
+        task_komax.push(
+                <div className={classes.row}>
+                    {[...row]}
+                </div>)
+            row = [];
+    }
 
     return(
         <TaskDetailPage

@@ -17,3 +17,13 @@
     background-color: #dc3545;
     box-shadow: 0px 0px 0px #dc3545;
 }
+
+@media (max-width: 420px) {
+
+}
+
+@media (max-height: 420px) {
+    .btn{
+        font-size: 12px;
+    }
+}

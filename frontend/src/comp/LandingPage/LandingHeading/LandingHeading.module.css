@@ -26,11 +26,14 @@
     margin-bottom: 0px;
     color: var(--accent);
     border-color: var(--accent);
+    box-shadow: 1px 1px 10px var(--accent);
 }
 
 .login_btn:hover{
-    color: var(--light-accent);
+    color: white;
     border-color: var(--light-accent);
+    background-color: var(--light-accent);
+    box-shadow: 1px 1px 10px var(--accent);
 }
 
 .tetra_heading{

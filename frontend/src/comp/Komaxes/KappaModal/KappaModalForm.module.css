@@ -1,0 +1,54 @@
+.ModalForm{
+
+}
+
+.heading{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.input, .select{
+    padding: 5px 5px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px #d9dbd9 solid;
+    outline: none;
+}
+
+.option{
+
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+}
+
+.closeBtn{
+    font-size: 24px;
+    height: fit-content;
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+label{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.toolbar{
+    display: flex;
+    justify-content: center;
+}
+
+.error{
+    color: red;
+}
+
+.invalidInput{
+    border: 1px solid red;
+    box-shadow: 1px 1px 5px red;
+}

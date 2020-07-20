@@ -2,6 +2,7 @@ import React from "react";
 import {FormattedMessage} from "react-intl";
 
 let getStatus = (num) => {
+    debugger;
     switch (num) {
         case 1 : return <FormattedMessage id={"working_status"}/>;
         case 2 : return <FormattedMessage id={"repairing_status"}/>;

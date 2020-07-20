@@ -1,7 +1,8 @@
 .TaskPage{
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     margin-top: 5vh;
+    padding-bottom: 20px;
     text-align: center;
 }
 
@@ -30,18 +31,18 @@
 }
 
 .addBtn{
-    color: white;
-    background-color: #118e0f;
-    box-shadow: none;
-    border: none;
+    color: #12e010;
+    background-color: white;
+    border: 1px solid #12e010;
+    box-shadow: 1px 1px 10px #12e010;
     font-size: 32px;
     padding: 0px 15px;
-    padding-bottom: 10px;
+    padding-bottom: 1px;
 }
 
 .addBtn:hover{
     color: white;
-    background-color: #14a712;
+    background-color: #12e010;
 }
 
 .recentTasks{
@@ -130,7 +131,6 @@
     }
 
     .TaskPage{
-
         margin-top: 15vh;
     }
 }

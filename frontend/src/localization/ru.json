@@ -135,5 +135,7 @@
 
   "working_status" : "Работает",
   "repairing_status" : "В ремонте",
-  "not_working_status" : "Не Работает"
+  "not_working_status" : "Не Работает",
+
+  "edit_kappa_label" : "Изменить каппу"
 }

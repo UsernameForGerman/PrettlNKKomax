@@ -30,7 +30,7 @@ let KomaxTableItem = (props) => {
             {decrypt(props.marking, getMarking)}
         </div>
         <div className={dataClasses} name={"pairing"}>
-            {props.columnType !== "Heading" ? props.pairing ? "+" : "-" : props.pairing}
+            {props.columnType !== "Heading" && props.type ? props.pairing ? "+" : "-" : props.pairing}
         </div>
         <div className={`${dataClasses} ${classes.sepairing}`} name={"separing"}>
             {sepairing}
