@@ -10,6 +10,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import action, renderer_classes
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 
 # local imports
 from .serializers import HarnessSerializer, KomaxSerializer, KappaSerializer, KomaxTerminalSerializer, \
@@ -212,8 +213,10 @@ class KomaxTaskViewSet(ViewSet):
     authentication_classes = (TokenAuthentication, )
     lookup_field = 'task_name'
 
-    def get_object(self, task_name=None):
+    def get_object(self, task_name=None, not_stated=False):
         if task_name:
+            if not_stated:
+                return KomaxTask.objects.order_by('-id').first()
             return KomaxTask.objects.filter(task_name=task_name)
         else:
             return KomaxTask.objects.all()
@@ -257,6 +260,8 @@ class KomaxTaskViewSet(ViewSet):
     def create(self, *args, **kwargs):
         data = self.request.data
         komax_task_name = data.get('task_name', None)
+        # komax_task_name = timezone.now().strftime('%Y%m%d%H%M%S')
+        # some commit
         harnesses = data.get('harnesses', None)
         komaxes = data.get('komaxes', None)
         kappas = data.get('kappas', None)
