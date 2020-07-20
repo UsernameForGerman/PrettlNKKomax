@@ -98,6 +98,7 @@ let CreateTaskPageContainer = (props) => {
     let sendDataFirst = (data) => {
         let shift = data.work_shift;
         let request = {
+            'task_name' : data.name,
             'harnesses' : multiselectOptions,
             'komaxes' : komaxesOptions,
             'kappas' : kappasOptions,

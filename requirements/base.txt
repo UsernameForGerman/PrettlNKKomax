@@ -13,8 +13,7 @@ django-select2==7.1.1
 numpy~=1.18.4
 openpyxl~=3.0.3
 pandas~=1.0.3
-redis==3.3.11
-redis-cache==0.1.5
+
 requests
 xlrd
 xlutils

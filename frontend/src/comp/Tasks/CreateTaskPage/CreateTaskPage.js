@@ -61,6 +61,7 @@ let CreateTaskPage = (props) => {
         props.setContinue(true);
         let data = {
             work_shift : workShiftRef.current.value,
+            name : numberRef.current.value
         }
         props.sendDataFirst(data);
     }
@@ -182,6 +183,12 @@ let CreateTaskPage = (props) => {
                     <div className={classes.column}>
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
+                                <h3><FormattedMessage id={"tasks.create_new_task_job_name_label"}/>:</h3>
+                                <input className={classes.input} type={"text"} ref={numberRef}/>
+                            </label>
+                        </div>
+                        <div className={classes.input_wrapper}>
+                            <label className={classes.label}>
                                 <div><FormattedMessage id={"tasks.create_new_task_harnesses_label"}/>:</div>
                                 <div className={classes.multiselect_wrapper}>
                                     <Multiselect
@@ -257,7 +264,7 @@ let CreateTaskPage = (props) => {
                     </div>
                 </div>
             </div>
-            <form className={classes.form}>
+            <div className={classes.form}>
                 {!props.shouldContinue
                     ? <button disabled className={classes.fill}>
                             <FormattedMessage id={"tasks.create_new_task_fill_form_label"}/>
@@ -271,7 +278,7 @@ let CreateTaskPage = (props) => {
                         </NavLink>
                     </form>
                 }
-            </form>
+            </div>
             <Modal
               isOpen={isModalOpen}
               onRequestClose={closeModal}

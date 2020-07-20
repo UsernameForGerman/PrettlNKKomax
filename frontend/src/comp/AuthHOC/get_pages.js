@@ -1,27 +1,32 @@
 let get_pages = (permission) => {
-    switch (permission) {
-        case "Master" : {
+    let perm = permission === null ? "" : permission.toString().toLowerCase();
+    switch (perm) {
+        case "master" : {
             return ['account', 'tasks', 'task', 'task_create', 'komaxes', 'harnesses'];
         }
 
-        case "Archivarius" : {
+        case "archivarius" : {
             return ['account', 'harnesses']
         }
 
-        case "Mechanic" : {
+        case "mechanic" : {
             return ['account', 'komaxes']
         }
 
-        case "Operator" : {
+        case "operator" : {
             return ['account', 'tasks', 'task', 'task_create']
         }
 
-        case "Technologist" : {
+        case "technologist" : {
             return ['account', 'terminals', 'labour', 'komaxes']
         }
 
-        case "Admin" : {
+        case "admin" : {
             return ['account', 'tasks', 'task', 'task_create', 'harnesses', 'terminals', 'labour', 'komaxes']
+        }
+
+        default : {
+            return ['account']
         }
     }
 }

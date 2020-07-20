@@ -93,7 +93,9 @@
 .addBtn[disabled]{
     cursor: not-allowed;
     color: rgba(150,147,146,0.79);
+    background-color: transparent;
     border-color: rgba(150,147,146,0.79);
+    box-shadow: none;
 }
 
 .err{
