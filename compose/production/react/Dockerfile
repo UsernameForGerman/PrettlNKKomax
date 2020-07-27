@@ -5,9 +5,9 @@ RUN addgroup --system react \
 
 WORKDIR /frontend
 
-COPY ./frontend/package.json /frontend/
+# COPY ./frontend/package.json /frontend/
 
-RUN npm i
+# RUN npm i
 #ARG TIKTUNE_API_URL
 #ENV TIKTUNE_API_URL $TIKTUNE_API_URL
 
@@ -16,7 +16,7 @@ COPY ./frontend /frontend
 RUN ls
 RUN ls /frontend
 
-RUN npm run build
+# RUN npm run build
 
 RUN ls /frontend/build
 
