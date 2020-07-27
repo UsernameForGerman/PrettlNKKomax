@@ -20,3 +20,4 @@ komaxsite/.idea
 __pycache__
 .git/
 redis-stable
+.envs/.production/
