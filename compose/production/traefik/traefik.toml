@@ -32,8 +32,12 @@
 [accessLog]
   bufferingSize = 0
 
-[certificatesResolvers.default.acme]
-  email = "polyakgerman@gmail.com"
-  storage = "/etc/traefik/acme/acme.json"
-  [certificatesResolvers.default.acme.httpChallenge]
-    entryPoint = "web"
+[acme]
+email = "polyakgerman@gmail.com"
+storage = "/etc/traefik/acme/acme.json"
+entryPoint = "web-secure"
+onHostRule = true
+onDemand = false
+caServer = "https://acme-v02.api.letsencrypt.org/directory"
+[acme.httpChallenge]
+entryPoint = "web"

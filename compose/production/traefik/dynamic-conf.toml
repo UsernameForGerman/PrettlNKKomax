@@ -26,7 +26,7 @@
   [[http.services.django.loadBalancer.servers]]
     url = "http://django:9000"
   [[http.services.nginx.loadBalancer.servers]]
-    url = "http://react:80"
+    url = "http://react:8080"
 
 [http.middlewares]
   [http.middlewares.auth.basicAuth]
