@@ -1,0 +1,28 @@
+{% extends 'email_template.html' %}
+{% load static %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head %}
+    <h2>
+    {% blocktrans %}
+        New task {{ task_name }}
+    {% endblocktrans %}
+    </h2>
+{% endblock %}
+{% block body %}
+    <p>
+        {% blocktrans %}
+            Hello! New task {{ task_name }} successfully created and allocated.
+        {% endblocktrans %}
+    </p>
+
+    <button class="btn btn-info">
+        <a href="komaxsite.herokuapp.com/komax_app/komax_tasks/{{ task_name }}">
+        {% blocktrans %}
+            See more
+        {% endblocktrans %}
+        </a>
+    </button>
+
+{% endblock %}

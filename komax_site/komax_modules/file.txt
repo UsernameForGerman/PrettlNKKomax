@@ -1,0 +1,6 @@
+[NewJob] 
+Job = ABC, 12 
+ArticleKey = 1 
+TotalPieces = 13 
+BatchSize =  
+Name = "Leadset12"

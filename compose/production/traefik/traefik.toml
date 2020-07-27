@@ -1,0 +1,39 @@
+[global]
+  checkNewVersion = false
+  sendAnonymousUsage = false
+
+[entryPoints]
+  [entryPoints.traefik]
+    address = ":8081"
+  [entryPoints.web]
+    address = ":80"
+  [entryPoints.web-secure]
+    address = ":443"
+
+[providers]
+  providersThrottleDuration = "2s"
+  [providers.docker]
+    defaultRule = "Host(`docker.localhost`)"
+    watch = true
+    endpoint = "unix:///var/run/docker.sock"
+    swarmModeRefreshSeconds = "15s"
+    exposedbydefault = false
+  [providers.file]
+    filename = "/etc/traefik/dynamic-conf.toml"
+
+[api]
+  insecure = true
+  dashboard = true
+  # debug = true
+
+[log]
+  level = "INFO"
+
+[accessLog]
+  bufferingSize = 0
+
+[certificatesResolvers.default.acme]
+  email = "polyakgerman@gmail.com"
+  storage = "/etc/traefik/acme/acme.json"
+  [certificatesResolvers.default.acme.httpChallenge]
+    entryPoint = "web"

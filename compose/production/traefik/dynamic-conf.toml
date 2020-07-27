@@ -1,0 +1,44 @@
+[http.routers]
+  [http.routers.router1]
+    rule = "Host(`komax.prettl.ru`)"
+    service = "django"
+    entrypoints = ["web"]
+    middlewares = ["redirect"]
+  [http.routers.router2]
+    rule = "Host(`komax.prettl.ru`) && (PathPrefix(`/api`) || PathPrefix(`/{DJANGO_ADMIN_URL}`) || PathPrefix(`/komax_api`))"
+    service = "django"
+    middlewares = ["corsheaders"]
+    entrypoints = ["web-secure"]
+    [http.routers.router2.tls]
+  [http.routers.nginx]
+    rule = "Host(`komax.prettl.ru`)"
+    service = "nginx"
+    entrypoints = ["web-secure"]
+    [http.routers.nginx.tls]
+  [http.routers.traefik]
+    rule = "Host(`komax.prettl.ru`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api/http`) || PathPrefix(`/api/tcp`) || PathPrefix(`/api/entrypoints`) || PathPrefix(`/api/version`) || PathPrefix(`/api/debug`))"
+    service = "api@internal"
+    middlewares = ["end_slash"]
+    entrypoints = ["web-secure"]
+    [http.routers.traefik.tls]
+
+[http.services]
+  [[http.services.django.loadBalancer.servers]]
+    url = "http://django:9000"
+  [[http.services.nginx.loadBalancer.servers]]
+    url = "http://react:80"
+
+[http.middlewares]
+  [http.middlewares.auth.basicAuth]
+    users = ["admin:$apr1$YkjS6j2u$sxb5NBX0S92b1oU2kLRdQ0"]
+  [http.middlewares.redirect.redirectScheme]
+    scheme = "https"
+  [http.middlewares.corsheaders.headers]
+    accessControlAllowMethods= ["GET", "OPTIONS", "PUT", "POST", "PATCH"]
+    accessControlAllowOrigin = "origin-list-or-null"
+    accessControlAllowHeaders = ["access-control-allow-origin", "authorization", "X-CSRFToken", "X-Requested-With", "content-type"]
+    accessControlMaxAge = 100
+    addVaryHeader = true
+  [http.middlewares.end_slash.replacePathRegex]
+    regex = "(dashboard|flower)$"
+    replacement = "$0/"

@@ -1,0 +1,174 @@
+{% extends 'komax_app/dashboard_main.html' %}
+{% load static %}
+{% load i18n %}
+
+
+{% block title %}
+    <title>
+    {% trans 'Komax terminals' %}
+    </title>
+{% endblock %}
+
+{% block main %}
+    <!--
+    <link type="text/css" rel="stylesheet" href="{% static 'komax_app/komax_terminals.css' %}">
+    -->
+    <div class="container main_content">
+        <h2 class="text-center">
+        {% trans 'Komax terminals' %}
+        </h2>
+
+    {% if perms.komax_app.add_komaxterminal %}
+        <button type="button" class="btn btn-success mb-3 col-lg-2 add-button" data-toggle="modal" data-target="#terminal-create-modal">
+            <i class="fa fa-plus"> {% trans 'Add' %}</i>
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="terminal-create-modal" tabindex="-1" role="dialog" aria-labelledby="TerminalCreate" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="TerminalCreateModal">{% trans 'Add terminal' %}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group row">
+                                <label for="terminal-name" class="col-sm-5 col-form-label">{% trans 'Terminal' %} {% trans 'number' %}</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" placeholder="7815046" id="terminal-name" name="terminal-name">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="terminal" class="col-sm-5 col-form-label">{% trans 'Terminal available' %}</label>
+                                <div class="col-sm-7">
+                                    <select id="terminal" name="terminal" class="form-control">
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="seal" class="col-sm-5 col-form-label">{% trans 'Seal installed' %}</label>
+                                <div class="col-sm-7">
+                                    <select id="seal" name="seal" class="form-control">
+                                        <option value="+">+</option>
+                                        <option value="-">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
+                            <button type="submit" id='save_new' class="btn btn-info">{% trans 'Save' %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+
+        <table class="table table-stripped">
+        <thred>
+            <tr>
+                <th class='text-center' scope="col">
+                    {% trans 'Terminal' %}
+                </th>
+                <th class="text-center" scope="col">
+                    {% trans 'Terminal available' %}
+                </th>
+                <th class="text-center" scope="col">
+                    {% trans 'Seal installed' %}
+                </th>
+                {% if perms.komax_app.change_komaxterminal %}
+                <th scope="col"></th>
+                {% endif %}
+                {% if perms.komax_app.delete_komaxterminal %}
+                <th scope="col"></th>
+                {% endif %}
+            </tr>
+        </thred>
+        <tbody>
+
+        {% for terminal in terminals %}
+
+
+            <tr>
+
+                <td class="text-center">{{ terminal.terminal_name }}</td>
+                <td class="text-center">{{ terminal.terminal_available }}</td>
+                <td class="text-center">{{ terminal.seal_installed }}</td>
+
+                {% if perms.komax_app.change_komaxterminal %}
+                <td class="text-center">
+                    <div class="modal fade" id="terminal-update-modal-{{ terminal.terminal_name }}" tabindex="-1" role="dialog" aria-labelledby="terminalUpdateModal" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <form method="post">
+                        {% csrf_token %}
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="terminal-update-modal-{{ terminal.terminal_name }}">{{ terminal.terminal_name }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input id="terminal-name" type="hidden" class="form-control" value="{{ terminal.terminal_name }}" name="terminal-name">
+                                <div class="form-group row">
+                                    <label for="terminal" class="col-sm-5 col-form-label">{% trans 'Terminal' %}</label>
+                                    <div class="col-sm-7">
+                                        <label for="terminal+">+</label>
+                                        <input name="terminal" id="terminal+" type="radio" required value="+">
+                                        <label for="terminal-">-</label>
+                                        <input name="terminal" id="termianl-" type="radio" required value="-">
+
+                                    </div>
+
+                                    <label for="seal" class="col-sm-5 col-form-label">{% trans 'Seal' %}</label>
+                                    <div class="col-sm-7">
+                                        <label for="seal+">+</label>
+                                        <input name="seal" id="seal+" type="radio" required value="+">
+                                        <label for="seal-">-</label>
+                                        <input name="seal" id="seal-" type="radio" required value="-">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
+                                <input type="submit" class="btn btn-info" value="Save">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+                    <button type="button" class="btn btn-primary change-button" data-toggle="modal" data-target="#terminal-update-modal-{{ terminal.terminal_name }}" data-whatever="{{ terminal.terminal_name }}">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                </td>
+                {% endif %}
+
+                {% if perms.komax_app.delete_komaxterminal %}
+                <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <td>
+                    <input id="terminal-name" type="hidden" class="form-control" value="{{ terminal.terminal_name }}" name="terminal-name">
+                    <i class="fa">
+                        <input type="submit" class="btn btn-danger" name="Delete" value="&#xf1f8">
+                    </i>
+                </td>
+                </form>
+                {% endif %}
+            </tr>
+
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+{% endblock %}

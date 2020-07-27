@@ -1,0 +1,21 @@
+{% extends 'description/description_main.html' %}
+{% load i18n %}
+
+{% block title %}
+    <title>{% trans 'About' %}</title>
+{% endblock %}
+
+{% block header_body %}
+    <h2 class="text-center">{% trans 'About' %}</h2>
+    <hr>
+{% endblock %}
+
+{% block main_content %}
+    <div class="container-fluid padding">
+    <div class="form-row text-center padding">
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <p>{% trans 'The beautifullest project ever' %}</p>
+        </div>
+    </div>
+    </div>
+{% endblock %}
