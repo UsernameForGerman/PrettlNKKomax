@@ -10,7 +10,6 @@ venv*/
 venv/
 venv2/
 .idea
-node_modules
 *.xlsx
 *.xls
 =======
