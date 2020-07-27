@@ -1,0 +1,27 @@
+# General
+# ----------------------------------------------------------------------------
+USE_DOCKER=yes
+
+# Django
+# ----------------------------------------------------------------------------
+DEBUG=True
+SECRET_KEY=l2gugz_=3y)eq5jz2&+qu*f%5t_i=kgx0dcn=1v&8^1*2%mkw5
+DJANGO_SETTINGS_MODULE=komax_site.settings.local
+
+# Redis
+# ----------------------------------------------------------------------------
+REDIS_URL=redis://redis:6379/0
+
+# RabbitMQ
+# ----------------------------------------------------------------------------
+RABBITMQ_DEFAULT_USER=guest
+RABBITMQ_DEFAULT_PASS=guest
+RABBITMQ_DEFAULT_VHOST=/
+
+# Celery
+# ----------------------------------------------------------------------------
+CELERY_BROKER_URL=amqp://guest:guest@rabbit:5672
+
+# Flower
+CELERY_FLOWER_USER=wJRDVUpEiebpiNKSEnwwRYvkgEeyigRo
+CELERY_FLOWER_PASSWORD=aVeWnRNYnnFfDXfcyzXXkHHBJShQwCWoHjDoAjCGonZNXhfTCbALJTlMVzXdhnzS

@@ -1,0 +1,144 @@
+version: '3'
+
+volumes:
+  local_postgres_data: {}
+  local_postgres_data_backups: {}
+  local_traefik: {}
+  static-volume: {}
+  media-volume: {}
+  react-app-volume: {}
+
+services:
+  react: &react
+    build:
+      context: .
+      dockerfile: ./compose/local/react/Dockerfile
+    command: ["nginx", "-g", "daemon off;"]
+    depends_on:
+      - django
+      - postgres
+    image: komax_local_frontend
+    volumes:
+      - react-app-volume:/frontend/build
+      - static-volume:/www/static
+      - media-volume:/www/media
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.react.loadbalancer.server.port=8080"
+    ports:
+      - "8080:8080"
+#      - "443:443"
+
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    command: /start
+    #command: python /app/manage.py runserver 0.0.0.0:9000
+    image: komax_local_django
+    restart: always
+    depends_on:
+      - postgres
+    volumes: &appvolumes
+      - static-volume:/var/komax_site/static/
+      # - static-volume:/app/static
+      - media-volume:/var/komax_site/media/
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    ports:
+      - "9000:9000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.django.loadbalancer.server.port=9000"
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/local/postgres/Dockerfile
+    image: komax_local_postgres
+    restart: always
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data
+      - local_postgres_data_backups:/backups
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./.envs/.local/.postgres
+
+  traefik:
+    build:
+      context: .
+      dockerfile: ./compose/local/traefik/Dockerfile
+    image: komax_local_traefik
+    restart: always
+    depends_on:
+      - django
+      - react
+    env_file:
+      - ./.envs/.local/.traefik
+    volumes:
+      - local_traefik:/etc/traefik/acme
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+
+#  redis:
+#    image: redis:3.2
+#    restart: always
+#    # labels:
+#    #   - "traefik.enable=true"
+#    ports:
+#      - "6379"
+#
+#  rabbit:
+#    image: rabbitmq:3.8-alpine
+#    restart: always
+#    env_file:
+#      - ./.envs/.local/.django
+#    ports:
+#      - "5672"
+#
+#  celeryworker:
+#    <<: *django
+#    image: tiktune_local_celeryworker
+#    restart: always
+#    depends_on:
+#      - redis
+#      - rabbit
+#      - postgres
+#    ports: []
+#    command: /start-celeryworker
+#
+#  flower: &flower
+#    <<: *django
+#    image: komax_local_flower
+#    restart: always
+#    ports:
+#      - "5555:5555"
+#    command: /start-flower
+#    labels:
+#      - "traefik.enable=true"
+
+#  nginx: &nginx
+#    restart: always
+#    build:
+#      context: .
+#      dockerfile: ./compose/nginx/Dockerfile
+#    image: nginx_local
+#    # image: nginx:apline
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#    volumes:
+#      - static-volume:/www/static
+#      - media-volume:/www/media
+#      - react-app-volume:/frontend/build
+#      - ./nginx:/etc/nginx/conf.d
+#    depends_on:
+#      - django
+#      - postgres
+#      - react
+

@@ -19,8 +19,7 @@ class task_api extends API{
         return this.updateObject(task.id, {...task});
     }
 
-    loadTask = ({task_name}) => {
-        debugger;
+    loadTask = ({task_namа}) => {
         return this.createAPI().put("load_komax_task/",{
             task_name
         }).then(resp => resp.data);

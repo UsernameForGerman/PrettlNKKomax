@@ -1,0 +1,35 @@
+[http.routers]
+  [http.routers.backend]
+    rule = "Host(`localhost`) && (PathPrefix(`/api`) || PathPrefix(`/admin`))"
+    service = "django"
+    entrypoints = ["web"]
+  [http.routers.react]
+    rule = "Host(`localhost`)"
+    service = "react"
+    entrypoints = ["web"]
+  [http.routers.traefik]
+    rule = "Host(`localhost`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api/http`) || PathPrefix(`/api/tcp`) || PathPrefix(`/api/entrypoints`) || PathPrefix(`/api/version`) || PathPrefix(`/api/debug`))"
+    service = "api@internal"
+    middlewares = ["end_slash"]
+    entrypoints = ["web"]
+
+[http.services]
+  [[http.services.django.loadBalancer.servers]]
+    url = "http://django:9000"
+  [[http.services.react.loadBalancer.servers]]
+    url = "http://react:8080"
+
+[http.middlewares]
+  [http.middlewares.auth.basicAuth]
+    users = ["admin:$apr1$YkjS6j2u$sxb5NBX0S92b1oU2kLRdQ0"]
+  [http.middlewares.redirect.redirectScheme]
+    scheme = "http"
+  [http.middlewares.corsheaders.headers]
+    accessControlAllowMethods= ["GET", "OPTIONS", "PUT", "POST", "PATCH"]
+    accessControlAllowOrigin = "origin-list-or-null"
+    accessControlAllowHeaders = ["access-control-allow-origin", "authorization", "X-CSRFToken", "X-Requested-With", "content-type"]
+    accessControlMaxAge = 100
+    addVaryHeader = true
+  [http.middlewares.end_slash.replacePathRegex]
+    regex = "(dashboard|flower)$"
+    replacement = "$0/"

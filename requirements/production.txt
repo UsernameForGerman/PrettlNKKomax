@@ -1,6 +1,6 @@
 -r ./base.txt
 
-daphne==2.4.0
-psycopg2==2.8.3
-pytest
-pillow==5.1.0
+psycopg2==2.8.4 --no-binary psycopg2
+gunicorn==20.0.4
+nbconvert==5.3.1
+tornado==4.2

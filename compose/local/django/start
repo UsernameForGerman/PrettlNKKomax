@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -o errexit
+# set -o pipefail
+set -o nounset
+
+
+python manage.py makemigrations --no-input
+python manage.py migrate --no-input
+python manage.py collectstatic --no-input
+#python manage.py loaddata fixtures/demo_users.yaml
+#python manage.py loaddata ./fixtures/celery_beat_fixtures.yaml
+#python manage.py loaddata ./trello_stat_back/api/fixtures/no_member.json
+python manage.py runserver 0.0.0.0:9000
+

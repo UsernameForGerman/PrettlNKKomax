@@ -10,7 +10,6 @@ venv*/
 venv/
 venv2/
 .idea
-node_modules
 *.xlsx
 *.xls
 =======
@@ -20,3 +19,4 @@ komaxsite/.idea
 __pycache__
 .git/
 redis-stable
+.envs/.production/
