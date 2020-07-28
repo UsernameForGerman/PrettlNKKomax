@@ -1,43 +1,41 @@
-[global]
-  checkNewVersion = false
-  sendAnonymousUsage = false
+debug = true
+
+logLevel = "DEBUG"
+defaultEntryPoints = ["https","http"]
 
 [entryPoints]
-  [entryPoints.traefik]
-    address = ":8081"
-  [entryPoints.web]
+  [entryPoints.http]
     address = ":80"
-  [entryPoints.web-secure]
+#    [entryPoints.http.redirect]
+#    entryPoint = "https"
+  [entryPoints.https]
     address = ":443"
+    [entryPoints.https.http.tls]
 
-[providers]
-  providersThrottleDuration = "2s"
-  [providers.docker]
-    defaultRule = "Host(`docker.localhost`)"
-    watch = true
-    endpoint = "unix:///var/run/docker.sock"
-    swarmModeRefreshSeconds = "15s"
-    exposedbydefault = false
-  [providers.file]
-    filename = "/etc/traefik/dynamic-conf.toml"
+[providers.docker]
+defaultRule = "Host(`docker.localhost`)"
+endpoint = "unix:///var/run/docker.sock"
+# useBindPortIP = true
+# domain = "komax.prettl.ru"
+watch = true
+exposedByDefault = false
+# network = "web"
+
+#[file]
+#filename = "/etc/traefik/dynamic-conf.toml"
 
 [api]
   insecure = true
   dashboard = true
-  # debug = true
 
-[log]
-  level = "INFO"
+#[log]
+#  level = "DEBUG"
 
-[accessLog]
-  bufferingSize = 0
+#[accessLog]
+#  bufferingSize = 0
 
-[acme]
-email = "polyakgerman@gmail.com"
-storage = "/etc/traefik/acme/acme.json"
-entryPoint = "web-secure"
-onHostRule = true
-onDemand = false
-caServer = "https://acme-v02.api.letsencrypt.org/directory"
-[acme.httpChallenge]
-entryPoint = "web"
+[certificatesresolvers.default.acme]
+  email = "polyakgerman@gmail.com"
+  storage = "/etc/traefik/acme/acme.json"
+  [certificatesresolvers.default.acme.httpChallenge]
+    entryPoint = "http"

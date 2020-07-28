@@ -1,5 +1,11 @@
 version: '3'
 
+networks:
+  web:
+    external: true
+  internal:
+    external: false
+
 volumes:
   production_postgres_data: {}
   production_postgres_data_backups: {}
@@ -9,7 +15,7 @@ volumes:
   react-app-volume: {}
 
 services:
-  react: &react
+  nginx: &nginx
     build:
       context: .
       dockerfile: ./compose/production/react/Dockerfile
@@ -20,11 +26,28 @@ services:
     image: komax_production_frontend
     volumes:
       - react-app-volume:/frontend/build
+      - static-volume:/www/static/
+      - media-volume:/www/media/
+    networks:
+      - internal
+      - web
     ports:
       - "8080:8080"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.react.loadbalancer.server.port=8080"
+      #- "traefik.services.nginx.loadBalancer.servers.url=http://nginx:8080/"
+      - "traefik.http.routers.nginx.rule=Host(`komax.prettl.ru`)"
+      - "traefik.http.routers.nginx.entrypoints=https"
+      - "traefik.http.routers.nginx.tls=true"
+      - "traefik.http.routers.nginx.tls.certresolver=default"
+      #- "traefik.http.middlewares.https.redirectscheme.permanent=true"
+      #- "traefik.http.middlewares.https.redirectscheme.scheme=https"
+      #- "traefik.http.middlewares.https.redirectscheme.port=443"
+      #- "traefik.backend=nginx"
+      #- "traefik.frontend.rule=Host:komax.prettl.ru"
+      - "traefik.http.services.nginx.loadbalancer.server.port=8080"
+      #- "traefik.nginx.rule=Host:komax.prettl.ru"
+
 
   django: &django
     build:
@@ -37,9 +60,12 @@ services:
     depends_on:
       - postgres
     volumes:
-      - static-volume:/var/komax_site/static
+      - static-volume:/var/komax_site/static/
       # - static-volume:/app/static
-      - media-volume:/var/komax_site/media
+      - media-volume:/var/komax_site/media/
+    networks:
+      - internal
+      - web
     env_file:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
@@ -47,6 +73,14 @@ services:
       - "9000:9000"
     labels:
       - "traefik.enable=true"
+      - "traefik.http.routers.django.rule=Host(`komax.prettl.ru`) && (PathPrefix(`/api`) || PathPrefix(`/admin`))"
+      - "traefik.http.routers.django.entrypoints=https"
+      - "traefik.http.routers.django.tls=true"
+      - "traefik.http.routers.django.tls.certresolver=default"
+      #- "traefik.backend=django"
+      #- "traefik.frontend.rule=Host:komax.prettl.ru;PathPrefix:/api"
+      #- "traefik.http.services.django.loadbalancer.server.port=9000"
+      #- "traefik.django.rule=Host:komax.prettl.ru"
 
   postgres:
     build:
@@ -57,6 +91,9 @@ services:
     volumes:
       - production_postgres_data:/var/lib/postgresql/data
       - production_postgres_data_backups:/backups
+    networks:
+      - internal
+      - web
     ports:
       - "5432:5432"
     env_file:
@@ -76,6 +113,9 @@ services:
       - production_traefik:/etc/traefik/acme
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - internal
+      - web
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
