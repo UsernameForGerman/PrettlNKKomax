@@ -20,3 +20,4 @@ __pycache__
 .git/
 redis-stable
 .envs/.production/
+node_modules/
