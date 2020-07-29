@@ -24,6 +24,11 @@ let HarsessesContainer = (props) => {
     }, props.list.length);
 
     let [selectedNumber, setSelectedNumber] = useState("");
+    let [isOpen, setOpen] = useState(false);
+
+    let toggleOpen = () => {
+        setOpen(!isOpen);
+    }
 
     let items = props.list;
 
@@ -34,6 +39,7 @@ let HarsessesContainer = (props) => {
 
         let select = () => {
             setSelectedNumber(elem.harness_number);
+            toggleOpen();
             props.fetchMap(elem.harness_number)
         }
 
@@ -80,7 +86,7 @@ let HarsessesContainer = (props) => {
                 ? <div>
                     <h2><FormattedMessage id={"harnesses.map_name"}/>{" " + selectedNumber}</h2>
                       <TableContainer component={Paper} className={classes.table}>
-                      <Table aria-label="simple table">
+                      <Table aria-label="simple table" style={{width : "fit-content"}}>
                         <TableHead>
                           <TableRow>
                               {headings}
@@ -105,7 +111,14 @@ let HarsessesContainer = (props) => {
     return(
         <>{ props.isFetching
             ? <FullScreenPreloader/>
-            : <Harnesses harnesses={items} role={props.role} selectedTable={renderMap()} fetch={props.fetchList}/>
+            : <Harnesses
+                harnesses={items}
+                role={props.role}
+                selectedTable={renderMap()}
+                fetch={props.fetchList}
+                isOpen={isOpen}
+                toggleOpen={toggleOpen}
+            />
           }
         </>
     )

@@ -14,3 +14,7 @@ main{
 body{
     margin: 0px 0px;
 }
+
+.MuiTableContainer-root{
+    width: fit-content !important;
+}

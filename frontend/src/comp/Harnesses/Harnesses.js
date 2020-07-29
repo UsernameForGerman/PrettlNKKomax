@@ -4,7 +4,15 @@ import HarnessesChooseTable from "./HarnessesTables/HarnessesChooseTable/Harness
 import SuccessButton from "../common/SuccessButton/SuccessButton";
 import {FormattedMessage} from "react-intl";
 import BASE_URL from "../../DAL/getBaseUrl";
+import Modal from "react-modal";
 let Harnesses = (props) => {
+    const customStyles = {
+      content : {
+        top                   : '17%',
+        left                  : '3%',
+      }
+    };
+
     let send = (e) => {
         e.preventDefault();
         let req = new XMLHttpRequest();
@@ -37,12 +45,20 @@ let Harnesses = (props) => {
             </div>
             <div className={`${classes.card} ${classes.tableWrapper}`}>
                 {props.selectedTable
-                    ? <>{props.selectedTable}</>
-                    : <>
-                        <FormattedMessage id={"harnesses.choose_terminal"}/>
-                      </>
+                    ? <div className={classes.mapWrapper}>
+                        <b><FormattedMessage id={"harnesses.choose_terminal"}/></b>
+                      </div>
+                    : <></>
                 }
             </div>
+            <Modal
+              isOpen={props.isOpen}
+              onRequestClose={props.toggleOpen}
+              style={customStyles}
+              contentLabel="Example Modal"
+            >
+            {props.selectedTable}
+            </Modal>
         </main>
     );
 }
