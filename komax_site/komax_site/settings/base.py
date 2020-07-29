@@ -20,7 +20,7 @@ import urllib.parse
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # To set sqlite3 locally and postresql on server:
-# dotenv_file = os.path.join(BASE_DIR, ".env")
+# dotenv_file = os.path.join(BASE_DIR, "env")
 # if os.path.isfile(dotenv_file):
 #     dotenv.load_dotenv(dotenv_file)
 
