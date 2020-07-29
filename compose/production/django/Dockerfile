@@ -49,11 +49,15 @@ RUN chown django /start-celeryworker
 #RUN chmod +x /start-flower
 COPY ./komax_site /app
 
-RUN chown -R django /app
+# RUN chown -R django /app
 # RUN chown -R django:django /home/django/
-RUN chown -R django:django /var/komax_site
+# RUN chown -R django:django /var/komax_site
+# RUN mkdir /var/komax_site/admin
+# RUN chown -R django:django /var/komax_site/admin
+# RUN chmod +x /app/static
+# RUN chmod +x /var/komax_site
 
-USER django
+# USER django:django
 
 WORKDIR /app
 

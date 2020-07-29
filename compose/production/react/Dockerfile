@@ -25,12 +25,15 @@ RUN ls /frontend
 
 RUN chown -R react:react /frontend
 USER react
+
 # nginx for prod
 
 FROM nginx:alpine
 WORKDIR /www
 
 RUN mkdir build
+RUN mkdir static
+RUN mkdir media
 
 RUN ls
 

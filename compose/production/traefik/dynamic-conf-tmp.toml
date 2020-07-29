@@ -1,0 +1,42 @@
+
+[http]
+  [http.routers]
+    [http.routers.router1]
+      rule = "Host(`komax.prettl.ru`)"
+      service = "django"
+      entrypoints = ["http"]
+      middlewares = ["redirect"]
+    [http.routers.router2]
+      rule = "Host(`komax.prettl.ru`) && (PathPrefix(`/api`) || PathPrefix(`/{DJANGO_ADMIN_URL}`) || PathPrefix(`/komax_api`))"
+      service = "django"
+      middlewares = ["corsheaders"]
+      entrypoints = ["https"]
+      [http.routers.router2.tls]
+    [http.routers.nginx]
+      rule = "Host(`komax.prettl.ru`)"
+      service = "nginx"
+      entrypoints = ["https"]
+      [http.routers.nginx.tls]
+
+[http.services]
+  [http.services.django]
+    [http.services.django.loadBalancer.servers]
+      url = "http://django:9000"
+  [http.services.nginx]
+    [http.services.nginx.loadBalancer.servers]
+      url = "http://nginx:8080"
+
+[http.middlewares]
+  [http.middlewares.auth.basicAuth]
+    users = ["admin:$apr1$YkjS6j2u$sxb5NBX0S92b1oU2kLRdQ0"]
+  [http.middlewares.redirect.redirectScheme]
+    scheme = "https"
+  [http.middlewares.corsheaders.headers]
+    accessControlAllowMethods= ["GET", "OPTIONS", "PUT", "POST", "PATCH"]
+    accessControlAllowOrigin = "origin-list-or-null"
+    accessControlAllowHeaders = ["access-control-allow-origin", "authorization", "X-CSRFToken", "X-Requested-With", "content-type"]
+    accessControlMaxAge = 100
+    addVaryHeader = true
+  [http.middlewares.end_slash.replacePathRegex]
+    regex = "(dashboard|flower)$"
+    replacement = "$0/"

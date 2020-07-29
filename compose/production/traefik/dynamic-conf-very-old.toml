@@ -1,0 +1,21 @@
+
+[frontends]
+  [frontends.nginx]
+  backend = "nginx"
+    [frontends.nginx.routes.route1]
+    rule = "Host(`komax.prettl.ru`)"
+    entrypoints = "https"
+  [frontends.django]
+  backend = "django"
+    [frontends.django.routes.route1]
+    rule = rule = "Host(`komax.prettl.ru`) && (PathPrefix(`/api`) || PathPrefix(`/{DJANGO_ADMIN_URL}`) || PathPrefix(`/komax_api`))"
+    entrypoints = "https"
+
+[backends]
+  [backends.nginx]
+    [backends.nginx.servers.server1]
+    url = "http://nginx:8080"
+  [backends.django]
+    [backends.django.servers.server1]
+    url = "http://react:9000"
+
