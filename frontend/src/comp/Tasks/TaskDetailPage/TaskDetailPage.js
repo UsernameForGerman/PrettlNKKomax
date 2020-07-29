@@ -6,7 +6,8 @@ import task_api from "../../../DAL/task/task_api";
 import {FormattedMessage} from "react-intl";
 let TaskDetailPage = (props) => {
     let handleClick = () => {
-        task_api.loadTask(props)
+        debugger;
+        task_api.loadTask({task_name : props.name})
             .then(resp => {
                 alert("Заявка успешно отправлена")
             })

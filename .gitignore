@@ -21,3 +21,4 @@ __pycache__
 redis-stable
 .envs/.production/
 node_modules/
+komaxdb.sql

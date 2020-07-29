@@ -1,7 +1,7 @@
 import axios from "axios";
 import BASE_URL from "../getBaseUrl";
 
-const API_URL = "https://komax.prettl.ru/api/v1/";
+const API_URL = BASE_URL + "api/v1/";
 
 class API {
     constructor(base_url) {
