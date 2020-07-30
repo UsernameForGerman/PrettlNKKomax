@@ -22,3 +22,4 @@ redis-stable
 .envs/.production/
 node_modules/
 komaxdb.sql
+frontend/node_modules/
