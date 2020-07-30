@@ -3,6 +3,12 @@ from .base import *
 
 ALLOWED_HOSTS = ['*']
 
+# REST FRAMEWORK
+# ------------------------------------------------------------------------------
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny', ),
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.TokenAuthentication', ),
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases

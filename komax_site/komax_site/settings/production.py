@@ -5,6 +5,13 @@ from .base import *
 # ------------------------------------------------------------------------------
 ALLOWED_HOSTS = ['.prettl.ru', 'django:9000', 'react:8080']
 
+# REST FRAMEWORK
+# ------------------------------------------------------------------------------
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated', ),
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.TokenAuthentication', ),
+}
+
 # CORS
 # ------------------------------------------------------------------------------
 CORS_ALLOW_CREDENTIALS = True

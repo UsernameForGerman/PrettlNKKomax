@@ -34,8 +34,8 @@ def index(request):
     return render(request, 'komax_app/index.html', context={"name": "a"})
 
 class KomaxTaskStop(APIView):
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    # authentication_classes = (TokenAuthentication, )
+    # permission_classes = (IsAuthenticated, )
 
     def post(self, *args, **kwargs):
         task_name = self.kwargs.get('task_name', None)
@@ -50,7 +50,7 @@ class KomaxTaskStop(APIView):
         return Response(status=HTTP_200_OK)
 
 class KomaxTaskStopOnKomax(APIView):
-    authentication_classes = (TokenAuthentication, )
+    # authentication_classes = (TokenAuthentication, )
     permission_classes = (IsAuthenticated, )
 
     def post(self, *args, **kwargs):
@@ -71,7 +71,7 @@ class KomaxTaskStopOnKomax(APIView):
         return Response(status=HTTP_200_OK)
 
 class WorkerAccountView(APIView):
-    authentication_classes = (TokenAuthentication, )
+    # authentication_classes = (TokenAuthentication, )
     permission_classes = (IsAuthenticated, )
 
     def get(self, request, *args, **kwargs):
@@ -103,8 +103,8 @@ class SendTaskView(APIView):
     """
     Send tasks to workers
     """
-    permission_classes = (IsAuthenticated, )
-    authentication_classes = (TokenAuthentication, )
+    # permission_classes = (IsAuthenticated, )
+    # authentication_classes = (TokenAuthentication, )
 
     def put(self, *args, **kwargs):
         task_name = self.request.data.get('task_name', None)
@@ -160,8 +160,8 @@ class KomaxListView(APIView):
 
     * Requires token authentication.
     """
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    # authentication_classes = (TokenAuthentication, )
+    # permission_classes = (IsAuthenticated, )
 
     def get(self, request, *args, **kwargs):
         komaxes = Komax.objects.all()
@@ -186,8 +186,8 @@ class KomaxDetailView(APIView):
     * Requires token authentication.
     * All are able to access this view.
     """
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    # authentication_classes = (TokenAuthentication, )
+    # permission_classes = (IsAuthenticated, )
 
     def get_object(self, number):
         try:
@@ -229,8 +229,8 @@ class KappaListView(ListCreateAPIView):
     * Requires token authentication.
     * All are able to access this view.
     """
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    # authentication_classes = (TokenAuthentication, )
+    # permission_classes = (IsAuthenticated, )
     queryset = Kappa.objects.all()
     serializer_class = KappaSerializer
 
@@ -243,15 +243,15 @@ class KappaDetailView(RetrieveUpdateDestroyAPIView):
     * Requires token authentication.
     * All are able to access this view.
     """
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    # authentication_classes = (TokenAuthentication, )
+    # permission_classes = (IsAuthenticated, )
     lookup_field = 'number'
     queryset = Kappa.objects.all()
     serializer_class = KappaSerializer
 
 class HarnessListView(APIView):
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    # authentication_classes = (TokenAuthentication, )
+    # permission_classes = (IsAuthenticated, )
     parser_classes = [MultiPartParser]
 
     def get(self, request, *args, **kwargs):
@@ -284,8 +284,8 @@ class HarnessListView(APIView):
         return Response(harness_chart_xlsx_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class HarnessDetailView(APIView):
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    # authentication_classes = (TokenAuthentication, )
+    # permission_classes = (IsAuthenticated, )
     parser_classes = [MultiPartParser,]
 
     def get_object(self, harness_number):
@@ -308,8 +308,8 @@ class HarnessDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class HarnessChartListView(APIView):
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    # authentication_classes = (TokenAuthentication, )
+    # permission_classes = (IsAuthenticated, )
 
     def get_objects(self, harness_number):
         harness_charts = HarnessChart.objects.filter(harness__harness_number__iexact=harness_number)
@@ -341,8 +341,8 @@ class Logout(APIView):
         return Response(status=status.HTTP_200_OK)
 
 class TaskStatusView(APIView):
-    permission_classes = (IsAuthenticated, )
-    authentication_classes = (TokenAuthentication, )
+    # permission_classes = (IsAuthenticated, )
+    # authentication_classes = (TokenAuthentication, )
 
     def get(self, *args, **kwargs):
         # task_name = self.request.query_params.get('task-name', '')
