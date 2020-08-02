@@ -32,9 +32,15 @@ let TaskDetailPage = (props) => {
                                     <FormattedMessage id={"again"}/>
                                 </button>
                             </NavLink>
-                            {props.role.toLowerCase() === "operator"
+                            {props.role.toLowerCase() === "operator" && props.status === 2
                                 ?   <button className={classes.btnTool} onClick={handleClick}>
                                         <FormattedMessage id={"load_task_label"}/>
+                                    </button>
+                                :   <></>
+                            }
+                            {props.role.toLowerCase() === "master" && props.status === 1
+                                ?   <button className={classes.btnTool} onClick={handleClick}>
+                                        <FormattedMessage id={"order_task_label"}/>
                                     </button>
                                 :   <></>
                             }

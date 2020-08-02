@@ -5,7 +5,7 @@ import auth from "../../AuthHOC/authHOC";
 import {connect} from "react-redux"
 import classes from "./TaskDetailPage.module.css"
 import TasksSelector from "../../../selectors/tasksSelector";
-import {getTasksThunk} from "../../../reducers/tasksReducer";
+import {getTaskByIdThunk, getTasksThunk} from "../../../reducers/tasksReducer";
 import LoginSelector from "../../../selectors/loginSelector";
 import BASE_URL from "../../../DAL/getBaseUrl";
 import formatTime from "./formatTime";
@@ -15,10 +15,10 @@ let TaskDetailPageContainer = (props) => {
     let name = props.match.params.id;
 
     useEffect(() => {
-        props.fetchList();
-    }, props.taskList.length);
+        if (!props.task) props.fetchTask(name);
+    }, [props.task]);
 
-    let task = props.taskList.filter(elem => elem.task_name === name)[0];
+    let task = props.task;
     let komaxes = task ? task.komaxes: []
     let harnesses = task ? task.harnesses : [];
 
@@ -109,6 +109,7 @@ let TaskDetailPageContainer = (props) => {
     return(
         <TaskDetailPage
             role={props.role}
+            status={task.status}
         task_komax={task_komax}
         ticket_komax={ticket_komax}
         harnesses={taskHarnesses}
@@ -120,15 +121,15 @@ let TaskDetailPageContainer = (props) => {
 
 let mapStateToProps = (state) => {
     return{
-        taskList : TasksSelector.getList(state),
+        task : TasksSelector.getTaskById(state),
         role : LoginSelector.getRole(state)
     }
 }
 
 let mapDispatchToProps = (dispatch) => {
     return{
-        fetchList : () => {
-            dispatch(getTasksThunk())
+        fetchTask : (id) => {
+            dispatch(getTaskByIdThunk(id))
         }
     }
 }

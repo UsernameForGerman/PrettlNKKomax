@@ -16,7 +16,7 @@ import Modal from "react-modal";
 import TaskCreateModalFormContainer from "./Modal/TCPModalContainer,js";
 import {Multiselect} from "multiselect-react-dropdown";
 import '../../../index.css';
-import {NavLink, Redirect} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 let CreateTaskPage = (props) => {
     const MenuProps = {
           PaperProps: {
@@ -61,15 +61,12 @@ let CreateTaskPage = (props) => {
         props.setContinue(true);
         let data = {
             work_shift : workShiftRef.current.value,
-            name : numberRef.current.value
         }
         props.sendDataFirst(data);
     }
 
     let collectData = (e) => {
-        props.sendDataSecond({
-            name : numberRef.current.value
-        });
+        props.sendDataSecond();
     }
 
     let renderedHarnesses = props.multiselectOptions.map(elem => {
@@ -91,17 +88,12 @@ let CreateTaskPage = (props) => {
         props.setLoadingType(event.target.value);
     };
 
-    let numberRef = React.createRef();
     let workShiftRef = React.createRef();
-
-    let checkValid = () => {
-        let text = numberRef.current.value;
-        props.check(text);
-    }
 
     const CustomRadio = withStyles({
       root: {
         color: "gray",
+        margin: "0px 10px",
         '&$checked': {
           color: "black",
         },
@@ -126,37 +118,37 @@ let CreateTaskPage = (props) => {
     }
 
     let workType = renderOptions(
-        "Work type",
+        <FormattedMessage id={"work_type_label"}/>,
         props.workType,
         handleChangeWork,
         [
             {
                 value : "parallel",
-                label : "Parallel"
+                label : <FormattedMessage id={"parallel_work_label"}/>
             },
             {
                 value : "consistently",
-                label : "Consistently"
+                label : <FormattedMessage id={"consistently_work_label"}/>
             }
         ]
     );
 
     let loadingType = renderOptions(
-        "Loading type",
+        <FormattedMessage id={"loading_type_label"}/>,
         props.loadingType,
         handleChangeLoading,
         [
             {
                 value : "new",
-                label : "New"
+                label : <FormattedMessage id={"new_loading_type_label"}/>
             },
             {
                 value : "mix",
-                label : "Mix"
+                label : <FormattedMessage id={"mix_loading_type_label"}/>
             },
             {
                 value : "urgent",
-                label : "Urgent"
+                label : <FormattedMessage id={"urgent_loading_type_label"}/>
             }
         ]
     );
@@ -184,7 +176,7 @@ let CreateTaskPage = (props) => {
                         <div className={classes.input_wrapper}>
                             <label className={classes.label}>
                                 <h3><FormattedMessage id={"tasks.create_new_task_job_name_label"}/>:</h3>
-                                <input className={classes.input} type={"text"} ref={numberRef}/>
+                                <input className={classes.input} type={"text"} disabled value={props.number}/>
                             </label>
                         </div>
                         <div className={classes.input_wrapper}>
@@ -197,6 +189,7 @@ let CreateTaskPage = (props) => {
                                         onRemove={(e) => {handleMultiSelect(e, props.setMultiselectOptions)}}
                                         selectedValues={props.multiselectOptions.map(elem => {return {name : elem, id : elem}})}
                                         displayValue="name"
+                                        placeholder={""}
                                         style={{
                                               multiselectContainer: { // To change css for multiselect (Width,height,etc..)
                                                 width : "200px"

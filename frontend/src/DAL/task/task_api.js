@@ -15,6 +15,10 @@ class task_api extends API{
         return this.createObject(task);
     }
 
+    getTaskByID = (id) => {
+        return this.getObjectById(id);
+    }
+
     updateTask = (task) => {
         return this.updateObject(task.id, {...task});
     }

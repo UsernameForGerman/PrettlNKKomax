@@ -1,10 +1,10 @@
 import task_api from "../DAL/task/task_api";
 import task_status from "../DAL/task_status/task_status";
-import {logoutThunk} from "./authReducer";
 import handle401 from "./handle401";
 const initialState = {
     isFetching : false,
     tasksList : [],
+    taskById : "",
     errMsg : "",
     isValid : true,
     canSend : false,
@@ -19,6 +19,7 @@ const SET_ERR_MSG = "TASKS/ERROR";
 const SET_VALID = "TASKS/VALID";
 const SET_CAN_SEND = "TASKS/CAN_SEND";
 const SET_STATUS = "TASKS/SET_STATUS";
+const SET_ID_TASK = "TASKS/SET_ID_TASK";
 
 const tasksReducer = (state = initialState, action) => {
     let stateCopy = {...state};
@@ -52,6 +53,11 @@ const tasksReducer = (state = initialState, action) => {
             stateCopy.status = action.status;
             break;
         }
+
+        case SET_ID_TASK : {
+            stateCopy.taskById = action.task;
+            break;
+        }
     }
     return stateCopy;
 }
@@ -72,28 +78,36 @@ const canSendAC = (send) => {
 const setListAC = (list) => {
     return {
         type : SET_LIST,
-        list : list
+        list
     }
 }
+
+const setTaskByID = (task) => {
+    return {
+        type : SET_ID_TASK,
+        task
+    }
+}
+
 
 const setValidAC = (isValid) => {
     return {
         type : SET_VALID,
-        isValid : isValid
+        isValid
     }
 }
 
 const setErrorAC = (error) => {
     return {
         type : SET_ERR_MSG,
-        error : error
+        error
     }
 }
 
 const setStatusAC = (status) => {
     return {
         type : SET_STATUS,
-        status : status
+        status
     }
 }
 
@@ -103,6 +117,20 @@ const getTasksThunk = () => {
         task_api.getKomaxTasks().then((data) => {
             if (data === "") data = [];
             dispatch(setListAC(data));
+            dispatch(toggleFetchAC());
+        }).catch(err => {
+            handle401(err, dispatch);
+            dispatch(toggleFetchAC())
+        });
+    }
+}
+
+const getTaskByIdThunk = (id) => {
+    return (dispatch) => {
+        dispatch(toggleFetchAC());
+        task_api.getTaskByID(id).then((data) => {
+            if (data === "") data = {};
+            dispatch(setTaskByID(data));
             dispatch(toggleFetchAC());
         }).catch(err => {
             handle401(err, dispatch);
@@ -125,25 +153,14 @@ const createTaskThunk = (task) => {
     }
 }
 
-const updateTaskThunk = (task) => {
-    return (dispatch) => {
-        dispatch(toggleFetchAC());
-        task_api.updateTask(task)
-            .then((data) => {
-                dispatch(getTasksThunk());
-                dispatch(toggleFetchAC());
-            })
-            .catch(err => {
-                handle401(err, dispatch);
-            });
-    }
-}
-
 let getStatusThunk = () => {
     return (dispatch) => {
         task_status.getStatuses()
             .then(resp => {
                 dispatch(setStatusAC(resp));
+                setTimeout(() => {
+                    if (window.location.href === "/account") dispatch(getStatusThunk());
+                }, 2000)
             })
             .catch(err => {
                 handle401(err, dispatch);
@@ -165,4 +182,4 @@ let deleteTaskThunk = (task) => {
     }
 }
 
-export {tasksReducer, createTaskThunk, updateTaskThunk, getTasksThunk, setErrorAC, setValidAC, getStatusThunk, deleteTaskThunk}
+export {tasksReducer, createTaskThunk, getTaskByIdThunk, getTasksThunk, setErrorAC, setValidAC, getStatusThunk, deleteTaskThunk}

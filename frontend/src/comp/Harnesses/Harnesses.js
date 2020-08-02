@@ -5,6 +5,7 @@ import SuccessButton from "../common/SuccessButton/SuccessButton";
 import {FormattedMessage} from "react-intl";
 import BASE_URL from "../../DAL/getBaseUrl";
 import Modal from "react-modal";
+import TextField from '@material-ui/core/TextField';
 let Harnesses = (props) => {
     const customStyles = {
       content : {
@@ -41,6 +42,13 @@ let Harnesses = (props) => {
                         <SuccessButton value={<FormattedMessage id={"add_button_text"}/>} click={send}/>
                     </form>
                 </div>
+                <div className={classes.searchWrapper}>
+                    <TextField
+                        value={props.filter}
+                        onChange={props.setFilt}
+                        label={"Search"}
+                    />
+                </div>
                 <HarnessesChooseTable role={props.role} items={props.harnesses}/>
             </div>
             <div className={`${classes.card} ${classes.tableWrapper}`}>
@@ -57,7 +65,8 @@ let Harnesses = (props) => {
               style={customStyles}
               contentLabel="Example Modal"
             >
-            {props.selectedTable}
+                <button onClick={props.toggleOpen} className={classes.cancelBtn}>X</button>
+                {props.selectedTable}
             </Modal>
         </main>
     );

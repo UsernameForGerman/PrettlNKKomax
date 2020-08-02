@@ -22,6 +22,10 @@ class TasksSelector {
     static getStatus = (state) => {
         return state.tasks.status;
     }
+
+    static getTaskById = (state) => {
+        return state.tasks.taskById;
+    }
 }
 
 export default TasksSelector;

@@ -68,7 +68,7 @@ class API {
     }
 
     getObjectById = (id, url = this.formIdUrl(id)) => {
-        return this.createAPI().get(this.formIdUrl(id)).then((resp) => {
+        return this.createAPI().get(url).then((resp) => {
             return resp.data;
         });
     }

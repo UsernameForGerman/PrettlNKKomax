@@ -120,6 +120,7 @@
   "full_task_label" : "Полное задание",
   "again" : "Заново",
   "load_task_label" : "Загрузить задание",
+  "order_task_label" : "Заказать задание",
 
   "harnesses_used" : "Жгуты использованы",
   "komaxes_used" : "Комаксы использованы",
@@ -137,5 +138,17 @@
   "repairing_status" : "В ремонте",
   "not_working_status" : "Не Работает",
 
-  "edit_kappa_label" : "Изменить каппу"
+  "edit_kappa_label" : "Изменить каппу",
+
+  "select_label" : "Выбрать",
+
+  "work_type_label" : "Тип работы",
+  "loading_type_label" : "Тип загрузки",
+
+  "parallel_work_label" : "Пар.",
+  "consistently_work_label" : "Посл.",
+
+  "new_loading_type_label" : "Новый",
+  "mix_loading_type_label" : "Смеш.",
+  "urgent_loading_type_label" : "Urgent"
 }

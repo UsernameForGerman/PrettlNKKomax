@@ -120,6 +120,7 @@
   "full_task_label" : "Full task",
   "again" : "Again",
   "load_task_label" : "Load task",
+  "order_task_label" : "Load task",
 
   "harnesses_used" : "Harnesses used",
   "komaxes_used" : "Komaxes used",
@@ -137,5 +138,17 @@
   "repairing_status" : "Repairing",
   "not_working_status" : "Not working",
 
-  "edit_kappa_label" : "Edit kappa"
+  "edit_kappa_label" : "Edit kappa",
+
+  "select_label" : "Select",
+
+  "work_type_label" : "Work Type",
+  "loading_type_label" : "Loading Type",
+
+  "parallel_work_label" : "Parrallel",
+  "consistently_work_label" : "Consistently",
+
+  "new_loading_type_label" : "Новый",
+  "mix_loading_type_label" : "Смешанный",
+  "urgent_loading_type_label" : "Urgent"
 }

@@ -25,6 +25,7 @@ let HarsessesContainer = (props) => {
 
     let [selectedNumber, setSelectedNumber] = useState("");
     let [isOpen, setOpen] = useState(false);
+    let [filter, setFilter] = useState("");
 
     let toggleOpen = () => {
         setOpen(!isOpen);
@@ -32,7 +33,16 @@ let HarsessesContainer = (props) => {
 
     let items = props.list;
 
-    items = items.map((elem) => {
+    let setFilt = (e) => {
+        setFilter(e.currentTarget.value);
+    }
+
+    let filt = () => {
+        if (filter === "") return items;
+        return items.filter(item => item.harness_number.toString().includes(filter));
+    }
+
+    items = filt(items).map((elem) => {
         let deleteHarness = () => {
             props.deleteHarness(elem.harness_number);
         }
@@ -117,6 +127,8 @@ let HarsessesContainer = (props) => {
                 selectedTable={renderMap()}
                 fetch={props.fetchList}
                 isOpen={isOpen}
+                setFilt={setFilt}
+                filter={filter}
                 toggleOpen={toggleOpen}
             />
           }

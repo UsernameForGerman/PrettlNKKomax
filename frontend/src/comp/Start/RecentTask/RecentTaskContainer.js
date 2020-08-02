@@ -9,8 +9,8 @@ import BASE_URL from "../../../DAL/getBaseUrl";
 import LoginSelector from "../../../selectors/loginSelector";
 let RecentTaskContainer = (props) => {
     useEffect(() => {
-        props.getStatus();
-    }, [props.status.harnesses.length]);
+        if (props.status.komax_task) props.getStatus();
+    });
 
     let komaxes = props.status.komax_task !== undefined ? props.status.komax_task.komaxes : [];
 

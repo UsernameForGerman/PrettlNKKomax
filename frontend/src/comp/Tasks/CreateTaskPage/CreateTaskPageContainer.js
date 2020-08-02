@@ -8,7 +8,6 @@ import {getListThunk} from "../../../reducers/komaxReducer";
 import HarnessSelector from "../../../selectors/harnessSelector";
 import KappaSelector from "../../../selectors/kappaSelector";
 import KomaxSelector from "../../../selectors/komaxSelector";
-import FullScreenPreloader from "../../common/Preloader/FullScreenPreloader";
 import {getKappasThunk} from "../../../reducers/kappasReducer";
 import TasksSelector from "../../../selectors/tasksSelector";
 import {createTaskThunk, getTasksThunk, setErrorAC, setValidAC} from "../../../reducers/tasksReducer";
@@ -41,19 +40,12 @@ let CreateTaskPageContainer = (props) => {
             props.harnesses.length
         ]);
 
-    let formatNumber = (number) => {
-        let replaced = number.toString().replace("\-", "");
-        while (replaced.toString().indexOf("-") > 0){
-            replaced = replaced.toString().replace("\-", "");
-        }
-        let formatted = Number(replaced);
-        return formatted;
-    }
+    let [month, day, year]    = ( new Date() ).toLocaleDateString().split("/");
+    let dateStr = day.padStart(2, "0") + month.padStart(2, "0") + year.substr(2,2);
+    let number = dateStr + props.tasks.filter(task => task.task_name.includes(dateStr)).length.toString().padStart(2, "0");
 
     let harnesses_options = props.harnesses.map(elem => {
         return elem.harness_number;
-    }).sort((a,b) => {
-        return formatNumber(a) - formatNumber(b);
     });
 
     let komaxes_options = props.komaxes.map(elem => {
@@ -82,23 +74,10 @@ let CreateTaskPageContainer = (props) => {
         setHarnessesData(arr);
     }
 
-    let check = (number) => {
-        let numbers = props.tasks.map((elem) => {
-            return elem.task_name;
-        }).filter((elem) => elem === number);
-        if (numbers.length > 0){
-            props.setError("Такой номер уже есть");
-            props.setValid(false);
-        } else {
-            props.setError("");
-            props.setValid(true);
-        }
-    }
-
     let sendDataFirst = (data) => {
         let shift = data.work_shift;
         let request = {
-            'task_name' : data.name,
+            'task_name' : number,
             'harnesses' : multiselectOptions,
             'komaxes' : komaxesOptions,
             'kappas' : kappasOptions,
@@ -110,7 +89,7 @@ let CreateTaskPageContainer = (props) => {
         props.send(request);
     }
 
-    let sendDataSecond = (data) => {
+    let sendDataSecond = () => {
         let d = {};
         harnessesData.forEach(harnessItem => {
             let key = Object.keys(harnessItem)[0];
@@ -118,7 +97,7 @@ let CreateTaskPageContainer = (props) => {
         })
         let request = {
             'harness_amount' : d,
-            'task_name' : data.name
+            'task_name' : number
         }
 
         props.send(request);
@@ -142,7 +121,7 @@ let CreateTaskPageContainer = (props) => {
                         kappas_options={kappas_options}
                         isValid={props.isValid}
                         errMsg={props.errMsg}
-                        check={check}
+                        number={number}
                         mount={mount}
                         multiselectOptions={multiselectOptions}
                         setMultiselectOptions={setMultiselectOptions}
