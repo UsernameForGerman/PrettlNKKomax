@@ -73,7 +73,7 @@ services:
       - "9000:9000"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.django.rule=Host(`komax.prettl.ru`) && (PathPrefix(`/api`) || PathPrefix(`/admin`))"
+      - "traefik.http.routers.django.rule=Host(`komax.prettl.ru`) && (PathPrefix(`/api`) || PathPrefix(`/admin`) || PathPrefix(`/komax_api`))"
       - "traefik.http.routers.django.entrypoints=https"
       - "traefik.http.routers.django.tls=true"
       - "traefik.http.routers.django.tls.certresolver=default"
