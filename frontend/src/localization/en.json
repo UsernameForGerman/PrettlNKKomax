@@ -148,7 +148,7 @@
   "parallel_work_label" : "Parrallel",
   "consistently_work_label" : "Consistently",
 
-  "new_loading_type_label" : "Новый",
-  "mix_loading_type_label" : "Смешанный",
+  "new_loading_type_label" : "New",
+  "mix_loading_type_label" : "Mixed",
   "urgent_loading_type_label" : "Urgent"
 }

@@ -40,7 +40,10 @@ let CreateTaskPageContainer = (props) => {
             props.harnesses.length
         ]);
 
-    let [month, day, year]    = ( new Date() ).toLocaleDateString().split("/");
+    let [month, day, year] = ( new Date() ).toLocaleDateString().split("/");
+    if (month === ( new Date() ).toLocaleDateString()){
+        [day, month, year] = ( new Date() ).toLocaleDateString().split(".");
+    }
     let dateStr = day.padStart(2, "0") + month.padStart(2, "0") + year.substr(2,2);
     let number = dateStr + props.tasks.filter(task => task.task_name.includes(dateStr)).length.toString().padStart(2, "0");
 
