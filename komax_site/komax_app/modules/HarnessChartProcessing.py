@@ -263,9 +263,7 @@ class HarnessChartReader:
 
         return temp_df
 
-    def drop_empty_rows_cols(self):
-        ws = self.worksheet_file
-        temp_df = pd.DataFrame(ws.values)
+    def drop_empty_rows_cols(self, temp_df):
         temp_df.dropna(inplace=True, how='all', axis=0)
         temp_df.dropna(inplace=True, how='all', axis=1)
         temp_df.index = pd.Index(range(temp_df.shape[0]))
@@ -349,7 +347,7 @@ class HarnessChartReader:
             self.__process_file()
 
             self.__process_paired_cells(row_start, paired_terminals, paired_cabels, paired_armirovka)
-            self.drop_empty_rows_cols()
+            self.drop_empty_rows_cols(self.__dataframe_file)
 
 class ProcessDataframe:
     chart = None
