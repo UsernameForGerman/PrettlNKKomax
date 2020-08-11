@@ -308,7 +308,7 @@ class HarnessChartReader:
 
             for row in range(paired_rows[1], paired_rows[2] + 1):
                 if full:
-                    self.__dataframe_file.loc[row - start_row - 2, cols] = ['' for col in cols]
+                    self.__dataframe_file.loc[row - start_row - 2, cols] = [np.nan for col in cols]
                 else:
                     self.__dataframe_file.loc[row - start_row - 2, cols] = '', '', ''
 
