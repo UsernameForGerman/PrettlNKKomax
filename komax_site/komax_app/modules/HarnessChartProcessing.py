@@ -263,6 +263,13 @@ class HarnessChartReader:
 
         return temp_df
 
+    def drop_empty_rows_cols(self):
+        ws = self.worksheet_file
+        temp_df = pd.DataFrame(ws.values)
+        temp_df.dropna(inplace=True, how='all', axis=0)
+        temp_df.dropna(inplace=True, how='all', axis=1)
+        temp_df.index = pd.Index(range(temp_df.shape[0]))
+
     def __fulfill_cabels(self, start_row, cabels_rows):
         rows_to_drop = list()
         for row_pair in cabels_rows:
@@ -286,17 +293,26 @@ class HarnessChartReader:
                 self.__dataframe_file.loc[row - start_row - 2, 'Вид провода'] = str(cabel_name) + ' ' + str(wire_number)
         """
 
-    def __delete_paired_terminals(self, start_row, terminals_rows):
+    def __delete_paired_terminals(self, start_row, terminals_rows, full=True):
         for paired_rows in terminals_rows:
             terminal_num = paired_rows[0]
 
             if terminal_num == 1:
-                cols = [self.ARMIROVKA_1_COL, self.SEAL_1_COL, self.TERMINAL_1_COL]
+                if full:
+                    cols = self.__dataframe_file.columns
+                else:
+                    cols = [self.ARMIROVKA_1_COL, self.SEAL_1_COL, self.TERMINAL_1_COL]
             else:
-                cols = [self.ARMIROVKA_2_COL, self.SEAL_2_COL, self.TERMINAL_2_COL]
+                if full:
+                    cols = self.__dataframe_file.columns
+                else:
+                    cols = [self.ARMIROVKA_2_COL, self.SEAL_2_COL, self.TERMINAL_2_COL]
 
             for row in range(paired_rows[1], paired_rows[2] + 1):
-                self.__dataframe_file.loc[row - start_row - 2, cols] = '', '', ''
+                if full:
+                    self.__dataframe_file.loc[row - start_row - 2, cols] = ['' for col in cols]
+                else:
+                    self.__dataframe_file.loc[row - start_row - 2, cols] = '', '', ''
 
     def __unpair_armirovka(self, start_row, armirovka_rows):
         for paired_rows in armirovka_rows:
@@ -333,6 +349,7 @@ class HarnessChartReader:
             self.__process_file()
 
             self.__process_paired_cells(row_start, paired_terminals, paired_cabels, paired_armirovka)
+            self.drop_empty_rows_cols()
 
 class ProcessDataframe:
     chart = None
