@@ -35,18 +35,15 @@ services:
       - "8080:8080"
     labels:
       - "traefik.enable=true"
-      #- "traefik.services.nginx.loadBalancer.servers.url=http://nginx:8080/"
-      - "traefik.http.routers.nginx.rule=Host(`komax.prettl.ru`)"
-      - "traefik.http.routers.nginx.entrypoints=https"
-      - "traefik.http.routers.nginx.tls=true"
-      - "traefik.http.routers.nginx.tls.certresolver=default"
-      #- "traefik.http.middlewares.https.redirectscheme.permanent=true"
-      #- "traefik.http.middlewares.https.redirectscheme.scheme=https"
-      #- "traefik.http.middlewares.https.redirectscheme.port=443"
-      #- "traefik.backend=nginx"
-      #- "traefik.frontend.rule=Host:komax.prettl.ru"
-      - "traefik.http.services.nginx.loadbalancer.server.port=8080"
-      #- "traefik.nginx.rule=Host:komax.prettl.ru"
+      - "traefik.http.middlewares.nginx-https-rdrct.redirectscheme.scheme=https"
+      - "traefik.http.routers.nginx-http.middlewares=nginx-https-rdrct"
+      - "traefik.http.routers.nginx-http.rule=Host(`komax.tetradnk.ru`)"
+      - "traefik.http.routers.nginx-http.entrypoints=http"
+      - "traefik.http.routers.nginx-https.rule=Host(`komax.tetradnk.ru`)"
+      - "traefik.http.routers.nginx-https.entrypoints=https"
+      - "traefik.http.routers.nginx-https.tls=true"
+      - "traefik.http.routers.nginx-https.tls.certresolver=default"
+      - "traefik.http.services.nginx-https.loadbalancer.server.port=8080"
 
 
   django: &django
@@ -73,14 +70,15 @@ services:
       - "9000:9000"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.django.rule=Host(`komax.prettl.ru`) && (PathPrefix(`/api`) || PathPrefix(`/admin`) || PathPrefix(`/komax_api`))"
-      - "traefik.http.routers.django.entrypoints=https"
-      - "traefik.http.routers.django.tls=true"
-      - "traefik.http.routers.django.tls.certresolver=default"
-      #- "traefik.backend=django"
-      #- "traefik.frontend.rule=Host:komax.prettl.ru;PathPrefix:/api"
-      #- "traefik.http.services.django.loadbalancer.server.port=9000"
-      #- "traefik.django.rule=Host:komax.prettl.ru"
+      - "traefik.http.middlewares.django-https-rdrct.redirectscheme.scheme=https"
+      - "traefik.http.routers.django-http.middlewares=django-https-rdrct"
+      - "traefik.http.routers.django-http.rule=Host(`komax.prettl.ru`) && (PathPrefix(`/api`) || PathPrefix(`/admin`) || PathPrefix(`/komax_api`))"
+      - "traefik.http.routers.django-http.entrypoints=http"
+      - "traefik.http.routers.django-https.rule=Host(`komax.prettl.ru`) && (PathPrefix(`/api`) || PathPrefix(`/admin`) || PathPrefix(`/komax_api`))"
+      - "traefik.http.routers.django-https.entrypoints=https"
+      - "traefik.http.routers.django-https.tls=true"
+      - "traefik.http.routers.django-https.tls.certresolver=default"
+      - "traefik.http.services.django-https.loadbalancer.server.port=9000"
 
   postgres:
     build:
