@@ -102,7 +102,7 @@ class HarnessChart(models.Model):
                 )
             except Exception as e:
                 harness.delete()
-                raise Http404(traceback.format_exc())
+                raise Http404(str(e))
 
         self.objects.bulk_create(new_harness_charts)
 

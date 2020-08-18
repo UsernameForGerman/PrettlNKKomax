@@ -12,14 +12,14 @@ class AuthenticationError(Exception):
 class Connection:
 
     def __init__(self, username: str, password: str or None, host: str, database_name: str, standard='odata/standard.odata'):
-        self.__session = Session()
+        self.session = Session()
         self.url = '{host}/{db}/{standard}/'.format(
             host=host,
             db=database_name,
             standard=standard,
         )
         self.params = {
-            '$filter': 'json',
+            '$format': 'json',
         }
 
         self.headers = {}
@@ -37,52 +37,80 @@ class Connection:
         
     def validate(self):
         try:
-            response = self.__session.get(self.url + '$metadata', headers=self.headers, params=self.params)
+            response = self.session.get(self.url + '$metadata', headers=self.headers, params=self.params)
         except ConnectionError:
             return False
         if response.status_code != 200:
             return False
-
+        print('validated')
         self.__validated = True
         return True
 
-    def get_session(self) -> Session:
-        if self.__validated:
-            return self.__session
-        else:
-            self.validate()
-            raise AuthenticationError('Login or password is invalid')
+    def validated(self):
+        return self.__validated
 
 class Request(Connection):
 
     def __init__(self, username: str, password: str or None, host: str, database_name: str, standard='odata/standard.odata'):
         super().__init__(username, password, host, database_name, standard)
+        self.validate()
 
-    def get(self, resource):
-        session = self.get_session()
-        return session.get(self.url + resource, headers=self.headers, params=self.params)
+    def __call__(self, *args, **kwargs):
+        if self.validated():
+            return True
+        else:
+            raise AuthenticationError('Not authenticated')
+
+    def get(self, resource, params: dict = None, headers: dict = None):
+        if params is None:
+            params = {}
+        if headers is None:
+            headers = {}
+        self.headers.update(headers)
+        self.params.update(params)
+        return self.session.get(
+            self.url + resource,
+            headers=self.headers,
+            params=self.params
+        )
+
+    def post(self, resource, data: dict = None, headers: dict = None):
+        if data is None:
+            data = {}
+        if headers is None:
+            headers = {}
+        return self.session.post(
+            self.url + resource,
+            headers=self.headers.update(headers),
+            data=self.params.update(data)
+        )
+
 
 
 def get_info(username, password, host, db, standard, resource):
     pass
 
-def get_sells(connection: Connection, year=None, link=None):
-    #
-    # req = Request()
-
+def get_sells(request: Request, year=None, link=None):
     resource = 'AccumulationRegister_Продажи_RecordType'
 
-
+    params = {}
     if type(year) is str:
-        req.params['$filter'] = 'year(Period) ge {year}'
+        params['$filter'] = 'year(Period) ge {year}'
 
-    if type(link) is not None:
+    if link is not None:
         resource = link
 
-    response = req.get(resource)
+    # data = {'Количество': 1, 'Сумма': 5000}
+    # r = request.post(resource)
+    # print(r)
+    # print(r.text)
+    response = request.get(resource=resource)
 
     if response.status_code == 200:
         return response.json()
+
+def create_sells(request: Request):
+    return
 
 def get_customer():
     pass
@@ -92,7 +120,8 @@ def parse_sells(sells):
 
 
 if __name__ == '__main__':
-    connection = Connection('admin', None, base_url, database, odata_standard)
-
-    print(get_sells(connection))
+    req = Request('web', '1', 'http://192.168.56.101', 'TestBase')
+    get_sells(req)
+    # print(get_sells(req))
+    # print(req.validate())
 

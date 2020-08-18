@@ -322,9 +322,9 @@ class HarnessChartReader:
                 self.__dataframe_file.loc[row - start_row - 2, armirovka_col] = armirovka
 
     def __process_paired_cells(self, start_row, terminal_rows, cabels_rows, armirovka_rows):
-        self.__delete_paired_terminals(start_row, terminal_rows)
         self.__fulfill_cabels(start_row, cabels_rows)
         self.__unpair_armirovka(start_row, armirovka_rows)
+        self.__delete_paired_terminals(start_row, terminal_rows)
 
 
     def read_file_chart(self):
