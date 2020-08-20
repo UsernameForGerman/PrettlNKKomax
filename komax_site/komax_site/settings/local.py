@@ -61,21 +61,21 @@ CACHES = {
 # django-debug-toolbar
 # ------------------------------------------------------------------------------
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#prerequisites
-INSTALLED_APPS += ["debug_toolbar"]  # noqa F405
-# https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#middleware
-MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]  # noqa F405
-# https://django-debug-toolbar.readthedocs.io/en/latest/configuration.html#debug-toolbar-config
-DEBUG_TOOLBAR_CONFIG = {
-    "DISABLE_PANELS": ["debug_toolbar.panels.redirects.RedirectsPanel"],
-    "SHOW_TEMPLATE_CONTEXT": True,
-}
-# https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#internal-ips
-INTERNAL_IPS = ["127.0.0.1"]
-if os.environ.get("USE_DOCKER") == "yes":
-    import socket
-
-    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-    INTERNAL_IPS += [ip[:-1] + "1" for ip in ips]
+# INSTALLED_APPS += ["debug_toolbar"]  # noqa F405
+# # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#middleware
+# MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]  # noqa F405
+# # https://django-debug-toolbar.readthedocs.io/en/latest/configuration.html#debug-toolbar-config
+# DEBUG_TOOLBAR_CONFIG = {
+#     "DISABLE_PANELS": ["debug_toolbar.panels.redirects.RedirectsPanel"],
+#     "SHOW_TEMPLATE_CONTEXT": True,
+# }
+# # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#internal-ips
+# INTERNAL_IPS = ["127.0.0.1"]
+# if os.environ.get("USE_DOCKER") == "yes":
+#     import socket
+#
+#     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+#     INTERNAL_IPS += [ip[:-1] + "1" for ip in ips]
 
 # Celery
 # ------------------------------------------------------------------------------
@@ -86,28 +86,57 @@ if os.environ.get("USE_DOCKER") == "yes":
 
 # LOGGING
 # ------------------------------------------------------------------------------
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         'console': {
+#             # exact format is not important, this is the minimum information
+#             'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+#         },
+#     },
+
+
+# }
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'console': {
-            # exact format is not important, this is the minimum information
+        'file': {
             'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
         },
     },
     'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'console'
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'django.log',
+            'maxBytes': 5*1024*1024,
+            'backupCount': 1,
+            'formatter': 'file',
         },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'file'
+        },
+        # 'mail_admins': {
+        #     'level': 'WARNING',
+        #     'class': 'django.utils.log.AdminEmailHandler',
+        #     'email_backend': 'django.core.mail.backends.smtp.EmailBackend',
+        #     'include_html': True,
+        # }
     },
     'loggers': {
         'django': {
             'level': 'INFO',
-            'handlers': ['console']
+            # 'handlers': ['file', 'mail_admins']
+            'handlers': ['file', 'console']
         },
     },
 }
+
 
 # STATIC
 # ------------------------

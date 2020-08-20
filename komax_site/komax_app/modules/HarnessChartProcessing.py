@@ -5,6 +5,9 @@ from openpyxl import load_workbook
 import random
 import numpy as np
 import time
+import logging
+
+logger = logging.getLogger('django')
 
 COLUMN_NAMES = ("Примечание", "№ п/п", "Маркировка", "Вид провода", "№ провода", "Сечение", "Цвет",
                 "Длина, мм (± 3мм)", "Уплотнитель 1", "Длина трубки, L (мм) 1", "Длина трубки, L (мм) 2",
@@ -172,8 +175,12 @@ class HarnessChartReader:
             main_cell = self.worksheet_file[merged_cell.coord][0][0]
             if main_cell.row > start_row:
                 if main_cell.column == self.TERMINAL_1_COL_NUM or main_cell.column == self.TERMINAL_2_COL_NUM:
+                    logger.info('Terminal merged cell:')
+                    logger.info('Main cell column: {}'.format(main_cell.column))
                     last_cell = self.worksheet_file[merged_cell.coord][-1][-1]
                     terminal_num = 1 if main_cell.column == self.TERMINAL_1_COL_NUM else 2
+                    logger.info('Last cell: {}'.format(last_cell))
+                    logger.info('Main cell: {}'.format(main_cell))
                     rows_terminals.append((terminal_num, main_cell.row, last_cell.row))
 
                 if main_cell.column == self.ARMIROVKA_1_COL_NUM or main_cell.column == self.ARMIROVKA_2_COL_NUM:
@@ -292,9 +299,10 @@ class HarnessChartReader:
         """
 
     def __delete_paired_terminals(self, start_row, terminals_rows, full=True):
+        logger.info('deleting paired terminals')
+        logger.info('paired terminals rows: {}'.format(terminals_rows))
         for paired_rows in terminals_rows:
             terminal_num = paired_rows[0]
-
             if terminal_num == 1:
                 if full:
                     cols = self.__dataframe_file.columns
@@ -307,21 +315,27 @@ class HarnessChartReader:
                     cols = [self.ARMIROVKA_2_COL, self.SEAL_2_COL, self.TERMINAL_2_COL]
 
             for row in range(paired_rows[1], paired_rows[2] + 1):
+                logger.info(self.__dataframe_file.loc[row - start_row - 2, ["№ провода", self.TERMINAL_1_COL, self.TERMINAL_2_COL]])
                 if full:
                     self.__dataframe_file.loc[row - start_row - 2, cols] = [np.nan for col in cols]
                 else:
                     self.__dataframe_file.loc[row - start_row - 2, cols] = '', '', ''
 
     def __unpair_armirovka(self, start_row, armirovka_rows):
+        logger.info('unpair armirovka cells')
         for paired_rows in armirovka_rows:
             armirovka = paired_rows[0]
             armirovka_num = paired_rows[1]
             armirovka_col = self.ARMIROVKA_1_COL if armirovka_num == 1 else self.ARMIROVKA_2_COL
 
             for row in range(paired_rows[2], paired_rows[3] + 1):
+                logger.info('unpair armirovka in row with:\nwire number: {}\nterminal 1: {}\nterminal 2: {}'.format(
+                    *self.__dataframe_file.loc[row, ["№ провода", self.TERMINAL_1_COL, self.TERMINAL_2_COL]])
+                )
                 self.__dataframe_file.loc[row - start_row - 2, armirovka_col] = armirovka
 
     def __process_paired_cells(self, start_row, terminal_rows, cabels_rows, armirovka_rows):
+        logger.info('processing_paired_cells')
         self.__fulfill_cabels(start_row, cabels_rows)
         self.__unpair_armirovka(start_row, armirovka_rows)
         self.__delete_paired_terminals(start_row, terminal_rows)
@@ -339,7 +353,9 @@ class HarnessChartReader:
             row_start = self.__get_first_row_to_read()
 
             paired_terminals, paired_cabels, paired_armirovka = self.__get_paired_terminals_cabels_armirovka(row_start)
-
+            logger.info('paired_terminals found: {}'.format(paired_terminals))
+            logger.info('paired cabels found: {}'.format(paired_cabels))
+            logger.info('paired armirovka found: {}'.format(paired_armirovka))
             # dataframe processing
 
             self.__dataframe_file = self.__read_xl(start_row=row_start)
@@ -584,21 +600,14 @@ class ProcessDataframe:
                         self.chart.loc[idx, ['wire_terminal_1', 'wire_terminal_2']] = target_by_color[
                             ['wire_terminal_1', 'wire_terminal_2']
                         ].iloc[0]
-                        print('572')
                     else:
                         self.chart.loc[idx, ['wire_terminal_1', 'wire_terminal_2']] = target_by_square[
                             ['wire_terminal_1', 'wire_terminal_2']
                         ].iloc[0]
-                        print('577', target_by_square[
-                            ['wire_terminal_1', 'wire_terminal_2']
-                        ].iloc[0])
                 else:
                     self.chart.loc[idx, ['wire_terminal_1', 'wire_terminal_2']] = target_by_group[
                         ['wire_terminal_1', 'wire_terminal_2']
                     ].iloc[0]
-                    print('584', target_by_group[
-                        ['wire_terminal_1', 'wire_terminal_2']
-                    ].iloc[0])
             else:
                 target_by_group = self.chart.loc[
                     (self.chart['marking'] == marking) &
@@ -618,24 +627,14 @@ class ProcessDataframe:
                             self.chart.loc[idx, ['wire_terminal_1', 'wire_terminal_2']] = target_by_color[
                                 ['wire_terminal_1', 'wire_terminal_2']
                             ].iloc[0]
-                            print('606', target_by_color[
-                                ['wire_terminal_1', 'wire_terminal_2']
-                            ].iloc[0])
                         else:
                             self.chart.loc[idx, ['wire_terminal_1', 'wire_terminal_2']] = target_by_square[
                                 ['wire_terminal_1', 'wire_terminal_2']
                             ].iloc[0]
-                            print('613', target_by_square[
-                                ['wire_terminal_1', 'wire_terminal_2']
-                            ].iloc[0])
                     else:
                         self.chart.loc[idx, ['wire_terminal_1', 'wire_terminal_2']] = target_by_group[
                             ['wire_terminal_1', 'wire_terminal_2']
                         ].iloc[0]
-                        print('620', target_by_group[
-                            ['wire_terminal_1', 'wire_terminal_2']
-                        ].iloc[0])
-            print('623', self.chart.loc[idx, ['wire_terminal_1', 'wire_terminal_2']])
         return idxs
 
     def __fulfill_one_col_empty(self, idxs, column_name='wire_terminal_1'):
@@ -661,14 +660,10 @@ class ProcessDataframe:
                         (self.chart[column_name] != np.nan), :]
                     if not target_by_color.empty:
                         self.chart.loc[idx, column_name] = target_by_color[column_name].iloc[0]
-                        print('649', target_by_color[[column_name]].iloc[0])
                     else:
                         self.chart.loc[idx, column_name] = target_by_square[column_name].iloc[0]
-                        print('652', target_by_square[[column_name]].iloc[0])
                 else:
                     self.chart.loc[idx, column_name] = target_by_group[column_name].iloc[0]
-                    print('655', target_by_group[column_name].iloc[0])
-                print('656', self.chart.loc[idx, [column_name]])
 
     def __fulfill_terminals_built_in(self):
         self.chart['wire_terminal_1'] = self.chart['wire_terminal_1'].apply(
@@ -1069,16 +1064,6 @@ class ProcessDataframe:
             harness_number = self.chart.loc[idx, self.HARNESS_NUMBER_COL]
             amount = self.chart.loc[idx, self.AMOUNT_COL]
 
-            """
-            print(curr_amount)
-            if curr_amount > 1:
-                pass
-            else:
-                if type(quantity) is dict:
-                    amount = quantity[harness_number]
-                else:
-                    amount = quantity
-            """
 
             # time inserting
             marking = self.chart.loc[idx, self.MARKING_COL]
