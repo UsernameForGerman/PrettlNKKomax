@@ -338,7 +338,7 @@ class HarnessChartReader:
         logger.info('processing_paired_cells')
         self.__fulfill_cabels(start_row, cabels_rows)
         self.__unpair_armirovka(start_row, armirovka_rows)
-        self.__delete_paired_terminals(start_row, terminal_rows)
+        self.__delete_paired_terminals(start_row, terminal_rows, full=False)
 
 
     def read_file_chart(self):
