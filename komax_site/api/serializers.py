@@ -8,7 +8,7 @@ from komax_app.models import Komax, Kappa, KomaxTask, TaskPersonal, Laboriousnes
 class KomaxSerializer(ModelSerializer):
     class Meta:
         model = Komax
-        fields = ('number', 'identifier', 'status', 'marking', 'pairing', 'group_of_square')
+        fields = ('number', 'status', 'marking', 'pairing', 'group_of_square')
 
 class KappaSerializer(ModelSerializer):
     class Meta:
@@ -59,10 +59,6 @@ class KomaxTimeSerializer(ModelSerializer):
         model = KomaxTime
         fields = '__all__'
 
-    # def to_representation(self, value):
-    #     data = super(KomaxTimeSerializer, self).to_representation(value)
-    #     return data
-
 class HarnessAmountSerializer(ModelSerializer):
     harness = SerializerMethodField()
 
@@ -72,10 +68,6 @@ class HarnessAmountSerializer(ModelSerializer):
 
     def get_harness(self, harness_amount):
         return harness_amount.harness.harness_number
-
-    # def to_representation(self, value):
-    #     data = super(HarnessAmountSerializer, self).to_representation(value)
-    #     return data
 
 class KomaxTaskSerializer(ModelSerializer):
     komaxes = KomaxTimeSerializer(read_only=True, many=True)
