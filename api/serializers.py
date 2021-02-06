@@ -8,7 +8,7 @@ from komax_app.models import Komax, Kappa, KomaxTask, TaskPersonal, Laboriousnes
 class KomaxSerializer(ModelSerializer):
     class Meta:
         model = Komax
-        fields = ('number', 'identifier', 'status', 'marking', 'pairing', 'group_of_square')
+        fields = ('number', 'status', 'marking', 'pairing', 'group_of_square')
 
 class KappaSerializer(ModelSerializer):
     class Meta:
