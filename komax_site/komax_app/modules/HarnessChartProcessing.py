@@ -385,6 +385,7 @@ class ProcessDataframe:
     ARMIROVKA_2_COL = 'armirovka_2'
     WIRE_CUT_1_COL = 'wire_cut_length_1'
     WIRE_CUT_2_COL = 'wire_cut_length_2'
+    LENGTH_COL = "wire_length"
 
 
     __cols_name = {
@@ -893,15 +894,61 @@ class ProcessDataframe:
 
         # self.__reset_index()
 
+    @staticmethod
+    def __time_cut(length: int):
+        if length >= 19000:
+            base_len = 19000
+        elif length >= 18000:
+            base_len = 18000
+        elif length >= 17000:
+            base_len = 17000
+        elif length >= 16000:
+            base_len = 16000
+        elif length >= 15000:
+            base_len = 15000
+        elif length >= 14000:
+            base_len = 14000
+        elif length >= 13000:
+            base_len = 13000
+        elif length >= 12000:
+            base_len = 12000
+        elif length >= 11000:
+            base_len = 11000
+        elif length >= 10000:
+            base_len = 10000
+        elif length >= 9000:
+            base_len = 9000
+        elif length >= 8000:
+            base_len = 8000
+        elif length >= 7000:
+            base_len = 7000
+        elif length >= 6000:
+            base_len = 6000
+        elif length >= 5000:
+            base_len = 5000
+        elif length >= 4000:
+            base_len = 4000
+        elif length >= 3000:
+            base_len = 3000
+        elif length >= 2000:
+            base_len = 2000
+        elif length >= 1000:
+            base_len = 1000
+        else:
+            base_len = 60
+
+        return f"cut_{base_len}"
+
     def __time_changeover(self, idx, time, volume=1, last_first=None, last_second=None, pairing=False, full=False,
-                          last_index=None, swapped=False):
+                          last_index=None, swapped=False, length: int=60):
         square_change, color_change, conn1_change, conn2_change = False, False, False, False
         armirovka1_change, armirovka2_change = False, False
         time_position = 0
+        time_cut = self.__time_cut(length)
 
         if full:
             return time['learn'] * 3 + time['aplicator'] * 2 + time['direction'] + time['contact'] * 2 + time['wire'] +\
-                   time['compact'] + time['pack'] + time['ticket'] + time['task'] + time['cut'] * volume
+                   time['compact'] + time['pack'] + time['ticket'] + time['task'] + time[time_cut] * volume
 
         if not pairing:
             if last_index is not None and swapped:
@@ -1001,7 +1048,7 @@ class ProcessDataframe:
 
             time_position += (time['pack'] + time['ticket'] + time['task'])
 
-            time_position += volume * time['cut']
+            time_position += volume * time[time_cut]
         else:
             time_position = time['aplicator']
 
@@ -1063,21 +1110,22 @@ class ProcessDataframe:
             # harness number inserting
             harness_number = self.chart.loc[idx, self.HARNESS_NUMBER_COL]
             amount = self.chart.loc[idx, self.AMOUNT_COL]
+            length = self.chart.loc[idx, self.LENGTH_COL]
 
 
             # time inserting
             marking = self.chart.loc[idx, self.MARKING_COL]
             if self.__is_marking_black(marking) and not first_black_passed:
                 first_black_passed = True
-                time_changeover_row = self.__time_changeover(idx, time, amount, full=True)
+                time_changeover_row = self.__time_changeover(idx, time, amount, length=length, full=True)
             elif self.__is_marking_white(marking) and not first_white_passed:
                 first_white_passed = True
-                time_changeover_row = self.__time_changeover(idx, time, amount, full=True)
+                time_changeover_row = self.__time_changeover(idx, time, amount, length=length, full=True)
             else:
                 last_first = self.__get_last_value_of_column(idx, self.TERMINAL_1_COL)
                 last_second = self.__get_last_value_of_column(idx, self.TERMINAL_2_COL)
 
-                time_changeover_row = self.__time_changeover(idx, time, amount, last_first, last_second)
+                time_changeover_row = self.__time_changeover(idx, time, amount, last_first, last_second, length=length)
 
             self.chart.loc[idx, self.TIME_COL] = time_changeover_row
 
