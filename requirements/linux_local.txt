@@ -2,4 +2,4 @@
 
 psycopg2==2.8.3
 pytest
-pillow==5.1.0
+pillow==8.3.2
