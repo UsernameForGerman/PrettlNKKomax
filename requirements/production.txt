@@ -3,4 +3,4 @@
 daphne==2.4.0
 psycopg2==2.8.3
 pytest
-pillow==5.1.0
+pillow==9.0.1
